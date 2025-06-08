@@ -4,11 +4,19 @@ import Stripe from "stripe";
 import { storage } from "./storage";
 import { insertCartItemSchema, insertOrderSchema, insertOrderItemSchema, insertContactSubmissionSchema } from "@shared/schema";
 import { z } from "zod";
+import { AIOrchestrator } from "./ai-orchestrator";
+import { RAGAgent } from "./agents/rag-agent";
+import { CustomerServiceAgent } from "./agents/customer-service-agent";
 
 // Initialize Stripe
 const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2023-10-16",
 }) : null;
+
+// Initialize AI System
+const aiOrchestrator = new AIOrchestrator();
+const ragAgent = new RAGAgent(aiOrchestrator);
+const customerServiceAgent = new CustomerServiceAgent(aiOrchestrator, ragAgent);
 
 // Session management for cart
 function getSessionId(req: any): string {

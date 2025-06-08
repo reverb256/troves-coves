@@ -206,7 +206,7 @@ Always provide accurate, helpful information based on retrieved knowledge. When 
     }
 
     // Index product knowledge
-    for (const [key, product] of this.knowledgeBase.products) {
+    for (const [key, product] of Array.from(this.knowledgeBase.products.entries())) {
       const doc: DocumentChunk = {
         id: `product-${key}`,
         content: `${product.name}: ${product.description || ''} Price: $${product.price} Category: ${product.category?.name || ''}`,
@@ -219,7 +219,7 @@ Always provide accurate, helpful information based on retrieved knowledge. When 
     }
 
     // Index business knowledge
-    for (const [key, info] of this.knowledgeBase.winnipeg) {
+    for (const [key, info] of Array.from(this.knowledgeBase.winnipeg.entries())) {
       const doc: DocumentChunk = {
         id: `winnipeg-${key}`,
         content: JSON.stringify(info),
@@ -239,7 +239,7 @@ Always provide accurate, helpful information based on retrieved knowledge. When 
     this.categoryIndex.get(category)!.push(docId);
   }
 
-  private async searchKnowledge(query: string, category?: string): Promise<SearchResult[]> {
+  public async searchKnowledge(query: string, category?: string): Promise<SearchResult[]> {
     const queryLower = query.toLowerCase();
     const results: SearchResult[] = [];
 
@@ -303,7 +303,7 @@ Always provide accurate, helpful information based on retrieved knowledge. When 
     }
   }
 
-  private async lookupCrystalProperties(crystalName: string): Promise<any> {
+  public async lookupCrystalProperties(crystalName: string): Promise<any> {
     const normalizedName = crystalName.toLowerCase().replace(/\s+/g, '-');
     
     // Direct lookup
@@ -312,7 +312,7 @@ Always provide accurate, helpful information based on retrieved knowledge. When 
     }
 
     // Search for partial matches
-    for (const [key, crystal] of this.knowledgeBase.crystals) {
+    for (const [key, crystal] of Array.from(this.knowledgeBase.crystals.entries())) {
       if (key.includes(normalizedName) || crystalName.toLowerCase().includes(key)) {
         return crystal;
       }
@@ -324,7 +324,7 @@ Always provide accurate, helpful information based on retrieved knowledge. When 
     };
   }
 
-  private async getShippingInfo(location: string): Promise<any> {
+  public async getShippingInfo(location: string): Promise<any> {
     const winnipegInfo = this.knowledgeBase.winnipeg.get('shipping');
     const businessInfo = this.knowledgeBase.winnipeg.get('business');
 
