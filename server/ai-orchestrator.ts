@@ -38,23 +38,6 @@ class APIDiscoveryAgent extends EventEmitter {
   private readonly REPLIT_MEMORY_LIMIT = 384; // MB (512MB - 128MB reserved)
   private readonly REPLIT_CPU_CORES = 1;
   private cloudflareOrchestrator: any;
-
-  constructor() {
-    this.initializeCloudflareIntegration();
-  }
-
-  /**
-   * Initialize Cloudflare integration for maximum offloading
-   */
-  private async initializeCloudflareIntegration() {
-    try {
-      const { createCloudflareOrchestrator } = await import('./cloudflare-orchestrator');
-      this.cloudflareOrchestrator = createCloudflareOrchestrator();
-      console.log('Cloudflare orchestrator initialized - prioritizing edge processing');
-    } catch (error) {
-      console.log('Cloudflare integration deferred - using lightweight fallback');
-    }
-  }
   
   private endpoints: APIEndpoint[] = [
     {
