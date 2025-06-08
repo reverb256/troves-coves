@@ -22,8 +22,11 @@ export default function Products() {
   const initialSearch = urlParams.get('search') || '';
   
   const [searchQuery, setSearchQuery] = useState(initialSearch);
-  const [sortBy, setSortBy] = useState<string>('name');
+  const [sortBy, setSortBy] = useState<string>('featured');
   const [priceRange, setPriceRange] = useState<string>('all');
+  const [selectedMaterials, setSelectedMaterials] = useState<string[]>([]);
+  const [selectedGemstones, setSelectedGemstones] = useState<string[]>([]);
+  const [showFilters, setShowFilters] = useState(false);
 
   // Build API URL based on filters
   const buildApiUrl = () => {
@@ -44,29 +47,55 @@ export default function Products() {
     queryKey: ['/api/categories'],
   });
 
-  // Filter and sort products
+  // Enhanced filtering and sorting with materials/gemstones
   const filteredAndSortedProducts = products ? [...products]
     .filter(product => {
       // Price range filter
       if (priceRange !== 'all') {
         const price = parseFloat(product.price);
         switch (priceRange) {
-          case 'under-1000':
-            return price < 1000;
-          case '1000-5000':
-            return price >= 1000 && price < 5000;
-          case '5000-10000':
-            return price >= 5000 && price < 10000;
-          case 'over-10000':
-            return price >= 10000;
+          case 'under-50':
+            return price < 50;
+          case '50-100':
+            return price >= 50 && price < 100;
+          case '100-200':
+            return price >= 100 && price < 200;
+          case 'over-200':
+            return price >= 200;
           default:
             return true;
         }
       }
+      
+      // Materials filter
+      if (selectedMaterials.length > 0 && product.materials) {
+        const hasSelectedMaterial = selectedMaterials.some(material =>
+          product.materials?.some(productMaterial =>
+            productMaterial.toLowerCase().includes(material.toLowerCase())
+          )
+        );
+        if (!hasSelectedMaterial) return false;
+      }
+      
+      // Gemstones filter
+      if (selectedGemstones.length > 0 && product.gemstones) {
+        const hasSelectedGemstone = selectedGemstones.some(gemstone =>
+          product.gemstones?.some(productGemstone =>
+            productGemstone.toLowerCase().includes(gemstone.toLowerCase())
+          )
+        );
+        if (!hasSelectedGemstone) return false;
+      }
+      
       return true;
     })
     .sort((a, b) => {
       switch (sortBy) {
+        case 'featured':
+          // Sort by stock quantity and price for featured items
+          const aScore = (a.stockQuantity || 0) + (100 - parseFloat(a.price));
+          const bScore = (b.stockQuantity || 0) + (100 - parseFloat(b.price));
+          return bScore - aScore;
         case 'price-low':
           return parseFloat(a.price) - parseFloat(b.price);
         case 'price-high':
@@ -74,11 +103,17 @@ export default function Products() {
         case 'name':
           return a.name.localeCompare(b.name);
         case 'newest':
-          return new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime();
+          return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
+        case 'popular':
+          return (b.stockQuantity || 0) - (a.stockQuantity || 0);
         default:
           return 0;
       }
     }) : [];
+
+  // Extract unique materials and gemstones for filter options
+  const allMaterials = Array.from(new Set(products?.flatMap(p => p.materials || []) || []));
+  const allGemstones = Array.from(new Set(products?.flatMap(p => p.gemstones || []) || []));
 
   // Get current category info
   const currentCategory = categories?.find(cat => cat.slug === category);
@@ -101,10 +136,31 @@ export default function Products() {
 
   const clearFilters = () => {
     setSearchQuery('');
-    setSortBy('name');
+    setSortBy('featured');
     setPriceRange('all');
+    setSelectedMaterials([]);
+    setSelectedGemstones([]);
+    setShowFilters(false);
     window.history.pushState({}, '', '/products');
   };
+
+  const toggleMaterial = (material: string) => {
+    setSelectedMaterials(prev => 
+      prev.includes(material) 
+        ? prev.filter(m => m !== material)
+        : [...prev, material]
+    );
+  };
+
+  const toggleGemstone = (gemstone: string) => {
+    setSelectedGemstones(prev => 
+      prev.includes(gemstone) 
+        ? prev.filter(g => g !== gemstone)
+        : [...prev, gemstone]
+    );
+  };
+
+  const hasActiveFilters = priceRange !== 'all' || selectedMaterials.length > 0 || selectedGemstones.length > 0 || searchQuery.trim() !== '';
 
   const formatPrice = (price: string) => {
     const numPrice = parseFloat(price);

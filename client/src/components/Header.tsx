@@ -22,11 +22,20 @@ export default function Header() {
   }, []);
 
   const navigation = [
-    { name: 'Home', path: '/' },
-    { name: 'Crystal Necklaces', path: '/products/crystal-necklaces' },
-    { name: 'Healing Crystals', path: '/products/healing-crystals' },
-    { name: 'Wire Wrapped', path: '/products/wire-wrapped' },
-    { name: 'AI Consultant', path: '/ai-assistant' },
+    { 
+      name: 'Shop', 
+      path: '/products',
+      hasDropdown: true,
+      dropdownItems: [
+        { name: 'All Products', path: '/products', icon: '✨' },
+        { name: 'Crystal Necklaces', path: '/products/crystal-necklaces', icon: '💎' },
+        { name: 'Healing Crystals', path: '/products/healing-crystals', icon: '🔮' },
+        { name: 'Wire Wrapped', path: '/products/wire-wrapped', icon: '🌀' },
+        { name: 'Best Sellers', path: '/products/featured', icon: '⭐' }
+      ]
+    },
+    { name: 'Crystal Guide', path: '/ai-assistant' },
+    { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' }
   ];
 
@@ -67,27 +76,61 @@ export default function Header() {
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Navigation with Dropdowns */}
             <div className="hidden lg:flex items-center space-x-8">
               {navigation.map((item) => (
-                <Link
-                  key={item.path}
-                  href={item.path}
-                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 group ${
-                    isActivePath(item.path)
-                      ? 'text-primary'
-                      : 'text-foreground hover:text-primary'
-                  }`}
-                >
-                  {item.name}
-                  <span 
-                    className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary to-primary/50 transition-all duration-300 ${
-                      isActivePath(item.path) 
-                        ? 'scale-x-100' 
-                        : 'scale-x-0 group-hover:scale-x-100'
-                    }`}
-                  />
-                </Link>
+                <div key={item.path} className="relative group">
+                  {item.hasDropdown ? (
+                    <>
+                      <button
+                        className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 flex items-center space-x-1 ${
+                          isActivePath(item.path)
+                            ? 'text-primary'
+                            : 'text-foreground hover:text-primary'
+                        }`}
+                      >
+                        <span>{item.name}</span>
+                        <ArrowRight className="h-3 w-3 rotate-90 transition-transform group-hover:rotate-180" />
+                      </button>
+                      
+                      {/* Dropdown Menu */}
+                      <div className="absolute top-full left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                        <div className="glass-card rounded-lg shadow-xl border border-white/10 p-2">
+                          {item.dropdownItems?.map((dropdownItem) => (
+                            <Link
+                              key={dropdownItem.path}
+                              href={dropdownItem.path}
+                              className="flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-white/5 rounded-md transition-all duration-200 group/item"
+                            >
+                              <span className="text-lg">{dropdownItem.icon}</span>
+                              <span className="group-hover/item:translate-x-1 transition-transform">
+                                {dropdownItem.name}
+                              </span>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <Link
+                      href={item.path}
+                      className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 group ${
+                        isActivePath(item.path)
+                          ? 'text-primary'
+                          : 'text-foreground hover:text-primary'
+                      }`}
+                    >
+                      {item.name}
+                      <span 
+                        className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary to-primary/50 transition-all duration-300 ${
+                          isActivePath(item.path) 
+                            ? 'scale-x-100' 
+                            : 'scale-x-0 group-hover:scale-x-100'
+                        }`}
+                      />
+                    </Link>
+                  )}
+                </div>
               ))}
             </div>
 
@@ -151,23 +194,75 @@ export default function Header() {
                       </div>
                     </div>
 
-                    {/* Mobile Navigation */}
-                    <nav className="flex-1 space-y-1 pt-6">
+                    {/* Mobile Navigation with Enhanced UX */}
+                    <nav className="flex-1 space-y-2 pt-6">
                       {navigation.map((item) => (
-                        <Link
-                          key={item.path}
-                          href={item.path}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className={`flex items-center justify-between p-4 rounded-lg transition-all duration-300 group ${
-                            isActivePath(item.path)
-                              ? 'bg-turquoise-50 text-turquoise-700 border-l-4 border-turquoise-500 dark:bg-turquoise-900/20 dark:text-turquoise-300 dark:border-turquoise-400'
-                              : 'text-gray-700 hover:bg-gray-50 hover:text-turquoise-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-turquoise-400'
-                          }`}
-                        >
-                          <span className="font-medium">{item.name}</span>
-                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                        </Link>
+                        <div key={item.path}>
+                          {item.hasDropdown ? (
+                            <div className="space-y-1">
+                              <div className="flex items-center justify-between p-4 rounded-lg bg-gradient-to-r from-turquoise-50 to-blue-50 border border-turquoise-100">
+                                <span className="font-semibold text-turquoise-700 flex items-center">
+                                  <span className="text-lg mr-2">✨</span>
+                                  {item.name}
+                                </span>
+                              </div>
+                              <div className="pl-4 space-y-1">
+                                {item.dropdownItems?.map((dropdownItem) => (
+                                  <Link
+                                    key={dropdownItem.path}
+                                    href={dropdownItem.path}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="flex items-center space-x-3 p-3 ml-2 rounded-md text-gray-600 hover:bg-turquoise-50 hover:text-turquoise-600 transition-all duration-200 group"
+                                  >
+                                    <span className="text-sm">{dropdownItem.icon}</span>
+                                    <span className="text-sm font-medium group-hover:translate-x-1 transition-transform">
+                                      {dropdownItem.name}
+                                    </span>
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          ) : (
+                            <Link
+                              href={item.path}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className={`flex items-center justify-between p-4 rounded-lg transition-all duration-300 group ${
+                                isActivePath(item.path)
+                                  ? 'bg-turquoise-50 text-turquoise-700 border-l-4 border-turquoise-500'
+                                  : 'text-gray-700 hover:bg-gray-50 hover:text-turquoise-600'
+                              }`}
+                            >
+                              <span className="font-medium">{item.name}</span>
+                              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                            </Link>
+                          )}
+                        </div>
                       ))}
+                      
+                      {/* Quick Actions Section */}
+                      <div className="pt-4 mt-6 border-t border-gray-200">
+                        <p className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-3 px-4">
+                          Quick Actions
+                        </p>
+                        <div className="space-y-2">
+                          <Link
+                            href="/ai-assistant"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="flex items-center space-x-3 p-3 rounded-lg bg-gradient-to-r from-purple-50 to-indigo-50 text-purple-700 hover:from-purple-100 hover:to-indigo-100 transition-all duration-200"
+                          >
+                            <span className="text-lg">🔮</span>
+                            <span className="font-medium">Get Crystal Guidance</span>
+                          </Link>
+                          <Link
+                            href="/contact"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="flex items-center space-x-3 p-3 rounded-lg bg-gradient-to-r from-amber-50 to-orange-50 text-amber-700 hover:from-amber-100 hover:to-orange-100 transition-all duration-200"
+                          >
+                            <span className="text-lg">📍</span>
+                            <span className="font-medium">Visit Winnipeg Store</span>
+                          </Link>
+                        </div>
+                      </div>
                     </nav>
 
                     {/* Mobile Footer */}
