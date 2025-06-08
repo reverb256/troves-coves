@@ -25,13 +25,13 @@
   --lepidolite: 290 30% 80%;
   --clear-quartz: 0 0% 95%;
   
-  /* Authentic Troves & Coves palette from signage and skull art */
-  --troves-turquoise: 180 90% 45%;     /* Turquoise from "Troves" text */
-  --coves-gold: 43 90% 55%;            /* Gold/yellow from "Coves" cursive */
-  --skull-turquoise: 174 85% 50%;      /* Vibrant turquoise from skull */
-  --decorative-gold: 43 95% 68%;       /* Gold from ornate frame */
-  --natural-wood: 35 30% 75%;          /* Wood background tones */
-  --crystal-white: 0 0% 96%;           /* White crystal accents */
+  /* UPDATED AUTHENTIC PALETTE FROM WOODEN SIGN & SKULL ARTWORK */
+  --troves-turquoise: 174 70% 45%;     /* Clean turquoise print from wooden sign */
+  --coves-cursive-blue: 200 60% 45%;   /* Elegant cursive blue from wooden sign */
+  --wood-grain: 35 40% 70%;            /* Natural wood background from sign */
+  --skull-turquoise: 174 100% 50%;     /* Vibrant turquoise from skull artwork */
+  --ornate-frame-gold: 43 85% 60%;     /* Golden decorative frame */
+  --crystal-accents: 240 20% 95%;      /* White crystal highlights */
   --obsidian-black: 240 8% 12%;
   --carnelian-orange: 25 85% 60%;
   --carnelian-light: 25 75% 75%;
@@ -246,13 +246,23 @@ p, span, div {
     -webkit-text-fill-color: transparent;
   }
   
-  /* Mystical skull-inspired effects */
-  .mystical-bg {
+  /* AUTHENTIC MYSTICAL SKULL ARTWORK EFFECTS */
+  .wooden-sign-bg {
     position: relative;
-    background: linear-gradient(135deg, hsl(var(--pearl-cream)) 0%, hsl(var(--crystal-white)) 100%);
+    background: linear-gradient(45deg, 
+      hsl(var(--wood-grain)) 0%, 
+      hsl(var(--pearl-cream)) 50%, 
+      hsl(var(--crystal-accents)) 100%);
   }
 
-  .mystical-bg::before {
+  .skull-artwork-influence {
+    position: relative;
+    background: linear-gradient(135deg, 
+      hsl(var(--skull-turquoise) / 0.1) 0%, 
+      hsl(var(--crystal-accents)) 100%);
+  }
+
+  .skull-artwork-influence::before {
     content: '';
     position: absolute;
     top: 0;
@@ -260,55 +270,76 @@ p, span, div {
     right: 0;
     bottom: 0;
     background-image: var(--skull-overlay);
-    opacity: 0.03;
+    opacity: 0.05;
     pointer-events: none;
     z-index: 0;
   }
 
-  .mystical-bg > * {
+  .ornate-decorative-frame {
+    border: 3px solid transparent;
+    background: linear-gradient(hsl(var(--crystal-accents)), hsl(var(--wood-grain))) padding-box,
+                linear-gradient(45deg, 
+                  hsl(var(--ornate-frame-gold)), 
+                  hsl(var(--skull-turquoise)), 
+                  hsl(var(--ornate-frame-gold))) border-box;
+    border-radius: 12px;
     position: relative;
-    z-index: 1;
   }
 
-  .skull-accent {
-    position: relative;
-  }
-
-  .skull-accent::after {
-    content: '☠';
+  .ornate-decorative-frame::after {
+    content: '';
     position: absolute;
-    top: -8px;
-    right: -8px;
-    font-size: 12px;
-    color: hsl(var(--skull-turquoise));
-    opacity: 0.15;
-    pointer-events: none;
+    inset: -6px;
+    background: linear-gradient(45deg, 
+      hsl(var(--ornate-frame-gold) / 0.3), 
+      transparent, 
+      hsl(var(--skull-turquoise) / 0.3));
+    border-radius: 16px;
+    z-index: -1;
   }
 
-  .ornate-border {
-    border: 2px solid transparent;
-    background: linear-gradient(hsl(var(--pearl-cream)), hsl(var(--crystal-white))) padding-box,
-                linear-gradient(45deg, hsl(var(--decorative-gold)), hsl(var(--skull-turquoise))) border-box;
-    border-radius: 8px;
+  .troves-text-style {
+    color: hsl(var(--troves-turquoise));
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: bold;
+    text-transform: none;
   }
 
-  .turquoise-glow {
-    box-shadow: 0 0 20px hsla(174, 85%, 50%, 0.2);
+  .coves-text-style {
+    color: hsl(var(--coves-cursive-blue));
+    font-family: 'Dancing Script', cursive;
+    font-weight: 600;
+    font-style: italic;
   }
 
-  .gold-glow {
-    box-shadow: 0 0 15px hsla(43, 95%, 68%, 0.3);
+  .skull-turquoise-glow {
+    box-shadow: 0 0 25px hsl(var(--skull-turquoise) / 0.4),
+                0 0 50px hsl(var(--skull-turquoise) / 0.2);
   }
 
-  .mystical-card {
-    @apply mystical-bg ornate-border;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+  .ornate-gold-glow {
+    box-shadow: 0 0 20px hsl(var(--ornate-frame-gold) / 0.5),
+                0 0 40px hsl(var(--ornate-frame-gold) / 0.3);
   }
 
-  .mystical-card:hover {
-    @apply turquoise-glow;
-    transform: translateY(-2px);
+  .authentic-mystical-card {
+    @apply skull-artwork-influence ornate-decorative-frame;
+    backdrop-filter: blur(8px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .authentic-mystical-card:hover {
+    @apply skull-turquoise-glow;
+    transform: translateY(-4px) scale(1.02);
+  }
+
+  .wooden-texture {
+    background-image: 
+      linear-gradient(90deg, hsl(var(--wood-grain) / 0.1) 50%, transparent 50%),
+      linear-gradient(hsl(var(--wood-grain)), hsl(var(--natural-wood)));
+    background-size: 4px 4px, 100% 100%;
   }
 
   .text-rose-gold {
