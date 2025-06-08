@@ -46,7 +46,12 @@ export const crystalJewelryImages = {
     "/images/jewelry/lapis-turquoise-full-length-1.png"
   ],
   lapisHematite: [
-    "/images/jewelry/lapis-simple-pendant-1.png"
+    "/images/jewelry/lapis-smoky-pendant-detail-1.png",
+    "/images/jewelry/lapis-smoky-frame-display-1.png",
+    "/images/jewelry/lapis-smoky-frame-side-1.png",
+    "/images/jewelry/lapis-smoky-close-pendant-1.png",
+    "/images/jewelry/lapis-smoky-pendant-angle-1.png",
+    "/images/jewelry/lapis-smoky-full-length-1.png"
   ],
   lapisLeather: [
     "/images/jewelry/rose-quartz-brown-leather-1.png"
