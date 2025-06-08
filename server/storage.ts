@@ -259,7 +259,7 @@ export class MemStorage implements IStorage {
       categoryId: crystalNecklacesCategory.id,
       imageUrl: crystalJewelryImages.turquoiseBeaded[0],
       imageUrls: crystalJewelryImages.turquoiseBeaded,
-      sku: "TC-TUR-LAP-001",
+      sku: "TC-TUR-BEAD-001",
       stockQuantity: 1,
       weight: "32g",
       materials: ["Stone", "Turquoise", "Lapis Lazuli", "Pink Pearl", "Hematite", "Gold Filled"],

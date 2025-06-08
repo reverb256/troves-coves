@@ -20,6 +20,14 @@ export const crystalJewelryImages = {
     "/images/jewelry/gold-chain-crystal-1.png",
     "/images/jewelry/authentic-rose-quartz-1.png"
   ],
+  turquoiseBeaded: [
+    "/images/jewelry/turquoise-beaded-frame-display-1.png",
+    "/images/jewelry/turquoise-beaded-flower-detail-1.png",
+    "/images/jewelry/turquoise-beaded-flower-full-1.png",
+    "/images/jewelry/turquoise-beaded-flat-layout-1.png",
+    "/images/jewelry/turquoise-beaded-clasp-detail-1.png",
+    "/images/jewelry/turquoise-beaded-worn-1.png"
+  ],
   lapisLazuli: [
     "/images/jewelry/lapis-black-cord-1.png",
     "/images/jewelry/authentic-lapis-pendant-1.png"
