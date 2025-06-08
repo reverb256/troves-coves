@@ -24,13 +24,13 @@
   --ring: hsl(220, 15%, 20%);
   --radius: 0.5rem;
 
-  /* Custom Troves & Coves colors */
-  --navy: hsl(240, 45%, 15%);
-  --rich-blue: hsl(220, 55%, 18%);
-  --elegant-gold: hsl(51, 100%, 42%);
+  /* Custom Troves & Coves crystal colors */
+  --navy: hsl(225, 100%, 10%);
+  --rich-blue: hsl(200, 80%, 30%);
+  --elegant-gold: hsl(45, 90%, 55%);
   --warm-cream: hsl(45, 29%, 97%);
-  --deep-burgundy: hsl(344, 61%, 36%);
-  --forest-green: hsl(120, 45%, 25%);
+  --crystal-purple: hsl(270, 50%, 40%);
+  --healing-green: hsl(120, 60%, 35%);
 }
 
 .dark {

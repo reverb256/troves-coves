@@ -79,10 +79,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
     refetch,
   };
 
-  return (
-    <CartContext.Provider value={contextValue}>
-      {children}
-    </CartContext.Provider>
+  return React.createElement(
+    CartContext.Provider,
+    { value: contextValue },
+    children
   );
 }
 
