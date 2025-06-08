@@ -72,6 +72,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Featured products endpoint
+  app.get("/api/products/featured", async (req, res) => {
+    try {
+      const products = await storage.getFeaturedProducts();
+      res.json(products);
+    } catch (error: any) {
+      res.status(500).json({ message: "Error fetching featured products: " + error.message });
+    }
+  });
+
   app.get("/api/products/:id", async (req, res) => {
     try {
       const productId = parseInt(req.params.id);
