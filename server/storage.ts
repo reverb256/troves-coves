@@ -8,6 +8,7 @@ import {
   type OrderItem, type InsertOrderItem,
   type ContactSubmission, type InsertContactSubmission
 } from "@shared/schema";
+import { crystalJewelryImages, categoryDescriptions } from "./mock-data";
 
 export interface IStorage {
   // User operations
@@ -279,12 +280,8 @@ export class MemStorage implements IStorage {
       description: "Beautiful Upcycled Enamel and Gold Plated Flower Earring into a Stationary Pendant. 18KGF Lobster Clasp, Citrine, Peridot, Good Fortune, Lucky, Confident. Features yellow gold materials with sustainable upcycled features. 14 inches adjustable length.",
       price: "80.00",
       categoryId: crystalNecklacesCategory.id,
-      imageUrl: "/api/placeholder/400/400",
-      imageUrls: [
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400"
-      ],
+      imageUrl: crystalJewelryImages.mixed[0],
+      imageUrls: crystalJewelryImages.mixed,
       sku: "TC-UPC-ENA-001",
       stockQuantity: 1,
       weight: "18g",
