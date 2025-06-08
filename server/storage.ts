@@ -491,7 +491,7 @@ export class MemStorage implements IStorage {
       // Update quantity instead of creating new item
       const updatedItem = { 
         ...existingItem, 
-        quantity: existingItem.quantity + insertItem.quantity 
+        quantity: existingItem.quantity + (insertItem.quantity || 1)
       };
       this.cartItems.set(existingItem.id, updatedItem);
       return updatedItem;
@@ -501,7 +501,9 @@ export class MemStorage implements IStorage {
     const cartItem: CartItem = { 
       ...insertItem, 
       id,
-      addedAt: new Date()
+      addedAt: new Date(),
+      productId: insertItem.productId || null,
+      quantity: insertItem.quantity || 1
     };
     this.cartItems.set(id, cartItem);
     return cartItem;
@@ -534,7 +536,13 @@ export class MemStorage implements IStorage {
     const order: Order = { 
       ...insertOrder, 
       id,
-      createdAt: new Date()
+      createdAt: new Date(),
+      status: insertOrder.status || "pending",
+      sessionId: insertOrder.sessionId || null,
+      userId: insertOrder.userId || null,
+      currency: insertOrder.currency || "CAD",
+      customerPhone: insertOrder.customerPhone || null,
+      stripePaymentIntentId: insertOrder.stripePaymentIntentId || null
     };
     this.orders.set(id, order);
     return order;
