@@ -1,14 +1,23 @@
 import { 
-  users, categories, products, cartItems, orders, orderItems, contactSubmissions,
-  type User, type InsertUser, 
-  type Category, type InsertCategory,
-  type Product, type InsertProduct, type ProductWithCategory,
-  type CartItem, type InsertCartItem, type CartItemWithProduct,
-  type Order, type InsertOrder, type OrderWithItems,
-  type OrderItem, type InsertOrderItem,
-  type ContactSubmission, type InsertContactSubmission
-} from "@shared/schema";
-import { crystalJewelryImages, categoryDescriptions } from "./mock-data";
+  User, 
+  Category, 
+  Product, 
+  CartItem, 
+  Order, 
+  OrderItem, 
+  ContactSubmission,
+  ProductWithCategory,
+  CartItemWithProduct,
+  OrderWithItems,
+  InsertUser,
+  InsertCategory,
+  InsertProduct,
+  InsertCartItem,
+  InsertOrder,
+  InsertOrderItem,
+  InsertContactSubmission
+} from '@shared/schema';
+import { crystalJewelryImages, categoryDescriptions } from './mock-data';
 
 export interface IStorage {
   // User operations
@@ -58,7 +67,7 @@ export class MemStorage implements IStorage {
   private orders: Map<number, Order>;
   private orderItems: Map<number, OrderItem>;
   private contactSubmissions: Map<number, ContactSubmission>;
-  
+
   private currentUserId: number;
   private currentCategoryId: number;
   private currentProductId: number;
@@ -75,7 +84,7 @@ export class MemStorage implements IStorage {
     this.orders = new Map();
     this.orderItems = new Map();
     this.contactSubmissions = new Map();
-    
+
     this.currentUserId = 1;
     this.currentCategoryId = 1;
     this.currentProductId = 1;
@@ -139,20 +148,20 @@ export class MemStorage implements IStorage {
 
     const turquoiseBeadedNecklace: Product = {
       id: this.currentProductId++,
-      name: "Unique Turquoise Beaded Necklace, Pearl Strung, Lapis Lazuli, Pink Pearl, Hematite, Leaf",
-      description: "Sacred turquoise beaded talisman featuring divine pearl strung ceremony with mystical lapis lazuli, luminous pink pearl, grounding hematite, and sacred leaf charm. This one-of-a-kind spiritual companion channels ancient wisdom with blessed gold filled clasp. 21 inches of divine protection with sacred closure.",
+      name: "Unique Turquoise Beaded Necklace, Pearl Strung, lapis Lazuli, Pink Pearl, Hematite, Leaf, Handmade, Gold Filled, one of a kind",
+      description: "**Handmade Turquoise, Lapis Lazuli, Pink Hematite, and Pink Pearl Necklace** Infuse your style with a burst of color and a touch of serenity with this exquisite handmade necklace. Featuring a harmonious blend of turquoise, lapis lazuli, pink hematite, and pink pearl, this piece is not only a statement accessory but also a treasure trove of positive energies and healing properties. 💙**Turquoise:** Revered as a stone of protection and good fortune, turquoise is known for its calming energies. It enhances communication, aids in clear and honest expression, and brings peace to the wearer. 💙**Lapis Lazuli:** This deep blue stone is celebrated for its ability to promote truth, wisdom, and spiritual enlightenment. It encourages self-awareness, helps alleviate stress, and fosters a deeper connection to the inner self. 💗**Pink Hematite:** Pink hematite is a unique variant that combines the grounding properties of hematite with the loving energy of the heart chakra. It promotes balance, grounding, and protection while enhancing self-esteem and willpower. 💗**Pink Pearl:** Pearls symbolize purity, love, and wisdom. Pink pearls, in particular, resonate with gentle energy, fostering love, compassion, and nurturing feelings. They are believed to attract prosperity and provide emotional balance. **Details:** 🔹️**Stones:** Genuine turquoise, lapis lazuli, pink hematite, and pink pearl 🔹️**Length:** 21\" 🔹️**Closure:** Gold Filled Clasp 🔹️**Accent:** Elegant leaf pendant adds a touch of nature-inspired charm",
       price: "70.00",
       categoryId: crystalNecklacesCategory.id,
-      imageUrl: crystalJewelryImages.turquoise[0],
-      imageUrls: crystalJewelryImages.turquoise,
-      sku: "TC-TUR-001",
+      imageUrl: crystalJewelryImages.turquoiseBeaded[0],
+      imageUrls: crystalJewelryImages.turquoiseBeaded,
+      sku: "TC-TUR-BEAD-001",
       stockQuantity: 1,
       weight: "30g",
-      materials: ["Stone", "Gold Filled", "Pearl"],
-      gemstones: ["Turquoise", "Lapis Lazuli", "Hematite"],
-      careInstructions: "Do not wear in the shower, if you choose that's at your own risk. Wipe down with a soft cloth. Cleanse/Charge your stones in the moonlight.",
+      materials: ["Stone", "Turquoise", "Lapis Lazuli", "Pink Pearl", "Hematite", "Gold Filled"],
+      gemstones: ["Turquoise", "Lapis Lazuli", "Hematite", "Pearl"],
+      careInstructions: "Keep dry to preserve gold filled components. Handle pearls gently. Store in protective pouch.",
       isActive: true,
-      isFeatured: true,
+      isFeatured: false,
       createdAt: new Date(),
     };
 
@@ -232,44 +241,6 @@ export class MemStorage implements IStorage {
       createdAt: new Date(),
     };
 
-    const lapisLazuliOnyx: Product = {
-      id: this.currentProductId++,
-      name: "Unique Lapis Lazuli, Onyx, Smoky Quartz, Jade, Lava Stone Crystal Necklace",
-      description: "Handmade Lapis Lazuli, Smoky Quartz, Jade, and Lava Stone Necklace. Discover the harmonious blend of powerful gemstones with this exquisite handmade necklace. Featuring a striking combination of lapis lazuli, smoky quartz, and lava stone. Gift for her, one of a kind piece.",
-      price: "80.00",
-      categoryId: healingCrystalsCategory.id,
-      imageUrl: crystalJewelryImages.lapisOnyx[0],
-      imageUrls: crystalJewelryImages.lapisOnyx,
-      sku: "TC-LAP-ONY-001",
-      stockQuantity: 1,
-      weight: "35g",
-      materials: ["Stone"],
-      gemstones: ["Lapis Lazuli", "Onyx", "Smoky Quartz", "Jade", "Lava Stone"],
-      careInstructions: "Lava stone can absorb essential oils. Store separately. Cleanse under moonlight.",
-      isActive: true,
-      isFeatured: true,
-      createdAt: new Date(),
-    };
-
-    const turquoiseLapisNecklace: Product = {
-      id: this.currentProductId++,
-      name: "Unique Turquoise Beaded Necklace, Pearl Strung, lapis Lazuli, Pink Pearl, Hematite, Leaf, Handmade, Gold Filled, one of a kind",
-      description: "**Handmade Turquoise, Lapis Lazuli, Pink Hematite, and Pink Pearl Necklace** Infuse your style with a burst of color and a touch of serenity with this exquisite handmade necklace. Featuring a harmonious blend of turquoise, lapis lazuli, pink hematite, and pink pearl, this piece is not only a statement accessory but also a treasure trove of positive energies and healing properties. 💙**Turquoise:** Revered as a stone of protection and good fortune, turquoise is known for its calming energies. It enhances communication, aids in clear and honest expression, and brings peace to the wearer. 💙**Lapis Lazuli:** This deep blue stone is celebrated for its ability to promote truth, wisdom, and spiritual enlightenment. It encourages self-awareness, helps alleviate stress, and fosters a deeper connection to the inner self. 💗**Pink Hematite:** Pink hematite is a unique variant that combines the grounding properties of hematite with the loving energy of the heart chakra. It promotes balance, grounding, and protection while enhancing self-esteem and willpower. 💗**Pink Pearl:** Pearls symbolize purity, love, and wisdom. Pink pearls, in particular, resonate with gentle energy, fostering love, compassion, and nurturing feelings. They are believed to attract prosperity and provide emotional balance. **Details:** 🔹️**Stones:** Genuine turquoise, lapis lazuli, pink hematite, and pink pearl 🔹️**Length:** 21\" 🔹️**Closure:** Gold Filled Clasp 🔹️**Accent:** Elegant leaf pendant adds a touch of nature-inspired charm",
-      price: "70.00",
-      categoryId: crystalNecklacesCategory.id,
-      imageUrl: crystalJewelryImages.turquoiseBeaded[0],
-      imageUrls: crystalJewelryImages.turquoiseBeaded,
-      sku: "TC-TUR-LAP-001",
-      stockQuantity: 1,
-      weight: "32g",
-      materials: ["Stone", "Turquoise", "Lapis Lazuli", "Pink Pearl", "Hematite", "Gold Filled"],
-      gemstones: ["Turquoise", "Lapis Lazuli", "Hematite", "Pink Pearl"],
-      careInstructions: "Avoid water exposure. Handle pearls gently. Store in soft cloth pouch.",
-      isActive: true,
-      isFeatured: true,
-      createdAt: new Date(),
-    };
-
     const upcycledEnamelPendant: Product = {
       id: this.currentProductId++,
       name: "Upcycled Gold Plated Enamel Pendant, 14k Gold Filled Necklace, Chain, 18KGF Lobster Clasp, Citrine, Peridot, Good Fortune, Lucky, Confident",
@@ -283,14 +254,14 @@ export class MemStorage implements IStorage {
       weight: "18g",
       materials: ["14k Gold Filled", "Gold Plated Enamel", "18KGF", "5mm Curb Chain"],
       gemstones: ["Citrine", "Peridot", "Pearl"],
-      careInstructions: "Don't wear in shower/pool to increase longevity. Wipe with soft cloth to shine. Not recommended for sleeping wear.",
+      careInstructions: "Cleanse on selenite before wearing. Keep gold filled dry. Store in protective pouch.",
       isActive: true,
       isFeatured: true,
       createdAt: new Date(),
     };
 
     // Store all products in the system
-    [lepidoliteNecklace, turquoiseBeadedNecklace, citrineNecklace, lapisLazuliPendant, roseQuartzPendant, lapisLazuliMensNecklace, lapisLazuliOnyx, turquoiseLapisNecklace, upcycledEnamelPendant].forEach(product => {
+    [lepidoliteNecklace, turquoiseBeadedNecklace, citrineNecklace, lapisLazuliPendant, roseQuartzPendant, lapisLazuliMensNecklace, upcycledEnamelPendant].forEach(product => {
       this.products.set(product.id, product);
     });
   }
@@ -301,35 +272,37 @@ export class MemStorage implements IStorage {
   }
 
   async getUserByEmail(email: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(user => user.email === email);
+    for (const user of this.users.values()) {
+      if (user.email === email) {
+        return user;
+      }
+    }
+    return undefined;
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const id = this.currentUserId++;
     const user: User = { 
-      ...insertUser, 
-      id,
-      firstName: insertUser.firstName || null,
-      lastName: insertUser.lastName || null,
-      phone: insertUser.phone || null,
+      id: this.currentUserId++, 
+      ...insertUser,
       stripeCustomerId: null,
-      stripeSubscriptionId: null
+      stripeSubscriptionId: null,
+      createdAt: new Date() 
     };
-    this.users.set(id, user);
+    this.users.set(user.id, user);
     return user;
   }
 
   async updateUserStripeInfo(userId: number, customerId: string, subscriptionId?: string): Promise<User> {
     const user = this.users.get(userId);
-    if (!user) throw new Error("User not found");
-    
-    const updatedUser = { 
-      ...user, 
-      stripeCustomerId: customerId,
-      stripeSubscriptionId: subscriptionId || null
-    };
-    this.users.set(userId, updatedUser);
-    return updatedUser;
+    if (!user) {
+      throw new Error('User not found');
+    }
+    user.stripeCustomerId = customerId;
+    if (subscriptionId) {
+      user.stripeSubscriptionId = subscriptionId;
+    }
+    this.users.set(userId, user);
+    return user;
   }
 
   // Category operations
@@ -342,32 +315,31 @@ export class MemStorage implements IStorage {
   }
 
   async getCategoryBySlug(slug: string): Promise<Category | undefined> {
-    return Array.from(this.categories.values()).find(cat => cat.slug === slug);
+    for (const category of this.categories.values()) {
+      if (category.slug === slug) {
+        return category;
+      }
+    }
+    return undefined;
   }
 
   async createCategory(insertCategory: InsertCategory): Promise<Category> {
-    const id = this.currentCategoryId++;
     const category: Category = { 
-      ...insertCategory, 
-      id,
-      description: insertCategory.description || null,
-      imageUrl: insertCategory.imageUrl || null
+      id: this.currentCategoryId++, 
+      ...insertCategory 
     };
-    this.categories.set(id, category);
+    this.categories.set(category.id, category);
     return category;
   }
 
   // Product operations
   async getProducts(categoryId?: number): Promise<ProductWithCategory[]> {
-    let products = Array.from(this.products.values());
+    const products = Array.from(this.products.values()).filter(p => p.isActive);
+    const filteredProducts = categoryId ? products.filter(p => p.categoryId === categoryId) : products;
     
-    if (categoryId) {
-      products = products.filter(p => p.categoryId === categoryId);
-    }
-
-    return products.map(product => ({
+    return filteredProducts.map(product => ({
       ...product,
-      category: product.categoryId ? this.categories.get(product.categoryId) : undefined
+      category: this.categories.get(product.categoryId!)!
     }));
   }
 
@@ -377,115 +349,100 @@ export class MemStorage implements IStorage {
 
     return {
       ...product,
-      category: product.categoryId ? this.categories.get(product.categoryId) : undefined
+      category: this.categories.get(product.categoryId!)!
     };
   }
 
   async getProductBySku(sku: string): Promise<Product | undefined> {
-    return Array.from(this.products.values()).find(p => p.sku === sku);
+    for (const product of this.products.values()) {
+      if (product.sku === sku) {
+        return product;
+      }
+    }
+    return undefined;
   }
 
   async getFeaturedProducts(): Promise<ProductWithCategory[]> {
-    const products = Array.from(this.products.values()).filter(p => p.isFeatured);
-    return products.map(product => ({
+    const featuredProducts = Array.from(this.products.values()).filter(p => p.isFeatured && p.isActive);
+    
+    return featuredProducts.map(product => ({
       ...product,
-      category: product.categoryId ? this.categories.get(product.categoryId) : undefined
+      category: this.categories.get(product.categoryId!)!
     }));
   }
 
   async searchProducts(query: string): Promise<ProductWithCategory[]> {
-    const lowerQuery = query.toLowerCase();
-    const products = Array.from(this.products.values()).filter(p => 
-      p.name.toLowerCase().includes(lowerQuery) ||
-      p.description.toLowerCase().includes(lowerQuery) ||
-      p.materials?.some(m => m.toLowerCase().includes(lowerQuery)) ||
-      p.gemstones?.some(g => g.toLowerCase().includes(lowerQuery))
+    const lowercaseQuery = query.toLowerCase();
+    const matchingProducts = Array.from(this.products.values()).filter(product => 
+      product.isActive && (
+        product.name.toLowerCase().includes(lowercaseQuery) ||
+        product.description.toLowerCase().includes(lowercaseQuery) ||
+        product.materials?.some(material => material.toLowerCase().includes(lowercaseQuery)) ||
+        product.gemstones?.some(gemstone => gemstone.toLowerCase().includes(lowercaseQuery))
+      )
     );
 
-    return products.map(product => ({
+    return matchingProducts.map(product => ({
       ...product,
-      category: product.categoryId ? this.categories.get(product.categoryId) : undefined
+      category: this.categories.get(product.categoryId!)!
     }));
   }
 
   async createProduct(insertProduct: InsertProduct): Promise<Product> {
-    const id = this.currentProductId++;
     const product: Product = { 
-      ...insertProduct, 
-      id,
-      categoryId: insertProduct.categoryId || null,
-      imageUrls: insertProduct.imageUrls || null,
-      stockQuantity: insertProduct.stockQuantity || 0,
-      weight: insertProduct.weight || null,
-      materials: insertProduct.materials || null,
-      gemstones: insertProduct.gemstones || null,
-      isActive: insertProduct.isActive !== undefined ? insertProduct.isActive : true,
-      isFeatured: insertProduct.isFeatured !== undefined ? insertProduct.isFeatured : false,
-      createdAt: new Date()
+      id: this.currentProductId++, 
+      ...insertProduct,
+      createdAt: new Date() 
     };
-    this.products.set(id, product);
+    this.products.set(product.id, product);
     return product;
   }
 
   async updateProductStock(productId: number, quantity: number): Promise<Product> {
     const product = this.products.get(productId);
-    if (!product) throw new Error("Product not found");
-    
-    const updatedProduct = { ...product, stockQuantity: quantity };
-    this.products.set(productId, updatedProduct);
-    return updatedProduct;
+    if (!product) {
+      throw new Error('Product not found');
+    }
+    product.stockQuantity = quantity;
+    this.products.set(productId, product);
+    return product;
   }
 
   // Cart operations
   async getCartItems(sessionId: string): Promise<CartItemWithProduct[]> {
-    const items = Array.from(this.cartItems.values()).filter(item => item.sessionId === sessionId);
+    const cartItems = Array.from(this.cartItems.values()).filter(item => item.sessionId === sessionId);
     
-    return items.map(item => {
-      const product = this.products.get(item.productId!);
-      if (!product) throw new Error("Product not found");
-      
+    return cartItems.map(item => {
+      const product = this.products.get(item.productId)!;
+      const category = this.categories.get(product.categoryId!)!;
       return {
         ...item,
-        product
+        product: {
+          ...product,
+          category
+        }
       };
     });
   }
 
   async addToCart(insertItem: InsertCartItem): Promise<CartItem> {
-    // Check if item already exists in cart
-    const existingItem = Array.from(this.cartItems.values()).find(
-      item => item.sessionId === insertItem.sessionId && item.productId === insertItem.productId
-    );
-
-    if (existingItem) {
-      // Update quantity instead of creating new item
-      const updatedItem = { 
-        ...existingItem, 
-        quantity: existingItem.quantity + (insertItem.quantity || 1)
-      };
-      this.cartItems.set(existingItem.id, updatedItem);
-      return updatedItem;
-    }
-
-    const id = this.currentCartItemId++;
     const cartItem: CartItem = { 
-      ...insertItem, 
-      id,
-      addedAt: new Date(),
-      productId: insertItem.productId || null,
-      quantity: insertItem.quantity || 1
+      id: this.currentCartItemId++, 
+      ...insertItem,
+      createdAt: new Date() 
     };
-    this.cartItems.set(id, cartItem);
+    this.cartItems.set(cartItem.id, cartItem);
     return cartItem;
   }
 
   async updateCartItemQuantity(id: number, quantity: number): Promise<CartItem> {
-    const item = this.cartItems.get(id);
-    if (!item) throw new Error("Cart item not found");
-    
-    const updatedItem = { ...item, quantity };
-    this.cartItems.set(id, updatedItem);
-    return updatedItem;
+    const cartItem = this.cartItems.get(id);
+    if (!cartItem) {
+      throw new Error('Cart item not found');
+    }
+    cartItem.quantity = quantity;
+    this.cartItems.set(id, cartItem);
+    return cartItem;
   }
 
   async removeFromCart(id: number): Promise<void> {
@@ -493,40 +450,31 @@ export class MemStorage implements IStorage {
   }
 
   async clearCart(sessionId: string): Promise<void> {
-    const itemsToDelete = Array.from(this.cartItems.entries())
-      .filter(([_, item]) => item.sessionId === sessionId)
-      .map(([id, _]) => id);
-    
-    itemsToDelete.forEach(id => this.cartItems.delete(id));
+    for (const [id, item] of this.cartItems.entries()) {
+      if (item.sessionId === sessionId) {
+        this.cartItems.delete(id);
+      }
+    }
   }
 
   // Order operations
   async createOrder(insertOrder: InsertOrder): Promise<Order> {
-    const id = this.currentOrderId++;
     const order: Order = { 
-      ...insertOrder, 
-      id,
-      createdAt: new Date(),
-      status: insertOrder.status || "pending",
-      sessionId: insertOrder.sessionId || null,
-      userId: insertOrder.userId || null,
-      currency: insertOrder.currency || "CAD",
-      customerPhone: insertOrder.customerPhone || null,
-      stripePaymentIntentId: insertOrder.stripePaymentIntentId || null
+      id: this.currentOrderId++, 
+      ...insertOrder,
+      createdAt: new Date() 
     };
-    this.orders.set(id, order);
+    this.orders.set(order.id, order);
     return order;
   }
 
   async addOrderItem(insertOrderItem: InsertOrderItem): Promise<OrderItem> {
-    const id = this.currentOrderItemId++;
     const orderItem: OrderItem = { 
-      ...insertOrderItem, 
-      id,
-      productId: insertOrderItem.productId || null,
-      orderId: insertOrderItem.orderId || null
+      id: this.currentOrderItemId++, 
+      ...insertOrderItem,
+      createdAt: new Date() 
     };
-    this.orderItems.set(id, orderItem);
+    this.orderItems.set(orderItem.id, orderItem);
     return orderItem;
   }
 
@@ -534,45 +482,43 @@ export class MemStorage implements IStorage {
     const order = this.orders.get(id);
     if (!order) return undefined;
 
-    const items = Array.from(this.orderItems.values())
-      .filter(item => item.orderId === id)
-      .map(item => {
-        const product = this.products.get(item.productId!);
-        if (!product) throw new Error("Product not found");
-        
-        return {
-          ...item,
-          product
-        };
-      });
+    const orderItems = Array.from(this.orderItems.values()).filter(item => item.orderId === id);
+    const orderItemsWithProducts = orderItems.map(item => {
+      const product = this.products.get(item.productId)!;
+      const category = this.categories.get(product.categoryId!)!;
+      return {
+        ...item,
+        product: {
+          ...product,
+          category
+        }
+      };
+    });
 
     return {
       ...order,
-      items
+      items: orderItemsWithProducts
     };
   }
 
   async updateOrderStatus(id: number, status: string): Promise<Order> {
     const order = this.orders.get(id);
-    if (!order) throw new Error("Order not found");
-    
-    const updatedOrder = { ...order, status };
-    this.orders.set(id, updatedOrder);
-    return updatedOrder;
+    if (!order) {
+      throw new Error('Order not found');
+    }
+    order.status = status;
+    this.orders.set(id, order);
+    return order;
   }
 
   // Contact operations
   async createContactSubmission(insertSubmission: InsertContactSubmission): Promise<ContactSubmission> {
-    const id = this.currentContactId++;
     const submission: ContactSubmission = { 
-      ...insertSubmission, 
-      id,
-      createdAt: new Date(),
-      phone: insertSubmission.phone || null,
-      isConsultation: insertSubmission.isConsultation || false,
-      preferredDate: insertSubmission.preferredDate || null
+      id: this.currentContactId++, 
+      ...insertSubmission,
+      createdAt: new Date() 
     };
-    this.contactSubmissions.set(id, submission);
+    this.contactSubmissions.set(submission.id, submission);
     return submission;
   }
 
