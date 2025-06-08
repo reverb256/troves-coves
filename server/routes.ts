@@ -370,6 +370,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // AI System Status endpoint
+  app.get('/api/ai/status', async (req, res) => {
+    try {
+      const status = await aiOrchestrator.getSystemStatus();
+      res.json(status);
+    } catch (error: any) {
+      res.status(500).json({ message: 'Error getting AI status: ' + error.message });
+    }
+  });
+
+  // AI Chat endpoint with intelligent delegation
+  app.post('/api/ai/chat', async (req, res) => {
+    try {
+      const { prompt, type = 'text', maxTokens = 500, temperature = 0.7, priority = 'medium' } = req.body;
+
+      if (!prompt || typeof prompt !== 'string') {
+        return res.status(400).json({ message: 'Prompt is required and must be a string' });
+      }
+
+      const aiRequest = {
+        prompt,
+        type,
+        maxTokens,
+        temperature,
+        priority
+      };
+
+      const response = await aiOrchestrator.processRequest(aiRequest);
+      
+      res.json({
+        content: response.content,
+        model: response.model,
+        provider: response.provider,
+        tokensUsed: response.tokensUsed,
+        timestamp: response.timestamp,
+        mediaUrl: response.mediaUrl
+      });
+    } catch (error: any) {
+      console.error('AI chat error:', error);
+      res.status(500).json({ 
+        message: 'Error processing AI request: ' + error.message,
+        content: "I apologize, but I'm experiencing technical difficulties. Please try again in a moment, or contact our support team for immediate assistance.",
+        provider: 'Error Handler',
+        model: 'fallback'
+      });
+    }
+  });
+
   app.get("/api/ai/system-status", async (req, res) => {
     try {
       const systemStatus = await aiOrchestrator.getSystemStatus();

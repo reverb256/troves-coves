@@ -26,6 +26,7 @@ export default function Header() {
     { name: 'Crystal Necklaces', path: '/products/crystal-necklaces' },
     { name: 'Healing Crystals', path: '/products/healing-crystals' },
     { name: 'Wire Wrapped', path: '/products/wire-wrapped' },
+    { name: 'AI Consultant', path: '/ai-assistant' },
     { name: 'Contact', path: '/contact' }
   ];
 

@@ -27,6 +27,20 @@ function Router() {
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/contact" component={Contact} />
+          <Route path="/ai-assistant" component={() => (
+            <div className="container mx-auto px-4 py-8">
+              <div className="text-center mb-8">
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-gold to-amber-500 bg-clip-text text-transparent mb-4">
+                  AI Crystal Consultant
+                </h1>
+                <p className="text-gray-600 max-w-2xl mx-auto">
+                  Experience our advanced AI assistant powered by Pollinations technology. Get expert advice on crystals, 
+                  generate custom product images, and receive personalized audio consultations.
+                </p>
+              </div>
+              <AIAssistant />
+            </div>
+          )} />
           <Route component={NotFound} />
         </Switch>
       </main>

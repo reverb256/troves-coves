@@ -1,41 +1,50 @@
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { 
-  MessageCircle, 
-  Send, 
-  Minimize2, 
-  Maximize2, 
-  X,
-  Sparkles,
-  Bot,
-  User,
-  Loader2
-} from 'lucide-react';
+import { MessageCircle, Send, Image, Volume2, Sparkles, Bot, User, Loader2 } from 'lucide-react';
+import { apiRequest } from '@/lib/queryClient';
 
 interface Message {
   id: string;
+  type: 'user' | 'assistant';
   content: string;
-  role: 'user' | 'assistant';
   timestamp: Date;
+  mediaUrl?: string;
+  mediaType?: 'image' | 'audio';
+  provider?: string;
+  model?: string;
+}
+
+interface AIStatus {
+  totalEndpoints: number;
+  availableEndpoints: number;
+  processing: boolean;
+  endpoints: Array<{
+    name: string;
+    isAvailable: boolean;
+    lastChecked: Date;
+  }>;
 }
 
 export default function AIAssistant() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      content: 'Hello! I\'m your crystal jewelry assistant. I can help you learn about crystal properties, find the perfect piece, or answer any questions about our collection. How can I assist you today?',
-      role: 'assistant',
-      timestamp: new Date()
+      type: 'assistant',
+      content: "Welcome to Troves & Coves! I'm your AI crystal jewelry consultant. I can help you discover the perfect crystals for your needs, provide care instructions, and generate custom product images. How can I assist you today?",
+      timestamp: new Date(),
+      provider: 'System',
+      model: 'assistant'
     }
   ]);
-  const [inputMessage, setInputMessage] = useState('');
+  const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [aiStatus, setAiStatus] = useState<AIStatus | null>(null);
+  const [requestType, setRequestType] = useState<'text' | 'image' | 'audio'>('text');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -46,50 +55,68 @@ export default function AIAssistant() {
     scrollToBottom();
   }, [messages]);
 
+  useEffect(() => {
+    fetchAIStatus();
+    const interval = setInterval(fetchAIStatus, 30000); // Check status every 30 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  const fetchAIStatus = async () => {
+    try {
+      const response = await apiRequest('GET', '/api/ai/status');
+      const data = await response.json();
+      setAiStatus(data);
+    } catch (error) {
+      console.error('Failed to fetch AI status:', error);
+    }
+  };
+
   const sendMessage = async () => {
-    if (!inputMessage.trim() || isLoading) return;
+    if (!input.trim() || isLoading) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
-      content: inputMessage,
-      role: 'user',
+      type: 'user',
+      content: input,
       timestamp: new Date()
     };
 
     setMessages(prev => [...prev, userMessage]);
-    setInputMessage('');
+    setInput('');
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/ai/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: inputMessage,
-          context: 'crystal_jewelry_assistant'
-        }),
+      const response = await apiRequest('POST', '/api/ai/chat', {
+        prompt: input,
+        type: requestType,
+        maxTokens: 500,
+        temperature: 0.7,
+        priority: 'medium'
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        const assistantMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          content: data.response || 'I apologize, but I\'m having trouble responding right now. Please try asking about our crystal properties, jewelry care, or product recommendations.',
-          role: 'assistant',
-          timestamp: new Date()
-        };
-        setMessages(prev => [...prev, assistantMessage]);
-      } else {
-        throw new Error('Failed to get response');
-      }
+      const data = await response.json();
+
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        type: 'assistant',
+        content: data.content,
+        timestamp: new Date(),
+        mediaUrl: data.mediaUrl,
+        mediaType: data.mediaUrl ? (requestType === 'image' ? 'image' : 'audio') : undefined,
+        provider: data.provider,
+        model: data.model
+      };
+
+      setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
+      console.error('Failed to send message:', error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: 'I\'m currently experiencing connectivity issues. However, I can still help you with information about crystal properties, jewelry care tips, or guide you to our product collections. What would you like to know?',
-        role: 'assistant',
-        timestamp: new Date()
+        type: 'assistant',
+        content: "I apologize, but I'm experiencing technical difficulties. Please try again in a moment, or contact our support team for immediate assistance.",
+        timestamp: new Date(),
+        provider: 'Error Handler',
+        model: 'fallback'
       };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
@@ -104,147 +131,199 @@ export default function AIAssistant() {
     }
   };
 
-  if (!isOpen) {
-    return (
-      <div className="fixed bottom-6 right-6 z-50">
-        <Button
-          onClick={() => setIsOpen(true)}
-          className="btn-luxury w-16 h-16 rounded-full p-0 group gold-glow shadow-2xl"
-        >
-          <div className="relative">
-            <MessageCircle className="h-6 w-6" />
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full animate-pulse" />
-          </div>
-          <span className="sr-only">Open AI Assistant</span>
-        </Button>
-      </div>
-    );
-  }
+  const getProviderColor = (provider?: string) => {
+    if (!provider) return 'bg-gray-100 text-gray-800';
+    if (provider.includes('Pollinations')) return 'bg-gradient-to-r from-purple-500 to-pink-500 text-white';
+    if (provider.includes('Local')) return 'bg-amber-100 text-amber-800';
+    return 'bg-blue-100 text-blue-800';
+  };
 
   return (
-    <div className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${
-      isMinimized ? 'w-80 h-16' : 'w-96 h-[600px]'
-    }`}>
-      <Card className="glass-card border-0 h-full flex flex-col overflow-hidden">
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-white/10">
-          <div className="flex items-center space-x-3">
-            <div className="relative">
-              <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                <Bot className="h-4 w-4 text-primary" />
-              </div>
-              <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-background" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-sm">Crystal Assistant</h3>
-              <p className="text-xs text-muted-foreground">Always here to help</p>
-            </div>
+    <div className="flex flex-col h-[600px] w-full max-w-4xl mx-auto">
+      {/* AI Status Bar */}
+      <Card className="mb-4 border-gold/20 bg-gradient-to-r from-black/5 to-gold/5">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-lg">
+            <Bot className="h-5 w-5 text-gold" />
+            AI Assistant Status
+            {aiStatus && (
+              <Badge variant={aiStatus.availableEndpoints > 0 ? "default" : "destructive"} className="ml-auto">
+                {aiStatus.availableEndpoints}/{aiStatus.totalEndpoints} Active
+              </Badge>
+            )}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-wrap gap-2">
+            {aiStatus?.endpoints.map((endpoint, index) => (
+              <Badge
+                key={index}
+                variant={endpoint.isAvailable ? "default" : "secondary"}
+                className={`${endpoint.isAvailable ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}
+              >
+                {endpoint.name}
+              </Badge>
+            ))}
           </div>
-          <div className="flex items-center space-x-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsMinimized(!isMinimized)}
-              className="w-8 h-8 p-0 hover:bg-white/10"
-            >
-              {isMinimized ? <Maximize2 className="h-3 w-3" /> : <Minimize2 className="h-3 w-3" />}
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsOpen(false)}
-              className="w-8 h-8 p-0 hover:bg-white/10"
-            >
-              <X className="h-3 w-3" />
-            </Button>
-          </div>
-        </div>
+        </CardContent>
+      </Card>
 
-        {!isMinimized && (
-          <>
-            {/* Messages */}
-            <ScrollArea className="flex-1 p-4">
-              <div className="space-y-4">
-                {messages.map((message) => (
+      {/* Request Type Selector */}
+      <Card className="mb-4 border-gold/20">
+        <CardContent className="pt-4">
+          <div className="flex gap-2">
+            <Button
+              variant={requestType === 'text' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setRequestType('text')}
+              className="flex items-center gap-2"
+            >
+              <MessageCircle className="h-4 w-4" />
+              Text Chat
+            </Button>
+            <Button
+              variant={requestType === 'image' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setRequestType('image')}
+              className="flex items-center gap-2"
+            >
+              <Image className="h-4 w-4" />
+              Generate Image
+            </Button>
+            <Button
+              variant={requestType === 'audio' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setRequestType('audio')}
+              className="flex items-center gap-2"
+            >
+              <Volume2 className="h-4 w-4" />
+              Generate Audio
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Messages */}
+      <Card className="flex-1 border-gold/20 backdrop-blur-sm bg-white/95">
+        <CardContent className="p-0 h-full">
+          <ScrollArea className="h-full p-4">
+            <div className="space-y-4">
+              {messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
                   <div
-                    key={message.id}
-                    className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                    className={`max-w-[80%] rounded-lg p-3 ${
+                      message.type === 'user'
+                        ? 'bg-gradient-to-r from-gold to-amber-500 text-white'
+                        : 'bg-gray-100 text-gray-900'
+                    }`}
                   >
-                    <div className={`flex items-start space-x-2 max-w-[80%] ${
-                      message.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''
-                    }`}>
-                      <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${
-                        message.role === 'user' 
-                          ? 'bg-primary text-primary-foreground' 
-                          : 'bg-muted'
-                      }`}>
-                        {message.role === 'user' ? (
-                          <User className="h-3 w-3" />
-                        ) : (
-                          <Sparkles className="h-3 w-3" />
+                    <div className="flex items-start gap-2">
+                      {message.type === 'user' ? (
+                        <User className="h-4 w-4 mt-1 flex-shrink-0" />
+                      ) : (
+                        <Bot className="h-4 w-4 mt-1 flex-shrink-0 text-gold" />
+                      )}
+                      <div className="flex-1">
+                        <p className="text-sm leading-relaxed">{message.content}</p>
+                        
+                        {message.mediaUrl && message.mediaType === 'image' && (
+                          <div className="mt-2">
+                            <img
+                              src={message.mediaUrl}
+                              alt="Generated crystal jewelry image"
+                              className="rounded-lg max-w-full h-auto shadow-lg"
+                              style={{ maxHeight: '300px' }}
+                            />
+                          </div>
                         )}
-                      </div>
-                      <div className={`px-3 py-2 rounded-lg text-sm ${
-                        message.role === 'user'
-                          ? 'bg-primary text-primary-foreground'
-                          : 'glass border border-white/10'
-                      }`}>
-                        <p className="whitespace-pre-wrap">{message.content}</p>
-                        <span className={`text-xs opacity-70 mt-1 block ${
-                          message.role === 'user' ? 'text-primary-foreground/70' : 'text-muted-foreground'
-                        }`}>
-                          {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                {isLoading && (
-                  <div className="flex justify-start">
-                    <div className="flex items-start space-x-2">
-                      <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center">
-                        <Sparkles className="h-3 w-3" />
-                      </div>
-                      <div className="glass border border-white/10 px-3 py-2 rounded-lg">
-                        <div className="flex items-center space-x-2">
-                          <Loader2 className="h-4 w-4 animate-spin" />
-                          <span className="text-sm text-muted-foreground">Thinking...</span>
+
+                        {message.mediaUrl && message.mediaType === 'audio' && (
+                          <div className="mt-2">
+                            <audio controls className="w-full">
+                              <source src={message.mediaUrl} type="audio/mpeg" />
+                              Your browser does not support the audio element.
+                            </audio>
+                          </div>
+                        )}
+
+                        <div className="flex items-center gap-2 mt-2">
+                          <span className="text-xs opacity-70">
+                            {message.timestamp.toLocaleTimeString()}
+                          </span>
+                          {message.provider && (
+                            <Badge className={`text-xs ${getProviderColor(message.provider)}`}>
+                              {message.provider} • {message.model}
+                            </Badge>
+                          )}
                         </div>
                       </div>
                     </div>
                   </div>
-                )}
-                <div ref={messagesEndRef} />
-              </div>
-            </ScrollArea>
-
-            {/* Input */}
-            <div className="p-4 border-t border-white/10">
-              <div className="flex space-x-2">
-                <Input
-                  value={inputMessage}
-                  onChange={(e) => setInputMessage(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Ask about crystals, jewelry, or our collection..."
-                  className="glass border-white/20 focus:border-primary/50"
-                  disabled={isLoading}
-                />
-                <Button
-                  onClick={sendMessage}
-                  disabled={!inputMessage.trim() || isLoading}
-                  className="btn-luxury px-3"
-                >
-                  <Send className="h-4 w-4" />
-                </Button>
-              </div>
-              <div className="flex items-center justify-center mt-2">
-                <Badge variant="secondary" className="glass text-xs">
-                  Powered by AI • Always Learning
-                </Badge>
-              </div>
+                </div>
+              ))}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-gray-100 rounded-lg p-3 flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin text-gold" />
+                    <span className="text-sm text-gray-600">
+                      {requestType === 'image' ? 'Generating image...' : 
+                       requestType === 'audio' ? 'Generating audio...' : 
+                       'Thinking...'}
+                    </span>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
             </div>
-          </>
-        )}
+          </ScrollArea>
+        </CardContent>
+      </Card>
+
+      {/* Input */}
+      <Card className="mt-4 border-gold/20">
+        <CardContent className="p-4">
+          <div className="flex gap-2">
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder={
+                requestType === 'image' 
+                  ? "Describe the crystal jewelry image you'd like me to generate..."
+                  : requestType === 'audio'
+                  ? "Enter text for audio narration..."
+                  : "Ask me about crystals, jewelry care, or our products..."
+              }
+              className="flex-1"
+              disabled={isLoading}
+            />
+            <Button 
+              onClick={sendMessage} 
+              disabled={!input.trim() || isLoading}
+              className="bg-gradient-to-r from-gold to-amber-500 hover:from-gold/90 hover:to-amber-500/90"
+            >
+              {isLoading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <>
+                  <Send className="h-4 w-4 mr-2" />
+                  {requestType === 'image' ? 'Generate' : requestType === 'audio' ? 'Speak' : 'Send'}
+                </>
+              )}
+            </Button>
+          </div>
+          <div className="flex items-center gap-2 mt-2 text-xs text-gray-500">
+            <Sparkles className="h-3 w-3" />
+            <span>
+              {requestType === 'image' && 'AI will generate high-quality, watermark-free crystal jewelry images'}
+              {requestType === 'audio' && 'AI will create professional audio narration for consultations'}
+              {requestType === 'text' && 'AI powered by multiple intelligent systems for comprehensive crystal expertise'}
+            </span>
+          </div>
+        </CardContent>
       </Card>
     </div>
   );
