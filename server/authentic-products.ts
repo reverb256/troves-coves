@@ -46,17 +46,17 @@ export const authenticProducts = [
   },
   {
     id: 4,
-    name: "Upcycled Gold Plated Enamel Pendant, 14k Gold Filled Necklace, Citrine, Peridot",
-    description: "Unique upcycled gold plated enamel pendant on 14k gold filled chain with 18KGF lobster clasp. Features citrine and peridot for good fortune, luck, and confidence. Sustainable jewelry with vintage charm.",
-    price: 8000, // $80.00 CAD (matching Etsy)
-    categorySlug: "healing-crystals",
-    sku: "TC-ENAMEL-CITRINE-004",
+    name: "Upcycled Gold Plated Enamel Pendant, 14k Gold Filled Necklace, Chain, 18KGF Lobster Clasp, Citrine, Peridot, Good Fortune, Lucky, Confident",
+    description: "Sacred transformation of vintage enamel flower into divine talisman. This ethereal piece channels ancient wisdom through sustainable upcycling, adorned with luminous citrine for manifestation and peridot for heart healing. The sacred white magnolia blossom represents purity, nobility, and spiritual awakening.",
+    price: 8500, // $85.00 CAD (updated price)
+    categorySlug: "crystal-necklaces",
+    sku: "TC-UPC-ENA-001",
     stockQuantity: 1,
-    featured: false,
-    tags: ["upcycled", "gold-plated", "enamel", "14k-gold-filled", "citrine", "peridot", "good-fortune", "lucky", "confident"],
-    materials: ["Upcycled Enamel Pendant", "14k Gold Filled Chain", "Citrine", "Peridot", "18KGF Lobster Clasp"],
-    gemstones: ["Citrine - good fortune, confidence", "Peridot - renewal, growth"],
-    metaphysicalProperties: "Citrine attracts abundance and builds confidence, while peridot brings renewal and positive growth energy."
+    featured: true,
+    tags: ["upcycled", "gold-plated", "enamel", "14k-gold-filled", "citrine", "peridot", "good-fortune", "lucky", "confident", "magnolia", "sustainable"],
+    materials: ["14k Gold Filled", "Gold Plated Enamel", "18KGF", "Citrine", "Peridot"],
+    gemstones: ["Citrine - manifestation, abundance", "Peridot - heart healing, renewal"],
+    metaphysicalProperties: "Sacred white magnolia represents purity and spiritual awakening. Citrine manifests abundance and confidence while peridot opens the heart to divine love and healing transformation."
   },
   {
     id: 5,

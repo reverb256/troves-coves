@@ -25,6 +25,12 @@ export const crystalJewelryImages = {
     "/assets/image_1749357568490.png",
     "/assets/image_1749357571495.png"
   ],
+  enamelPendant: [
+    "/assets/image_1749388305401.png",
+    "/assets/image_1749388310011.png",
+    "/assets/image_1749388313565.png",
+    "/assets/image_1749388316952.png"
+  ],
   mixed: [
     "/assets/image_1749357576370.png",
     "/assets/image_1749357579737.png",
