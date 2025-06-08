@@ -61,18 +61,29 @@ export const crystalJewelryImages = {
     "/assets/image_1749388693331.png"
   ],
   lapisLeather: [
-    "/assets/image_1749388714190.png",
-    "/assets/image_1749388717661.png",
-    "/assets/image_1749388720719.png",
-    "/assets/image_1749388723637.png",
-    "/assets/image_1749388726748.png",
-    "/assets/image_1749388729491.png",
-    "/assets/image_1749388733017.png"
+    "/assets/image_1749388831818.png",
+    "/assets/image_1749388834894.png", 
+    "/assets/image_1749388837680.png",
+    "/assets/file_t96z3w_1749388870627.mp4"
   ],
   roseQuartz: [
     "/assets/image_1749388764421.png",
     "/assets/image_1749388767298.png",
     "/assets/image_1749388770492.png"
+  ],
+  turquoiseBeaded: [
+    "/assets/image_1749388787261.png",
+    "/assets/image_1749388790666.png",
+    "/assets/image_1749388793476.png",
+    "/assets/image_1749388797696.png",
+    "/assets/image_1749388800552.png",
+    "/assets/image_1749388804282.png"
+  ],
+  upcycledEnamel: [
+    "/assets/image_1749388305401.png",
+    "/assets/image_1749388310011.png",
+    "/assets/image_1749388313565.png",
+    "/assets/image_1749388316952.png"
   ],
   mixed: [
     "/assets/image_1749357576370.png",
