@@ -195,7 +195,7 @@ export default function Footer() {
               href="https://reverb256.ca" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group inline-flex items-center space-x-2 text-muted-foreground text-sm hover:text-primary transition-all duration-300 ease-in-out transform hover:scale-105"
+              className="group inline-flex items-center space-x-2 text-foreground/70 text-sm hover:text-primary transition-all duration-300 ease-in-out transform hover:scale-105"
             >
               <span className="group-hover:animate-pulse">✨</span>
               <span className="relative">
