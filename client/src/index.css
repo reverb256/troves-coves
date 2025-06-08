@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(45, 29%, 97%);
+  --foreground: hsl(220, 15%, 20%);
+  --muted: hsl(45, 25%, 94%);
+  --muted-foreground: hsl(220, 5%, 45%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(220, 15%, 20%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(220, 15%, 20%);
+  --border: hsl(220, 6%, 90%);
+  --input: hsl(220, 6%, 90%);
+  --primary: hsl(220, 55%, 18%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(45, 25%, 94%);
+  --secondary-foreground: hsl(220, 15%, 15%);
+  --accent: hsl(51, 100%, 42%);
+  --accent-foreground: hsl(220, 55%, 18%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(60, 9%, 98%);
+  --ring: hsl(220, 15%, 20%);
+  --radius: 0.5rem;
+
+  /* Custom Troves & Coves colors */
+  --navy: hsl(240, 45%, 15%);
+  --rich-blue: hsl(220, 55%, 18%);
+  --elegant-gold: hsl(51, 100%, 42%);
+  --warm-cream: hsl(45, 29%, 97%);
+  --deep-burgundy: hsl(344, 61%, 36%);
+  --forest-green: hsl(120, 45%, 25%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 4%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 4%, 16%);
+  --muted-foreground: hsl(240, 5%, 65%);
+  --popover: hsl(240, 10%, 4%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 4%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 4%, 16%);
+  --input: hsl(240, 4%, 16%);
+  --primary: hsl(51, 100%, 42%);
+  --primary-foreground: hsl(240, 45%, 15%);
+  --secondary: hsl(240, 4%, 16%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 4%, 16%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 63%, 31%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 5%, 84%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+/* Custom utilities for luxury feel */
+@layer utilities {
+  .text-navy {
+    color: var(--navy);
+  }
+  
+  .text-rich-blue {
+    color: var(--rich-blue);
+  }
+  
+  .text-elegant-gold {
+    color: var(--elegant-gold);
+  }
+  
+  .text-warm-cream {
+    color: var(--warm-cream);
+  }
+  
+  .text-deep-burgundy {
+    color: var(--deep-burgundy);
+  }
+  
+  .bg-navy {
+    background-color: var(--navy);
+  }
+  
+  .bg-rich-blue {
+    background-color: var(--rich-blue);
+  }
+  
+  .bg-elegant-gold {
+    background-color: var(--elegant-gold);
+  }
+  
+  .bg-warm-cream {
+    background-color: var(--warm-cream);
+  }
+  
+  .bg-deep-burgundy {
+    background-color: var(--deep-burgundy);
+  }
+  
+  .border-elegant-gold {
+    border-color: var(--elegant-gold);
+  }
+  
+  .border-navy {
+    border-color: var(--navy);
+  }
+  
+  .hover\:bg-elegant-gold:hover {
+    background-color: var(--elegant-gold);
+  }
+  
+  .hover\:text-elegant-gold:hover {
+    color: var(--elegant-gold);
+  }
+  
+  .font-serif {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .gradient-luxury {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--rich-blue) 100%);
+  }
+  
+  .luxury-shadow {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .luxury-shadow-lg {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* Custom animations */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 2s infinite;
+}
+
+/* Product card hover effects */
+.product-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+.product-image {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Luxury button styles */
+.btn-luxury {
+  @apply bg-elegant-gold text-navy px-8 py-4 font-semibold transition-all duration-300 transform hover:bg-yellow-400 hover:scale-105 luxury-shadow;
+}
+
+.btn-luxury-outline {
+  @apply border-2 border-navy text-navy px-8 py-4 font-semibold transition-all duration-300 hover:bg-navy hover:text-white;
+}
+
+/* Loading states */
+.skeleton {
+  @apply bg-gray-200 animate-pulse;
+}
+
+.dark .skeleton {
+  @apply bg-gray-800;
+}

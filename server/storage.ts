@@ -1,0 +1,456 @@
+import { 
+  users, categories, products, cartItems, orders, orderItems, contactSubmissions,
+  type User, type InsertUser, 
+  type Category, type InsertCategory,
+  type Product, type InsertProduct, type ProductWithCategory,
+  type CartItem, type InsertCartItem, type CartItemWithProduct,
+  type Order, type InsertOrder, type OrderWithItems,
+  type OrderItem, type InsertOrderItem,
+  type ContactSubmission, type InsertContactSubmission
+} from "@shared/schema";
+
+export interface IStorage {
+  // User operations
+  getUser(id: number): Promise<User | undefined>;
+  getUserByEmail(email: string): Promise<User | undefined>;
+  createUser(user: InsertUser): Promise<User>;
+  updateUserStripeInfo(userId: number, customerId: string, subscriptionId?: string): Promise<User>;
+
+  // Category operations
+  getCategories(): Promise<Category[]>;
+  getCategory(id: number): Promise<Category | undefined>;
+  getCategoryBySlug(slug: string): Promise<Category | undefined>;
+  createCategory(category: InsertCategory): Promise<Category>;
+
+  // Product operations
+  getProducts(categoryId?: number): Promise<ProductWithCategory[]>;
+  getProduct(id: number): Promise<ProductWithCategory | undefined>;
+  getProductBySku(sku: string): Promise<Product | undefined>;
+  getFeaturedProducts(): Promise<ProductWithCategory[]>;
+  searchProducts(query: string): Promise<ProductWithCategory[]>;
+  createProduct(product: InsertProduct): Promise<Product>;
+  updateProductStock(productId: number, quantity: number): Promise<Product>;
+
+  // Cart operations
+  getCartItems(sessionId: string): Promise<CartItemWithProduct[]>;
+  addToCart(item: InsertCartItem): Promise<CartItem>;
+  updateCartItemQuantity(id: number, quantity: number): Promise<CartItem>;
+  removeFromCart(id: number): Promise<void>;
+  clearCart(sessionId: string): Promise<void>;
+
+  // Order operations
+  createOrder(order: InsertOrder): Promise<Order>;
+  addOrderItem(orderItem: InsertOrderItem): Promise<OrderItem>;
+  getOrder(id: number): Promise<OrderWithItems | undefined>;
+  updateOrderStatus(id: number, status: string): Promise<Order>;
+
+  // Contact operations
+  createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission>;
+  getContactSubmissions(): Promise<ContactSubmission[]>;
+}
+
+export class MemStorage implements IStorage {
+  private users: Map<number, User>;
+  private categories: Map<number, Category>;
+  private products: Map<number, Product>;
+  private cartItems: Map<number, CartItem>;
+  private orders: Map<number, Order>;
+  private orderItems: Map<number, OrderItem>;
+  private contactSubmissions: Map<number, ContactSubmission>;
+  
+  private currentUserId: number;
+  private currentCategoryId: number;
+  private currentProductId: number;
+  private currentCartItemId: number;
+  private currentOrderId: number;
+  private currentOrderItemId: number;
+  private currentContactId: number;
+
+  constructor() {
+    this.users = new Map();
+    this.categories = new Map();
+    this.products = new Map();
+    this.cartItems = new Map();
+    this.orders = new Map();
+    this.orderItems = new Map();
+    this.contactSubmissions = new Map();
+    
+    this.currentUserId = 1;
+    this.currentCategoryId = 1;
+    this.currentProductId = 1;
+    this.currentCartItemId = 1;
+    this.currentOrderId = 1;
+    this.currentOrderItemId = 1;
+    this.currentContactId = 1;
+
+    this.seedData();
+  }
+
+  private seedData() {
+    // Seed categories
+    const engagementCategory: Category = {
+      id: this.currentCategoryId++,
+      name: "Engagement Rings",
+      slug: "engagement",
+      description: "Symbols of forever, crafted to perfection",
+      imageUrl: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    };
+    
+    const heritageCategory: Category = {
+      id: this.currentCategoryId++,
+      name: "Heritage Collection",
+      slug: "heritage",
+      description: "Timeless designs with modern elegance",
+      imageUrl: "https://images.unsplash.com/photo-1630019852942-f89202989a59?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    };
+
+    const contemporaryCategory: Category = {
+      id: this.currentCategoryId++,
+      name: "Contemporary Collection",
+      slug: "contemporary",
+      description: "Bold designs for the modern spirit",
+      imageUrl: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    };
+
+    this.categories.set(engagementCategory.id, engagementCategory);
+    this.categories.set(heritageCategory.id, heritageCategory);
+    this.categories.set(contemporaryCategory.id, contemporaryCategory);
+
+    // Seed products
+    const solitaireRing: Product = {
+      id: this.currentProductId++,
+      name: "Classic Solitaire Ring",
+      description: "A timeless 1.5ct diamond solitaire set in 18K white gold. This classic design features a brilliant round cut diamond held in a traditional six-prong setting, allowing maximum light to showcase the diamond's exceptional brilliance.",
+      price: "8750.00",
+      categoryId: engagementCategory.id,
+      imageUrl: "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+      imageUrls: [
+        "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+        "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
+      ],
+      sku: "TC-SR-001",
+      stockQuantity: 5,
+      weight: "4.2",
+      materials: ["18K White Gold", "Diamond"],
+      gemstones: ["1.5ct Round Brilliant Diamond"],
+      isActive: true,
+      isFeatured: true,
+      createdAt: new Date(),
+    };
+
+    const pearlEarrings: Product = {
+      id: this.currentProductId++,
+      name: "Pearl Drop Earrings",
+      description: "Elegant Akoya pearl drop earrings set in 14K yellow gold. These sophisticated earrings feature lustrous 8mm Akoya pearls suspended from delicate gold settings, perfect for both formal occasions and everyday elegance.",
+      price: "2450.00",
+      categoryId: heritageCategory.id,
+      imageUrl: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+      imageUrls: [
+        "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
+      ],
+      sku: "TC-PE-001",
+      stockQuantity: 8,
+      weight: "6.8",
+      materials: ["14K Yellow Gold", "Akoya Pearls"],
+      gemstones: ["8mm Akoya Pearls"],
+      isActive: true,
+      isFeatured: true,
+      createdAt: new Date(),
+    };
+
+    const sapphirePendant: Product = {
+      id: this.currentProductId++,
+      name: "Sapphire Pendant Necklace",
+      description: "Stunning blue sapphire pendant surrounded by a halo of brilliant diamonds. The 2ct Ceylon sapphire is complemented by 0.5ct of diamonds in 18K white gold, creating a piece of extraordinary beauty and elegance.",
+      price: "5200.00",
+      categoryId: heritageCategory.id,
+      imageUrl: "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+      imageUrls: [
+        "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
+      ],
+      sku: "TC-SP-001",
+      stockQuantity: 3,
+      weight: "8.5",
+      materials: ["18K White Gold", "Diamonds"],
+      gemstones: ["2ct Ceylon Sapphire", "0.5ct Diamonds"],
+      isActive: true,
+      isFeatured: true,
+      createdAt: new Date(),
+    };
+
+    const heritageTimepiece: Product = {
+      id: this.currentProductId++,
+      name: "Heritage Timepiece",
+      description: "Exquisite Swiss movement watch crafted in 18K gold with a classic design that transcends time. Features automatic movement, sapphire crystal, and water resistance to 50m. A perfect blend of traditional craftsmanship and modern precision.",
+      price: "12900.00",
+      categoryId: contemporaryCategory.id,
+      imageUrl: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+      imageUrls: [
+        "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
+      ],
+      sku: "TC-HT-001",
+      stockQuantity: 2,
+      weight: "120.0",
+      materials: ["18K Yellow Gold", "Sapphire Crystal", "Leather"],
+      gemstones: [],
+      isActive: true,
+      isFeatured: true,
+      createdAt: new Date(),
+    };
+
+    this.products.set(solitaireRing.id, solitaireRing);
+    this.products.set(pearlEarrings.id, pearlEarrings);
+    this.products.set(sapphirePendant.id, sapphirePendant);
+    this.products.set(heritageTimepiece.id, heritageTimepiece);
+  }
+
+  // User operations
+  async getUser(id: number): Promise<User | undefined> {
+    return this.users.get(id);
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    return Array.from(this.users.values()).find(user => user.email === email);
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const id = this.currentUserId++;
+    const user: User = { ...insertUser, id };
+    this.users.set(id, user);
+    return user;
+  }
+
+  async updateUserStripeInfo(userId: number, customerId: string, subscriptionId?: string): Promise<User> {
+    const user = this.users.get(userId);
+    if (!user) throw new Error("User not found");
+    
+    const updatedUser = { 
+      ...user, 
+      stripeCustomerId: customerId,
+      stripeSubscriptionId: subscriptionId 
+    };
+    this.users.set(userId, updatedUser);
+    return updatedUser;
+  }
+
+  // Category operations
+  async getCategories(): Promise<Category[]> {
+    return Array.from(this.categories.values());
+  }
+
+  async getCategory(id: number): Promise<Category | undefined> {
+    return this.categories.get(id);
+  }
+
+  async getCategoryBySlug(slug: string): Promise<Category | undefined> {
+    return Array.from(this.categories.values()).find(cat => cat.slug === slug);
+  }
+
+  async createCategory(insertCategory: InsertCategory): Promise<Category> {
+    const id = this.currentCategoryId++;
+    const category: Category = { ...insertCategory, id };
+    this.categories.set(id, category);
+    return category;
+  }
+
+  // Product operations
+  async getProducts(categoryId?: number): Promise<ProductWithCategory[]> {
+    let products = Array.from(this.products.values());
+    
+    if (categoryId) {
+      products = products.filter(p => p.categoryId === categoryId);
+    }
+
+    return products.map(product => ({
+      ...product,
+      category: product.categoryId ? this.categories.get(product.categoryId) : undefined
+    }));
+  }
+
+  async getProduct(id: number): Promise<ProductWithCategory | undefined> {
+    const product = this.products.get(id);
+    if (!product) return undefined;
+
+    return {
+      ...product,
+      category: product.categoryId ? this.categories.get(product.categoryId) : undefined
+    };
+  }
+
+  async getProductBySku(sku: string): Promise<Product | undefined> {
+    return Array.from(this.products.values()).find(p => p.sku === sku);
+  }
+
+  async getFeaturedProducts(): Promise<ProductWithCategory[]> {
+    const products = Array.from(this.products.values()).filter(p => p.isFeatured);
+    return products.map(product => ({
+      ...product,
+      category: product.categoryId ? this.categories.get(product.categoryId) : undefined
+    }));
+  }
+
+  async searchProducts(query: string): Promise<ProductWithCategory[]> {
+    const lowerQuery = query.toLowerCase();
+    const products = Array.from(this.products.values()).filter(p => 
+      p.name.toLowerCase().includes(lowerQuery) ||
+      p.description.toLowerCase().includes(lowerQuery) ||
+      p.materials?.some(m => m.toLowerCase().includes(lowerQuery)) ||
+      p.gemstones?.some(g => g.toLowerCase().includes(lowerQuery))
+    );
+
+    return products.map(product => ({
+      ...product,
+      category: product.categoryId ? this.categories.get(product.categoryId) : undefined
+    }));
+  }
+
+  async createProduct(insertProduct: InsertProduct): Promise<Product> {
+    const id = this.currentProductId++;
+    const product: Product = { 
+      ...insertProduct, 
+      id,
+      createdAt: new Date()
+    };
+    this.products.set(id, product);
+    return product;
+  }
+
+  async updateProductStock(productId: number, quantity: number): Promise<Product> {
+    const product = this.products.get(productId);
+    if (!product) throw new Error("Product not found");
+    
+    const updatedProduct = { ...product, stockQuantity: quantity };
+    this.products.set(productId, updatedProduct);
+    return updatedProduct;
+  }
+
+  // Cart operations
+  async getCartItems(sessionId: string): Promise<CartItemWithProduct[]> {
+    const items = Array.from(this.cartItems.values()).filter(item => item.sessionId === sessionId);
+    
+    return items.map(item => {
+      const product = this.products.get(item.productId!);
+      if (!product) throw new Error("Product not found");
+      
+      return {
+        ...item,
+        product
+      };
+    });
+  }
+
+  async addToCart(insertItem: InsertCartItem): Promise<CartItem> {
+    // Check if item already exists in cart
+    const existingItem = Array.from(this.cartItems.values()).find(
+      item => item.sessionId === insertItem.sessionId && item.productId === insertItem.productId
+    );
+
+    if (existingItem) {
+      // Update quantity instead of creating new item
+      const updatedItem = { 
+        ...existingItem, 
+        quantity: existingItem.quantity + insertItem.quantity 
+      };
+      this.cartItems.set(existingItem.id, updatedItem);
+      return updatedItem;
+    }
+
+    const id = this.currentCartItemId++;
+    const cartItem: CartItem = { 
+      ...insertItem, 
+      id,
+      addedAt: new Date()
+    };
+    this.cartItems.set(id, cartItem);
+    return cartItem;
+  }
+
+  async updateCartItemQuantity(id: number, quantity: number): Promise<CartItem> {
+    const item = this.cartItems.get(id);
+    if (!item) throw new Error("Cart item not found");
+    
+    const updatedItem = { ...item, quantity };
+    this.cartItems.set(id, updatedItem);
+    return updatedItem;
+  }
+
+  async removeFromCart(id: number): Promise<void> {
+    this.cartItems.delete(id);
+  }
+
+  async clearCart(sessionId: string): Promise<void> {
+    const itemsToDelete = Array.from(this.cartItems.entries())
+      .filter(([_, item]) => item.sessionId === sessionId)
+      .map(([id, _]) => id);
+    
+    itemsToDelete.forEach(id => this.cartItems.delete(id));
+  }
+
+  // Order operations
+  async createOrder(insertOrder: InsertOrder): Promise<Order> {
+    const id = this.currentOrderId++;
+    const order: Order = { 
+      ...insertOrder, 
+      id,
+      createdAt: new Date()
+    };
+    this.orders.set(id, order);
+    return order;
+  }
+
+  async addOrderItem(insertOrderItem: InsertOrderItem): Promise<OrderItem> {
+    const id = this.currentOrderItemId++;
+    const orderItem: OrderItem = { ...insertOrderItem, id };
+    this.orderItems.set(id, orderItem);
+    return orderItem;
+  }
+
+  async getOrder(id: number): Promise<OrderWithItems | undefined> {
+    const order = this.orders.get(id);
+    if (!order) return undefined;
+
+    const items = Array.from(this.orderItems.values())
+      .filter(item => item.orderId === id)
+      .map(item => {
+        const product = this.products.get(item.productId!);
+        if (!product) throw new Error("Product not found");
+        
+        return {
+          ...item,
+          product
+        };
+      });
+
+    return {
+      ...order,
+      items
+    };
+  }
+
+  async updateOrderStatus(id: number, status: string): Promise<Order> {
+    const order = this.orders.get(id);
+    if (!order) throw new Error("Order not found");
+    
+    const updatedOrder = { ...order, status };
+    this.orders.set(id, updatedOrder);
+    return updatedOrder;
+  }
+
+  // Contact operations
+  async createContactSubmission(insertSubmission: InsertContactSubmission): Promise<ContactSubmission> {
+    const id = this.currentContactId++;
+    const submission: ContactSubmission = { 
+      ...insertSubmission, 
+      id,
+      createdAt: new Date()
+    };
+    this.contactSubmissions.set(id, submission);
+    return submission;
+  }
+
+  async getContactSubmissions(): Promise<ContactSubmission[]> {
+    return Array.from(this.contactSubmissions.values());
+  }
+}
+
+export const storage = new MemStorage();
