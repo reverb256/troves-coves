@@ -94,16 +94,16 @@ export default function Header() {
                       </button>
                       
                       {/* Dropdown Menu */}
-                      <div className="absolute top-full left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
-                        <div className="glass-card rounded-lg shadow-xl border border-white/10 p-2">
+                      <div className="absolute top-full left-0 mt-1 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-1 group-hover:translate-y-0 z-[100]">
+                        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 p-1 backdrop-blur-sm">
                           {item.dropdownItems?.map((dropdownItem) => (
                             <Link
                               key={dropdownItem.path}
                               href={dropdownItem.path}
-                              className="flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-white/5 rounded-md transition-all duration-200 group/item"
+                              className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:text-turquoise-600 hover:bg-turquoise-50 dark:hover:bg-turquoise-900/20 rounded-md transition-all duration-200 group/item"
                             >
-                              <span className="text-lg">{dropdownItem.icon}</span>
-                              <span className="group-hover/item:translate-x-1 transition-transform">
+                              <span className="text-base">{dropdownItem.icon}</span>
+                              <span className="group-hover/item:translate-x-0.5 transition-transform font-medium">
                                 {dropdownItem.name}
                               </span>
                             </Link>
