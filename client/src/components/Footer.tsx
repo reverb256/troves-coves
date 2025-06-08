@@ -87,8 +87,8 @@ export default function Footer() {
               Troves & Coves
             </div>
             <p className="text-foreground-muted mb-6">
-              Winnipeg's premier destination for luxury jewelry, serving our community with 
-              exceptional craftsmanship since 1990.
+              Sacred crystal jewelry and healing gemstone talismans crafted with divine intention. 
+              Serving seekers across Canada with mystical guidance and spiritual awakening.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => {
@@ -144,38 +144,31 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="font-semibold text-lg mb-6 text-foreground">Visit Us</h3>
+            <h3 className="font-semibold text-lg mb-6 text-foreground">Connect With Us</h3>
             <div className="space-y-4 text-foreground-muted">
-              <div className="flex items-start space-x-3">
-                <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <div>
-                  <div className="font-medium text-foreground">Downtown Showroom</div>
-                  <div>123 Main Street</div>
-                  <div>Winnipeg, MB R3B 1A5</div>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-primary flex-shrink-0" />
-                <div>
-                  <div className="font-medium text-foreground">(204) 555-GEMS</div>
-                  <div className="text-sm">Speak with our jewelry experts</div>
-                </div>
-              </div>
-              
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
                 <div>
                   <div className="font-medium text-foreground">info@trovesandcoves.ca</div>
+                  <div className="text-sm">Sacred crystal consultations & divine guidance</div>
                 </div>
               </div>
               
               <div className="flex items-start space-x-3">
                 <Clock className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                 <div>
-                  <div className="font-medium text-foreground">Hours</div>
-                  <div>Mon-Sat: 10AM-6PM</div>
-                  <div>Sun: By Appointment</div>
+                  <div className="font-medium text-foreground">Response Times</div>
+                  <div>Email inquiries: Within 24 hours</div>
+                  <div>Custom orders: 2-3 business days</div>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="font-medium text-foreground">Serving Canada</div>
+                  <div>Nationwide shipping from Winnipeg, MB</div>
+                  <div>Free shipping on orders over $75</div>
                 </div>
               </div>
             </div>
