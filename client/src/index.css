@@ -25,14 +25,17 @@
   --lepidolite: 290 30% 80%;
   --clear-quartz: 0 0% 95%;
   
-  /* Authentic Troves & Coves palette from images */
+  /* Authentic Troves & Coves palette from signage and skull art */
+  --troves-turquoise: 180 90% 45%;     /* Turquoise from "Troves" text */
+  --coves-gold: 43 90% 55%;            /* Gold/yellow from "Coves" cursive */
+  --skull-turquoise: 174 85% 50%;      /* Vibrant turquoise from skull */
+  --decorative-gold: 43 95% 68%;       /* Gold from ornate frame */
+  --natural-wood: 35 30% 75%;          /* Wood background tones */
+  --crystal-white: 0 0% 96%;           /* White crystal accents */
   --obsidian-black: 240 8% 12%;
   --carnelian-orange: 25 85% 60%;
   --carnelian-light: 25 75% 75%;
   --raw-crystal: 200 8% 88%;
-  --wire-gold: 43 95% 68%;
-  --turquoise-deep: 180 90% 45%;
-  --turquoise-pale: 180 60% 80%;
   --leather-black: 0 0% 8%;
   --pearl-cream: 45 30% 94%;
   
