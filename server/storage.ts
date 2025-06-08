@@ -88,120 +88,140 @@ export class MemStorage implements IStorage {
 
   private seedData() {
     // Seed categories
-    const engagementCategory: Category = {
+    const crystalNecklacesCategory: Category = {
       id: this.currentCategoryId++,
-      name: "Engagement Rings",
-      slug: "engagement",
-      description: "Symbols of forever, crafted to perfection",
-      imageUrl: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+      name: "Crystal Necklaces",
+      slug: "crystal-necklaces", 
+      description: "Handcrafted crystal necklaces for healing and beauty",
+      imageUrl: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
     };
     
-    const heritageCategory: Category = {
+    const healingCrystalsCategory: Category = {
       id: this.currentCategoryId++,
-      name: "Heritage Collection",
-      slug: "heritage",
-      description: "Timeless designs with modern elegance",
-      imageUrl: "https://images.unsplash.com/photo-1630019852942-f89202989a59?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+      name: "Healing Crystals",
+      slug: "healing-crystals",
+      description: "Powerful crystals for wellness and spiritual growth",
+      imageUrl: "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
     };
 
-    const contemporaryCategory: Category = {
+    const wirewrappedCategory: Category = {
       id: this.currentCategoryId++,
-      name: "Contemporary Collection",
-      slug: "contemporary",
-      description: "Bold designs for the modern spirit",
-      imageUrl: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+      name: "Wire Wrapped",
+      slug: "wire-wrapped",
+      description: "Unique wire-wrapped crystal pendants and jewelry",
+      imageUrl: "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
     };
 
-    this.categories.set(engagementCategory.id, engagementCategory);
-    this.categories.set(heritageCategory.id, heritageCategory);
-    this.categories.set(contemporaryCategory.id, contemporaryCategory);
+    this.categories.set(crystalNecklacesCategory.id, crystalNecklacesCategory);
+    this.categories.set(healingCrystalsCategory.id, healingCrystalsCategory);
+    this.categories.set(wirewrappedCategory.id, wirewrappedCategory);
 
-    // Seed products
-    const solitaireRing: Product = {
+    // Seed products based on actual Troves and Coves Etsy shop
+    const lepidoliteNecklace: Product = {
       id: this.currentProductId++,
-      name: "Classic Solitaire Ring",
-      description: "A timeless 1.5ct diamond solitaire set in 18K white gold. This classic design features a brilliant round cut diamond held in a traditional six-prong setting, allowing maximum light to showcase the diamond's exceptional brilliance.",
-      price: "8750.00",
-      categoryId: engagementCategory.id,
-      imageUrl: "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+      name: "Lepidolite 14k Gold Filled Necklace",
+      description: "Lepidolite 14k Gold Filled Necklace with Curb Chain and Upcycled Flower Pendant. Wire wrapped for peace, nurturing, and mood stabilizing properties. Handcrafted crystal jewelry from Winnipeg.",
+      price: "68.64",
+      categoryId: crystalNecklacesCategory.id,
+      imageUrl: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
       imageUrls: [
-        "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
         "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
       ],
-      sku: "TC-SR-001",
-      stockQuantity: 5,
-      weight: "4.2",
-      materials: ["18K White Gold", "Diamond"],
-      gemstones: ["1.5ct Round Brilliant Diamond"],
+      sku: "TC-LEP-001",
+      stockQuantity: 3,
+      weight: "15.0",
+      materials: ["14K Gold Filled", "Lepidolite Crystal", "Wire Wrap"],
+      gemstones: ["Lepidolite"],
       isActive: true,
       isFeatured: true,
       createdAt: new Date(),
     };
 
-    const pearlEarrings: Product = {
+    const turquoiseBeadedNecklace: Product = {
       id: this.currentProductId++,
-      name: "Pearl Drop Earrings",
-      description: "Elegant Akoya pearl drop earrings set in 14K yellow gold. These sophisticated earrings feature lustrous 8mm Akoya pearls suspended from delicate gold settings, perfect for both formal occasions and everyday elegance.",
-      price: "2450.00",
-      categoryId: heritageCategory.id,
-      imageUrl: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+      name: "Unique Turquoise Beaded Necklace",
+      description: "Unique Turquoise Beaded Necklace with Pearl Strung, Lapis Lazuli, Pink Pearl, Hematite, and Leaf details. Handmade, Gold Filled, one of a kind crystal healing jewelry.",
+      price: "53.39",
+      categoryId: crystalNecklacesCategory.id,
+      imageUrl: "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
       imageUrls: [
-        "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
+        "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
       ],
-      sku: "TC-PE-001",
-      stockQuantity: 8,
-      weight: "6.8",
-      materials: ["14K Yellow Gold", "Akoya Pearls"],
-      gemstones: ["8mm Akoya Pearls"],
+      sku: "TC-TUR-001",
+      stockQuantity: 1,
+      weight: "25.0",
+      materials: ["Gold Filled", "Turquoise", "Pearl", "Lapis Lazuli", "Hematite"],
+      gemstones: ["Turquoise", "Lapis Lazuli", "Pearl", "Hematite"],
       isActive: true,
       isFeatured: true,
       createdAt: new Date(),
     };
 
-    const sapphirePendant: Product = {
+    const citrineNecklace: Product = {
       id: this.currentProductId++,
-      name: "Sapphire Pendant Necklace",
-      description: "Stunning blue sapphire pendant surrounded by a halo of brilliant diamonds. The 2ct Ceylon sapphire is complemented by 0.5ct of diamonds in 18K white gold, creating a piece of extraordinary beauty and elegance.",
-      price: "5200.00",
-      categoryId: heritageCategory.id,
+      name: "Pretty Handwrapped Citrine Crystal Necklace",
+      description: "Pretty Handwrapped Citrine, Pearl, Hematite Crystal Necklace. Perfect gift for her - Mother's Day, girlfriend, mom, sister, birthday. Handcrafted healing crystal jewelry.",
+      price: "152.53",
+      categoryId: healingCrystalsCategory.id,
       imageUrl: "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
       imageUrls: [
         "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
       ],
-      sku: "TC-SP-001",
-      stockQuantity: 3,
-      weight: "8.5",
-      materials: ["18K White Gold", "Diamonds"],
-      gemstones: ["2ct Ceylon Sapphire", "0.5ct Diamonds"],
-      isActive: true,
-      isFeatured: true,
-      createdAt: new Date(),
-    };
-
-    const heritageTimepiece: Product = {
-      id: this.currentProductId++,
-      name: "Heritage Timepiece",
-      description: "Exquisite Swiss movement watch crafted in 18K gold with a classic design that transcends time. Features automatic movement, sapphire crystal, and water resistance to 50m. A perfect blend of traditional craftsmanship and modern precision.",
-      price: "12900.00",
-      categoryId: contemporaryCategory.id,
-      imageUrl: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
-      imageUrls: [
-        "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
-      ],
-      sku: "TC-HT-001",
+      sku: "TC-CIT-001",
       stockQuantity: 2,
-      weight: "120.0",
-      materials: ["18K Yellow Gold", "Sapphire Crystal", "Leather"],
-      gemstones: [],
+      weight: "20.0",
+      materials: ["Wire Wrap", "Citrine", "Pearl", "Hematite"],
+      gemstones: ["Citrine", "Pearl", "Hematite"],
       isActive: true,
       isFeatured: true,
       createdAt: new Date(),
     };
 
-    this.products.set(solitaireRing.id, solitaireRing);
-    this.products.set(pearlEarrings.id, pearlEarrings);
-    this.products.set(sapphirePendant.id, sapphirePendant);
-    this.products.set(heritageTimepiece.id, heritageTimepiece);
+    const lapisLazuliPendant: Product = {
+      id: this.currentProductId++,
+      name: "Lapis Lazuli Wire Wrapped Pendant",
+      description: "Lapis Lazuli Wire wrapped pendant on brown leather cord. Spiritual jewelry for psychic abilities, protection, and royal energy. Handcrafted talisman and amulet from Winnipeg.",
+      price: "30.51",
+      categoryId: wirewrappedCategory.id,
+      imageUrl: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+      imageUrls: [
+        "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
+      ],
+      sku: "TC-LAP-001",
+      stockQuantity: 5,
+      weight: "12.0",
+      materials: ["Wire Wrap", "Lapis Lazuli", "Brown Leather"],
+      gemstones: ["Lapis Lazuli"],
+      isActive: true,
+      isFeatured: true,
+      createdAt: new Date(),
+    };
+
+    const roseQuartzPendant: Product = {
+      id: this.currentProductId++,
+      name: "Rose Quartz Wire Wrapped Pendant",
+      description: "Medium Rose Quartz pendant, wire wrapped on brown leather cord. For love, relationships, self love, compassion, empathy, grace, confidence, and healing. Handcrafted crystal jewelry.",
+      price: "30.51",
+      categoryId: wirewrappedCategory.id,
+      imageUrl: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+      imageUrls: [
+        "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
+      ],
+      sku: "TC-ROS-001",
+      stockQuantity: 4,
+      weight: "10.0",
+      materials: ["Wire Wrap", "Rose Quartz", "Brown Leather"],
+      gemstones: ["Rose Quartz"],
+      isActive: true,
+      isFeatured: false,
+      createdAt: new Date(),
+    };
+
+    this.products.set(lepidoliteNecklace.id, lepidoliteNecklace);
+    this.products.set(turquoiseBeadedNecklace.id, turquoiseBeadedNecklace);
+    this.products.set(citrineNecklace.id, citrineNecklace);
+    this.products.set(lapisLazuliPendant.id, lapisLazuliPendant);
+    this.products.set(roseQuartzPendant.id, roseQuartzPendant);
   }
 
   // User operations
@@ -215,7 +235,15 @@ export class MemStorage implements IStorage {
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = this.currentUserId++;
-    const user: User = { ...insertUser, id };
+    const user: User = { 
+      ...insertUser, 
+      id,
+      firstName: insertUser.firstName || null,
+      lastName: insertUser.lastName || null,
+      phone: insertUser.phone || null,
+      stripeCustomerId: null,
+      stripeSubscriptionId: null
+    };
     this.users.set(id, user);
     return user;
   }
@@ -227,7 +255,7 @@ export class MemStorage implements IStorage {
     const updatedUser = { 
       ...user, 
       stripeCustomerId: customerId,
-      stripeSubscriptionId: subscriptionId 
+      stripeSubscriptionId: subscriptionId || null
     };
     this.users.set(userId, updatedUser);
     return updatedUser;

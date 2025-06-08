@@ -14,10 +14,10 @@ export default function Header() {
   const { itemCount, toggleCart } = useCart();
 
   const navigation = [
-    { name: "Collections", href: "/products" },
-    { name: "Engagement", href: "/products/engagement" },
-    { name: "Heritage", href: "/products/heritage" },
-    { name: "Contemporary", href: "/products/contemporary" },
+    { name: "All Crystals", href: "/products" },
+    { name: "Crystal Necklaces", href: "/products/crystal-necklaces" },
+    { name: "Healing Crystals", href: "/products/healing-crystals" },
+    { name: "Wire Wrapped", href: "/products/wire-wrapped" },
     { name: "Contact", href: "/contact" },
   ];
 
