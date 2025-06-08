@@ -116,18 +116,41 @@ export default function Home() {
             </div>
           </div>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons with Enhanced UX */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/products">
-              <Button className="btn-organic text-lg px-8 py-4">
-                Discover Collection
-                <ArrowRight className="ml-2 h-5 w-5" />
+            <Link href="/products/crystal-necklaces">
+              <Button className="btn-organic text-lg px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300">
+                Shop Crystal Necklaces
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <Link href="/contact">
-              <Button variant="outline" className="glass-jewelry hover:card-crystal text-lg px-8 py-4 border-primary/20">
-                Book Crystal Reading
+            <Link href="/ai-assistant">
+              <Button variant="outline" className="glass-jewelry hover:card-crystal text-lg px-8 py-4 border-primary/20 shadow-md hover:shadow-lg transition-all duration-300">
+                Get Crystal Guidance
+                <Sparkles className="ml-2 h-4 w-4" />
               </Button>
+            </Link>
+          </div>
+
+          {/* Quick Navigation Pills */}
+          <div className="flex flex-wrap justify-center gap-3 mt-8 pt-8 border-t border-white/10">
+            <Link href="/products/healing-crystals">
+              <Badge className="pendant-style hover:scale-105 transition-transform cursor-pointer px-4 py-2">
+                <Heart className="h-3 w-3 mr-1" />
+                Healing Stones
+              </Badge>
+            </Link>
+            <Link href="/products/wire-wrapped">
+              <Badge className="pendant-style hover:scale-105 transition-transform cursor-pointer px-4 py-2">
+                <Crown className="h-3 w-3 mr-1" />
+                Wire Wrapped
+              </Badge>
+            </Link>
+            <Link href="/contact">
+              <Badge className="pendant-style hover:scale-105 transition-transform cursor-pointer px-4 py-2">
+                <MapPin className="h-3 w-3 mr-1" />
+                Visit Winnipeg
+              </Badge>
             </Link>
           </div>
         </div>

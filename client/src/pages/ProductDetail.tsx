@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useParams, useLocation } from "wouter";
+import { useParams, useLocation, Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,7 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/use-toast";
-import { Heart, ShoppingBag, Truck, Shield, Gem, Star, ArrowLeft, Minus, Plus } from "lucide-react";
+import { Heart, ShoppingBag, Truck, Shield, Gem, Star, ArrowLeft, Minus, Plus, Share2, ChevronRight } from "lucide-react";
 import type { ProductWithCategory } from "@shared/schema";
 
 export default function ProductDetail() {
@@ -101,27 +101,46 @@ export default function ProductDetail() {
 
   return (
     <div className="min-h-screen bg-warm-cream">
-      {/* Breadcrumb */}
-      <div className="bg-white border-b">
+      {/* Enhanced Breadcrumb with Quick Actions */}
+      <div className="bg-white border-b shadow-sm">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center space-x-2 text-sm">
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={() => setLocation('/products')}
-              className="text-gray-600 hover:text-navy p-0"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Products
-            </Button>
-            <span className="text-gray-400">/</span>
-            {product.category && (
-              <>
-                <span className="text-gray-600">{product.category.name}</span>
-                <span className="text-gray-400">/</span>
-              </>
-            )}
-            <span className="text-navy font-medium">{product.name}</span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3 text-sm">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setLocation('/products')}
+                className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 transition-all duration-200"
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Products
+              </Button>
+              <ChevronRight className="h-4 w-4 text-gray-400" />
+              {product.category && (
+                <>
+                  <Link 
+                    href={`/products/${product.category.slug}`}
+                    className="text-gray-600 hover:text-turquoise-600 transition-colors"
+                  >
+                    {product.category.name}
+                  </Link>
+                  <ChevronRight className="h-4 w-4 text-gray-400" />
+                </>
+              )}
+              <span className="text-gray-900 font-medium max-w-[300px] truncate" title={product.name}>
+                {product.name}
+              </span>
+            </div>
+            
+            {/* Quick Share Actions */}
+            <div className="hidden md:flex items-center space-x-2">
+              <Button variant="ghost" size="sm" className="text-gray-500 hover:text-turquoise-600">
+                <Heart className="h-4 w-4" />
+              </Button>
+              <Button variant="ghost" size="sm" className="text-gray-500 hover:text-turquoise-600">
+                <Share2 className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -401,6 +420,86 @@ export default function ProductDetail() {
           </Tabs>
         </div>
       </div>
+
+      {/* Related Products Section */}
+      <RelatedProducts categoryId={product.categoryId} currentProductId={product.id} />
     </div>
+  );
+}
+
+// Related Products Component for Enhanced UX Flow
+function RelatedProducts({ categoryId, currentProductId }: { categoryId: number | null, currentProductId: number }) {
+  const { data: relatedProducts, isLoading } = useQuery<ProductWithCategory[]>({
+    queryKey: ['/api/products', { category: categoryId, limit: 4 }],
+    enabled: !!categoryId,
+  });
+
+  const filteredProducts = relatedProducts?.filter(p => p.id !== currentProductId).slice(0, 3);
+
+  if (isLoading || !filteredProducts || filteredProducts.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className="py-16 bg-gradient-to-b from-stone-50 to-white">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <Badge className="glass-jewelry mb-4 px-4 py-2 highlight-amethyst">
+            <Star className="h-3 w-3 mr-2" />
+            You Might Also Love
+          </Badge>
+          <h2 className="text-display text-3xl md:text-4xl mb-4 layered-styling">
+            <span className="text-crystal">Similar</span> Sacred Pieces
+          </h2>
+          <p className="text-body text-foreground-muted max-w-xl mx-auto">
+            Discover more crystalline treasures from our curated collection
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {filteredProducts.map((product) => (
+            <Link key={product.id} href={`/products/${product.id}`}>
+              <Card className="mystical-card hover:gold-glow transition-all duration-500 group cursor-pointer h-full skull-accent">
+                <CardContent className="p-6">
+                  <div className="aspect-square mb-4 rounded-lg overflow-hidden raw-crystal-texture">
+                    <img
+                      src={product.imageUrl || '/api/placeholder/300/300'}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <h3 className="text-display text-lg mb-2 group-hover:text-rose-gold transition-colors">
+                    {product.name}
+                  </h3>
+                  <p className="text-body text-foreground-muted text-sm mb-3 line-clamp-2">
+                    {product.description}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-display text-lg font-semibold text-gold-500">
+                      ${product.price}
+                    </span>
+                    {product.category && (
+                      <Badge className="highlight-rose-quartz text-xs">
+                        {product.category.name}
+                      </Badge>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
+
+        {/* Enhanced Navigation CTA */}
+        <div className="text-center mt-12">
+          <Link href="/products">
+            <Button className="btn-organic px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300">
+              Explore Full Collection
+              <ChevronRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
