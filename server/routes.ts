@@ -2,6 +2,8 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import Stripe from "stripe";
 import { storage } from "./storage";
+import { imagePreservationService } from "./services/image-preservation";
+import express from "express";
 import { insertCartItemSchema, insertOrderSchema, insertOrderItemSchema, insertContactSubmissionSchema } from "@shared/schema";
 import { z } from "zod";
 import { getContainerManager, initializeContainers } from "./containers/container-manager";
@@ -459,6 +461,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+
+  // Image Preservation API
+  app.post('/api/preserve-image', async (req, res) => {
+    try {
+      const { imageUrl } = req.body;
+      
+      if (!imageUrl) {
+        return res.status(400).json({ message: 'Image URL is required' });
+      }
+
+      const result = await imagePreservationService.preserveImage(imageUrl);
+      res.json(result);
+    } catch (error: any) {
+      console.error('Image preservation failed:', error);
+      res.status(500).json({ message: `Failed to preserve image: ${error.message}` });
+    }
+  });
+
+  // Batch preserve multiple images
+  app.post('/api/preserve-images/batch', async (req, res) => {
+    try {
+      const { imageUrls } = req.body;
+      
+      if (!Array.isArray(imageUrls)) {
+        return res.status(400).json({ message: 'imageUrls must be an array' });
+      }
+
+      const results = await imagePreservationService.preserveImages(imageUrls);
+      res.json({ results });
+    } catch (error: any) {
+      console.error('Batch image preservation failed:', error);
+      res.status(500).json({ message: `Failed to preserve images: ${error.message}` });
+    }
+  });
+
+  // Serve preserved images from local storage
+  app.use('/uploads/preserved-images', express.static('./uploads/preserved-images'));
 
   // Admin Dashboard Stats
   app.get('/api/admin/stats', async (req, res) => {

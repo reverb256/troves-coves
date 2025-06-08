@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events';
+import { imagePreservationService } from './services/image-preservation';
 import { privacyGuard, canadianCompliance } from './security/data-privacy';
 
 interface APIEndpoint {
@@ -314,12 +315,22 @@ class AIOrchestrator extends EventEmitter {
       const encodedPrompt = encodeURIComponent(enhancedPrompt);
       
       // Use Pollinations' direct image generation with watermark removal parameters
-      const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&seed=${Date.now()}&nologo=true&enhance=true&private=true&model=flux`;
+      const ephemeralImageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&seed=${Date.now()}&nologo=true&enhance=true&private=true&model=flux`;
       
       // Verify image accessibility
-      const response = await fetch(imageUrl, { method: 'HEAD' });
+      const response = await fetch(ephemeralImageUrl, { method: 'HEAD' });
       if (!response.ok) {
         throw new Error(`Image generation failed: ${response.status}`);
+      }
+
+      // Preserve the ephemeral image to permanent hosting
+      let permanentImageUrl = ephemeralImageUrl;
+      try {
+        const preservationResult = await imagePreservationService.preserveImage(ephemeralImageUrl);
+        permanentImageUrl = preservationResult.preservedUrl;
+        console.log(`Image preserved: ${ephemeralImageUrl} -> ${permanentImageUrl}`);
+      } catch (preservationError: any) {
+        console.warn(`Failed to preserve image, using original: ${preservationError.message}`);
       }
 
       return {
@@ -328,7 +339,7 @@ class AIOrchestrator extends EventEmitter {
         provider: 'Pollinations Image',
         tokensUsed: 50,
         timestamp: new Date(),
-        mediaUrl: imageUrl
+        mediaUrl: permanentImageUrl
       };
     } catch (error: any) {
       throw new Error(`Pollinations image request failed: ${error.message}`);
