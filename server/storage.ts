@@ -94,7 +94,7 @@ export class MemStorage implements IStorage {
       name: "Crystal Necklaces",
       slug: "crystal-necklaces",
       description: categoryDescriptions.crystalNecklaces,
-      imageUrl: crystalJewelryImages.mixed[0]
+      imageUrl: crystalJewelryImages.lepidolite[0]
     };
     
     const healingCrystalsCategory: Category = {
@@ -102,15 +102,15 @@ export class MemStorage implements IStorage {
       name: "Healing Crystals",
       slug: "healing-crystals",
       description: categoryDescriptions.healingCrystals,
-      imageUrl: crystalJewelryImages.mixed[1]
+      imageUrl: crystalJewelryImages.turquoise[0]
     };
 
     const wirewrappedCategory: Category = {
       id: this.currentCategoryId++,
       name: "Wire Wrapped Jewelry",
       slug: "wire-wrapped",
-      description: categoryDescriptions.wireWrapped,
-      imageUrl: crystalJewelryImages.mixed[2]
+      description: categoryDescriptions.wirewrapped,
+      imageUrl: crystalJewelryImages.citrine[0]
     };
 
     this.categories.set(crystalNecklacesCategory.id, crystalNecklacesCategory);
@@ -162,8 +162,8 @@ export class MemStorage implements IStorage {
       description: "Divine twin talisman set channeling abundant manifestation energy! The sacred choker embraces your throat chakra with luminous pink pearl and protective hematite. The ceremonial companion features wire-wrapped citrine sunstone centerpiece on blessed pink pearl and grounding hematite with gold filled clasp. Perfect for divine feminine awakening, mother goddess honoring, soul sister gifts, and sacred celebration rituals.",
       price: "200.00",
       categoryId: healingCrystalsCategory.id,
-      imageUrl: crystalJewelryImages.citrineSet[0],
-      imageUrls: crystalJewelryImages.citrineSet,
+      imageUrl: crystalJewelryImages.citrine[0],
+      imageUrls: crystalJewelryImages.citrine,
       sku: "TC-CIT-SET-001",
       stockQuantity: 1,
       weight: "45g",
@@ -181,8 +181,8 @@ export class MemStorage implements IStorage {
       description: "Sacred Lapis Lazuli talisman on blessed brown leather cord. The mystical blue essence channels ancient royal energies and divine psychic abilities. Wire wrapped through sacred ceremonies with protection, spiritual guidance, and amulet properties. 15 inches with blessed closure.",
       price: "40.00",
       categoryId: wirewrappedCategory.id,
-      imageUrl: crystalJewelryImages.lapis[0],
-      imageUrls: crystalJewelryImages.lapis,
+      imageUrl: crystalJewelryImages.lapisLazuli[0],
+      imageUrls: crystalJewelryImages.lapisLazuli,
       sku: "TC-LAP-001",
       stockQuantity: 1,
       weight: "20g",
@@ -207,6 +207,7 @@ export class MemStorage implements IStorage {
       weight: "22g",
       materials: ["Leather", "Stone"],
       gemstones: ["Rose Quartz"],
+      careInstructions: "Handle with gentle care. Keep away from harsh chemicals. Cleanse with moonlight.",
       isActive: true,
       isFeatured: false,
       createdAt: new Date(),
@@ -218,8 +219,8 @@ export class MemStorage implements IStorage {
       description: "Handmade Lapis Lazuli necklace on brown leather cord designed for men. The striking blue hues are steeped in rich metaphysical properties cherished for centuries. Psychic abilities, protection, royal, Egypt connection. Hand wrapped, wire wrapped. 26 inches in length.",
       price: "40.00",
       categoryId: wirewrappedCategory.id,
-      imageUrl: crystalJewelryImages.lapis[1],
-      imageUrls: crystalJewelryImages.lapis,
+      imageUrl: crystalJewelryImages.lapisLeather[0],
+      imageUrls: crystalJewelryImages.lapisLeather,
       sku: "TC-LAP-MEN-001",
       stockQuantity: 1,
       weight: "25g",
