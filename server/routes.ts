@@ -2,14 +2,8 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import Stripe from "stripe";
 import { storage } from "./storage";
-import { imagePreservationService } from "./services/image-preservation";
-import express from "express";
 import { insertCartItemSchema, insertOrderSchema, insertOrderItemSchema, insertContactSubmissionSchema } from "@shared/schema";
 import { getEtsyLinkForProduct } from "./etsy-links";
-import { z } from "zod";
-import { getContainerManager, initializeContainers } from "./containers/container-manager";
-import { createCloudflareOrchestrator } from "./cloudflare-orchestrator";
-import path from "path";
 
 // Initialize Stripe
 const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY, {
