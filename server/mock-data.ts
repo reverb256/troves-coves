@@ -21,9 +21,16 @@ export const crystalJewelryImages = {
     "/images/jewelry/authentic-rose-quartz-1.png"
   ],
   lapisLazuli: [
-    "/images/jewelry/lapis-leather-pendant-1.png",
     "/images/jewelry/lapis-black-cord-1.png",
-    "/images/jewelry/lapis-worn-detail-1.png"
+    "/images/jewelry/authentic-lapis-pendant-1.png"
+  ],
+  lapisMixedStones: [
+    "/images/jewelry/lapis-mixed-stones-full-length-1.png",
+    "/images/jewelry/lapis-mixed-stones-flower-display-1.png",
+    "/images/jewelry/lapis-mixed-stones-frame-display-1.png",
+    "/images/jewelry/lapis-mixed-stones-frame-side-1.png",
+    "/images/jewelry/lapis-mixed-stones-pendant-detail-1.png",
+    "/images/jewelry/lapis-mixed-stones-pendant-close-1.png"
   ],
   roseQuartz: [
     "/images/jewelry/rose-quartz-brown-leather-1.png",
