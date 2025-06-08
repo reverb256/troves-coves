@@ -37,8 +37,13 @@ export const crystalJewelryImages = {
   ],
   // Additional product variants - each with completely unique authentic images
   lapisOnyx: [
-    "/images/jewelry/lapis-beaded-necklace-1.png",
-    "/images/jewelry/lapis-simple-pendant-1.png"
+    "/images/jewelry/lapis-turquoise-full-layout-1.png",
+    "/images/jewelry/lapis-turquoise-worn-1.png",
+    "/images/jewelry/lapis-turquoise-frame-display-1.png",
+    "/images/jewelry/lapis-turquoise-flower-display-1.png",
+    "/images/jewelry/lapis-turquoise-clasp-detail-1.png",
+    "/images/jewelry/lapis-turquoise-clasp-close-1.png",
+    "/images/jewelry/lapis-turquoise-full-length-1.png"
   ],
   lapisHematite: [
     "/images/jewelry/lapis-simple-pendant-1.png"
