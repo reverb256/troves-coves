@@ -1,14 +1,13 @@
 // Authentic crystal jewelry images from uploaded assets - each product has unique images
 export const crystalJewelryImages = {
   lepidolite: [
-    "/images/jewelry/lepidolite-necklace-1.png",
-    "/images/jewelry/lepidolite-necklace-2.png"
+    "/images/jewelry/lepidolite-necklace-1.png"
   ],
   citrine: [
-    "/images/jewelry/citrine-necklace-1.png"
+    "/images/jewelry/citrine-necklace-set-1.png"
   ],
   turquoise: [
-    "/images/jewelry/turquoise-necklace-1.png"
+    "/images/jewelry/gold-chain-crystal-1.png"
   ],
   lapisLazuli: [
     "/images/jewelry/lapis-lazuli-pendant-1.png"
@@ -17,13 +16,14 @@ export const crystalJewelryImages = {
     "/images/jewelry/rose-quartz-pendant-1.png"
   ],
   goldEnamel: [
-    "/images/jewelry/gold-enamel-pendant-1.png"
+    "/images/jewelry/upcycled-enamel-pendant-1.png"
   ],
+  // Additional product variants for future expansion
   lapisOnyx: [
     "/images/jewelry/lapis-lazuli-pendant-1.png"
   ],
   lapisHematite: [
-    "/images/jewelry/turquoise-necklace-1.png"
+    "/images/jewelry/gold-chain-crystal-1.png"
   ],
   lapisLeather: [
     "/images/jewelry/lapis-lazuli-pendant-1.png"
@@ -32,10 +32,10 @@ export const crystalJewelryImages = {
     "/images/jewelry/rose-quartz-pendant-1.png"
   ],
   turquoiseBeaded: [
-    "/images/jewelry/turquoise-necklace-1.png"
+    "/images/jewelry/gold-chain-crystal-1.png"
   ],
   upcycledEnamel: [
-    "/images/jewelry/gold-enamel-pendant-1.png"
+    "/images/jewelry/upcycled-enamel-pendant-1.png"
   ]
 };
 
