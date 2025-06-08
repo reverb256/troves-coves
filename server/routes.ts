@@ -369,19 +369,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { intention, priceRange, style, crystalType } = req.body;
       
-      // Delegate to AI orchestration system
-      const aiRequest = {
-        prompt: `Generate crystal jewelry recommendations based on: intention="${intention}", priceRange="${priceRange}", style="${style}", crystalType="${crystalType}". 
-                 Return JSON array with: id, name, description, price, crystalProperties, intention, confidence.`,
-        type: 'text' as const,
-        priority: 'medium' as const,
-        maxTokens: 500
-      };
-
-      const response = await aiOrchestrator.processRequest(aiRequest);
+      // Delegate to containerized intelligence system
+      const intelligence = containerManager.getIntelligenceContainer();
+      const response = await intelligence.processPersonalization({ intention, priceRange, style, crystalType }, `personalized recommendations`);
       
       try {
-        const recommendations = JSON.parse(response.content);
+        const recommendations = typeof response === 'string' ? JSON.parse(response) : response;
         res.json(recommendations);
       } catch (parseError) {
         // Get actual products and filter
@@ -412,26 +405,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { location, orderValue } = req.query;
       
-      const shippingInfo = await ragAgent.getShippingInfo(location as string);
-      
-      // Calculate costs if order value provided
-      if (orderValue) {
-        const value = parseFloat(orderValue as string);
-        let cost = 0;
-        
-        if (shippingInfo.type === 'local' && value >= 75) {
-          cost = 0;
-        } else if (shippingInfo.type === 'local') {
-          cost = 10;
-        } else if (shippingInfo.type === 'national') {
-          cost = Math.max(15, value * 0.08);
-        } else {
-          cost = Math.max(25, value * 0.12);
-        }
-        
-        shippingInfo.calculatedCost = cost.toFixed(2);
-        shippingInfo.freeShippingEligible = cost === 0;
-      }
+      const intelligence = containerManager.getIntelligenceContainer();
+      const shippingInfo = await intelligence.calculateShippingInfo(location as string, parseFloat(orderValue as string) || 0);
       
       res.json(shippingInfo);
     } catch (error: any) {
@@ -442,7 +417,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // AI System Status endpoint
   app.get('/api/ai/status', async (req, res) => {
     try {
-      const status = await aiOrchestrator.getSystemStatus();
+      const status = await containerManager.getSystemStatus();
       res.json(status);
     } catch (error: any) {
       res.status(500).json({ message: 'Error getting AI status: ' + error.message });
@@ -466,15 +441,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         priority
       };
 
-      const response = await aiOrchestrator.processRequest(aiRequest);
+      const intelligence = containerManager.getIntelligenceContainer();
+      const response = await intelligence.handleCustomerConsultation(prompt, 'general chat', getSessionId(req));
       
       res.json({
-        content: response.content,
-        model: response.model,
-        provider: response.provider,
-        tokensUsed: response.tokensUsed,
-        timestamp: response.timestamp,
-        mediaUrl: response.mediaUrl
+        content: response.content || response,
+        timestamp: new Date().toISOString(),
+        agent: 'intelligence-container'
       });
     } catch (error: any) {
       console.error('AI chat error:', error);
