@@ -44,7 +44,18 @@ export default {
         border: "var(--border)",
         input: "var(--input)",
         ring: "var(--ring)",
-        // Troves & Coves brand colors from skull artwork
+        // Troves & Coves high-contrast brand colors
+        "troves-turquoise": "hsl(var(--troves-turquoise))",
+        "coves-blue": "hsl(var(--coves-cursive-blue))",
+        "wood-grain": "hsl(var(--wood-grain))",
+        "skull-turquoise": "hsl(var(--skull-turquoise))",
+        "ornate-gold": "hsl(var(--ornate-frame-gold))",
+        "obsidian-black": "hsl(var(--obsidian-black))",
+        "leather-black": "hsl(var(--leather-black))",
+        "readable": "hsl(25 30% 8%)",
+        "readable-muted": "hsl(25 25% 20%)",
+        "max-contrast": "hsl(0 0% 0%)",
+        // Enhanced jewelry colors
         turquoise: {
           50: '#f0fdfa',
           100: '#ccfbf1',

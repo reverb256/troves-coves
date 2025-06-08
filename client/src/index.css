@@ -26,18 +26,18 @@
   --clear-quartz: 0 0% 95%;
   
   /* UPDATED AUTHENTIC PALETTE FROM WOODEN SIGN & SKULL ARTWORK - High Contrast */
-  --troves-turquoise: 174 75% 35%;     /* Deeper turquoise for better contrast */
-  --coves-cursive-blue: 200 65% 35%;   /* Deeper blue for better readability */
-  --wood-grain: 35 40% 65%;            /* Adjusted wood tone for contrast */
-  --skull-turquoise: 174 85% 40%;      /* More readable turquoise from skull artwork */
-  --ornate-frame-gold: 43 90% 45%;     /* Deeper gold for better contrast */
-  --crystal-accents: 240 15% 97%;      /* Higher contrast crystal highlights */
-  --obsidian-black: 240 8% 12%;
-  --carnelian-orange: 25 85% 60%;
-  --carnelian-light: 25 75% 75%;
-  --raw-crystal: 200 8% 88%;
-  --leather-black: 0 0% 8%;
-  --pearl-cream: 45 30% 94%;
+  --troves-turquoise: 174 75% 25%;     /* Much deeper turquoise for excellent contrast */
+  --coves-cursive-blue: 200 65% 25%;   /* Much deeper blue for excellent readability */
+  --wood-grain: 35 40% 55%;            /* Darker wood tone for better contrast */
+  --skull-turquoise: 174 85% 30%;      /* Darker turquoise from skull artwork */
+  --ornate-frame-gold: 43 90% 35%;     /* Much deeper gold for excellent contrast */
+  --crystal-accents: 240 15% 98%;      /* Maximum contrast crystal highlights */
+  --obsidian-black: 240 8% 8%;         /* True dark for maximum contrast */
+  --carnelian-orange: 25 85% 50%;
+  --carnelian-light: 25 75% 65%;
+  --raw-crystal: 200 8% 90%;
+  --leather-black: 0 0% 5%;            /* Near black for maximum contrast */
+  --pearl-cream: 45 30% 96%;
   
   /* Natural textures */
   --stone-warm: 30 15% 92%;
@@ -47,34 +47,34 @@
   --earth-brown: 25 30% 35%;
   --pearl-white: 45 25% 96%;
   
-  /* Base colors - Enhanced contrast */
+  /* Base colors - Maximum contrast for accessibility */
   --background: 45 25% 99%;
-  --background-secondary: 30 20% 97%;
-  --background-tertiary: 200 10% 96%;
+  --background-secondary: 30 20% 98%;
+  --background-tertiary: 200 10% 97%;
   
   /* Mystical design elements - Improved visibility */
-  --skull-overlay: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="skull" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="30" cy="25" r="8" fill="none" stroke="hsl(174, 85%, 35%)" stroke-width="0.8" opacity="0.15"/><circle cx="70" cy="25" r="8" fill="none" stroke="hsl(174, 85%, 35%)" stroke-width="0.8" opacity="0.15"/><path d="M45 35 Q50 40 55 35" fill="none" stroke="hsl(174, 85%, 35%)" stroke-width="0.8" opacity="0.15"/><rect x="45" y="50" width="10" height="8" fill="none" stroke="hsl(43, 95%, 45%)" stroke-width="0.8" opacity="0.12"/></pattern></defs><rect width="100" height="100" fill="url(%23skull)"/></svg>');
-  --foreground: 25 30% 5%;
-  --foreground-muted: 25 25% 20%;
+  --skull-overlay: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="skull" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="30" cy="25" r="8" fill="none" stroke="hsl(174, 85%, 25%)" stroke-width="0.8" opacity="0.2"/><circle cx="70" cy="25" r="8" fill="none" stroke="hsl(174, 85%, 25%)" stroke-width="0.8" opacity="0.2"/><path d="M45 35 Q50 40 55 35" fill="none" stroke="hsl(174, 85%, 25%)" stroke-width="0.8" opacity="0.2"/><rect x="45" y="50" width="10" height="8" fill="none" stroke="hsl(43, 95%, 35%)" stroke-width="0.8" opacity="0.18"/></pattern></defs><rect width="100" height="100" fill="url(%23skull)"/></svg>');
+  --foreground: 25 30% 3%;
+  --foreground-muted: 25 25% 15%;
   
-  /* UI colors built from jewelry palette - Enhanced contrast */
+  /* UI colors built from jewelry palette - Maximum contrast */
   --card: 45 25% 99%;
-  --card-foreground: 25 30% 5%;
+  --card-foreground: 25 30% 3%;
   --popover: 45 25% 99%;
-  --popover-foreground: 25 30% 5%;
-  --primary: 14 85% 55%;
+  --popover-foreground: 25 30% 3%;
+  --primary: 14 85% 45%;
   --primary-foreground: 45 25% 99%;
-  --secondary: 200 12% 82%;
-  --secondary-foreground: 25 30% 10%;
-  --muted: 200 10% 92%;
-  --muted-foreground: 25 25% 15%;
-  --accent: 280 65% 55%;
+  --secondary: 200 12% 75%;
+  --secondary-foreground: 25 30% 8%;
+  --muted: 200 10% 94%;
+  --muted-foreground: 25 25% 12%;
+  --accent: 280 65% 45%;
   --accent-foreground: 45 25% 99%;
-  --destructive: 0 80% 50%;
+  --destructive: 0 80% 45%;
   --destructive-foreground: 45 25% 99%;
-  --border: 200 15% 80%;
-  --input: 200 10% 90%;
-  --ring: 14 85% 55%;
+  --border: 200 15% 75%;
+  --input: 200 10% 92%;
+  --ring: 14 85% 45%;
   --radius: 8px;
   
   /* Enhanced shadows with warmth */
@@ -166,7 +166,7 @@ h1, h2, h3, h4, h5, h6 {
   color: hsl(var(--foreground));
 }
 
-/* High contrast text overrides */
+/* COMPREHENSIVE HIGH CONTRAST TEXT UTILITIES */
 .text-foreground {
   color: hsl(var(--foreground)) !important;
 }
@@ -177,23 +177,62 @@ h1, h2, h3, h4, h5, h6 {
 
 .text-high-contrast {
   color: hsl(25 30% 2%) !important;
+  font-weight: 500;
 }
 
 .dark .text-high-contrast {
   color: hsl(45 25% 100%) !important;
 }
 
+/* Maximum contrast text for critical content */
+.text-max-contrast {
+  color: hsl(0 0% 0%) !important;
+  font-weight: 600;
+}
+
+.dark .text-max-contrast {
+  color: hsl(0 0% 100%) !important;
+}
+
+/* Enhanced contrast for different text roles */
+.text-readable {
+  color: hsl(25 30% 8%) !important;
+  font-weight: 400;
+}
+
+.text-readable-muted {
+  color: hsl(25 25% 20%) !important;
+  font-weight: 400;
+}
+
 /* Ensure minimum contrast for interactive elements */
 button, a, input, textarea, select {
   color: hsl(var(--foreground));
+  font-weight: 500;
 }
 
 button:hover, a:hover {
   color: hsl(var(--foreground));
 }
 
-p, span, div {
-  color: inherit;
+/* Default text colors with enhanced contrast */
+p, span, div, li {
+  color: hsl(25 30% 8%);
+}
+
+/* Headers with maximum contrast */
+h1, h2, h3, h4, h5, h6 {
+  color: hsl(25 30% 3%) !important;
+  font-weight: 600;
+}
+
+/* Link contrast improvements */
+a {
+  color: hsl(174 75% 25%) !important;
+}
+
+a:hover {
+  color: hsl(174 75% 20%) !important;
 }
 
 @layer components {
