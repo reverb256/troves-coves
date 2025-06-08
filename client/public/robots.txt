@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://troves-and-coves.com/sitemap.xml
+
+# Block unnecessary crawling
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /tmp/
