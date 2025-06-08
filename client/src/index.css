@@ -86,6 +86,105 @@
   --glow-turquoise: 174 85% 30%;
   --glow-gold: 43 90% 35%;
   --glow-skull: 174 75% 25%;
+  --glow-blue: 200 65% 25%;
+  
+  /* Harmonized gradient combinations */
+  --gradient-primary: linear-gradient(135deg, hsl(174, 75%, 20%) 0%, hsl(174, 85%, 25%) 50%, hsl(200, 65%, 20%) 100%);
+  --gradient-secondary: linear-gradient(135deg, hsl(200, 65%, 20%) 0%, hsl(174, 85%, 25%) 50%, hsl(174, 75%, 20%) 100%);
+  --gradient-accent: linear-gradient(135deg, hsl(174, 85%, 25%) 0%, hsl(43, 90%, 30%) 50%, hsl(200, 65%, 20%) 100%);
+  --gradient-mystical: linear-gradient(135deg, hsl(174, 75%, 20%) 0%, hsl(174, 85%, 25%) 25%, hsl(200, 65%, 20%) 75%, hsl(43, 90%, 30%) 100%);
+}
+
+/* Harmonized Three-Color Accent System */
+.accent-tri-gradient {
+  background: var(--gradient-mystical);
+}
+
+.accent-primary-gradient {
+  background: var(--gradient-primary);
+}
+
+.accent-secondary-gradient {
+  background: var(--gradient-secondary);
+}
+
+.accent-gold-gradient {
+  background: var(--gradient-accent);
+}
+
+/* Border accents using all three colors */
+.border-tri-gradient {
+  border-image: linear-gradient(135deg, hsl(174, 75%, 20%), hsl(174, 85%, 25%), hsl(200, 65%, 20%)) 1;
+}
+
+.border-tri-underline {
+  border-bottom: 2px solid;
+  border-image: linear-gradient(90deg, hsl(174, 75%, 20%), hsl(174, 85%, 25%), hsl(200, 65%, 20%)) 1;
+}
+
+/* Glow effects for all three colors */
+.glow-troves {
+  box-shadow: 0 0 20px hsl(var(--glow-turquoise) / 0.3);
+}
+
+.glow-skull {
+  box-shadow: 0 0 20px hsl(var(--glow-skull) / 0.3);
+}
+
+.glow-coves {
+  box-shadow: 0 0 20px hsl(var(--glow-blue) / 0.3);
+}
+
+.glow-tri-color {
+  box-shadow: 
+    0 0 10px hsl(var(--glow-turquoise) / 0.2),
+    0 0 20px hsl(var(--glow-skull) / 0.2),
+    0 0 30px hsl(var(--glow-blue) / 0.1);
+}
+
+/* Text color variants for all three */
+.text-troves-turquoise {
+  color: hsl(var(--troves-turquoise));
+}
+
+.text-coves-cursive-blue {
+  color: hsl(var(--coves-cursive-blue));
+}
+
+.text-skull-turquoise {
+  color: hsl(var(--skull-turquoise));
+}
+
+/* Background variants */
+.bg-troves-turquoise {
+  background-color: hsl(var(--troves-turquoise));
+}
+
+.bg-coves-cursive-blue {
+  background-color: hsl(var(--coves-cursive-blue));
+}
+
+.bg-skull-turquoise {
+  background-color: hsl(var(--skull-turquoise));
+}
+
+/* Accent dividers */
+.divider-tri-color {
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    hsl(var(--troves-turquoise)) 25%, 
+    hsl(var(--skull-turquoise)) 50%, 
+    hsl(var(--coves-cursive-blue)) 75%, 
+    transparent 100%);
+}
+
+.divider-simple {
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    hsl(var(--skull-turquoise)) 50%, 
+    transparent 100%);
 }
 
 /* High Contrast Text Utilities */
