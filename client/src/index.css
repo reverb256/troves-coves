@@ -14,7 +14,7 @@
   --sterling-silver: 200 10% 75%;
   --oxidized-silver: 210 15% 25%;
   
-  /* Crystal-inspired colors */
+  /* Crystal-inspired colors - enhanced from authentic jewelry */
   --amethyst: 280 60% 70%;
   --amethyst-light: 280 40% 90%;
   --rose-quartz: 340 50% 85%;
@@ -24,6 +24,17 @@
   --turquoise: 180 85% 65%;
   --lepidolite: 290 30% 80%;
   --clear-quartz: 0 0% 95%;
+  
+  /* Authentic Troves & Coves palette from images */
+  --obsidian-black: 240 8% 12%;
+  --carnelian-orange: 25 85% 60%;
+  --carnelian-light: 25 75% 75%;
+  --raw-crystal: 200 8% 88%;
+  --wire-gold: 43 95% 68%;
+  --turquoise-deep: 180 90% 45%;
+  --turquoise-pale: 180 60% 80%;
+  --leather-black: 0 0% 8%;
+  --pearl-cream: 45 30% 94%;
   
   /* Natural textures */
   --stone-warm: 30 15% 92%;
@@ -306,6 +317,131 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
   }
   
+  /* Wire-wrapped pendant styles */
+  .pendant-style {
+    position: relative;
+    border-radius: 50% 40% 60% 30%;
+    background: linear-gradient(135deg, 
+      hsl(var(--raw-crystal)), 
+      hsl(var(--clear-quartz)), 
+      hsl(var(--pearl-cream))
+    );
+    border: 2px solid hsl(var(--wire-gold));
+    padding: 1rem;
+  }
+  
+  .pendant-style::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 16px;
+    background: linear-gradient(135deg, 
+      hsl(var(--wire-gold)), 
+      hsl(var(--antique-gold))
+    );
+    border-radius: 2px;
+  }
+  
+  /* Layered necklace effect */
+  .layered-styling {
+    position: relative;
+  }
+  
+  .layered-styling::before,
+  .layered-styling::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    border-radius: 1px;
+  }
+  
+  .layered-styling::before {
+    background: linear-gradient(90deg, 
+      transparent, 
+      hsl(var(--wire-gold)), 
+      transparent
+    );
+    transform: translateY(-6px);
+  }
+  
+  .layered-styling::after {
+    background: linear-gradient(90deg, 
+      transparent, 
+      hsl(var(--leather-black)), 
+      transparent
+    );
+    transform: translateY(-10px);
+    opacity: 0.7;
+  }
+  
+  /* Beaded bracelet pattern */
+  .beaded-pattern {
+    background: repeating-linear-gradient(
+      90deg,
+      hsl(var(--turquoise-deep)) 0px,
+      hsl(var(--turquoise-deep)) 8px,
+      hsl(var(--obsidian-black)) 8px,
+      hsl(var(--obsidian-black)) 16px,
+      hsl(var(--carnelian-orange)) 16px,
+      hsl(var(--carnelian-orange)) 24px,
+      hsl(var(--pearl-cream)) 24px,
+      hsl(var(--pearl-cream)) 32px
+    );
+    height: 6px;
+    border-radius: 3px;
+    box-shadow: 
+      0 2px 4px hsl(var(--obsidian-black) / 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Raw crystal texture */
+  .raw-crystal-texture {
+    background: linear-gradient(45deg, 
+      hsl(var(--raw-crystal)), 
+      hsl(var(--clear-quartz))
+    );
+    position: relative;
+  }
+  
+  .raw-crystal-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.3) 2px, transparent 2px),
+      radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+      radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.4) 1.5px, transparent 1.5px);
+    background-size: 20px 20px, 15px 15px, 25px 25px;
+  }
+  
+  /* Obsidian arrowhead style */
+  .obsidian-arrowhead {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    background: linear-gradient(135deg, 
+      hsl(var(--obsidian-black)), 
+      hsl(var(--leather-black))
+    );
+    position: relative;
+  }
+  
+  .obsidian-arrowhead::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    background: linear-gradient(135deg, 
+      hsl(var(--oxidized-silver)), 
+      transparent
+    );
+    opacity: 0.3;
+  }
+
   /* Luxury animations */
   @keyframes shimmer-gold {
     0% { transform: translateX(-100%); }

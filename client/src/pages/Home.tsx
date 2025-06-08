@@ -73,7 +73,7 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className={`relative z-10 container-luxury text-center transition-all duration-1000 ${
+        <div className={`relative z-10 container-jewelry text-center transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           {/* Badge */}
@@ -96,62 +96,52 @@ export default function Home() {
             to enhance your natural radiance and spiritual journey through life.
           </p>
 
-          {/* Features */}
+          {/* Features with Wire-Wrap Aesthetic */}
           <div className="flex flex-wrap justify-center gap-6 mb-12">
-            {[
-              { icon: Crown, text: 'Premium Quality' },
-              { icon: Shield, text: 'Authentic Crystals' },
-              { icon: Heart, text: 'Handcrafted' },
-              { icon: Award, text: 'Local Artisan' }
-            ].map(({ icon: Icon, text }, index) => (
-              <div 
-                key={text}
-                className="flex items-center glass px-4 py-2 rounded-full fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <Icon className="h-4 w-4 text-primary mr-2" />
-                <span className="text-sm font-medium">{text}</span>
-              </div>
-            ))}
+            <div className="pendant-style flex items-center gap-2 px-4 py-2">
+              <Sparkles className="h-4 w-4" style={{ color: 'hsl(var(--wire-gold))' }} />
+              <span className="text-sm font-medium">Wire-Wrapped Pendants</span>
+            </div>
+            <div className="pendant-style flex items-center gap-2 px-4 py-2">
+              <Gem className="h-4 w-4" style={{ color: 'hsl(var(--turquoise-deep))' }} />
+              <span className="text-sm font-medium">Authentic Crystals</span>
+            </div>
+            <div className="pendant-style flex items-center gap-2 px-4 py-2">
+              <Heart className="h-4 w-4" style={{ color: 'hsl(var(--carnelian-orange))' }} />
+              <span className="text-sm font-medium">Healing Properties</span>
+            </div>
           </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/products">
-              <Button className="btn-luxury text-lg px-8 py-4 group">
-                Explore Collection
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              <Button className="btn-organic text-lg px-8 py-4">
+                Discover Collection
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link href="/contact">
-              <Button variant="outline" className="glass hover:glass-card text-lg px-8 py-4 border-primary/20 hover:border-primary/40">
-                Crystal Consultation
+              <Button variant="outline" className="glass-jewelry hover:card-crystal text-lg px-8 py-4 border-primary/20">
+                Book Crystal Reading
               </Button>
             </Link>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-primary/30 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse" />
           </div>
         </div>
       </section>
 
       {/* Featured Products Section */}
       <section className="py-24 relative">
-        <div className="container-luxury">
+        <div className="container-jewelry">
           {/* Section Header */}
-          <div className="text-center mb-16 fade-in-up">
-            <Badge className="glass mb-4 px-4 py-2">
+          <div className="text-center mb-16">
+            <Badge className="glass-jewelry mb-4 px-4 py-2 highlight-amethyst">
               <Star className="h-3 w-3 mr-2" />
               Featured Collection
             </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="gold-text">Curated</span> for You
+            <h2 className="text-display text-4xl md:text-5xl mb-6 layered-styling">
+              <span className="text-crystal">Curated</span> for You
             </h2>
-            <p className="text-xl text-foreground-muted max-w-2xl mx-auto">
+            <p className="text-body text-xl text-foreground-muted max-w-2xl mx-auto">
               Each crystal is hand-selected for its unique properties and aesthetic beauty, 
               crafted into jewelry that tells your story.
             </p>
@@ -161,44 +151,43 @@ export default function Home() {
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="glass-card p-6 rounded-2xl animate-pulse">
-                  <div className="w-full h-64 bg-muted rounded-xl mb-4" />
-                  <div className="h-4 bg-muted rounded mb-2" />
-                  <div className="h-3 bg-muted rounded w-3/4" />
+                <div key={i} className="card-crystal p-6 h-80 shimmer-effect">
+                  <div className="animate-pulse">
+                    <div className="h-40 bg-gradient-to-br from-stone-200 to-stone-100 rounded-lg mb-4"></div>
+                    <div className="h-4 bg-stone-200 rounded mb-2"></div>
+                    <div className="h-3 bg-stone-100 rounded w-2/3"></div>
+                  </div>
                 </div>
               ))}
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredProducts?.slice(0, 6).map((product, index) => (
-                <Link
-                  key={product.id}
-                  href={`/products/${product.id}`}
-                  className="group fade-in-up"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <Card className="glass-card overflow-hidden border-0 hover:scale-105 transition-all duration-500 group-hover:shadow-2xl">
-                    <div className="relative overflow-hidden">
-                      <div className="w-full h-64 bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center relative">
-                        <Gem className="h-16 w-16 text-primary float-animation" />
-                        <div className="absolute inset-0 shimmer" />
-                      </div>
-                      <Badge className="absolute top-4 right-4 bg-primary text-primary-foreground">
-                        ${product.price}
-                      </Badge>
-                    </div>
+              {featuredProducts?.map((product) => (
+                <Link key={product.id} href={`/products/${product.id}`}>
+                  <Card className="card-crystal hover:crystal-glow transition-all duration-500 group cursor-pointer h-full">
                     <CardContent className="p-6">
-                      <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
+                      <div className="aspect-square mb-4 rounded-lg overflow-hidden raw-crystal-texture">
+                        <img
+                          src={product.imageUrl || '/api/placeholder/300/300'}
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                      <h3 className="text-display text-xl mb-2 group-hover:text-rose-gold transition-colors">
                         {product.name}
                       </h3>
-                      <p className="text-sm text-foreground-muted mb-4 line-clamp-2">
+                      <p className="text-body text-foreground-muted text-sm mb-3 line-clamp-2">
                         {product.description}
                       </p>
                       <div className="flex items-center justify-between">
-                        <Badge variant="secondary" className="glass">
-                          {product.category?.name}
-                        </Badge>
-                        <ArrowRight className="h-4 w-4 text-primary group-hover:translate-x-1 transition-transform" />
+                        <span className="text-display text-lg font-semibold text-rose-gold">
+                          ${product.price}
+                        </span>
+                        {product.category && (
+                          <Badge className="highlight-rose-quartz text-xs">
+                            {product.category.name}
+                          </Badge>
+                        )}
                       </div>
                     </CardContent>
                   </Card>
@@ -206,87 +195,85 @@ export default function Home() {
               ))}
             </div>
           )}
+
+          {/* View All Link */}
+          <div className="text-center mt-12">
+            <Link href="/products">
+              <Button variant="outline" className="glass-jewelry border-primary/20 hover:card-crystal px-8 py-3">
+                View All Products
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="py-24 relative">
-        <div className="container-luxury">
-          <div className="text-center mb-16 fade-in-up">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Why Choose <span className="gold-text">Troves & Coves</span>
+      {/* Features Section with Beaded Pattern */}
+      <section className="py-24 bg-gradient-to-br from-background-secondary to-background-tertiary">
+        <div className="container-jewelry">
+          <div className="text-center mb-16">
+            <h2 className="text-display text-4xl md:text-5xl mb-6">
+              Why Choose <span className="text-rose-gold">Troves & Coves</span>
             </h2>
-            <p className="text-xl text-foreground-muted max-w-2xl mx-auto">
-              Experience the perfect blend of craftsmanship, authenticity, and spiritual connection.
-            </p>
+            <div className="beaded-pattern mx-auto max-w-xs mb-8"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 icon: Shield,
                 title: 'Authentic Crystals',
-                description: 'Sourced directly from trusted suppliers worldwide, each crystal is genuine and energetically cleansed.'
+                description: 'Every crystal is ethically sourced and energetically cleansed before crafting.'
               },
               {
                 icon: Crown,
-                title: 'Premium Materials',
-                description: '14k gold filled, sterling silver, and copper wire ensure lasting beauty and durability.'
+                title: 'Artisan Crafted',
+                description: 'Hand-wire wrapped with precious metals using traditional techniques.'
               },
               {
                 icon: Heart,
-                title: 'Handcrafted Love',
-                description: 'Every piece is lovingly created by skilled artisans with attention to detail and intention.'
-              },
-              {
-                icon: MapPin,
-                title: 'Winnipeg Local',
-                description: 'Proudly serving the Winnipeg community with personalized service and local expertise.'
+                title: 'Healing Energy',
+                description: 'Each piece is infused with intention and designed for your wellness journey.'
               }
-            ].map(({ icon: Icon, title, description }, index) => (
-              <div 
-                key={title}
-                className="text-center fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="glass-card p-8 rounded-2xl group hover:scale-105 transition-all duration-300">
-                  <div className="relative mb-6">
-                    <div className="absolute inset-0 gold-glow rounded-full opacity-20" />
-                    <Icon className="h-12 w-12 text-primary mx-auto relative z-10" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-4 group-hover:text-primary transition-colors">
-                    {title}
-                  </h3>
-                  <p className="text-foreground-muted leading-relaxed">
-                    {description}
-                  </p>
+            ].map(({ icon: Icon, title, description }) => (
+              <div key={title} className="text-center group">
+                <div className="pendant-style w-16 h-16 mx-auto mb-6 flex items-center justify-center group-hover:floating-crystal">
+                  <Icon className="h-8 w-8" style={{ color: 'hsl(var(--wire-gold))' }} />
                 </div>
+                <h3 className="text-display text-xl mb-4 group-hover:text-rose-gold transition-colors">
+                  {title}
+                </h3>
+                <p className="text-body text-foreground-muted">
+                  {description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 relative">
-        <div className="container-luxury text-center">
-          <div className="glass-card p-12 rounded-3xl max-w-4xl mx-auto fade-in-up">
-            <Diamond className="h-16 w-16 text-primary mx-auto mb-6 float-animation" />
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Begin Your <span className="gold-text">Crystal Journey</span>
+      {/* CTA Section with Obsidian Elements */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background-secondary to-background-tertiary"></div>
+        <div className="absolute top-10 right-10 obsidian-arrowhead w-16 h-20 opacity-10"></div>
+        <div className="absolute bottom-20 left-20 obsidian-arrowhead w-12 h-16 opacity-15"></div>
+        
+        <div className="container-jewelry relative z-10">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-display text-4xl md:text-6xl mb-6">
+              Begin Your <span className="text-crystal">Crystal Journey</span>
             </h2>
-            <p className="text-xl text-foreground-muted mb-8 max-w-2xl mx-auto">
-              Let us help you find the perfect crystal jewelry that resonates with your energy and style. 
-              Book a consultation or explore our collection today.
+            <p className="text-body text-xl text-foreground-muted mb-8">
+              Book a personal consultation to discover which crystals resonate with your energy and intentions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact">
-                <Button className="btn-luxury text-lg px-8 py-4">
+                <Button className="btn-organic text-lg px-8 py-4">
                   Book Consultation
                 </Button>
               </Link>
               <Link href="/products">
-                <Button variant="outline" className="glass hover:glass-card text-lg px-8 py-4 border-primary/20">
+                <Button variant="outline" className="glass-jewelry hover:card-crystal text-lg px-8 py-4 border-primary/20">
                   View All Products
                 </Button>
               </Link>
