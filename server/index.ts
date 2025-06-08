@@ -1,6 +1,20 @@
 import express, { type Request, Response, NextFunction } from "express";
+import session from "express-session";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { 
+  securityHeaders, 
+  generalRateLimit, 
+  slowDownMiddleware, 
+  sessionConfig, 
+  securityLogger, 
+  sanitizeInput 
+} from "./security/owasp-compliance";
+import { 
+  SecureDevelopmentManager, 
+  SecurityAuditLogger, 
+  ComplianceManager 
+} from "./security/iso27001-compliance";
 
 // Optimize for Replit 1 vCPU / 512MB RAM constraints
 process.env.UV_THREADPOOL_SIZE = '2'; // Limit thread pool for single CPU
@@ -21,6 +35,20 @@ const monitorMemory = () => {
 setInterval(monitorMemory, 30000);
 
 const app = express();
+
+// Security middleware configuration
+app.use(securityHeaders);
+app.use(generalRateLimit);
+app.use(slowDownMiddleware);
+app.use(securityLogger);
+app.use(sanitizeInput);
+
+// Session management
+app.use(session(sessionConfig));
+
+// Security headers and development practices
+app.use(SecureDevelopmentManager.validateSecureHeaders);
+app.use(SecureDevelopmentManager.performInputValidation);
 
 // Lightweight middleware configuration
 app.use(express.json({ limit: '1mb' })); // Limit payload size
