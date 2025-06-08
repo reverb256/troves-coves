@@ -101,10 +101,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/cart", async (req, res) => {
     try {
       const sessionId = getSessionId(req);
+      if (!sessionId) {
+        return res.json([]);
+      }
       const cartItems = await storage.getCartItems(sessionId);
-      res.json(cartItems);
+      res.json(cartItems || []);
     } catch (error: any) {
-      res.status(500).json({ message: "Error fetching cart: " + error.message });
+      console.error("Cart fetch error:", error);
+      res.json([]);
     }
   });
 
