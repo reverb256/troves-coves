@@ -31,6 +31,9 @@ function getSessionId(req: any): string {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Serve uploaded crystal jewelry assets
+  app.use("/assets", express.static(path.resolve(process.cwd(), "attached_assets")));
+
   // Categories
   app.get("/api/categories", async (req, res) => {
     try {

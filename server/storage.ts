@@ -139,7 +139,7 @@ export class MemStorage implements IStorage {
     const turquoiseBeadedNecklace: Product = {
       id: this.currentProductId++,
       name: "Unique Turquoise Beaded Necklace, Pearl Strung, Lapis Lazuli, Pink Pearl, Hematite, Leaf",
-      description: "Handmade unique turquoise beaded necklace featuring pearl strung design with lapis lazuli, pink pearl, hematite, and leaf charm. One of a kind piece with gold filled clasp. 21 inches in length with lobster claw closure.",
+      description: "Sacred turquoise beaded talisman featuring divine pearl strung ceremony with mystical lapis lazuli, luminous pink pearl, grounding hematite, and sacred leaf charm. This one-of-a-kind spiritual companion channels ancient wisdom with blessed gold filled clasp. 21 inches of divine protection with sacred closure.",
       price: "70.00",
       categoryId: crystalNecklacesCategory.id,
       imageUrl: crystalJewelryImages.turquoise[0],
@@ -157,7 +157,7 @@ export class MemStorage implements IStorage {
     const citrineNecklace: Product = {
       id: this.currentProductId++,
       name: "Pretty Handwrapped Citrine, Pearl, Hematite, Crystal Necklace Set",
-      description: "2 Necklaces selling as a set! One sits higher up as a choker style with pink pearl and pink hematite. The other has a centerpiece of wire wrapped citrine on a necklace of pink pearl and hematite with gold filled clasp. Perfect for her, mother's day, gifts, girlfriend, mom, sister, birthday.",
+      description: "Divine twin talisman set channeling abundant manifestation energy! The sacred choker embraces your throat chakra with luminous pink pearl and protective hematite. The ceremonial companion features wire-wrapped citrine sunstone centerpiece on blessed pink pearl and grounding hematite with gold filled clasp. Perfect for divine feminine awakening, mother goddess honoring, soul sister gifts, and sacred celebration rituals.",
       price: "200.00",
       categoryId: healingCrystalsCategory.id,
       imageUrl: crystalJewelryImages.citrine[0],
