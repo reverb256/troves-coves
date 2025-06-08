@@ -103,6 +103,22 @@
   --lepidolite: 290 35% 80%;
   --clear-quartz: 0 0% 90%;
   
+  /* Floral Enamel and Magnolia Elements */
+  --magnolia-white: 60 100% 97%;
+  --magnolia-cream: 50 30% 92%;
+  --leaf-green: 150 40% 25%;
+  --leaf-emerald: 160 60% 30%;
+  
+  /* Lapis Lazuli Deep Blues */
+  --lapis-deep: 220 80% 25%;
+  --lapis-medium: 225 70% 35%;
+  --lapis-light: 230 60% 45%;
+  
+  /* Mystical and Spiritual Elements */
+  --spiritual-turquoise: 180 100% 50%;
+  --mystical-purple: 270 60% 40%;
+  --sacred-gold: 45 100% 60%;
+  
   --card: 210 15% 12%;
   --card-foreground: 45 25% 95%;
   --popover: 210 15% 12%;
@@ -490,6 +506,77 @@ h1, h2, h3, h4, h5, h6 {
   
   .floating-crystal {
     animation: floating-crystal 6s ease-in-out infinite;
+  }
+
+  /* Pearl and coral combinations */
+  .pearl-coral-blend {
+    background: linear-gradient(90deg,
+      hsl(var(--pearl-cream)) 0%,
+      hsl(var(--carnelian-orange)) 25%,
+      hsl(var(--pearl-cream)) 50%,
+      hsl(var(--rose-gold)) 75%,
+      hsl(var(--pearl-cream)) 100%
+    );
+    border-radius: 50%;
+    box-shadow: 
+      inset 0 2px 4px rgba(255, 255, 255, 0.4),
+      0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Howlite marble texture */
+  .howlite-marble {
+    background: linear-gradient(135deg,
+      hsl(var(--moonstone)) 0%,
+      hsl(var(--clear-quartz)) 30%,
+      hsl(var(--moonstone)) 60%,
+      hsl(var(--oxidized-silver)) 100%
+    );
+    background-size: 200% 200%;
+    animation: marble-flow 8s ease-in-out infinite;
+  }
+
+  @keyframes marble-flow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Smoky quartz depth */
+  .smoky-quartz-depth {
+    background: radial-gradient(circle at center,
+      hsl(var(--obsidian-gray)) 0%,
+      hsl(var(--leather-black)) 70%,
+      hsl(var(--obsidian-black)) 100%
+    );
+    box-shadow: 
+      inset 0 4px 8px rgba(255, 255, 255, 0.1),
+      0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Hamsa hand sacred geometry */
+  .hamsa-sacred {
+    background: linear-gradient(135deg,
+      hsl(var(--sacred-gold)) 0%,
+      hsl(var(--warm-gold)) 50%,
+      hsl(var(--antique-gold)) 100%
+    );
+    clip-path: polygon(
+      50% 0%, 30% 25%, 35% 50%, 20% 75%, 50% 85%, 
+      80% 75%, 65% 50%, 70% 25%
+    );
+    position: relative;
+  }
+
+  .hamsa-sacred::before {
+    content: '';
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20%;
+    height: 20%;
+    background: hsl(var(--mystical-purple));
+    border-radius: 50%;
+    box-shadow: 0 0 10px hsl(var(--spiritual-turquoise));
   }
 }
 
