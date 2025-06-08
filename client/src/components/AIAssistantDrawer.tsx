@@ -104,89 +104,98 @@ export default function AIAssistantDrawer() {
 
       {/* Drawer */}
       {isOpen && (
-        <div className="fixed bottom-0 right-0 w-full max-w-md h-96 bg-background/95 backdrop-blur-sm border-l border-t border-border shadow-2xl z-50 flex flex-col">
-          {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-border bg-gradient-to-r from-primary/5 to-secondary/5">
-            <div className="flex items-center space-x-2">
-              <div className="relative">
-                <MessageCircle className="w-5 h-5 text-primary" />
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-teal-400/20 rounded-full animate-pulse"></div>
-              </div>
-              <div>
-                <h3 className="font-semibold text-foreground">Crystal Wisdom Guide</h3>
-                <p className="text-xs text-muted-foreground">Your mystical jewelry assistant</p>
-              </div>
-            </div>
-            
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsOpen(false)}
-              className="text-muted-foreground hover:text-foreground"
-            >
-              <X className="w-4 h-4" />
-            </Button>
-          </div>
-
-          {/* Messages */}
-          <ScrollArea className="flex-1 p-4">
-            <div className="space-y-4">
-              {messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div
-                    className={`max-w-[80%] p-3 rounded-lg ${
-                      message.sender === 'user'
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted text-muted-foreground border'
-                    }`}
-                  >
-                    <p className="text-sm">{message.content}</p>
-                    <p className={`text-xs mt-1 opacity-70 ${
-                      message.sender === 'user' ? 'text-primary-foreground/70' : 'text-muted-foreground/70'
-                    }`}>
-                      {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </p>
-                  </div>
+        <div className="fixed bottom-0 right-0 w-full max-w-md h-96 z-50 flex flex-col">
+          {/* Background layers for depth */}
+          <div className="absolute inset-0 bg-background/90 backdrop-blur-md rounded-tl-lg"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-background/95 to-background/85 backdrop-blur-lg rounded-tl-lg"></div>
+          <div className="absolute inset-0 border-l border-t border-border/50 rounded-tl-lg shadow-2xl"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 rounded-tl-lg"></div>
+          
+          {/* Content container */}
+          <div className="relative z-10 flex flex-col h-full">
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 border-b border-border bg-gradient-to-r from-primary/5 to-secondary/5">
+              <div className="flex items-center space-x-2">
+                <div className="relative">
+                  <MessageCircle className="w-5 h-5 text-primary" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-teal-400/20 rounded-full animate-pulse"></div>
                 </div>
-              ))}
+                <div>
+                  <h3 className="font-semibold text-foreground">Crystal Wisdom Guide</h3>
+                  <p className="text-xs text-muted-foreground">Your mystical jewelry assistant</p>
+                </div>
+              </div>
               
-              {isLoading && (
-                <div className="flex justify-start">
-                  <div className="bg-muted text-muted-foreground border p-3 rounded-lg">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce delay-75"></div>
-                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce delay-150"></div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsOpen(false)}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+
+            {/* Messages */}
+            <ScrollArea className="flex-1 p-4">
+              <div className="space-y-4">
+                {messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div
+                      className={`max-w-[80%] p-3 rounded-lg ${
+                        message.sender === 'user'
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-muted text-muted-foreground border'
+                      }`}
+                    >
+                      <p className="text-sm">{message.content}</p>
+                      <p className={`text-xs mt-1 opacity-70 ${
+                        message.sender === 'user' ? 'text-primary-foreground/70' : 'text-muted-foreground/70'
+                      }`}>
+                        {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </p>
                     </div>
                   </div>
-                </div>
-              )}
-            </div>
-            <div ref={messagesEndRef} />
-          </ScrollArea>
+                ))}
+                
+                {isLoading && (
+                  <div className="flex justify-start">
+                    <div className="bg-muted text-muted-foreground border p-3 rounded-lg">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-primary rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-primary rounded-full animate-bounce delay-75"></div>
+                        <div className="w-2 h-2 bg-primary rounded-full animate-bounce delay-150"></div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div ref={messagesEndRef} />
+            </ScrollArea>
 
-          {/* Input */}
-          <div className="p-4 border-t border-border">
-            <form onSubmit={handleSendMessage} className="flex space-x-2">
-              <Input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about crystals, jewelry, or spiritual guidance..."
-                className="flex-1 bg-input border-border text-foreground placeholder-muted-foreground"
-                disabled={isLoading}
-              />
-              <Button
-                type="submit"
-                size="sm"
-                disabled={!input.trim() || isLoading}
-                className="bg-primary text-primary-foreground hover:bg-primary/90"
-              >
-                <Send className="w-4 h-4" />
-              </Button>
-            </form>
+            {/* Input */}
+            <div className="p-4 border-t border-border">
+              <form onSubmit={handleSendMessage} className="flex space-x-2">
+                <Input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Ask about crystals, jewelry, or spiritual guidance..."
+                  className="flex-1 bg-input border-border text-foreground placeholder-muted-foreground"
+                  disabled={isLoading}
+                />
+                <Button
+                  type="submit"
+                  size="sm"
+                  disabled={!input.trim() || isLoading}
+                  className="bg-primary text-primary-foreground hover:bg-primary/90"
+                >
+                  <Send className="w-4 h-4" />
+                </Button>
+              </form>
+            </div>
           </div>
         </div>
       )}
