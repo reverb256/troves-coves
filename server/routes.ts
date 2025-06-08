@@ -445,7 +445,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Handle image generation requests directly through AI orchestrator
       if (type === 'image') {
-        const { AIOrchestrator } = require('./ai-orchestrator');
+        const { AIOrchestrator } = await import('./ai-orchestrator');
         const orchestrator = new AIOrchestrator();
         const response = await orchestrator.processRequest({
           prompt,

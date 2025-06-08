@@ -83,11 +83,10 @@ export class ImagePreservationService {
       const arrayBuffer = await response.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       
-      const fs = require('fs');
-      fs.writeFileSync(tempFilePath, buffer);
+      writeFileSync(tempFilePath, buffer);
       
       // Verify file was created
-      if (!fs.existsSync(tempFilePath)) {
+      if (!existsSync(tempFilePath)) {
         throw new Error(`File was not created at: ${tempFilePath}`);
       }
       
@@ -105,7 +104,7 @@ export class ImagePreservationService {
   private async uploadToHosting(filePath: string): Promise<string> {
     try {
       // Read file as base64
-      const imageBuffer = require('fs').readFileSync(filePath);
+      const imageBuffer = readFileSync(filePath);
       const base64Image = imageBuffer.toString('base64');
 
       // Upload to Imgur anonymously
