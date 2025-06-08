@@ -53,11 +53,13 @@ export default function Header() {
             <Link href="/" className="flex items-center space-x-3 group">
               <div className="relative">
                 <div className="absolute inset-0 gold-glow rounded-full opacity-20"></div>
-                <Gem className="h-8 w-8 text-primary relative z-10 float-animation" />
+                <Gem className="h-8 w-8 text-turquoise-500 relative z-10 float-animation" />
               </div>
               <div className="flex flex-col">
-                <span className="text-xl font-bold gold-text tracking-tight">
-                  Troves & Coves
+                <span className="text-xl font-bold tracking-tight">
+                  <span className="text-turquoise-500 font-bold">Troves</span>
+                  <span className="text-muted-foreground mx-1">&</span>
+                  <span className="text-amber-400 font-cursive italic">Coves</span>
                 </span>
                 <span className="text-xs text-muted-foreground -mt-1 tracking-widest uppercase">
                   Crystal Jewelry • Winnipeg
