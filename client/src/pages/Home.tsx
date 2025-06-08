@@ -41,8 +41,8 @@ export default function Home() {
         type="website"
       />
 
-      {/* Hero Section */}
-      <section className="relative py-20 md:py-32 flex items-center justify-center overflow-hidden">
+      {/* Hero Section with Mystical Skull Influence */}
+      <section className="relative py-20 md:py-32 flex items-center justify-center overflow-hidden mystical-bg">
         {/* Organic Background with Crystal Elements */}
         <div className="absolute inset-0">
           {/* Floating Crystal Shapes */}
@@ -164,7 +164,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredProducts?.map((product) => (
                 <Link key={product.id} href={`/products/${product.id}`}>
-                  <Card className="card-crystal hover:crystal-glow transition-all duration-500 group cursor-pointer h-full">
+                  <Card className="mystical-card hover:gold-glow transition-all duration-500 group cursor-pointer h-full skull-accent">
                     <CardContent className="p-6">
                       <div className="aspect-square mb-4 rounded-lg overflow-hidden raw-crystal-texture">
                         <img
@@ -180,7 +180,7 @@ export default function Home() {
                         {product.description}
                       </p>
                       <div className="flex items-center justify-between">
-                        <span className="text-display text-lg font-semibold text-rose-gold">
+                        <span className="text-display text-lg font-semibold text-gold-500">
                           ${product.price}
                         </span>
                         {product.category && (

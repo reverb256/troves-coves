@@ -51,6 +51,9 @@
   --background: 45 25% 98%;
   --background-secondary: 30 20% 96%;
   --background-tertiary: 200 10% 95%;
+  
+  /* Mystical design elements */
+  --skull-overlay: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="skull" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="30" cy="25" r="8" fill="none" stroke="hsl(174, 85%, 50%)" stroke-width="0.5" opacity="0.1"/><circle cx="70" cy="25" r="8" fill="none" stroke="hsl(174, 85%, 50%)" stroke-width="0.5" opacity="0.1"/><path d="M45 35 Q50 40 55 35" fill="none" stroke="hsl(174, 85%, 50%)" stroke-width="0.5" opacity="0.1"/><rect x="45" y="50" width="10" height="8" fill="none" stroke="hsl(43, 95%, 68%)" stroke-width="0.5" opacity="0.08"/></pattern></defs><rect width="100" height="100" fill="url(%23skull)"/></svg>');
   --foreground: 25 30% 8%;
   --foreground-muted: 25 25% 25%;
   
@@ -243,6 +246,71 @@ p, span, div {
     -webkit-text-fill-color: transparent;
   }
   
+  /* Mystical skull-inspired effects */
+  .mystical-bg {
+    position: relative;
+    background: linear-gradient(135deg, hsl(var(--pearl-cream)) 0%, hsl(var(--crystal-white)) 100%);
+  }
+
+  .mystical-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--skull-overlay);
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .mystical-bg > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .skull-accent {
+    position: relative;
+  }
+
+  .skull-accent::after {
+    content: '☠';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 12px;
+    color: hsl(var(--skull-turquoise));
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .ornate-border {
+    border: 2px solid transparent;
+    background: linear-gradient(hsl(var(--pearl-cream)), hsl(var(--crystal-white))) padding-box,
+                linear-gradient(45deg, hsl(var(--decorative-gold)), hsl(var(--skull-turquoise))) border-box;
+    border-radius: 8px;
+  }
+
+  .turquoise-glow {
+    box-shadow: 0 0 20px hsla(174, 85%, 50%, 0.2);
+  }
+
+  .gold-glow {
+    box-shadow: 0 0 15px hsla(43, 95%, 68%, 0.3);
+  }
+
+  .mystical-card {
+    @apply mystical-bg ornate-border;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .mystical-card:hover {
+    @apply turquoise-glow;
+    transform: translateY(-2px);
+  }
+
   .text-rose-gold {
     background: linear-gradient(135deg, 
       hsl(var(--rose-gold)), 

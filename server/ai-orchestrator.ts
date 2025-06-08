@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events';
+import { BRAND_CONFIG, validateBrandCompliance } from '@shared/brand-config';
 import { imagePreservationService } from './services/image-preservation';
 import { privacyGuard, canadianCompliance } from './security/data-privacy';
 import { BRAND_CONFIG } from '../shared/brand-config.js';
