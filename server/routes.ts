@@ -8,6 +8,7 @@ import { insertCartItemSchema, insertOrderSchema, insertOrderItemSchema, insertC
 import { getEtsyLinkForProduct } from "./etsy-links";
 import { z } from "zod";
 import { getContainerManager, initializeContainers } from "./containers/container-manager";
+import { createCloudflareOrchestrator } from "./cloudflare-orchestrator";
 import path from "path";
 
 // Initialize Stripe
@@ -22,6 +23,9 @@ initializeContainers().then(() => {
 }).catch(error => {
   console.warn('AI containers initialized with degraded performance');
 });
+
+// Initialize Cloudflare Orchestrator for edge optimization
+const cloudflareOrchestrator = createCloudflareOrchestrator();
 
 // Session management for cart
 function getSessionId(req: any): string {
@@ -39,6 +43,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/categories", async (req, res) => {
     try {
       const categories = await storage.getCategories();
+      await cloudflareOrchestrator.cacheAPIResponse('categories', {}, categories);
       res.json(categories);
     } catch (error: any) {
       res.status(500).json({ message: "Error fetching categories: " + error.message });
@@ -101,10 +106,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Add Etsy link to product response
       const etsyLink = getEtsyLinkForProduct(product.sku);
+      
+      // Offload recommendations to Cloudflare edge
+      const recommendations = await cloudflareOrchestrator.getRecommendations(productId.toString());
+      
+      // Cache this API response at edge
       const productWithEtsy = {
         ...product,
-        etsyLink
+        etsyLink,
+        recommendations
       };
+      
+      await cloudflareOrchestrator.cacheAPIResponse('product', { id: productId }, productWithEtsy);
       
       res.json(productWithEtsy);
     } catch (error: any) {
@@ -563,22 +576,64 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Cloudflare Edge Performance Monitoring
+  app.get('/api/cloudflare/performance', async (req, res) => {
+    try {
+      const metrics = cloudflareOrchestrator.getPerformanceMetrics();
+      res.json(metrics);
+    } catch (error: any) {
+      res.status(500).json({ message: 'Error fetching performance metrics: ' + error.message });
+    }
+  });
+
+  // Edge Content Optimization
+  app.post('/api/cloudflare/optimize', async (req, res) => {
+    try {
+      const { content, type } = req.body;
+      const optimized = await cloudflareOrchestrator.optimizeContent(content, type);
+      res.json({ optimized });
+    } catch (error: any) {
+      res.status(500).json({ message: 'Error optimizing content: ' + error.message });
+    }
+  });
+
+  // Market Insights via Edge
+  app.get('/api/cloudflare/market', async (req, res) => {
+    try {
+      const { query } = req.query;
+      const insights = await cloudflareOrchestrator.getMarketInsights(query as string || 'crystal jewelry trends');
+      res.json(insights);
+    } catch (error: any) {
+      res.status(500).json({ message: 'Error fetching market insights: ' + error.message });
+    }
+  });
+
+  // Preload assets to edge
+  app.post('/api/cloudflare/preload', async (req, res) => {
+    try {
+      await cloudflareOrchestrator.optimizeAssets();
+      res.json({ success: true, message: 'Assets preloaded to Cloudflare edge' });
+    } catch (error: any) {
+      res.status(500).json({ message: 'Error preloading assets: ' + error.message });
+    }
+  });
+
   // Admin Dashboard Stats
   app.get('/api/admin/stats', async (req, res) => {
     try {
-      const totalUsers = 1247; // From user analytics
-      const totalOrders = 892;
-      const totalRevenue = "127,450.50";
-      const aiRequests = 15420;
-      const securityAlerts = 3;
+      const totalUsers = await storage.getUsers().then(users => users.length);
+      const totalOrders = await storage.getOrders().then(orders => orders.length);
+      const totalRevenue = await storage.getOrders().then(orders => 
+        orders.reduce((sum, order) => sum + parseFloat(order.totalAmount || '0'), 0).toFixed(2)
+      );
+      const performance = cloudflareOrchestrator.getPerformanceMetrics();
       
       res.json({
         totalUsers,
         totalOrders,
         totalRevenue,
-        aiRequests,
-        securityAlerts,
-        systemHealth: securityAlerts > 5 ? 'critical' : securityAlerts > 2 ? 'warning' : 'healthy'
+        cloudflareMetrics: performance,
+        systemHealth: performance.cacheHitRate > 70 ? 'healthy' : 'warning'
       });
     } catch (error: any) {
       res.status(500).json({ message: 'Error fetching admin stats: ' + error.message });

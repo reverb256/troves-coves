@@ -1,239 +1,209 @@
-# Ultra-Lightweight Cloudflare Deployment for Troves and Coves
+# Cloudflare Ultra-Lightweight Deployment Guide
 
 ## Overview
+Complete deployment system optimized for Cloudflare's free tier with ultra-lightweight resource usage and maximum cost efficiency.
 
-This deployment is optimized for Cloudflare's free tier, providing maximum performance within strict budget constraints. The ultra-lightweight worker delivers caching, rate limiting, and basic API optimization while staying well within free tier limits.
+## Performance Targets
+- **CPU Usage**: 3-5ms per request (50% below free tier limit)
+- **Memory Usage**: ~20MB (85% below free tier limit)
+- **Cache Hit Rate**: 80-90% 
+- **Origin Load Reduction**: 80%
+- **Daily Requests**: Up to 80,000 (80% of free tier)
+- **KV Operations**: <1,000/day (99% below limit)
 
-### Free Tier Limits
-- **100,000 requests/day** (we target 80,000 max)
-- **10ms CPU time per request** (we use ~3-5ms)
-- **128MB memory** (we use ~20MB)
-- **1GB KV storage** (we use minimal caching)
-- **100,000 KV operations/day** (aggressive cache optimization)
+## Prerequisites
 
-## Quick Setup Guide
+### 1. Cloudflare API Token
+Create at: https://dash.cloudflare.com/profile/api-tokens
 
-### Step 1: Install Wrangler
+**Required Permissions:**
+- Account:Read
+- Workers Scripts:Edit
+- Workers KV Storage:Edit
+- Zone:Read
+- Zone Settings:Edit (optional)
+- Cache Purge (optional)
+
+### 2. Environment Variables
 ```bash
-npm install -g wrangler
-# or use project version:
-npx wrangler --version
+# Required
+CLOUDFLARE_API_TOKEN=your_token_here
+CLOUDFLARE_ACCOUNT_ID=your_account_id
+CLOUDFLARE_ZONE_ID=your_zone_id
+
+# Optional
+CLOUDFLARE_KV_NAMESPACE_ID=auto_generated
+CLOUDFLARE_WORKER_URL=auto_generated
 ```
 
-### Step 2: Authenticate
+## Deployment Steps
+
+### 1. Initialize Wrangler
 ```bash
 npx wrangler login
+npx wrangler whoami
 ```
 
-### Step 3: Create KV Namespace
+### 2. Create KV Namespace
 ```bash
-npx wrangler kv:namespace create "CACHE"
-# Copy the returned ID and update cloudflare.toml
+npx wrangler kv:namespace create "CACHE" --preview false
 ```
 
-### Step 4: Update Configuration
-Edit `cloudflare.toml` and replace `your-kv-namespace-id` with the actual ID from step 3.
-
-### Step 5: Deploy
+### 3. Deploy Worker
 ```bash
 npx wrangler deploy
 ```
 
-That's it! Your ultra-lightweight worker is now live.
+### 4. Configure Routes (Optional)
+```bash
+# For custom domain
+npx wrangler route create "yourdomain.com/*" your-worker-name
+```
 
-## Features
+## Architecture
 
-### Ultra-Lightweight Design
-- **3-5ms CPU usage** per request (50% under limit)
-- **~20MB memory** footprint (85% under limit)
-- **Minimal KV operations** with aggressive caching
-- **Smart rate limiting** at 30 requests/minute per IP
+### Edge Processing Flow
+1. **Rate Limiting** (1ms CPU) - 30 requests/minute per IP
+2. **Static Assets** (2ms CPU) - 24hr cache with compression
+3. **API Optimization** (2-3ms CPU) - Smart caching and recommendations
+4. **Origin Fallback** - Only when edge cannot serve
 
 ### Caching Strategy
-- **Static assets**: 24 hours (CSS, JS, images)
-- **API responses**: 1 hour with instant cache hits
-- **Recommendations**: Generated once, cached extensively
-- **Market data**: Refreshed every 2 hours
+- **Static Assets**: 24 hours
+- **API Responses**: 1 hour  
+- **Product Data**: 2 hours
+- **Market Insights**: 2 hours
+- **User Data**: 15 minutes
 
-### Cost Monitoring
-Monitor your usage at: https://dash.cloudflare.com/workers
+### Memory Management
+- Rate limiter auto-clears at 1000 entries
+- Lazy loading of AI orchestrator
+- Minimal object instantiation
+- Efficient string operations
 
-**Daily Targets:**
-- Requests: Stay under 80,000 (20k buffer)
-- CPU time: Average 4ms per request
-- KV operations: Under 80,000 (20k buffer)
-- Memory: Consistent ~20MB usage
+## Cost Monitoring
 
-### Performance Optimization
-- Cache-first strategy reduces origin server load
-- Immediate responses for cached content
-- Automatic cleanup of rate limit memory
-- Minimal JavaScript execution time
+### Free Tier Limits
+- **Requests**: 100,000/day
+- **CPU Time**: 10ms per request
+- **Memory**: 128MB
+- **KV Operations**: 100,000/day
+- **KV Storage**: 1GB
 
-## Cost Breakdown
-
-### Free Tier Usage (Daily)
+### Usage Tracking
+Monitor via `/api/cloudflare/performance`:
+```json
+{
+  "cacheHitRate": 85,
+  "requestCount": 15420,
+  "edgeOffloadRate": 82,
+  "originServerLoad": 18,
+  "estimatedCostSavings": 67
+}
 ```
-Requests:     80,000 / 100,000 (80% utilization)
-CPU Time:     320 seconds / 1,000 seconds
-Memory:       Consistent 20MB usage
-KV Ops:       60,000 / 100,000 (cache-optimized)
-Storage:      <100MB / 1GB
-```
 
-### Performance Metrics
-- **Cache Hit Rate**: 85-90% for static content
-- **API Cache**: 70-80% hit rate
-- **Response Time**: <50ms edge response
-- **Origin Requests**: Reduced by 80%
+## Optimization Features
+
+### 1. Backend Orchestration
+- Automatic edge offloading for heavy operations
+- Smart caching with TTL optimization
+- Performance metrics tracking
+- Origin server load reduction
+
+### 2. Edge Processing
+- Ultra-fast rate limiting
+- Static asset optimization
+- API response caching
+- Content recommendation generation
+
+### 3. Resource Management
+- Memory-efficient operations
+- CPU time optimization
+- KV operation minimization
+- Automatic cleanup routines
+
+## API Endpoints
+
+### Performance Monitoring
 ```bash
-npm install -g wrangler
-# or use the local version:
-npx wrangler --version
+GET /api/cloudflare/performance
 ```
 
-### 2. Authenticate with Cloudflare
+### Content Optimization
 ```bash
-npx wrangler login
+POST /api/cloudflare/optimize
+Content-Type: application/json
+{
+  "content": "text to optimize",
+  "type": "product|category|general"
+}
 ```
 
-### 3. Create KV Namespaces
+### Market Insights
 ```bash
-# Production cache
-npx wrangler kv:namespace create "CACHE"
-
-# Staging cache
-npx wrangler kv:namespace create "CACHE" --preview
+GET /api/cloudflare/market?query=crystal-trends
 ```
 
-### 4. Update cloudflare.toml
-Replace the placeholder KV namespace IDs in `cloudflare.toml` with the actual IDs from step 3.
-
-### 5. Configure Environment Variables
-Set these in the Cloudflare dashboard under Workers > Your Worker > Settings > Variables:
-
-```
-AI_ORCHESTRATOR_ENABLED=true
-CACHE_TTL=3600
-API_RATE_LIMIT=100
-ENVIRONMENT=production
-```
-
-### 6. Deploy the Worker
+### Asset Preloading
 ```bash
-# Build the worker
-npm run build:worker
-
-# Deploy to Cloudflare
-npx wrangler deploy
+POST /api/cloudflare/preload
 ```
 
-## AI Orchestrator Features
+## Advanced Configuration
 
-### Intelligent Endpoint Selection
-- Automatically discovers available AI endpoints
-- Routes requests to optimal providers based on:
-  - Current availability
-  - Rate limits
-  - Request priority
-  - Response time
+### Custom Caching Rules
+Edit `cloudflare.toml`:
+```toml
+[env.production]
+AI_ORCHESTRATOR_ENABLED = "true"
+CACHE_TTL = "3600"
+API_RATE_LIMIT = "30"
+```
 
-### Smart Caching
-- Product recommendations cached for 30 minutes
-- Market research data cached for 2 hours
-- Content optimization cached for 1 hour
-- Static assets cached for 1 year
-
-### Rate Limiting
-- 100 requests per minute per IP
-- Automatic rate limit enforcement
-- Graceful degradation under load
-
-### Performance Optimization
-- Edge-side content optimization
-- Automatic image optimization
-- Minification and compression
-- Global CDN distribution
-
-## Monitoring and Analytics
-
-### Available Metrics
-- Request volume and response times
-- Cache hit/miss ratios
-- AI endpoint performance
-- Error rates and types
-- Geographic distribution
-
-### Access Analytics
-1. Cloudflare Dashboard > Analytics
-2. Workers > Your Worker > Metrics
-3. KV Storage > Usage statistics
+### Security Headers
+Automatic security headers:
+- Rate limiting
+- Origin validation
+- Cache control
+- Content type headers
 
 ## Troubleshooting
 
-### Common Issues
+### High CPU Usage
+- Check rate limiting effectiveness
+- Verify static asset caching
+- Monitor heavy operations
 
-1. **KV Namespace Errors**
-   - Verify namespace IDs in cloudflare.toml
-   - Check KV permissions in API token
+### Low Cache Hit Rate
+- Verify KV namespace configuration
+- Check caching TTL values
+- Monitor cache key patterns
 
-2. **Worker Deployment Failures**
-   - Ensure proper authentication
-   - Check worker script size limits
-   - Verify environment variables
+### Origin Server Load
+- Verify edge offloading
+- Check fallback frequency
+- Monitor API response times
 
-3. **AI Orchestrator Issues**
-   - Check AI endpoint availability
-   - Verify rate limits
-   - Review error logs in dashboard
+## Production Checklist
 
-### Debug Mode
-Enable debug logging by setting:
-```
-DEBUG=true
-```
+- [ ] API token created with correct permissions
+- [ ] KV namespace deployed
+- [ ] Worker deployed and tested
+- [ ] Custom domain configured (if applicable)
+- [ ] Rate limiting tested
+- [ ] Cache performance verified
+- [ ] Monitoring endpoints accessible
+- [ ] Cost tracking enabled
 
-## Security Considerations
+## Support
 
-### Headers Applied
-- X-Content-Type-Options: nosniff
-- X-Frame-Options: DENY
-- X-XSS-Protection: 1; mode=block
-- Referrer-Policy: strict-origin-when-cross-origin
+### Performance Metrics
+Access real-time metrics at `/api/cloudflare/performance`
 
-### Rate Limiting
-- IP-based rate limiting
-- Automatic DDoS protection
-- Request validation
+### Health Checks
+Monitor system health via admin dashboard at `/api/admin/stats`
 
-### Data Privacy
-- No sensitive data cached
-- Automatic cache invalidation
-- GDPR compliant headers
+### Edge Optimization
+Content optimization available at `/api/cloudflare/optimize`
 
-## Cost Optimization
-
-### Caching Strategy
-- Aggressive caching for static content
-- Smart caching for dynamic content
-- Cache warming for popular content
-
-### Request Routing
-- Edge-side processing reduces origin load
-- Intelligent failover minimizes costs
-- Efficient AI endpoint selection
-
-## Support and Maintenance
-
-### Regular Tasks
-1. Monitor KV storage usage
-2. Review cache hit ratios
-3. Update AI endpoint configurations
-4. Analyze performance metrics
-
-### Updates
-1. Worker code updates via deployment
-2. Configuration changes via dashboard
-3. KV data management via API
-
-For additional support, consult Cloudflare documentation or contact your Cloudflare account team.
+This deployment provides enterprise-grade edge performance while maintaining zero infrastructure costs through intelligent resource management and Cloudflare free tier optimization.
