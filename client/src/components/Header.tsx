@@ -40,11 +40,12 @@ export default function Header() {
     <>
       {/* Luxury Header */}
       <header 
-        className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        className={`fixed top-0 w-full z-50 transition-all duration-300 will-change-transform ${
           isScrolled 
             ? 'glass-card backdrop-blur-xl border-b border-white/10' 
             : 'bg-transparent'
         }`}
+        style={{ transform: 'translateZ(0)' }}
       >
         <div className="container-luxury">
           <nav className="flex items-center justify-between h-20">

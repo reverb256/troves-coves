@@ -1,3 +1,4 @@
+import React from "react";
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -41,10 +42,16 @@ function Router() {
               <AIAssistant />
             </div>
           )} />
-          <Route path="/admin" component={() => {
-            const AdminDashboard = () => import("@/pages/AdminDashboard").then(module => module.default);
-            return AdminDashboard;
-          }} />
+          <Route path="/admin">
+            {() => {
+              const AdminDashboard = React.lazy(() => import("@/pages/AdminDashboard"));
+              return (
+                <React.Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" /></div>}>
+                  <AdminDashboard />
+                </React.Suspense>
+              );
+            }}
+          </Route>
           <Route component={NotFound} />
         </Switch>
       </main>
