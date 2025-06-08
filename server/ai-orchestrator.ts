@@ -35,17 +35,32 @@ interface AIResponse {
 }
 
 class APIDiscoveryAgent extends EventEmitter {
+  private readonly REPLIT_MEMORY_LIMIT = 384; // MB (512MB - 128MB reserved)
+  private readonly REPLIT_CPU_CORES = 1;
+  private cloudflareOrchestrator: any;
+  
   private endpoints: APIEndpoint[] = [
     {
-      name: 'Local LLM Proxy',
-      baseUrl: 'http://localhost:8080',
-      models: ['local-llama', 'local-mistral', 'local-gemma'],
+      name: 'Cloudflare Edge AI',
+      baseUrl: process.env.CLOUDFLARE_WORKER_URL || 'https://troves-and-coves.workers.dev',
+      models: ['edge-llm', 'cf-ai-gateway'],
       isAvailable: true,
       lastChecked: new Date(),
-      rateLimitRemaining: 10000,
+      rateLimitRemaining: 100000, // Cloudflare free tier
       priority: 1,
       cost: 0,
-      features: ['text', 'privacy-first', 'local', 'secure', 'unlimited']
+      features: ['text', 'edge-processing', 'global-cdn', 'unlimited-bandwidth']
+    },
+    {
+      name: 'Local Resource Manager',
+      baseUrl: 'internal://replit',
+      models: ['memory-optimized', 'cpu-efficient'],
+      isAvailable: true,
+      lastChecked: new Date(),
+      rateLimitRemaining: 100,
+      priority: 10, // Lowest priority - use only when necessary
+      cost: 1,
+      features: ['text', 'fallback-only', 'memory-constrained']
     },
     {
       name: 'Pollinations AI',
