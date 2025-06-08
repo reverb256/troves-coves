@@ -195,19 +195,9 @@ export default function Footer() {
               href="https://reverb256.ca" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group inline-flex items-center space-x-2 text-foreground/70 text-sm hover:text-primary transition-all duration-300 ease-in-out transform hover:scale-105"
+              className="text-muted-foreground hover:text-primary text-xs transition-colors"
             >
-              <span className="group-hover:animate-pulse">✨</span>
-              <span className="relative">
-                vibecoded with 
-                <span className="mx-1 text-red-500 group-hover:animate-pulse group-hover:scale-110 transition-all duration-300">❤️</span>
-                by 
-                <span className="ml-1 font-medium bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent group-hover:from-secondary group-hover:to-primary transition-all duration-500">
-                  Reverb Web Design
-                </span>
-                <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300"></span>
-              </span>
-              <span className="group-hover:animate-bounce text-xs">🎨</span>
+              vibecoded with ❤️ by Reverb Web Design
             </a>
           </div>
         </div>
