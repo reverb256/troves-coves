@@ -88,17 +88,13 @@ export class MemStorage implements IStorage {
   }
 
   private seedData() {
-    // Product categories will be created by admin with authentic information:
-    // - Category names reflecting actual product lines (e.g., "Crystal Necklaces", "Healing Stones")
-    // - URL-friendly slugs automatically generated from category names
-    // - Descriptions explaining crystal properties, healing benefits, and jewelry techniques
-    // - Professional product photography showcasing each category's offerings
+    // Product categories featuring authentic crystal jewelry collections
     const crystalNecklacesCategory: Category = {
       id: this.currentCategoryId++,
-      name: "[Admin will input: Category name like 'Crystal Necklaces']",
-      slug: "[Auto-generated from name: 'crystal-necklaces']", 
-      description: "[Admin will input: Description of crystal properties and jewelry styles in this category]",
-      imageUrl: "[Admin will upload: Professional category showcase image]"
+      name: "Crystal Necklaces",
+      slug: "crystal-necklaces",
+      description: categoryDescriptions.crystalNecklaces,
+      imageUrl: crystalJewelryImages.mixed[0]
     };
     
     const healingCrystalsCategory: Category = {
