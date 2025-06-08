@@ -1,34 +1,75 @@
-// Mock data for crystal jewelry products with realistic images
+// Authentic crystal jewelry images from uploaded assets
 export const crystalJewelryImages = {
   lepidolite: [
-    "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&auto=format",
-    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop&auto=format",
-    "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop&auto=format"
+    "/assets/image_1749357447873.png",
+    "/assets/image_1749357464836.png",
+    "/assets/image_1749357495251.png"
   ],
   turquoise: [
-    "https://images.unsplash.com/photo-1603974372039-adc49044b6bd?w=400&h=400&fit=crop&auto=format",
-    "https://images.unsplash.com/photo-1544376664-80b17f09d399?w=400&h=400&fit=crop&auto=format",
-    "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&auto=format"
+    "/assets/image_1749357504214.png",
+    "/assets/image_1749357513196.png",
+    "/assets/image_1749357522519.png"
   ],
   citrine: [
-    "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=400&h=400&fit=crop&auto=format",
-    "https://images.unsplash.com/photo-1594736797933-d0eb24c19b22?w=400&h=400&fit=crop&auto=format",
-    "https://images.unsplash.com/photo-1603974372039-adc49044b6bd?w=400&h=400&fit=crop&auto=format"
+    "/assets/image_1749357530964.png",
+    "/assets/image_1749357536824.png",
+    "/assets/image_1749357545146.png"
   ],
   lapis: [
-    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop&auto=format",
-    "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&h=400&fit=crop&auto=format",
-    "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&auto=format"
+    "/assets/image_1749357549175.png",
+    "/assets/image_1749357558090.png",
+    "/assets/image_1749357561694.png"
   ],
   roseQuartz: [
-    "https://images.unsplash.com/photo-1594736797933-d0eb24c19b22?w=400&h=400&fit=crop&auto=format",
-    "https://images.unsplash.com/photo-1603974372039-adc49044b6bd?w=400&h=400&fit=crop&auto=format",
-    "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=400&h=400&fit=crop&auto=format"
+    "/assets/image_1749357565045.png",
+    "/assets/image_1749357568490.png",
+    "/assets/image_1749357571495.png"
   ],
   mixed: [
-    "https://images.unsplash.com/photo-1544376664-80b17f09d399?w=400&h=400&fit=crop&auto=format",
-    "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&auto=format",
-    "https://images.unsplash.com/photo-1594736797933-d0eb24c19b22?w=400&h=400&fit=crop&auto=format"
+    "/assets/image_1749357576370.png",
+    "/assets/image_1749357579737.png",
+    "/assets/image_1749357586766.png"
+  ],
+  featured: [
+    "/assets/image_1749357591892.png",
+    "/assets/image_1749357600193.png",
+    "/assets/image_1749357624268.png",
+    "/assets/image_1749357627622.png"
+  ],
+  collection: [
+    "/assets/image_1749357856518.png",
+    "/assets/image_1749357860279.png",
+    "/assets/image_1749357863415.png",
+    "/assets/image_1749357867499.png",
+    "/assets/image_1749357870070.png",
+    "/assets/image_1749357872386.png",
+    "/assets/image_1749357875487.png",
+    "/assets/image_1749357878748.png",
+    "/assets/image_1749357881021.png",
+    "/assets/image_1749357883212.png",
+    "/assets/image_1749357885614.png",
+    "/assets/image_1749357889290.png"
+  ],
+  premium: [
+    "/assets/image_1749357927180.png",
+    "/assets/image_1749357938621.png",
+    "/assets/image_1749357969109.png",
+    "/assets/image_1749357973810.png",
+    "/assets/image_1749357976656.png",
+    "/assets/image_1749357979468.png",
+    "/assets/image_1749357994076.png"
+  ],
+  lifestyle: [
+    "/assets/image_1749358100663.png",
+    "/assets/image_1749358174695.png",
+    "/assets/image_1749358180402.png",
+    "/assets/image_1749358186000.png",
+    "/assets/image_1749358193862.png",
+    "/assets/image_1749358206524.png",
+    "/assets/image_1749358213509.png",
+    "/assets/image_1749358218380.png",
+    "/assets/image_1749358222853.png",
+    "/assets/image_1749358227332.png"
   ]
 };
 
