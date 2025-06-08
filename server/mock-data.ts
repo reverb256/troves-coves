@@ -10,6 +10,10 @@ export const crystalJewelryImages = {
   ],
   citrine: [
     "/images/jewelry/citrine-necklace-set-1.png",
+    "/images/jewelry/citrine-pearl-set-full-1.png",
+    "/images/jewelry/citrine-pearl-detail-1.png",
+    "/images/jewelry/citrine-pearl-choker-1.png",
+    "/images/jewelry/citrine-pearl-pendant-1.png",
     "/images/jewelry/citrine-flower-detail-1.png"
   ],
   turquoise: [
