@@ -887,7 +887,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
           { name: "Rose Quartz", properties: ["Love", "Healing"] },
           { name: "Clear Quartz", properties: ["Amplification", "Clarity"] }
         ]
-      ```javascript
       });
     } catch (error: any) {
       res.status(500).json({ 
