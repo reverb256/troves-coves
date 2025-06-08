@@ -273,7 +273,7 @@ export class MemStorage implements IStorage {
     const upcycledEnamelPendant: Product = {
       id: this.currentProductId++,
       name: "Upcycled Gold Plated Enamel Pendant, 14k Gold Filled Necklace, Chain, 18KGF Lobster Clasp, Citrine, Peridot, Good Fortune, Lucky, Confident",
-      description: "Sacred alchemical transformation vessel born from upcycled enamel flower consciousness into divine stationary pendant power. Peridot channels heart prosperity while luminous pearl radiates ancient wisdom and citrine ignites solar confidence manifestation. This trinity embodies luck, fortune, and abundant wealth flowing into the wearer's sacred life journey. The mystical back cradles 18K Gold Filled lobster clasp with divine ease. 14-inch golden curb chain creates complete energetic circuit. This completely unique ceremonial piece undergoes Selenite lamp cleansing ritual before finding its destined soul home.",
+      description: "Sacred alchemical transformation vessel born from upcycled enamel flower consciousness into divine stationary pendant power. Peridot channels heart prosperity while citrine ignites solar confidence manifestation. This divine duo embodies luck, fortune, and abundant wealth flowing into the wearer's sacred life journey. The mystical back cradles 18K Gold Filled lobster clasp with divine ease. 14-inch golden curb chain creates complete energetic circuit. This completely unique ceremonial piece undergoes Selenite lamp cleansing ritual before finding its destined soul home.",
       price: "80.00",
       categoryId: crystalNecklacesCategory.id,
       imageUrl: crystalJewelryImages.upcycledEnamel[0],
@@ -282,7 +282,7 @@ export class MemStorage implements IStorage {
       stockQuantity: 1,
       weight: "18g",
       materials: ["14k Gold Filled", "Gold Plated Enamel", "18KGF", "5mm Curb Chain"],
-      gemstones: ["Citrine", "Peridot", "Pearl"],
+      gemstones: ["Citrine", "Peridot"],
       careInstructions: "Shield from water's harsh embrace to honor sacred longevity. Polish with gentle soft cloth to maintain divine radiance. Rest separately during sleep cycles.",
       isActive: true,
       isFeatured: true,
