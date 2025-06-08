@@ -62,19 +62,19 @@
   --card-foreground: 25 30% 3%;
   --popover: 45 25% 99%;
   --popover-foreground: 25 30% 3%;
-  --primary: 14 85% 45%;
+  --primary: 174 75% 20%;
   --primary-foreground: 45 25% 99%;
-  --secondary: 200 12% 75%;
+  --secondary: 200 12% 85%;
   --secondary-foreground: 25 30% 8%;
   --muted: 200 10% 94%;
-  --muted-foreground: 25 25% 12%;
-  --accent: 280 65% 45%;
+  --muted-foreground: 25 25% 8%;
+  --accent: 174 85% 25%;
   --accent-foreground: 45 25% 99%;
   --destructive: 0 80% 45%;
   --destructive-foreground: 45 25% 99%;
   --border: 200 15% 75%;
   --input: 200 10% 92%;
-  --ring: 14 85% 45%;
+  --ring: 174 75% 20%;
   --radius: 8px;
   
   /* Enhanced shadows with warmth */
@@ -86,6 +86,45 @@
   --glow-turquoise: 174 85% 30%;
   --glow-gold: 43 90% 35%;
   --glow-skull: 174 75% 25%;
+}
+
+/* High Contrast Text Utilities */
+.text-readable {
+  color: hsl(25 30% 8%) !important;
+}
+
+.text-readable-muted {
+  color: hsl(25 25% 15%) !important;
+}
+
+.text-max-contrast {
+  color: hsl(0 0% 0%) !important;
+}
+
+.text-navy {
+  color: hsl(200 65% 15%) !important;
+}
+
+.text-navy-light {
+  color: hsl(200 65% 20%) !important;
+}
+
+/* Ensure all gray text meets contrast requirements */
+.text-gray-600 {
+  color: hsl(25 25% 15%) !important;
+}
+
+.text-gray-700 {
+  color: hsl(25 30% 8%) !important;
+}
+
+.text-gray-800 {
+  color: hsl(25 30% 5%) !important;
+}
+
+/* Override any low contrast text */
+.text-muted-foreground {
+  color: hsl(25 25% 15%) !important;
 }
 
 .dark {

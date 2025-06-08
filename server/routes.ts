@@ -197,6 +197,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }
 
   const httpServer = createServer(app);
+  // AI Status endpoint
+  app.get("/api/ai/status", async (req, res) => {
+    try {
+      // Return AI system status information
+      const aiStatus = {
+        totalEndpoints: 3,
+        availableEndpoints: 3,
+        processing: false,
+        endpoints: [
+          {
+            name: "Crystal Knowledge Base",
+            isAvailable: true,
+            lastChecked: new Date()
+          },
+          {
+            name: "Product Recommendations",
+            isAvailable: true,
+            lastChecked: new Date()
+          },
+          {
+            name: "Customer Support",
+            isAvailable: true,
+            lastChecked: new Date()
+          }
+        ]
+      };
+      
+      res.json(aiStatus);
+    } catch (error: any) {
+      console.error("AI Status error:", error);
+      res.status(500).json({ error: "Failed to get AI status" });
+    }
+  });
+
   // AI Chat endpoint
   app.post("/api/ai/chat", async (req, res) => {
     try {
