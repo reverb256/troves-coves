@@ -49,24 +49,22 @@ export default function Contact() {
     try {
       const submissionData = {
         ...data,
-        preferredDate: selectedDate,
+        preferredDate: selectedDate?.toISOString(),
       };
 
       await apiRequest("POST", "/api/contact", submissionData);
       
       toast({
-        title: "Message Sent Successfully!",
-        description: isConsultation 
-          ? "Thank you for booking a consultation. We'll contact you within 24 hours to confirm your appointment."
-          : "Thank you for contacting us. We'll get back to you within 24 hours.",
+        title: "Message sent successfully!",
+        description: "We'll get back to you within 24 hours.",
       });
-
+      
       form.reset();
       setSelectedDate(undefined);
-    } catch (error: any) {
+    } catch (error) {
       toast({
-        title: "Error",
-        description: error.message || "Failed to send message. Please try again.",
+        title: "Failed to send message",
+        description: "Please try again or contact us directly.",
         variant: "destructive",
       });
     } finally {
@@ -75,11 +73,11 @@ export default function Contact() {
   };
 
   const consultationTypes = [
-    "Engagement Ring Consultation",
-    "Custom Design Session",
-    "Wedding Band Fitting",
-    "Jewelry Appraisal",
-    "Ring Resizing",
+    "Crystal Consultation",
+    "Custom Jewelry Design",
+    "Energy Reading",
+    "Chakra Alignment",
+    "Sacred Jewelry Blessing",
     "General Inquiry"
   ];
 
@@ -92,53 +90,44 @@ export default function Contact() {
   const services = [
     {
       icon: Gem,
-      title: "Custom Design",
-      description: "Create unique pieces tailored to your vision"
+      title: "Crystal Consultation",
+      description: "Personalized guidance for your spiritual journey"
     },
     {
       icon: Heart,
-      title: "Engagement Consultation",
-      description: "Expert guidance for the perfect proposal"
+      title: "Custom Design",
+      description: "Create unique pieces that resonate with your energy"
     },
     {
       icon: Star,
-      title: "Jewelry Services",
-      description: "Cleaning, repairs, and maintenance"
+      title: "Sacred Services",
+      description: "Cleansing, charging, and blessing your jewelry"
     }
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-warm via-pearl-cream to-moonstone">
-      {/* Mystical Hero Section */}
-      <section className="relative bg-gradient-to-r from-troves-turquoise via-coves-cursive-blue to-skull-turquoise text-white overflow-hidden py-20">
-        <div 
-          className="absolute inset-0 opacity-10" 
-          style={{ backgroundImage: 'var(--skull-overlay)' }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-obsidian-black/20 via-transparent to-skull-turquoise/20" />
+      {/* Header */}
+      <section className="relative bg-gradient-to-br from-pearl-cream via-crystal-accents to-pearl-cream text-navy overflow-hidden py-20">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-troves-turquoise to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-skull-turquoise to-transparent" />
         
-        <div className="relative container mx-auto px-4">
-          <div className="text-center">
-            {/* Ornate Decorative Frame */}
-            <div className="mb-6">
-              <div className="inline-block px-6 py-2 border border-ornate-frame-gold/20 rounded-lg bg-ornate-frame-gold/5 backdrop-blur-sm">
-                <span className="text-ornate-frame-gold text-sm font-medium tracking-wider uppercase">
-                  Sacred Connection
-                </span>
-              </div>
-            </div>
-            
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-shadow-lg" style={{ fontFamily: 'var(--brand-font-heading)' }}>
-              <span className="text-crystal-accents">Connect with Our Crystal Keepers</span>
-            </h1>
-            
-            <div className="w-24 h-1 mx-auto mb-6 bg-gradient-to-r from-transparent via-ornate-frame-gold to-transparent rounded-full shadow-glow" />
-            
-            <p className="text-pearl-cream/90 text-xl max-w-3xl mx-auto leading-relaxed">
-              Reach out to our crystal experts online for personalized guidance on your sacred jewelry journey. 
-              Our jewelry experts are here to help you find the perfect piece.
-            </p>
+        <div className="relative container mx-auto px-4 text-center">
+          <div className="inline-block px-6 py-2 border border-ornate-frame-gold/20 rounded-lg bg-ornate-frame-gold/5 backdrop-blur-sm mb-6">
+            <span className="text-ornate-frame-gold/80 text-sm font-medium tracking-wider uppercase">
+              Sacred Connection
+            </span>
           </div>
+          
+          <h1 className="text-5xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--brand-font-heading)' }}>
+            <span className="text-navy">Contact Us</span>
+          </h1>
+          
+          <div className="w-24 h-1 mx-auto mb-6 bg-gradient-to-r from-transparent via-troves-turquoise to-transparent rounded-full" />
+          
+          <p className="text-navy/80 text-xl max-w-3xl mx-auto leading-relaxed">
+            Connect with our mystical crystal jewelry artisans. We're here to guide your sacred journey and create pieces that resonate with your soul.
+          </p>
         </div>
       </section>
 
@@ -146,16 +135,17 @@ export default function Contact() {
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <div>
-            <Card className="luxury-shadow-lg">
-              <CardHeader>
-                <CardTitle className="text-2xl font-serif text-navy">
-                  Contact Us
+            <Card className="shadow-2xl border border-ornate-frame-gold/20 bg-gradient-to-br from-pearl-cream to-crystal-accents backdrop-blur-sm">
+              <CardHeader className="bg-gradient-to-r from-troves-turquoise/10 to-skull-turquoise/10 border-b border-ornate-frame-gold/20">
+                <CardTitle className="flex items-center space-x-3 text-troves-turquoise">
+                  <MessageCircle className="h-6 w-6 text-ornate-frame-gold" />
+                  <span className="font-bold text-xl">Send us a Message</span>
                 </CardTitle>
-                <p className="text-gray-600">
-                  Send us a message or book a consultation with our jewelry experts.
+                <p className="text-navy/80">
+                  Reach out for personalized guidance on your crystal jewelry journey.
                 </p>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
                     {/* Personal Information */}
@@ -165,9 +155,13 @@ export default function Contact() {
                         name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Full Name</FormLabel>
+                            <FormLabel className="text-navy font-semibold">Full Name</FormLabel>
                             <FormControl>
-                              <Input placeholder="John Doe" {...field} />
+                              <Input 
+                                placeholder="Your sacred name"
+                                className="bg-pearl-cream/50 border-ornate-frame-gold/20 text-navy placeholder-navy/60"
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -179,9 +173,14 @@ export default function Contact() {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Email Address</FormLabel>
+                            <FormLabel className="text-navy font-semibold">Email Address</FormLabel>
                             <FormControl>
-                              <Input placeholder="john@example.com" type="email" {...field} />
+                              <Input 
+                                type="email"
+                                placeholder="your@email.com"
+                                className="bg-pearl-cream/50 border-ornate-frame-gold/20 text-navy placeholder-navy/60"
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -194,9 +193,15 @@ export default function Contact() {
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Phone Number (Optional)</FormLabel>
+                          <FormLabel className="text-navy font-semibold">Phone Number (Optional)</FormLabel>
                           <FormControl>
-                            <Input placeholder="(204) 555-0123" {...field} />
+                            <Input 
+                              type="tel"
+                              placeholder="Your phone number"
+                              className="bg-pearl-cream/50 border-ornate-frame-gold/20 text-navy placeholder-navy/60"
+                              {...field}
+                              value={field.value || ""}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -204,75 +209,89 @@ export default function Contact() {
                     />
 
                     {/* Consultation Toggle */}
-                    <FormField
-                      control={form.control}
-                      name="isConsultation"
-                      render={({ field }) => (
-                        <FormItem>
-                          <div className="flex items-center space-x-2">
-                            <input
-                              type="checkbox"
-                              id="isConsultation"
-                              checked={field.value}
-                              onChange={field.onChange}
-                              className="rounded border-gray-300"
-                            />
-                            <Label htmlFor="isConsultation" className="text-sm font-medium">
-                              This is a consultation booking
-                            </Label>
-                          </div>
-                        </FormItem>
-                      )}
-                    />
+                    <div className="flex items-center space-x-3">
+                      <FormField
+                        control={form.control}
+                        name="isConsultation"
+                        render={({ field }) => (
+                          <FormItem className="flex items-center space-x-2">
+                            <FormControl>
+                              <input
+                                type="checkbox"
+                                checked={field.value}
+                                onChange={field.onChange}
+                                className="w-4 h-4 text-troves-turquoise bg-pearl-cream border-ornate-frame-gold rounded focus:ring-troves-turquoise"
+                              />
+                            </FormControl>
+                            <FormLabel className="text-navy font-semibold">
+                              Request Crystal Consultation
+                            </FormLabel>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
-                    {/* Subject */}
-                    <FormField
-                      control={form.control}
-                      name="subject"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>
-                            {isConsultation ? "Consultation Type" : "Subject"}
-                          </FormLabel>
-                          <FormControl>
-                            {isConsultation ? (
-                              <Select onValueChange={field.onChange} value={field.value}>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Select consultation type" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {consultationTypes.map((type) => (
-                                    <SelectItem key={type} value={type}>
-                                      {type}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            ) : (
-                              <Input placeholder="How can we help you?" {...field} />
-                            )}
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    {/* Preferred Date for Consultations */}
+                    {/* Consultation Type (conditional) */}
                     {isConsultation && (
-                      <div className="space-y-2">
-                        <Label>Preferred Date (Optional)</Label>
+                      <FormField
+                        control={form.control}
+                        name="subject"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-navy font-semibold">Consultation Type</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger className="bg-pearl-cream/50 border-ornate-frame-gold/20 text-navy">
+                                  <SelectValue placeholder="Choose your sacred service" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {consultationTypes.map((type) => (
+                                  <SelectItem key={type} value={type}>
+                                    {type}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+
+                    {/* Subject (non-consultation) */}
+                    {!isConsultation && (
+                      <FormField
+                        control={form.control}
+                        name="subject"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-navy font-semibold">Subject</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="What can we help you with?"
+                                className="bg-pearl-cream/50 border-ornate-frame-gold/20 text-navy placeholder-navy/60"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+
+                    {/* Preferred Date (consultation only) */}
+                    {isConsultation && (
+                      <div>
+                        <Label className="text-navy font-semibold">Preferred Consultation Date</Label>
                         <Popover>
                           <PopoverTrigger asChild>
                             <Button
                               variant="outline"
-                              className="w-full justify-start text-left font-normal"
+                              className="w-full justify-start text-left font-normal bg-pearl-cream/50 border-ornate-frame-gold/20 text-navy mt-2"
                             >
                               <CalendarIcon className="mr-2 h-4 w-4" />
-                              {selectedDate ? (
-                                format(selectedDate, "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
+                              {selectedDate ? format(selectedDate, "PPP") : "Select a date"}
                             </Button>
                           </PopoverTrigger>
                           <PopoverContent className="w-auto p-0">
@@ -280,7 +299,6 @@ export default function Contact() {
                               mode="single"
                               selected={selectedDate}
                               onSelect={setSelectedDate}
-                              disabled={(date) => date < new Date() || date < new Date("1900-01-01")}
                               initialFocus
                             />
                           </PopoverContent>
@@ -294,17 +312,11 @@ export default function Contact() {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
-                            {isConsultation ? "Additional Details" : "Message"}
-                          </FormLabel>
+                          <FormLabel className="text-navy font-semibold">Message</FormLabel>
                           <FormControl>
-                            <Textarea
-                              placeholder={
-                                isConsultation
-                                  ? "Tell us about your preferences, budget, or any specific requirements..."
-                                  : "Please describe your inquiry in detail..."
-                              }
-                              className="min-h-[120px]"
+                            <Textarea 
+                              placeholder="Share your intentions and how we can assist your sacred journey..."
+                              className="bg-pearl-cream/50 border-ornate-frame-gold/20 text-navy placeholder-navy/60 min-h-[120px]"
                               {...field}
                             />
                           </FormControl>
@@ -313,16 +325,22 @@ export default function Contact() {
                       )}
                     />
 
-                    <Button
-                      type="submit"
+                    <Button 
+                      type="submit" 
                       disabled={isSubmitting}
-                      className="w-full bg-navy hover:bg-rich-blue text-white h-12"
+                      className="w-full bg-troves-turquoise hover:bg-skull-turquoise text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
                     >
-                      {isSubmitting
-                        ? "Sending..."
-                        : isConsultation
-                        ? "Book Consultation"
-                        : "Send Message"}
+                      {isSubmitting ? (
+                        <div className="flex items-center space-x-2">
+                          <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
+                          <span>Sending Sacred Message...</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center space-x-2">
+                          <Sparkles className="w-4 h-4" />
+                          <span>{isConsultation ? "Request Consultation" : "Send Message"}</span>
+                        </div>
+                      )}
                     </Button>
                   </form>
                 </Form>
@@ -330,87 +348,89 @@ export default function Contact() {
             </Card>
           </div>
 
-          {/* Contact Information */}
+          {/* Contact Information & Services */}
           <div className="space-y-8">
-            {/* Store Information */}
-            <Card className="luxury-shadow">
-              <CardHeader>
-                <CardTitle className="text-xl font-serif text-navy">
-                  Visit Our Showroom
+            {/* Contact Details */}
+            <Card className="shadow-2xl border border-ornate-frame-gold/20 bg-gradient-to-br from-pearl-cream to-crystal-accents backdrop-blur-sm">
+              <CardHeader className="bg-gradient-to-r from-troves-turquoise/10 to-skull-turquoise/10 border-b border-ornate-frame-gold/20">
+                <CardTitle className="flex items-center space-x-3 text-troves-turquoise">
+                  <Compass className="h-6 w-6 text-ornate-frame-gold" />
+                  <span className="font-bold text-xl">Find Your Way to Us</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <MapPin className="h-6 w-6 text-elegant-gold mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-navy">Downtown Winnipeg</h3>
-                    <p className="text-gray-600">123 Main Street</p>
-                    <p className="text-gray-600">Exchange District</p>
-                    <p className="text-gray-600">Winnipeg, MB R3B 1A5</p>
+              <CardContent className="p-6 space-y-6">
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <Mail className="h-5 w-5 text-troves-turquoise mt-1" />
+                    <div>
+                      <p className="font-semibold text-navy">Email</p>
+                      <p className="text-navy/70">hello@trovesandcoves.com</p>
+                    </div>
                   </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <Phone className="h-6 w-6 text-elegant-gold mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-navy">(204) 555-GEMS</h3>
-                    <p className="text-gray-600">Speak with our jewelry experts</p>
+                  
+                  <div className="flex items-start space-x-3">
+                    <Phone className="h-5 w-5 text-troves-turquoise mt-1" />
+                    <div>
+                      <p className="font-semibold text-navy">Phone</p>
+                      <p className="text-navy/70">+1 (555) 123-GEMS</p>
+                    </div>
                   </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <Mail className="h-6 w-6 text-elegant-gold mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-navy">info@trovesandcoves.ca</h3>
-                    <p className="text-gray-600">Email us anytime</p>
+                  
+                  <div className="flex items-start space-x-3">
+                    <MapPin className="h-5 w-5 text-troves-turquoise mt-1" />
+                    <div>
+                      <p className="font-semibold text-navy">Location</p>
+                      <p className="text-navy/70">Online Mystical Boutique<br />Serving Sacred Souls Worldwide</p>
+                    </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Business Hours */}
-            <Card className="luxury-shadow">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2 text-xl font-serif text-navy">
-                  <Clock className="h-5 w-5 text-elegant-gold" />
-                  <span>Business Hours</span>
+            <Card className="shadow-2xl border border-ornate-frame-gold/20 bg-gradient-to-br from-pearl-cream to-crystal-accents backdrop-blur-sm">
+              <CardHeader className="bg-gradient-to-r from-troves-turquoise/10 to-skull-turquoise/10 border-b border-ornate-frame-gold/20">
+                <CardTitle className="flex items-center space-x-3 text-troves-turquoise">
+                  <Clock className="h-6 w-6 text-ornate-frame-gold" />
+                  <span className="font-bold text-xl">Sacred Hours</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <div className="space-y-3">
                   {businessHours.map((schedule, index) => (
-                    <div key={index} className="flex justify-between items-center">
-                      <span className="font-medium text-navy">{schedule.day}</span>
-                      <span className="text-gray-600">{schedule.hours}</span>
+                    <div key={index} className="flex justify-between items-center py-2 border-b border-ornate-frame-gold/10 last:border-b-0">
+                      <span className="font-semibold text-navy">{schedule.day}</span>
+                      <span className="text-navy/70">{schedule.hours}</span>
                     </div>
                   ))}
                 </div>
-                <div className="mt-4 p-3 bg-elegant-gold/10 rounded-lg">
-                  <p className="text-sm text-gray-700">
-                    <strong>Note:</strong> Private consultations available outside regular hours. 
-                    Please contact us to schedule.
+                <div className="mt-6 p-4 bg-troves-turquoise/10 rounded-lg border border-troves-turquoise/20">
+                  <p className="text-navy/80 text-sm text-center">
+                    <strong>Online consultations available 24/7</strong><br />
+                    Book your sacred session at your convenience
                   </p>
                 </div>
               </CardContent>
             </Card>
 
             {/* Services */}
-            <Card className="luxury-shadow">
-              <CardHeader>
-                <CardTitle className="text-xl font-serif text-navy">
-                  Our Services
+            <Card className="shadow-2xl border border-ornate-frame-gold/20 bg-gradient-to-br from-pearl-cream to-crystal-accents backdrop-blur-sm">
+              <CardHeader className="bg-gradient-to-r from-troves-turquoise/10 to-skull-turquoise/10 border-b border-ornate-frame-gold/20">
+                <CardTitle className="flex items-center space-x-3 text-troves-turquoise">
+                  <Gem className="h-6 w-6 text-ornate-frame-gold" />
+                  <span className="font-bold text-xl">Sacred Services</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <div className="space-y-4">
                   {services.map((service, index) => {
                     const Icon = service.icon;
                     return (
-                      <div key={index} className="flex items-start space-x-3">
-                        <Icon className="h-5 w-5 text-elegant-gold mt-1 flex-shrink-0" />
+                      <div key={index} className="flex items-start space-x-4 p-4 border border-ornate-frame-gold/10 rounded-lg bg-pearl-cream/30">
+                        <Icon className="h-6 w-6 text-troves-turquoise mt-1" />
                         <div>
                           <h3 className="font-semibold text-navy">{service.title}</h3>
-                          <p className="text-sm text-gray-600">{service.description}</p>
+                          <p className="text-navy/70 text-sm">{service.description}</p>
                         </div>
                       </div>
                     );
@@ -418,25 +438,32 @@ export default function Contact() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Emergency Contact */}
-            <Card className="bg-navy text-white luxury-shadow">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <MessageCircle className="h-5 w-5 text-elegant-gold" />
-                  <span>Need Immediate Assistance?</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-300 mb-4">
-                  For urgent jewelry needs or emergency repairs, call us directly during business hours.
-                </p>
-                <Button className="w-full bg-elegant-gold hover:bg-yellow-400 text-navy font-semibold">
-                  Call (204) 555-GEMS
-                </Button>
-              </CardContent>
-            </Card>
           </div>
+        </div>
+
+        {/* Response Time Promise */}
+        <div className="mt-12 text-center">
+          <Card className="shadow-2xl border border-ornate-frame-gold/20 bg-gradient-to-br from-pearl-cream to-crystal-accents backdrop-blur-sm max-w-2xl mx-auto">
+            <CardContent className="p-8">
+              <Sparkles className="h-12 w-12 text-troves-turquoise mx-auto mb-4" />
+              <h3 className="text-2xl font-bold text-navy mb-4">Sacred Promise</h3>
+              <p className="text-navy/80 mb-6">
+                Every message is received with intention and gratitude. We honor your trust and will respond within 24 hours, 
+                often much sooner. For urgent crystal guidance, please mention it in your message.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <Badge variant="outline" className="border-troves-turquoise text-navy">
+                  24 Hour Response
+                </Badge>
+                <Badge variant="outline" className="border-skull-turquoise text-navy">
+                  Personal Guidance
+                </Badge>
+                <Badge variant="outline" className="border-ornate-frame-gold text-navy">
+                  Sacred Connection
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
