@@ -443,8 +443,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
         priority
       };
 
+      // Handle image generation requests directly through AI orchestrator
+      if (type === 'image') {
+        const { AIOrchestrator } = require('./ai-orchestrator');
+        const orchestrator = new AIOrchestrator();
+        const response = await orchestrator.processRequest({
+          prompt,
+          type: 'image',
+          maxTokens,
+          temperature,
+          priority
+        });
+        
+        return res.json({
+          content: response.content,
+          mediaUrl: response.mediaUrl,
+          timestamp: new Date().toISOString(),
+          provider: response.provider,
+          model: response.model
+        });
+      }
+
+      // For text requests, use intelligence container with proper session handling
+      const sessionId = req.session?.cartId || `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       const intelligence = containerManager.getIntelligenceContainer();
-      const response = await intelligence.handleCustomerConsultation(prompt, 'general chat', getSessionId(req));
+      const response = await intelligence.handleCustomerConsultation(prompt, 'general chat', sessionId);
       
       res.json({
         content: response.content || response,
@@ -498,6 +521,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Serve preserved images from local storage
   app.use('/uploads/preserved-images', express.static('./uploads/preserved-images'));
+
+  // Test endpoint for image preservation
+  app.post('/api/test-preserve', async (req, res) => {
+    try {
+      // Generate a test Pollinations image
+      const testPrompt = 'beautiful crystal necklace with amethyst stone, professional photography';
+      const encodedPrompt = encodeURIComponent(testPrompt);
+      const pollinationsUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=512&height=512&seed=${Date.now()}&nologo=true&enhance=true&private=true&model=flux`;
+      
+      console.log('Testing image preservation with URL:', pollinationsUrl);
+      
+      // Preserve the image
+      const result = await imagePreservationService.preserveImage(pollinationsUrl);
+      
+      res.json({
+        success: true,
+        original: pollinationsUrl,
+        preserved: result.preservedUrl,
+        provider: result.provider,
+        message: 'Image successfully preserved'
+      });
+    } catch (error: any) {
+      console.error('Test preservation failed:', error);
+      res.status(500).json({ 
+        success: false,
+        message: `Test failed: ${error.message}` 
+      });
+    }
+  });
 
   // Admin Dashboard Stats
   app.get('/api/admin/stats', async (req, res) => {
