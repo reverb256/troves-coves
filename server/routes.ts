@@ -385,21 +385,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { intention, priceRange, style, crystalType } = req.body;
       
-      const recommendTool = customerServiceAgent['tools'].get('recommend_products');
-      if (!recommendTool) {
-        return res.status(500).json({ message: "Recommendation service unavailable" });
+      // Delegate to AI orchestration system
+      const aiRequest = {
+        prompt: `Generate crystal jewelry recommendations based on: intention="${intention}", priceRange="${priceRange}", style="${style}", crystalType="${crystalType}". 
+                 Return JSON array with: id, name, description, price, crystalProperties, intention, confidence.`,
+        type: 'text' as const,
+        priority: 'medium' as const,
+        maxTokens: 500
+      };
+
+      const response = await aiOrchestrator.processRequest(aiRequest);
+      
+      try {
+        const recommendations = JSON.parse(response.content);
+        res.json(recommendations);
+      } catch (parseError) {
+        // Get actual products and filter
+        const products = await storage.getProducts();
+        const filtered = products.filter(p => 
+          (crystalType ? p.name.toLowerCase().includes(crystalType.toLowerCase()) : true) &&
+          (priceRange ? parseFloat(p.price) <= parseFloat(priceRange.split('-')[1] || '1000') : true)
+        );
+        
+        res.json({
+          recommendations: filtered.slice(0, 6).map(p => ({
+            id: p.id,
+            name: p.name,
+            description: p.description,
+            price: p.price,
+            crystalProperties: ["Healing", "Balance"],
+            intention: intention || "General wellness",
+            confidence: 0.8
+          }))
+        });
       }
-      
-      const recommendations = await recommendTool.execute({
-        intention,
-        priceRange,
-        style,
-        crystalType
-      });
-      
-      res.json(recommendations);
     } catch (error: any) {
-      res.status(500).json({ message: "Error generating recommendations" });
+      res.status(500).json({ message: "Recommendation service unavailable" });
     }
   });
 
