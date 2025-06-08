@@ -316,22 +316,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Delegate to AI orchestration system
-      const aiRequest = {
-        prompt: `As Troves & Coves crystal consultant, respond to: "${message}". Context: ${context || 'general inquiry'}. 
-                 Provide expert guidance on crystals, jewelry, and healing properties. Be warm, knowledgeable, and helpful.`,
-        type: 'text' as const,
-        priority: 'high' as const,
-        maxTokens: 300
-      };
-
-      const response = await aiOrchestrator.processRequest(aiRequest);
+      const intelligence = containerManager.getIntelligenceContainer();
+      const response = await intelligence.handleCustomerConsultation(message, context, sessionId);
       
       res.json({ 
-        response: response.content,
+        response: response.content || response,
         timestamp: new Date().toISOString(),
-        agent: 'ai-orchestrator',
-        provider: response.provider,
-        model: response.model,
+        agent: 'intelligence-container',
         suggestions: [
           "Tell me about crystal properties",
           "Help me find jewelry for anxiety relief", 
@@ -614,15 +605,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/ai/system-status", async (req, res) => {
     try {
-      const systemStatus = await aiOrchestrator.getSystemStatus();
-      const agentStatuses = {
-        ragAgent: ragAgent.getStatus(),
-        customerService: customerServiceAgent.getStatus()
-      };
+      const systemStatus = await containerManager.getSystemStatus();
       
       res.json({
-        orchestrator: systemStatus,
-        agents: agentStatuses,
+        ...systemStatus,
         timestamp: new Date().toISOString()
       });
     } catch (error: any) {

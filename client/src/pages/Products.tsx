@@ -133,6 +133,12 @@ export default function Products() {
       </section>
 
       <div className="container mx-auto px-4 py-12">
+        {/* Subtle market insights */}
+        <SubtleMarketInsights category={currentCategory?.name} />
+        
+        {/* Background keyword monitoring */}
+        <KeywordMonitor />
+
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Sidebar Filters */}
           <aside className="lg:col-span-1">
