@@ -147,7 +147,7 @@ export class MemStorage implements IStorage {
       id: this.currentProductId++,
       name: "Unique Turquoise Beaded Necklace, Pearl Strung, Lapis Lazuli, Pink Pearl, Hematite, Leaf",
       description: "Handmade unique turquoise beaded necklace featuring pearl strung design with lapis lazuli, pink pearl, hematite, and leaf charm. One of a kind piece with gold filled clasp. 21 inches in length with lobster claw closure.",
-      price: 70.00,
+      price: "70.00",
       categoryId: crystalNecklacesCategory.id,
       imageUrl: "/api/placeholder/400/400",
       imageUrls: [
@@ -157,7 +157,7 @@ export class MemStorage implements IStorage {
       ],
       sku: "TC-TUR-001",
       stockQuantity: 1,
-      weight: 30,
+      weight: "30g",
       materials: ["Stone", "Gold Filled", "Pearl"],
       gemstones: ["Turquoise", "Lapis Lazuli", "Hematite"],
       isActive: true,
@@ -191,7 +191,7 @@ export class MemStorage implements IStorage {
       id: this.currentProductId++,
       name: "Lapis Lazuli, Wire Wrapped Necklace, Leather, Spiritual, Royal, Psychic Abilities",
       description: "Handmade Lapis Lazuli necklace on brown leather cord. The striking blue hues of the lapis lazuli stone are steeped in rich metaphysical properties. Wire wrapped with protection, talisman, amulet properties. 15 inches with lobster claw closure.",
-      price: 40.00,
+      price: "40.00",
       categoryId: wirewrappedCategory.id,
       imageUrl: "/api/placeholder/400/400",
       imageUrls: [
@@ -213,7 +213,7 @@ export class MemStorage implements IStorage {
       id: this.currentProductId++,
       name: "Medium Rose Quartz Pendant, Wire Wrapped, Brown Leather",
       description: "Handmade Rose Quartz necklace on brown leather cord. Embrace the loving and nurturing energy of this stunning piece featuring a raw Rose Quartz pendant. The gentle pink hues complement the rustic charm of the brown leather cord. Love, relationships, self love, compassion, empathy, grace, confidence, healing. 18 inches with lobster claw closure.",
-      price: 40.00,
+      price: "40.00",
       categoryId: wirewrappedCategory.id,
       imageUrl: "/api/placeholder/400/400",
       imageUrls: [
@@ -235,7 +235,7 @@ export class MemStorage implements IStorage {
       id: this.currentProductId++,
       name: "Lapis Lazuli, Brown Leather, Masculine, Men's Necklace",
       description: "Handmade Lapis Lazuli necklace on brown leather cord designed for men. The striking blue hues are steeped in rich metaphysical properties cherished for centuries. Psychic abilities, protection, royal, Egypt connection. Hand wrapped, wire wrapped. 26 inches in length.",
-      price: 40.00,
+      price: "40.00",
       categoryId: wirewrappedCategory.id,
       imageUrl: "/api/placeholder/400/400",
       imageUrls: [
@@ -257,7 +257,7 @@ export class MemStorage implements IStorage {
       id: this.currentProductId++,
       name: "Unique Lapis Lazuli, Onyx, Smoky Quartz, Jade, Lava Stone Crystal Necklace",
       description: "Handmade Lapis Lazuli, Smoky Quartz, Jade, and Lava Stone Necklace. Discover the harmonious blend of powerful gemstones with this exquisite handmade necklace. Featuring a striking combination of lapis lazuli, smoky quartz, and lava stone. Gift for her, one of a kind piece.",
-      price: 80.00,
+      price: "80.00",
       categoryId: healingCrystalsCategory.id,
       imageUrl: "/api/placeholder/400/400",
       imageUrls: [
@@ -279,7 +279,7 @@ export class MemStorage implements IStorage {
       id: this.currentProductId++,
       name: "Turquoise, Lapis Lazuli, Pearl Strung, Hematite, Healing, Crystals",
       description: "Turquoise/Lapis Lazuli/Pink Pearl/Hematite necklace for healing, crystals, social connections, spirit guides, powerful combo. Features brass, copper, silver, yellow gold materials. Gemstone: Turquoise. Lobster claw closure. Bead chain style. 23.5 inches length.",
-      price: 70.00,
+      price: "70.00",
       categoryId: healingCrystalsCategory.id,
       imageUrl: "/api/placeholder/400/400",
       imageUrls: [
@@ -301,7 +301,7 @@ export class MemStorage implements IStorage {
       id: this.currentProductId++,
       name: "Upcycled Gold Plated Enamel Pendant, 14k Gold Filled Necklace Chain",
       description: "Beautiful Upcycled Enamel and Gold Plated Flower Earring into a Stationary Pendant. 18KGF Lobster Clasp, Citrine, Peridot, Good Fortune, Lucky, Confident. Features yellow gold materials with sustainable upcycled features. 14 inches adjustable length.",
-      price: 80.00,
+      price: "80.00",
       categoryId: crystalNecklacesCategory.id,
       imageUrl: "/api/placeholder/400/400",
       imageUrls: [
