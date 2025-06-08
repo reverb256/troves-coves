@@ -132,23 +132,27 @@ export default function Header() {
                     <Menu className="h-5 w-5" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="glass-card border-l border-white/10 w-80">
+                <SheetContent side="right" className="bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 w-80 text-gray-900 dark:text-gray-100">
                   <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                   <SheetDescription className="sr-only">
                     Navigate through the Troves & Coves crystal jewelry website sections
                   </SheetDescription>
                   <div className="flex flex-col h-full">
                     {/* Mobile Logo */}
-                    <div className="flex items-center space-x-3 pb-8">
-                      <Gem className="h-6 w-6 text-primary" />
+                    <div className="flex items-center space-x-3 pb-8 border-b border-gray-200 dark:border-gray-700">
+                      <Gem className="h-6 w-6 text-turquoise-600" />
                       <div>
-                        <span className="text-lg font-bold gold-text">Troves & Coves</span>
-                        <p className="text-xs text-muted-foreground">Crystal Jewelry • Winnipeg</p>
+                        <span className="text-lg font-bold text-gray-900 dark:text-gray-100">
+                          <span className="text-turquoise-600">Troves</span>
+                          <span className="text-amber-600 mx-1">&</span>
+                          <span className="text-blue-600">Coves</span>
+                        </span>
+                        <p className="text-xs text-gray-600 dark:text-gray-400">Crystal Jewelry • Winnipeg</p>
                       </div>
                     </div>
 
                     {/* Mobile Navigation */}
-                    <nav className="flex-1 space-y-2">
+                    <nav className="flex-1 space-y-1 pt-6">
                       {navigation.map((item) => (
                         <Link
                           key={item.path}
@@ -156,8 +160,8 @@ export default function Header() {
                           onClick={() => setIsMobileMenuOpen(false)}
                           className={`flex items-center justify-between p-4 rounded-lg transition-all duration-300 group ${
                             isActivePath(item.path)
-                              ? 'glass-card text-primary'
-                              : 'hover:glass text-foreground hover:text-primary'
+                              ? 'bg-turquoise-50 text-turquoise-700 border-l-4 border-turquoise-500 dark:bg-turquoise-900/20 dark:text-turquoise-300 dark:border-turquoise-400'
+                              : 'text-gray-700 hover:bg-gray-50 hover:text-turquoise-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-turquoise-400'
                           }`}
                         >
                           <span className="font-medium">{item.name}</span>
@@ -167,13 +171,13 @@ export default function Header() {
                     </nav>
 
                     {/* Mobile Footer */}
-                    <div className="pt-6 border-t border-white/10">
+                    <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
-                          <Star className="h-4 w-4 text-primary" />
-                          <span className="text-sm text-muted-foreground">Premium Quality</span>
+                          <Star className="h-4 w-4 text-amber-500" />
+                          <span className="text-sm text-gray-600 dark:text-gray-400">Premium Quality</span>
                         </div>
-                        <Badge variant="secondary" className="glass">
+                        <Badge variant="secondary" className="bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300">
                           Winnipeg Local
                         </Badge>
                       </div>
