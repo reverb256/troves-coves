@@ -98,6 +98,10 @@ export default function ProductDetail() {
   }
 
   const images = product.imageUrls && product.imageUrls.length > 0 ? product.imageUrls : [product.imageUrl];
+  
+  // Debug logging
+  console.log('Product imageUrls:', product.imageUrls);
+  console.log('Final images array:', images);
 
   return (
     <div className="min-h-screen bg-warm-cream">
