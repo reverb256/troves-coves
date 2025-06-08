@@ -30,7 +30,10 @@ export const crystalJewelryImages = {
     "/images/jewelry/rose-quartz-worn-1.png"
   ],
   goldEnamel: [
-    "/images/jewelry/upcycled-enamel-pendant-1.png"
+    "/images/jewelry/gold-enamel-flower-1.png",
+    "/images/jewelry/gold-enamel-flower-2.png",
+    "/images/jewelry/gold-enamel-full-chain-1.png",
+    "/images/jewelry/gold-enamel-chain-detail-1.png"
   ],
   // Additional product variants - each with completely unique authentic images
   lapisOnyx: [
@@ -50,7 +53,7 @@ export const crystalJewelryImages = {
     "/images/jewelry/rose-quartz-pendant-1.png"
   ],
   upcycledEnamel: [
-    "/images/jewelry/unique-enamel-pendant-1.png"
+    "/images/jewelry/gold-enamel-flower-1.png"
   ]
 };
 
