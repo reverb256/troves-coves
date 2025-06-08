@@ -256,14 +256,25 @@ export default function ProductDetail() {
             {/* Action Buttons */}
             <div className="space-y-4">
               <div className="flex space-x-4">
-                <Button
-                  onClick={handleAddToCart}
-                  disabled={product.stockQuantity === 0}
-                  className="flex-1 bg-navy text-white hover:bg-rich-blue h-12"
-                >
-                  <ShoppingBag className="h-4 w-4 mr-2" />
-                  {product.stockQuantity === 0 ? 'Out of Stock' : 'Add to Cart'}
-                </Button>
+                {(product as any).etsyLink ? (
+                  <Button
+                    onClick={() => window.open((product as any).etsyLink, '_blank')}
+                    disabled={product.stockQuantity === 0}
+                    className="flex-1 bg-navy text-white hover:bg-rich-blue h-12"
+                  >
+                    <ShoppingBag className="h-4 w-4 mr-2" />
+                    {product.stockQuantity === 0 ? 'Out of Stock' : 'Buy on Etsy'}
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleAddToCart}
+                    disabled={product.stockQuantity === 0}
+                    className="flex-1 bg-navy text-white hover:bg-rich-blue h-12"
+                  >
+                    <ShoppingBag className="h-4 w-4 mr-2" />
+                    {product.stockQuantity === 0 ? 'Out of Stock' : 'Add to Cart'}
+                  </Button>
+                )}
                 <Button
                   variant="outline"
                   onClick={handleWishlist}
