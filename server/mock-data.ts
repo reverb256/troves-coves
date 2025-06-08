@@ -74,7 +74,7 @@ export const crystalJewelryImages = {
 };
 
 export const categoryDescriptions = {
-  crystalNecklaces: "Handcrafted crystal necklaces featuring genuine gemstones, wire-wrapping, and 14k gold-filled chains for spiritual healing and everyday elegance.",
-  healingCrystals: "Authentic healing crystal jewelry designed to promote wellness, balance chakras, and enhance spiritual energy through natural gemstone properties.",
-  wireWrapped: "Artisan wire-wrapped crystal pendants and jewelry pieces showcasing unique gemstones in intricate handcrafted settings."
+  crystalNecklaces: "Sacred crystal necklaces lovingly crafted with divine gemstones, blessed wire-wrapping techniques, and 14k gold-filled chains to channel spiritual healing energies and illuminate your everyday essence.",
+  healingCrystals: "Mystical healing crystal talismans divinely designed to awaken wellness, harmonize chakra centers, and amplify your soul's vibrational frequency through Earth's sacred gemstone medicine.",
+  wireWrapped: "Ancient wire-wrapping ceremonies merge timeless metalworking rituals with consecrated stones, creating powerful spiritual talismans and protective amulets that honor the sacred feminine and divine masculine energies."
 };

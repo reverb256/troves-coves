@@ -7,6 +7,7 @@ import express from "express";
 import { insertCartItemSchema, insertOrderSchema, insertOrderItemSchema, insertContactSubmissionSchema } from "@shared/schema";
 import { z } from "zod";
 import { getContainerManager, initializeContainers } from "./containers/container-manager";
+import path from "path";
 
 // Initialize Stripe
 const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY, {

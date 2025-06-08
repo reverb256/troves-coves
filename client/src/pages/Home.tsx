@@ -92,23 +92,23 @@ export default function Home() {
 
           {/* Description */}
           <p className="text-body text-xl md:text-2xl text-foreground-muted max-w-3xl mx-auto mb-8 leading-relaxed">
-            Where ancient crystal wisdom meets modern artistry. Each piece is lovingly handcrafted 
-            to enhance your natural radiance and spiritual journey through life.
+            Where sacred gemstone energies merge with artisan craftsmanship. Each piece channels ancient crystal wisdom 
+            to amplify your inner light, promote spiritual healing, and guide your soul's awakening journey.
           </p>
 
           {/* Features with Wire-Wrap Aesthetic */}
           <div className="flex flex-wrap justify-center gap-6 mb-12">
             <div className="pendant-style flex items-center gap-2 px-4 py-2">
               <Sparkles className="h-4 w-4" style={{ color: 'hsl(var(--wire-gold))' }} />
-              <span className="text-sm font-medium">Wire-Wrapped Pendants</span>
+              <span className="text-sm font-medium">Sacred Wire-Wrapping</span>
             </div>
             <div className="pendant-style flex items-center gap-2 px-4 py-2">
               <Gem className="h-4 w-4" style={{ color: 'hsl(var(--turquoise-deep))' }} />
-              <span className="text-sm font-medium">Authentic Crystals</span>
+              <span className="text-sm font-medium">Genuine Earth Crystals</span>
             </div>
             <div className="pendant-style flex items-center gap-2 px-4 py-2">
               <Heart className="h-4 w-4" style={{ color: 'hsl(var(--carnelian-orange))' }} />
-              <span className="text-sm font-medium">Healing Properties</span>
+              <span className="text-sm font-medium">Metaphysical Healing</span>
             </div>
           </div>
 
@@ -142,8 +142,8 @@ export default function Home() {
               <span className="text-crystal">Curated</span> for You
             </h2>
             <p className="text-body text-xl text-foreground-muted max-w-2xl mx-auto">
-              Each crystal is hand-selected for its unique properties and aesthetic beauty, 
-              crafted into jewelry that tells your story.
+              Each sacred stone is divinely chosen for its metaphysical properties and ethereal beauty, 
+              transformed into talismans that honor your spiritual essence and divine purpose.
             </p>
           </div>
 
@@ -222,18 +222,18 @@ export default function Home() {
             {[
               {
                 icon: Shield,
-                title: 'Authentic Crystals',
-                description: 'Every crystal is ethically sourced and energetically cleansed before crafting.'
+                title: 'Sacred Earth Gems',
+                description: 'Every sacred stone is ethically sourced from Mother Earth and blessed with cleansing rituals before transformation.'
               },
               {
                 icon: Crown,
-                title: 'Artisan Crafted',
-                description: 'Hand-wire wrapped with precious metals using traditional techniques.'
+                title: 'Divine Artistry',
+                description: 'Hand-forged with precious metals through ancient wire-wrapping ceremonies, honoring timeless spiritual traditions.'
               },
               {
                 icon: Heart,
-                title: 'Healing Energy',
-                description: 'Each piece is infused with intention and designed for your wellness journey.'
+                title: 'Mystical Attunement',
+                description: 'Each talisman is lovingly charged with healing intentions and attuned to amplify your soul\'s vibrational essence.'
               }
             ].map(({ icon: Icon, title, description }) => (
               <div key={title} className="text-center group">
@@ -264,7 +264,7 @@ export default function Home() {
               Begin Your <span className="text-crystal">Crystal Journey</span>
             </h2>
             <p className="text-body text-xl text-foreground-muted mb-8">
-              Book a personal consultation to discover which crystals resonate with your energy and intentions.
+              Embark on a sacred consultation to unveil which divine crystals align with your soul's vibration and manifest your deepest spiritual intentions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact">
