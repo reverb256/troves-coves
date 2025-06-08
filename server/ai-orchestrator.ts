@@ -1,6 +1,7 @@
 import { EventEmitter } from 'events';
 import { imagePreservationService } from './services/image-preservation';
 import { privacyGuard, canadianCompliance } from './security/data-privacy';
+import { BRAND_CONFIG } from '../shared/brand-config.js';
 
 interface APIEndpoint {
   name: string;

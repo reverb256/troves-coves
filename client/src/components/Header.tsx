@@ -56,13 +56,13 @@ export default function Header() {
                 <Gem className="h-8 w-8 text-turquoise-500 relative z-10 float-animation" />
               </div>
               <div className="flex flex-col">
-                <span className="text-xl font-bold tracking-tight">
-                  <span className="text-turquoise-500 font-bold">Troves</span>
-                  <span className="text-muted-foreground mx-1">&</span>
-                  <span className="text-amber-400 font-cursive italic">Coves</span>
+                <span className="text-2xl font-bold tracking-tight">
+                  <span className="text-turquoise-600 font-sans font-bold">Troves</span>
+                  <span className="text-gold-500 mx-2 font-light">&</span>
+                  <span className="text-gold-500 font-cursive font-semibold italic">Coves</span>
                 </span>
                 <span className="text-xs text-muted-foreground -mt-1 tracking-widest uppercase">
-                  Crystal Jewelry • Winnipeg
+                  Mystical Crystal Jewelry • Winnipeg
                 </span>
               </div>
             </Link>
