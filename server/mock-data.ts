@@ -2,6 +2,10 @@
 export const crystalJewelryImages = {
   lepidolite: [
     "/images/jewelry/lepidolite-necklace-1.png",
+    "/images/jewelry/lepidolite-flower-front-1.png",
+    "/images/jewelry/lepidolite-flower-side-1.png",
+    "/images/jewelry/lepidolite-flower-flat-1.png",
+    "/images/jewelry/lepidolite-flower-hand-1.png",
     "/images/jewelry/lepidolite-wire-detail-1.png"
   ],
   citrine: [
