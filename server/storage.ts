@@ -102,18 +102,18 @@ export class MemStorage implements IStorage {
     
     const healingCrystalsCategory: Category = {
       id: this.currentCategoryId++,
-      name: "[Admin will input: Category name like 'Healing Crystals']",
-      slug: "[Auto-generated from name: 'healing-crystals']",
-      description: "[Admin will input: Description of healing properties and wellness benefits]",
-      imageUrl: "[Admin will upload: Professional category showcase image]"
+      name: "Healing Crystals",
+      slug: "healing-crystals",
+      description: "Authentic healing crystal jewelry designed to promote wellness, balance chakras, and enhance spiritual energy through natural gemstone properties.",
+      createdAt: new Date(),
     };
 
     const wirewrappedCategory: Category = {
       id: this.currentCategoryId++,
-      name: "[Admin will input: Category name like 'Wire Wrapped']",
-      slug: "[Auto-generated from name: 'wire-wrapped']",
-      description: "[Admin will input: Description of wire-wrapping techniques and artisan craftsmanship]",
-      imageUrl: "[Admin will upload: Professional category showcase image]"
+      name: "Wire Wrapped Jewelry",
+      slug: "wire-wrapped",
+      description: "Artisan wire-wrapped crystal pendants and jewelry pieces showcasing unique gemstones in intricate handcrafted settings.",
+      createdAt: new Date(),
     };
 
     this.categories.set(crystalNecklacesCategory.id, crystalNecklacesCategory);
