@@ -41,8 +41,8 @@ export default function Home() {
         type="website"
       />
 
-      {/* Hero Section with Mystical Skull Influence */}
-      <section className="relative py-20 md:py-32 flex items-center justify-center overflow-hidden mystical-bg">
+      {/* Hero Section with Authentic Skull Artwork Influence */}
+      <section className="relative py-20 md:py-32 flex items-center justify-center overflow-hidden wooden-sign-bg">
         {/* Organic Background with Crystal Elements */}
         <div className="absolute inset-0">
           {/* Floating Crystal Shapes */}
@@ -82,9 +82,13 @@ export default function Home() {
             Winnipeg's Sacred Crystal Sanctuary
           </Badge>
 
-          {/* Main Heading */}
+          {/* Authentic Brand Heading from Wooden Sign */}
           <h1 className="text-display text-5xl md:text-7xl lg:text-8xl mb-6 tracking-tight">
-            <span className="block text-rose-gold mb-2">Troves & Coves</span>
+            <span className="block mb-2">
+              <span className="troves-text-style">Troves</span>
+              <span className="text-ornate-frame-gold mx-4">&</span>
+              <span className="coves-text-style">Coves</span>
+            </span>
             <span className="block text-3xl md:text-4xl lg:text-5xl text-foreground-muted font-normal tracking-wide">
               Handcrafted Crystal Jewelry
             </span>

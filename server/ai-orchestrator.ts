@@ -421,11 +421,11 @@ class AIOrchestrator extends EventEmitter {
   private enforceBrandCompliance(request: AIRequest): AIRequest {
     const brandContext = `
 LOCKED BRAND GUIDELINES - TROVES & COVES MYSTICAL JEWELRY:
-- "Troves" must be in turquoise print style (${BRAND_CONFIG.colors.turquoise})
-- "Coves" must be in cursive gold style (${BRAND_CONFIG.colors.decorativeGold})
+- "Troves" must be in turquoise print style (${BRAND_CONFIG.colors.trovesTurquoise})
+- "Coves" must be in cursive blue style (${BRAND_CONFIG.colors.covesCursiveBlue})
 - Design language: Mystical skull artwork with ornate decorative frames
-- Color palette: Turquoise (#4ECDC4), Gold (#FFD700), Pearl cream, Crystal white
-- Typography: ${BRAND_CONFIG.typography.troves.family} for "Troves", ${BRAND_CONFIG.typography.coves.family} for "Coves"
+- Color palette: Troves Turquoise, Coves Cursive Blue, Skull Turquoise, Ornate Frame Gold
+- Typography: ${BRAND_CONFIG.typography.troves.fontFamily} for "Troves", ${BRAND_CONFIG.typography.coves.fontFamily} for "Coves"
 - Voice: Mystical, spiritual, authentic crystal healing wisdom
 - Products: Sacred crystal jewelry, healing gemstone talismans, wire-wrapped pendants
 - Location: Winnipeg, Manitoba, Canada

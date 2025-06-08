@@ -57,9 +57,9 @@ export default function Header() {
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-bold tracking-tight">
-                  <span className="text-turquoise-600 font-sans font-bold">Troves</span>
-                  <span className="text-gold-500 mx-2 font-light">&</span>
-                  <span className="text-gold-500 font-cursive font-semibold italic">Coves</span>
+                  <span className="troves-text-style">Troves</span>
+                  <span className="text-ornate-frame-gold mx-2 font-light">&</span>
+                  <span className="coves-text-style">Coves</span>
                 </span>
                 <span className="text-xs text-muted-foreground -mt-1 tracking-widest uppercase">
                   Mystical Crystal Jewelry • Winnipeg
