@@ -317,7 +317,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Delegate to AI orchestration system
       const intelligence = containerManager.getIntelligenceContainer();
-      const response = await intelligence.handleCustomerConsultation(message, context, sessionId);
+      const response = await intelligence.handleCustomerConsultation(message, context, getSessionId(req));
       
       res.json({ 
         response: response.content || response,
@@ -342,20 +342,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const crystalName = req.params.name;
       
-      // Delegate to AI orchestration system
-      const aiRequest = {
-        prompt: `Provide comprehensive information about ${crystalName} crystal including: healing properties, 
-                 chakra associations, color meanings, geological formation, care instructions, and recommended uses.
-                 Format as JSON with properties: name, properties, chakras, colors, formation, care, uses.`,
-        type: 'text' as const,
-        priority: 'medium' as const,
-        maxTokens: 400
-      };
-
-      const response = await aiOrchestrator.processRequest(aiRequest);
+      // Delegate to containerized intelligence system
+      const intelligence = containerManager.getIntelligenceContainer();
+      const response = await intelligence.processSmartSearch(`${crystalName} crystal healing properties`, 'crystal-info');
       
       try {
-        const crystalInfo = JSON.parse(response.content);
+        const crystalInfo = typeof response === 'string' ? JSON.parse(response) : response;
         res.json(crystalInfo);
       } catch (parseError) {
         res.json({
