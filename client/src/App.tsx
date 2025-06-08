@@ -9,6 +9,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
 import AIAssistant from "@/components/AIAssistant";
+import AIAssistantDrawer from "@/components/AIAssistantDrawer";
 import Home from "@/pages/Home";
 import Products from "@/pages/Products";
 import ProductDetail from "@/pages/ProductDetail";
@@ -57,6 +58,7 @@ function Router() {
       </main>
       <Footer />
       <CartDrawer />
+      <AIAssistantDrawer />
     </div>
   );
 }
