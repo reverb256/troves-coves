@@ -407,10 +407,10 @@ export default function ProductDetail() {
                       </ul>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-navy mb-2">Professional Services</h3>
+                      <h3 className="font-semibold text-navy mb-2">Customer Support</h3>
                       <p className="text-gray-700">
-                        We offer complimentary cleaning and inspection services. 
-                        Visit our Winnipeg showroom or contact us to schedule an appointment.
+                        Our crystal experts are available online to provide care guidance and answer questions about your jewelry. 
+                        Contact us through our website for personalized assistance with your sacred pieces.
                       </p>
                     </div>
                   </div>

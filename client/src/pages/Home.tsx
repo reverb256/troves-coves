@@ -149,7 +149,7 @@ export default function Home() {
             <Link href="/contact">
               <Badge className="pendant-style hover:scale-105 transition-transform cursor-pointer px-4 py-2">
                 <MapPin className="h-3 w-3 mr-1" />
-                Visit Winnipeg
+                Connect Online
               </Badge>
             </Link>
           </div>

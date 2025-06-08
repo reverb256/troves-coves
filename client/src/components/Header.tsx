@@ -258,8 +258,8 @@ export default function Header() {
                             onClick={() => setIsMobileMenuOpen(false)}
                             className="flex items-center space-x-3 p-3 rounded-lg bg-gradient-to-r from-amber-50 to-orange-50 text-amber-700 hover:from-amber-100 hover:to-orange-100 transition-all duration-200"
                           >
-                            <span className="text-lg">📍</span>
-                            <span className="font-medium">Visit Winnipeg Store</span>
+                            <span className="text-lg">💌</span>
+                            <span className="font-medium">Connect with Us</span>
                           </Link>
                         </div>
                       </div>
