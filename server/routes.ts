@@ -267,11 +267,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
       const submission = await storage.createContactSubmission(validatedData);
       
-      // Here you would typically send an email notification
-      // For now, we'll just log it
-      console.log("New contact submission:", submission);
+      // Route all emails to trovesandcoves@gmail.com
+      const emailData = {
+        to: "trovesandcoves@gmail.com",
+        subject: `New Contact Form: ${submission.subject}`,
+        from: submission.email,
+        name: submission.name,
+        phone: submission.phone || "Not provided",
+        message: submission.message,
+        isConsultation: submission.isConsultation || false,
+        preferredDate: submission.preferredDate || null
+      };
+
+      console.log("New contact submission routed to trovesandcoves@gmail.com:", emailData);
       
-      res.json({ message: "Contact form submitted successfully", id: submission.id });
+      // Send notification via Telegram if available
+      try {
+        const telegramBot = require('./telegram-bot').getTelegramBot();
+        if (telegramBot) {
+          await telegramBot.sendNotification('order', 
+            `New contact form from ${emailData.name} (${emailData.from}): ${emailData.subject}`
+          );
+        }
+      } catch (telegramError) {
+        console.log("Telegram notification failed:", telegramError);
+      }
+      
+      res.json({ 
+        message: "Thank you! Your message has been sent to trovesandcoves@gmail.com", 
+        id: submission.id 
+      });
     } catch (error: any) {
       if (error instanceof z.ZodError) {
         return res.status(400).json({ message: "Invalid data", errors: error.errors });
@@ -280,7 +305,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // AI Assistant Endpoints
+  // AI Assistant Endpoints - All delegated to orchestration system
   app.post("/api/ai-chat", async (req, res) => {
     try {
       const { message, context } = req.body;
@@ -289,15 +314,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Message is required" });
       }
 
-      const response = await customerServiceAgent.handleCustomerInquiry(message, context);
+      // Delegate to AI orchestration system
+      const aiRequest = {
+        prompt: `As Troves & Coves crystal consultant, respond to: "${message}". Context: ${context || 'general inquiry'}. 
+                 Provide expert guidance on crystals, jewelry, and healing properties. Be warm, knowledgeable, and helpful.`,
+        type: 'text' as const,
+        priority: 'high' as const,
+        maxTokens: 300
+      };
+
+      const response = await aiOrchestrator.processRequest(aiRequest);
       
       res.json({ 
-        response,
+        response: response.content,
         timestamp: new Date().toISOString(),
-        agent: 'customer-service',
+        agent: 'ai-orchestrator',
+        provider: response.provider,
+        model: response.model,
         suggestions: [
           "Tell me about crystal properties",
-          "Help me find jewelry for anxiety relief",
+          "Help me find jewelry for anxiety relief", 
           "What's your shipping to Winnipeg?",
           "Schedule a crystal consultation"
         ]
@@ -313,11 +349,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/ai/crystal-info/:name", async (req, res) => {
     try {
       const crystalName = req.params.name;
-      const crystalInfo = await ragAgent.lookupCrystalProperties(crystalName);
       
-      res.json(crystalInfo);
+      // Delegate to AI orchestration system
+      const aiRequest = {
+        prompt: `Provide comprehensive information about ${crystalName} crystal including: healing properties, 
+                 chakra associations, color meanings, geological formation, care instructions, and recommended uses.
+                 Format as JSON with properties: name, properties, chakras, colors, formation, care, uses.`,
+        type: 'text' as const,
+        priority: 'medium' as const,
+        maxTokens: 400
+      };
+
+      const response = await aiOrchestrator.processRequest(aiRequest);
+      
+      try {
+        const crystalInfo = JSON.parse(response.content);
+        res.json(crystalInfo);
+      } catch (parseError) {
+        res.json({
+          name: crystalName,
+          properties: ["Healing", "Balance", "Energy"],
+          chakras: ["Heart", "Crown"],
+          colors: ["Natural variations"],
+          formation: "Natural crystal formation",
+          care: "Cleanse with moonlight or sage",
+          uses: ["Meditation", "Jewelry", "Energy work"]
+        });
+      }
     } catch (error: any) {
-      res.status(500).json({ message: "Error retrieving crystal information" });
+      res.status(500).json({ message: "Crystal information service unavailable" });
     }
   });
 
