@@ -175,12 +175,14 @@ export default function Products() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-warm via-pearl-cream to-moonstone">
       {/* Mystical Header Section with Skull Overlay */}
-      <section className="relative bg-gradient-to-r from-troves-turquoise via-coves-cursive-blue to-skull-turquoise text-white overflow-hidden py-20">
+      <section className="relative bg-gradient-to-br from-pearl-cream via-crystal-accents to-pearl-cream text-navy overflow-hidden py-20">
         <div 
-          className="absolute inset-0 opacity-10" 
+          className="absolute inset-0 opacity-5" 
           style={{ backgroundImage: 'var(--skull-overlay)' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-obsidian-black/10 via-transparent to-skull-turquoise/10" />
+        {/* Subtle turquoise accent borders */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-troves-turquoise to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-skull-turquoise to-transparent" />
         
         <div className="relative container mx-auto px-4">
           <div className="text-center">
@@ -193,13 +195,13 @@ export default function Products() {
               </div>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-shadow-lg" style={{ fontFamily: 'var(--brand-font-heading)' }}>
-              <span className="text-crystal-accents">{currentCategory ? currentCategory.name : searchQuery ? `Search Results for "${searchQuery}"` : 'Our Collections'}</span>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--brand-font-heading)' }}>
+              <span className="text-navy">{currentCategory ? currentCategory.name : searchQuery ? `Search Results for "${searchQuery}"` : 'Our Collections'}</span>
             </h1>
             
-            <div className="w-24 h-1 mx-auto mb-6 bg-gradient-to-r from-transparent via-ornate-frame-gold to-transparent rounded-full shadow-glow" />
+            <div className="w-24 h-1 mx-auto mb-6 bg-gradient-to-r from-transparent via-troves-turquoise to-transparent rounded-full" />
             
-            <p className="text-pearl-cream/90 text-xl max-w-3xl mx-auto leading-relaxed">
+            <p className="text-navy/80 text-xl max-w-3xl mx-auto leading-relaxed">
               {currentCategory ? currentCategory.description : 'Where sacred gemstone energies merge with artisan craftsmanship. Each piece channels ancient crystal wisdom to amplify your inner light, promote spiritual healing, and guide your soul\'s awakening journey.'}
             </p>
             
