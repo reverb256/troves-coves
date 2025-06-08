@@ -155,7 +155,7 @@ export default function AIAssistant() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-2">
-            {aiStatus?.endpoints.map((endpoint, index) => (
+            {aiStatus?.endpoints?.map((endpoint, index) => (
               <Badge
                 key={index}
                 variant={endpoint.isAvailable ? "default" : "secondary"}
@@ -163,7 +163,11 @@ export default function AIAssistant() {
               >
                 {endpoint.name}
               </Badge>
-            ))}
+            )) || (
+              <Badge variant="secondary" className="bg-gray-100 text-gray-800">
+                AI system status checking...
+              </Badge>
+            )}
           </div>
         </CardContent>
       </Card>

@@ -87,133 +87,146 @@ export class MemStorage implements IStorage {
   }
 
   private seedData() {
-    // Seed categories
+    // Product categories will be created by admin with authentic information:
+    // - Category names reflecting actual product lines (e.g., "Crystal Necklaces", "Healing Stones")
+    // - URL-friendly slugs automatically generated from category names
+    // - Descriptions explaining crystal properties, healing benefits, and jewelry techniques
+    // - Professional product photography showcasing each category's offerings
     const crystalNecklacesCategory: Category = {
       id: this.currentCategoryId++,
-      name: "Crystal Necklaces",
-      slug: "crystal-necklaces", 
-      description: "Handcrafted crystal necklaces for healing and beauty",
-      imageUrl: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+      name: "[Admin will input: Category name like 'Crystal Necklaces']",
+      slug: "[Auto-generated from name: 'crystal-necklaces']", 
+      description: "[Admin will input: Description of crystal properties and jewelry styles in this category]",
+      imageUrl: "[Admin will upload: Professional category showcase image]"
     };
     
     const healingCrystalsCategory: Category = {
       id: this.currentCategoryId++,
-      name: "Healing Crystals",
-      slug: "healing-crystals",
-      description: "Powerful crystals for wellness and spiritual growth",
-      imageUrl: "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+      name: "[Admin will input: Category name like 'Healing Crystals']",
+      slug: "[Auto-generated from name: 'healing-crystals']",
+      description: "[Admin will input: Description of healing properties and wellness benefits]",
+      imageUrl: "[Admin will upload: Professional category showcase image]"
     };
 
     const wirewrappedCategory: Category = {
       id: this.currentCategoryId++,
-      name: "Wire Wrapped",
-      slug: "wire-wrapped",
-      description: "Unique wire-wrapped crystal pendants and jewelry",
-      imageUrl: "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+      name: "[Admin will input: Category name like 'Wire Wrapped']",
+      slug: "[Auto-generated from name: 'wire-wrapped']",
+      description: "[Admin will input: Description of wire-wrapping techniques and artisan craftsmanship]",
+      imageUrl: "[Admin will upload: Professional category showcase image]"
     };
 
     this.categories.set(crystalNecklacesCategory.id, crystalNecklacesCategory);
     this.categories.set(healingCrystalsCategory.id, healingCrystalsCategory);
     this.categories.set(wirewrappedCategory.id, wirewrappedCategory);
 
-    // Seed products based on actual Troves and Coves Etsy shop
+    // Product inventory will be created by admin with authentic information:
+    // - Product names reflecting actual handcrafted crystal jewelry pieces
+    // - Detailed descriptions including crystal properties, healing benefits, materials, and craftsmanship details
+    // - CAD pricing based on material costs, labor time, and market positioning
+    // - Professional product photography from multiple angles
+    // - Accurate inventory tracking with current stock levels
+    // - Unique SKU codes following business naming conventions
+    // - Weight specifications for shipping calculations
+    // - Complete material and gemstone lists for customer education
     const lepidoliteNecklace: Product = {
       id: this.currentProductId++,
-      name: "Lepidolite 14k Gold Filled Necklace",
-      description: "Lepidolite 14k Gold Filled Necklace with Curb Chain and Upcycled Flower Pendant. Wire wrapped for peace, nurturing, and mood stabilizing properties. Handcrafted crystal jewelry from Winnipeg.",
-      price: "68.64",
+      name: "[Admin will input: Product name like 'Lepidolite 14k Gold Filled Necklace']",
+      description: "[Admin will input: Detailed description including crystal properties, healing benefits, materials, craftsmanship techniques, and care instructions]",
+      price: "[Admin will input: CAD price based on material costs and labor - e.g., '68.64']",
       categoryId: crystalNecklacesCategory.id,
-      imageUrl: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+      imageUrl: "[Admin will upload: Primary high-resolution product image]",
       imageUrls: [
-        "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
+        "[Admin will upload: Array of product images from multiple angles and lighting conditions]"
       ],
-      sku: "TC-LEP-001",
-      stockQuantity: 3,
-      weight: "15.0",
-      materials: ["14K Gold Filled", "Lepidolite Crystal", "Wire Wrap"],
-      gemstones: ["Lepidolite"],
+      sku: "[Admin will input: Unique SKU code following business conventions - e.g., 'TC-LEP-001']",
+      stockQuantity: 0, // [Admin will input: Current inventory count]
+      weight: "[Admin will input: Product weight in grams for shipping calculations]",
+      materials: ["[Admin will input: Complete list of materials used]"],
+      gemstones: ["[Admin will input: List of all crystals and gemstones included]"],
       isActive: true,
-      isFeatured: true,
+      isFeatured: false, // [Admin will set: Whether product should be featured on homepage]
       createdAt: new Date(),
     };
 
     const turquoiseBeadedNecklace: Product = {
       id: this.currentProductId++,
-      name: "Unique Turquoise Beaded Necklace",
-      description: "Unique Turquoise Beaded Necklace with Pearl Strung, Lapis Lazuli, Pink Pearl, Hematite, and Leaf details. Handmade, Gold Filled, one of a kind crystal healing jewelry.",
-      price: "53.39",
+      name: "[Admin will input: Product name reflecting actual inventory piece]",
+      description: "[Admin will input: Detailed description including crystal metaphysical properties, materials, craftsmanship techniques, and intended benefits]",
+      price: "[Admin will input: CAD price based on material costs and artisan labor time]",
       categoryId: crystalNecklacesCategory.id,
-      imageUrl: "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+      imageUrl: "[Admin will upload: Primary product image with professional lighting]",
       imageUrls: [
-        "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
+        "[Admin will upload: Multiple product angles and detail shots]"
       ],
-      sku: "TC-TUR-001",
-      stockQuantity: 1,
-      weight: "25.0",
-      materials: ["Gold Filled", "Turquoise", "Pearl", "Lapis Lazuli", "Hematite"],
-      gemstones: ["Turquoise", "Lapis Lazuli", "Pearl", "Hematite"],
+      sku: "[Admin will input: Unique inventory tracking code]",
+      stockQuantity: 0, // [Admin will input: Current available quantity]
+      weight: "[Admin will input: Actual product weight for shipping]",
+      materials: ["[Admin will input: Complete materials list]"],
+      gemstones: ["[Admin will input: All crystals and stones used]"],
       isActive: true,
-      isFeatured: true,
+      isFeatured: false, // [Admin will set: Homepage feature status]
       createdAt: new Date(),
     };
 
+    // Additional products will follow the same pattern - each representing actual inventory items
     const citrineNecklace: Product = {
       id: this.currentProductId++,
-      name: "Pretty Handwrapped Citrine Crystal Necklace",
-      description: "Pretty Handwrapped Citrine, Pearl, Hematite Crystal Necklace. Perfect gift for her - Mother's Day, girlfriend, mom, sister, birthday. Handcrafted healing crystal jewelry.",
-      price: "152.53",
+      name: "[Admin will input: Specific product name from actual inventory]",
+      description: "[Admin will input: Complete description with crystal healing properties, gift occasions, and craftsmanship details]",
+      price: "[Admin will input: CAD pricing reflecting true material and labor costs]",
       categoryId: healingCrystalsCategory.id,
-      imageUrl: "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+      imageUrl: "[Admin will upload: Professional product photography]",
       imageUrls: [
-        "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
+        "[Admin will upload: Multiple angles and lighting conditions]"
       ],
-      sku: "TC-CIT-001",
-      stockQuantity: 2,
-      weight: "20.0",
-      materials: ["Wire Wrap", "Citrine", "Pearl", "Hematite"],
-      gemstones: ["Citrine", "Pearl", "Hematite"],
+      sku: "[Admin will input: Business SKU tracking code]",
+      stockQuantity: 0, // [Admin will input: Real inventory count]
+      weight: "[Admin will input: Accurate weight for shipping]",
+      materials: ["[Admin will input: All materials used in production]"],
+      gemstones: ["[Admin will input: Crystal types with their metaphysical properties]"],
       isActive: true,
-      isFeatured: true,
+      isFeatured: false, // [Admin will set: Homepage featuring decision]
       createdAt: new Date(),
     };
 
     const lapisLazuliPendant: Product = {
       id: this.currentProductId++,
-      name: "Lapis Lazuli Wire Wrapped Pendant",
-      description: "Lapis Lazuli Wire wrapped pendant on brown leather cord. Spiritual jewelry for psychic abilities, protection, and royal energy. Handcrafted talisman and amulet from Winnipeg.",
-      price: "30.51",
+      name: "[Admin will input: Wire-wrapped pendant name from inventory]",
+      description: "[Admin will input: Description including crystal spiritual properties, protection benefits, and artisan craftsmanship from Winnipeg]",
+      price: "[Admin will input: CAD price for wire-wrapped pieces]",
       categoryId: wirewrappedCategory.id,
-      imageUrl: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+      imageUrl: "[Admin will upload: Professional pendant photography]",
       imageUrls: [
-        "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
+        "[Admin will upload: Detail shots of wire work and crystal]"
       ],
-      sku: "TC-LAP-001",
-      stockQuantity: 5,
-      weight: "12.0",
-      materials: ["Wire Wrap", "Lapis Lazuli", "Brown Leather"],
-      gemstones: ["Lapis Lazuli"],
+      sku: "[Admin will input: Unique pendant tracking code]",
+      stockQuantity: 0, // [Admin will input: Available quantity]
+      weight: "[Admin will input: Pendant weight including cord]",
+      materials: ["[Admin will input: Wire type, crystal, cord materials]"],
+      gemstones: ["[Admin will input: Primary crystal with properties]"],
       isActive: true,
-      isFeatured: true,
+      isFeatured: false, // [Admin will set: Feature status]
       createdAt: new Date(),
     };
 
     const roseQuartzPendant: Product = {
       id: this.currentProductId++,
-      name: "Rose Quartz Wire Wrapped Pendant",
-      description: "Medium Rose Quartz pendant, wire wrapped on brown leather cord. For love, relationships, self love, compassion, empathy, grace, confidence, and healing. Handcrafted crystal jewelry.",
-      price: "30.51",
+      name: "[Admin will input: Rose Quartz pendant name]",
+      description: "[Admin will input: Love and healing properties description with emotional benefits and handcrafted details]",
+      price: "[Admin will input: CAD price for rose quartz pieces]",
       categoryId: wirewrappedCategory.id,
-      imageUrl: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+      imageUrl: "[Admin will upload: Rose quartz pendant image]",
       imageUrls: [
-        "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800"
+        "[Admin will upload: Multiple views of pendant and wire work]"
       ],
-      sku: "TC-ROS-001",
-      stockQuantity: 4,
-      weight: "10.0",
-      materials: ["Wire Wrap", "Rose Quartz", "Brown Leather"],
-      gemstones: ["Rose Quartz"],
+      sku: "[Admin will input: Rose quartz SKU code]",
+      stockQuantity: 0, // [Admin will input: Current stock level]
+      weight: "[Admin will input: Total pendant weight]",
+      materials: ["[Admin will input: Wire, crystal, cord specifications]"],
+      gemstones: ["[Admin will input: Rose Quartz with love properties]"],
       isActive: true,
-      isFeatured: false,
+      isFeatured: false, // [Admin will set: Homepage display choice]
       createdAt: new Date(),
     };
 
