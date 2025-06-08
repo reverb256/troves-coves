@@ -41,6 +41,7 @@ function Router() {
               <AIAssistant />
             </div>
           )} />
+          <Route path="/admin" component={() => import("@/pages/AdminDashboard").then(module => module.default)} />
           <Route component={NotFound} />
         </Switch>
       </main>

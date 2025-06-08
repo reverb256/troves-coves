@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events';
+import { privacyGuard, canadianCompliance } from './security/data-privacy';
 
 interface APIEndpoint {
   name: string;
@@ -8,6 +9,9 @@ interface APIEndpoint {
   lastChecked: Date;
   rateLimitRemaining?: number;
   rateLimitReset?: Date;
+  priority: number;
+  cost: number;
+  features: string[];
 }
 
 interface AIRequest {
@@ -36,7 +40,10 @@ class APIDiscoveryAgent extends EventEmitter {
       models: ['openai', 'mistral', 'llama', 'claude'],
       isAvailable: true,
       lastChecked: new Date(),
-      rateLimitRemaining: 1000
+      rateLimitRemaining: 1000,
+      priority: 1,
+      cost: 0,
+      features: ['text', 'fast', 'free', 'privacy-friendly']
     },
     {
       name: 'Pollinations Image',
@@ -44,7 +51,10 @@ class APIDiscoveryAgent extends EventEmitter {
       models: ['flux', 'turbo', 'dall-e'],
       isAvailable: true,
       lastChecked: new Date(),
-      rateLimitRemaining: 1000
+      rateLimitRemaining: 1000,
+      priority: 1,
+      cost: 0,
+      features: ['image', 'watermark-removal', 'high-quality', 'commercial-use']
     },
     {
       name: 'Pollinations Audio',
@@ -52,21 +62,50 @@ class APIDiscoveryAgent extends EventEmitter {
       models: ['bark', 'musicgen'],
       isAvailable: true,
       lastChecked: new Date(),
-      rateLimitRemaining: 1000
+      rateLimitRemaining: 1000,
+      priority: 1,
+      cost: 0,
+      features: ['audio', 'voice-synthesis', 'professional-quality']
     },
     {
       name: 'Hugging Face Inference',
       baseUrl: 'https://api-inference.huggingface.co',
       models: ['microsoft/DialoGPT-medium', 'gpt2', 'facebook/blenderbot-400M-distill'],
       isAvailable: true,
-      lastChecked: new Date()
+      lastChecked: new Date(),
+      priority: 2,
+      cost: 0,
+      features: ['text', 'conversational', 'open-source']
     },
     {
-      name: 'Together AI Free',
-      baseUrl: 'https://api.together.xyz',
-      models: ['meta-llama/Llama-2-7b-chat-hf', 'mistralai/Mixtral-8x7B-Instruct-v0.1'],
+      name: 'Groq Lightning',
+      baseUrl: 'https://api.groq.com',
+      models: ['llama3-70b-8192', 'mixtral-8x7b-32768', 'gemma-7b-it'],
       isAvailable: true,
-      lastChecked: new Date()
+      lastChecked: new Date(),
+      priority: 2,
+      cost: 0,
+      features: ['text', 'ultra-fast', 'large-context']
+    },
+    {
+      name: 'DeepInfra',
+      baseUrl: 'https://api.deepinfra.com/v1/openai',
+      models: ['meta-llama/Meta-Llama-3-70B-Instruct', 'mistralai/Mixtral-8x22B-Instruct-v0.1'],
+      isAvailable: true,
+      lastChecked: new Date(),
+      priority: 3,
+      cost: 0,
+      features: ['text', 'large-models', 'reasoning']
+    },
+    {
+      name: 'Replicate',
+      baseUrl: 'https://api.replicate.com/v1',
+      models: ['stability-ai/sdxl', 'meta/llama-2-70b-chat'],
+      isAvailable: true,
+      lastChecked: new Date(),
+      priority: 3,
+      cost: 0,
+      features: ['image', 'text', 'premium-models']
     }
   ];
   private checkInterval: NodeJS.Timeout | null = null;
