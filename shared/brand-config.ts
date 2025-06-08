@@ -17,25 +17,22 @@ export const BRAND_CONFIG = {
     tagline: "Mystical Crystal Jewelry • Winnipeg"
   },
 
-  // AUTHENTIC COLOR PALETTE FROM ARTWORK
+  // AUTHENTIC COLOR PALETTE FROM WOODEN SIGN & SKULL ARTWORK
   colors: {
-    // Primary brand colors from signage
-    trovesTurquoise: "hsl(180, 90%, 45%)", // Turquoise "Troves" text
-    covesGold: "hsl(43, 90%, 55%)", // Gold "Coves" cursive
+    // Exact colors from wooden sign reference
+    trovesTurquoise: "hsl(174, 70%, 45%)", // Clean turquoise print from sign
+    covesCursiveBlue: "hsl(200, 60%, 45%)", // Elegant cursive blue from sign
+    woodGrain: "hsl(35, 40%, 70%)", // Natural wood background from sign
     
-    // Skull artwork colors
-    skullTurquoise: "hsl(174, 85%, 50%)", // Vibrant skull turquoise
-    decorativeGold: "hsl(43, 95%, 68%)", // Ornate frame gold
+    // Turquoise skull artwork colors
+    skullTurquoise: "hsl(174, 100%, 50%)", // Vibrant turquoise from skull
+    ornateFrameGold: "hsl(43, 85%, 60%)", // Golden decorative frame
+    crystalAccents: "hsl(240, 20%, 95%)", // White crystal highlights
     
-    // Natural textures
-    naturalWood: "hsl(35, 30%, 75%)", // Wood background
-    crystalWhite: "hsl(0, 0%, 96%)", // White crystal accents
-    obsidianBlack: "hsl(240, 8%, 12%)", // Deep black accents
-    
-    // Supporting palette
-    carnelianOrange: "hsl(25, 85%, 60%)",
-    amethystPurple: "hsl(280, 60%, 70%)",
-    pearlCream: "hsl(45, 30%, 94%)"
+    // Natural supporting palette
+    naturalWood: "hsl(35, 30%, 65%)",
+    pearlCream: "hsl(45, 25%, 92%)",
+    mysticAccent: "hsl(280, 40%, 65%)"
   },
 
   // TYPOGRAPHY HIERARCHY
@@ -53,7 +50,7 @@ export const BRAND_CONFIG = {
       fontFamily: "'Dancing Script', cursive",
       fontWeight: "600",
       fontStyle: "italic",
-      color: "var(--coves-gold)"
+      color: "var(--coves-cursive-blue)"
     },
     
     // Body text
