@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Search, Filter, SlidersHorizontal } from "lucide-react";
 import type { ProductWithCategory, Category } from "@shared/schema";
+import { SmartSearchBar, SubtleMarketInsights, KeywordMonitor } from "@/components/SubtleAI";
 
 export default function Products() {
   const params = useParams();

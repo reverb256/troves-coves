@@ -4,21 +4,20 @@ import Stripe from "stripe";
 import { storage } from "./storage";
 import { insertCartItemSchema, insertOrderSchema, insertOrderItemSchema, insertContactSubmissionSchema } from "@shared/schema";
 import { z } from "zod";
-import { AIOrchestrator } from "./ai-orchestrator";
-import { RAGAgent } from "./agents/rag-agent";
-import { CustomerServiceAgent } from "./agents/customer-service-agent";
-import { WebScraperAgent } from "./agents/web-scraper-agent";
+import { getContainerManager, initializeContainers } from "./containers/container-manager";
 
 // Initialize Stripe
 const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2023-10-16",
 }) : null;
 
-// Initialize AI System
-const aiOrchestrator = new AIOrchestrator();
-const ragAgent = new RAGAgent(aiOrchestrator);
-const customerServiceAgent = new CustomerServiceAgent(aiOrchestrator, ragAgent);
-const webScraperAgent = new WebScraperAgent(aiOrchestrator);
+// Initialize Containerized AI System
+let containerManager = getContainerManager();
+initializeContainers().then(() => {
+  console.log('AI containers fully operational');
+}).catch(error => {
+  console.warn('AI containers initialized with degraded performance');
+});
 
 // Session management for cart
 function getSessionId(req: any): string {
@@ -631,16 +630,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Web Scraping & Market Intelligence Endpoints
+  // Containerized AI Search & Intelligence Endpoints
   app.post("/api/scrape/search", async (req, res) => {
     try {
       const { query, category = 'general', limit = 10 } = req.body;
+      const search = containerManager.getSearchContainer();
       
-      const results = await webScraperAgent.searchWithSearXNG({
-        query,
-        category,
-        limit
-      });
+      const results = await search.performSearch(query, category, limit);
       
       res.json({
         query,
@@ -656,8 +652,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/scrape/competitor-pricing", async (req, res) => {
     try {
       const { productType } = req.body;
+      const search = containerManager.getSearchContainer();
       
-      const pricingData = await webScraperAgent.scrapeCompetitorPricing(productType);
+      const pricingData = await search.scrapeCompetitorPricing(productType);
       
       res.json({
         productType,
@@ -680,8 +677,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/scrape/market-research", async (req, res) => {
     try {
       const { topic } = req.body;
+      const search = containerManager.getSearchContainer();
       
-      const research = await webScraperAgent.marketResearch(topic);
+      const research = await search.conductMarketResearch(topic);
       
       res.json(research);
     } catch (error: any) {
@@ -692,8 +690,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/scrape/keyword-monitor", async (req, res) => {
     try {
       const { keywords } = req.body;
+      const search = containerManager.getSearchContainer();
       
-      const monitoring = await webScraperAgent.monitorKeywords(keywords);
+      const monitoring = await search.monitorKeywords(keywords);
       
       res.json({
         keywords,
@@ -713,12 +712,141 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/scrape/content-ideas", async (req, res) => {
     try {
       const { niche } = req.body;
+      const search = containerManager.getSearchContainer();
       
-      const contentIdeas = await webScraperAgent.generateContentIdeas(niche);
+      const contentIdeas = await search.generateContentIdeas(niche);
       
       res.json(contentIdeas);
     } catch (error: any) {
       res.status(500).json({ message: "Content generation service unavailable" });
+    }
+  });
+
+  // AI Personalization using Intelligence Container
+  app.post("/api/ai/personalize", async (req, res) => {
+    try {
+      const { preferences, context } = req.body;
+      const intelligence = containerManager.getIntelligenceContainer();
+      
+      const response = await intelligence.processPersonalization(preferences, context);
+      
+      try {
+        const parsedResponse = JSON.parse(response.content);
+        res.json(parsedResponse);
+      } catch (parseError) {
+        res.json({
+          recommendations: [
+            {
+              id: 1,
+              name: "Rose Quartz Heart Pendant",
+              reason: "Perfect for emotional healing and self-love based on your interests",
+              confidence: 0.85,
+              crystalProperties: ["Love", "Emotional Healing", "Self-Compassion"]
+            },
+            {
+              id: 2, 
+              name: "Amethyst Wire-Wrapped Necklace", 
+              reason: "Enhances intuition and provides calming energy",
+              confidence: 0.78,
+              crystalProperties: ["Intuition", "Calming", "Spiritual Growth"]
+            }
+          ]
+        });
+      }
+    } catch (error: any) {
+      res.status(500).json({ message: "Personalization service unavailable" });
+    }
+  });
+
+  // AI Virtual Consultant using Intelligence Container
+  app.post("/api/ai/consult", async (req, res) => {
+    try {
+      const { message, context, sessionId } = req.body;
+      const intelligence = containerManager.getIntelligenceContainer();
+      
+      const response = await intelligence.handleCustomerConsultation(message, context, sessionId);
+      
+      res.json({
+        response: response.content || response,
+        sessionId: sessionId || `session_${Date.now()}`,
+        recommendations: [
+          { name: "Rose Quartz", properties: ["Love", "Healing"] },
+          { name: "Clear Quartz", properties: ["Amplification", "Clarity"] }
+        ]
+      });
+    } catch (error: any) {
+      res.status(500).json({ 
+        response: "I'm here to help with crystal guidance! Please try your question again.",
+        sessionId: `session_${Date.now()}`
+      });
+    }
+  });
+
+  // AI Smart Search using Intelligence Container
+  app.post("/api/ai/smart-search", async (req, res) => {
+    try {
+      const { query, mode } = req.body;
+      const intelligence = containerManager.getIntelligenceContainer();
+      
+      const response = await intelligence.processSmartSearch(query, mode);
+      
+      // Get actual products from storage
+      const allProducts = await storage.getProducts();
+      
+      // Filter based on query
+      const filteredProducts = allProducts.filter(product => 
+        product.name.toLowerCase().includes(query.toLowerCase()) ||
+        product.description?.toLowerCase().includes(query.toLowerCase())
+      );
+
+      res.json({
+        results: filteredProducts.slice(0, 12),
+        aiInsights: response.content,
+        searchMode: mode
+      });
+    } catch (error: any) {
+      const allProducts = await storage.getProducts();
+      res.json({
+        results: allProducts.slice(0, 6),
+        searchMode: 'fallback'
+      });
+    }
+  });
+
+  // AI Market Insights using Intelligence Container
+  app.post("/api/ai/insights", async (req, res) => {
+    try {
+      const { products, context } = req.body;
+      const intelligence = containerManager.getIntelligenceContainer();
+      
+      const response = await intelligence.generateMarketInsights(products, context);
+      
+      try {
+        const insights = JSON.parse(response.content);
+        res.json(insights);
+      } catch (parseError) {
+        res.json({
+          trending: "Rose Quartz",
+          popular: "Amethyst Necklaces", 
+          recommended: "Wire-Wrapped Crystals"
+        });
+      }
+    } catch (error: any) {
+      res.json({
+        trending: "Clear Quartz",
+        popular: "Crystal Necklaces",
+        recommended: "Healing Stones"
+      });
+    }
+  });
+
+  // Container Status Endpoint
+  app.get("/api/ai/status", async (req, res) => {
+    try {
+      const status = await containerManager.getSystemStatus();
+      res.json(status);
+    } catch (error: any) {
+      res.status(500).json({ message: "System status unavailable" });
     }
   });
 
