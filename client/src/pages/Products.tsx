@@ -186,8 +186,8 @@ export default function Products() {
           <div className="text-center">
             {/* Ornate Decorative Frame */}
             <div className="mb-6">
-              <div className="inline-block px-6 py-2 border-2 border-ornate-frame-gold/50 rounded-lg bg-ornate-frame-gold/10 backdrop-blur-sm">
-                <span className="text-ornate-frame-gold text-sm font-medium tracking-wider uppercase">
+              <div className="inline-block px-6 py-2 border border-ornate-frame-gold/20 rounded-lg bg-ornate-frame-gold/5 backdrop-blur-sm">
+                <span className="text-ornate-frame-gold/80 text-sm font-medium tracking-wider uppercase">
                   Sacred Collection
                 </span>
               </div>
