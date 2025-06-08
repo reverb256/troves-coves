@@ -46,13 +46,13 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-navy text-white pt-16 pb-8">
+    <footer className="bg-background border-t pt-16 pb-8">
       <div className="container mx-auto px-4">
         {/* Newsletter Section */}
         <div className="mb-12 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">Stay Connected</h2>
-            <p className="text-xl text-gray-300 mb-8">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-foreground">Stay Connected</h2>
+            <p className="text-xl text-foreground-muted mb-8">
               Be the first to discover new collections and exclusive events
             </p>
             
@@ -62,18 +62,18 @@ export default function Footer() {
                 placeholder="Enter your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 bg-white/10 border-white/20 text-white placeholder-gray-400 focus:border-elegant-gold"
+                className="flex-1 bg-input border-border text-foreground placeholder-muted-foreground focus:border-primary"
                 required
               />
               <Button 
                 type="submit"
-                className="bg-elegant-gold text-navy hover:bg-yellow-400 font-semibold"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
               >
                 Subscribe
               </Button>
             </form>
             
-            <p className="text-sm text-gray-400 mt-4">
+            <p className="text-sm text-muted-foreground mt-4">
               We respect your privacy. Unsubscribe at any time.
             </p>
           </div>
@@ -83,10 +83,10 @@ export default function Footer() {
         <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8 mb-12">
           {/* Company Info */}
           <div>
-            <div className="text-2xl font-serif font-bold text-elegant-gold mb-6">
+            <div className="text-2xl font-serif font-bold text-primary mb-6">
               Troves & Coves
             </div>
-            <p className="text-gray-300 mb-6">
+            <p className="text-foreground-muted mb-6">
               Winnipeg's premier destination for luxury jewelry, serving our community with 
               exceptional craftsmanship since 1990.
             </p>
@@ -98,7 +98,7 @@ export default function Footer() {
                     key={social.label}
                     variant="ghost"
                     size="sm"
-                    className="text-gray-400 hover:text-elegant-gold transition-colors p-2"
+                    className="text-muted-foreground hover:text-primary transition-colors p-2"
                     asChild
                   >
                     <a href={social.href} aria-label={social.label}>
@@ -112,12 +112,12 @@ export default function Footer() {
 
           {/* Collections */}
           <div>
-            <h3 className="font-semibold text-lg mb-6">Collections</h3>
+            <h3 className="font-semibold text-lg mb-6 text-foreground">Collections</h3>
             <ul className="space-y-3">
               {collections.map((item) => (
                 <li key={item.name}>
                   <Link href={item.href}>
-                    <a className="text-gray-300 hover:text-elegant-gold transition-colors">
+                    <a className="text-foreground-muted hover:text-primary transition-colors">
                       {item.name}
                     </a>
                   </Link>
@@ -128,12 +128,12 @@ export default function Footer() {
 
           {/* Customer Care */}
           <div>
-            <h3 className="font-semibold text-lg mb-6">Customer Care</h3>
+            <h3 className="font-semibold text-lg mb-6 text-foreground">Customer Care</h3>
             <ul className="space-y-3">
               {customerCare.map((item) => (
                 <li key={item.name}>
                   <Link href={item.href}>
-                    <a className="text-gray-300 hover:text-elegant-gold transition-colors">
+                    <a className="text-foreground-muted hover:text-primary transition-colors">
                       {item.name}
                     </a>
                   </Link>
@@ -144,36 +144,36 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="font-semibold text-lg mb-6">Visit Us</h3>
-            <div className="space-y-4 text-gray-300">
+            <h3 className="font-semibold text-lg mb-6 text-foreground">Visit Us</h3>
+            <div className="space-y-4 text-foreground-muted">
               <div className="flex items-start space-x-3">
-                <MapPin className="h-5 w-5 text-elegant-gold mt-0.5 flex-shrink-0" />
+                <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                 <div>
-                  <div className="font-medium">Downtown Showroom</div>
+                  <div className="font-medium text-foreground">Downtown Showroom</div>
                   <div>123 Main Street</div>
                   <div>Winnipeg, MB R3B 1A5</div>
                 </div>
               </div>
               
               <div className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-elegant-gold flex-shrink-0" />
+                <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                 <div>
-                  <div className="font-medium">(204) 555-GEMS</div>
+                  <div className="font-medium text-foreground">(204) 555-GEMS</div>
                   <div className="text-sm">Speak with our jewelry experts</div>
                 </div>
               </div>
               
               <div className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-elegant-gold flex-shrink-0" />
+                <Mail className="h-5 w-5 text-primary flex-shrink-0" />
                 <div>
-                  <div className="font-medium">info@trovesandcoves.ca</div>
+                  <div className="font-medium text-foreground">info@trovesandcoves.ca</div>
                 </div>
               </div>
               
               <div className="flex items-start space-x-3">
-                <Clock className="h-5 w-5 text-elegant-gold mt-0.5 flex-shrink-0" />
+                <Clock className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                 <div>
-                  <div className="font-medium">Hours</div>
+                  <div className="font-medium text-foreground">Hours</div>
                   <div>Mon-Sat: 10AM-6PM</div>
                   <div>Sun: By Appointment</div>
                 </div>
@@ -183,16 +183,16 @@ export default function Footer() {
         </div>
 
         {/* Bottom Footer */}
-        <div className="border-t border-gray-700 pt-8">
+        <div className="border-t border-border pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-400 text-sm mb-4 md:mb-0">
+            <div className="text-muted-foreground text-sm mb-4 md:mb-0">
               © 2024 Troves & Coves. All rights reserved. | 
-              <a href="#" className="hover:text-elegant-gold transition-colors ml-1">Privacy Policy</a> | 
-              <a href="#" className="hover:text-elegant-gold transition-colors ml-1">Terms of Service</a>
+              <a href="#" className="hover:text-primary transition-colors ml-1">Privacy Policy</a> | 
+              <a href="#" className="hover:text-primary transition-colors ml-1">Terms of Service</a>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-gray-400 text-sm">Secure payments powered by</span>
-              <div className="flex space-x-2 text-gray-400">
+              <span className="text-muted-foreground text-sm">Secure payments powered by</span>
+              <div className="flex space-x-2 text-muted-foreground">
                 <span className="text-2xl">💳</span>
                 <span className="text-sm">Visa, Mastercard, Amex, PayPal</span>
               </div>
