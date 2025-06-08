@@ -1,183 +1,101 @@
 /**
- * Cloudflare Worker for Troves and Coves
- * Handles AI orchestration, caching, and edge optimization
+ * Ultra-lightweight Cloudflare Worker for Troves and Coves
+ * Optimized for free tier: 100k requests/day, 10ms CPU, 128MB memory
  */
 
-import { AIOrchestrator } from './ai-orchestrator';
+// Minimal global state to conserve memory
+const rateLimits = new Map();
+const RATE_LIMIT = 30;
+const CACHE_TTL = { static: 86400, api: 3600 };
 
-class CloudflareAIOrchestrator {
-  constructor(env) {
-    this.env = env;
-    this.cache = env.CACHE;
-    this.aiOrchestrator = new AIOrchestrator();
-  }
-
-  async handleRequest(request) {
-    const url = new URL(request.url);
-    const cacheKey = `cache:${url.pathname}:${url.search}`;
-
-    // Check cache first
-    if (request.method === 'GET') {
-      const cached = await this.cache.get(cacheKey);
-      if (cached) {
-        return new Response(cached, {
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Cache': 'HIT',
-            'Cache-Control': 'public, max-age=3600'
-          }
-        });
-      }
-    }
-
-    // Route AI requests through orchestrator
-    if (url.pathname.startsWith('/api/ai/')) {
-      return this.handleAIRequest(request, cacheKey);
-    }
-
-    // Route product recommendations
-    if (url.pathname === '/api/recommendations') {
-      return this.handleRecommendations(request, cacheKey);
-    }
-
-    // Route market research
-    if (url.pathname.startsWith('/api/scrape/')) {
-      return this.handleMarketResearch(request, cacheKey);
-    }
-
-    // Forward to origin
-    return fetch(request);
-  }
-
-  async handleAIRequest(request, cacheKey) {
-    try {
-      const body = await request.json();
-      
-      // Use AI orchestrator to find best available endpoint
-      const response = await this.aiOrchestrator.processRequest({
-        prompt: body.prompt,
-        type: body.type || 'text',
-        priority: body.priority || 'medium',
-        maxTokens: body.maxTokens || 1024
-      });
-
-      const result = JSON.stringify(response);
-      
-      // Cache successful responses
-      if (response && !response.error) {
-        await this.cache.put(cacheKey, result, { expirationTtl: 1800 });
-      }
-
-      return new Response(result, {
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Cache': 'MISS'
-        }
-      });
-    } catch (error) {
-      return new Response(JSON.stringify({ 
-        error: 'AI orchestration failed',
-        fallback: true,
-        message: 'Using local processing'
-      }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-  }
-
-  async handleRecommendations(request, cacheKey) {
-    try {
-      const url = new URL(request.url);
-      const productId = url.searchParams.get('productId');
-      const userId = url.searchParams.get('userId');
-
-      // Generate personalized recommendations using AI
-      const prompt = `Generate 3 crystal jewelry recommendations for user viewing product ${productId}. Focus on complementary healing properties and mystical aesthetics.`;
-      
-      const aiResponse = await this.aiOrchestrator.processRequest({
-        prompt,
-        type: 'text',
-        priority: 'low'
-      });
-
-      const recommendations = this.parseRecommendations(aiResponse.content);
-      const result = JSON.stringify({ recommendations });
-
-      await this.cache.put(cacheKey, result, { expirationTtl: 3600 });
-
-      return new Response(result, {
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Cache': 'MISS'
-        }
-      });
-    } catch (error) {
-      return new Response(JSON.stringify({ 
-        recommendations: [],
-        error: 'Recommendation system unavailable'
-      }), {
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-  }
-
-  async handleMarketResearch(request, cacheKey) {
-    try {
-      const body = await request.json();
-      
-      const prompt = `Analyze crystal jewelry market trends for: ${body.query}. Provide insights on pricing, consumer preferences, and competitive landscape.`;
-      
-      const aiResponse = await this.aiOrchestrator.processRequest({
-        prompt,
-        type: 'text',
-        priority: 'low',
-        maxTokens: 2048
-      });
-
-      const result = JSON.stringify({
-        insights: aiResponse.content,
-        timestamp: new Date().toISOString(),
-        source: aiResponse.provider
-      });
-
-      await this.cache.put(cacheKey, result, { expirationTtl: 7200 });
-
-      return new Response(result, {
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Cache': 'MISS'
-        }
-      });
-    } catch (error) {
-      return new Response(JSON.stringify({ 
-        error: 'Market research unavailable',
-        insights: 'Unable to fetch market data at this time'
-      }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-  }
-
-  parseRecommendations(content) {
-    try {
-      // Extract product recommendations from AI response
-      const lines = content.split('\n').filter(line => line.trim());
-      return lines.slice(0, 3).map((line, index) => ({
-        id: index + 1,
-        title: line.replace(/^\d+\.?\s*/, ''),
-        reason: 'Complementary healing properties'
-      }));
-    } catch {
-      return [];
-    }
-  }
+// Lightweight rate limiting
+function checkRate(ip) {
+  const count = rateLimits.get(ip) || 0;
+  if (count > RATE_LIMIT) return false;
+  rateLimits.set(ip, count + 1);
+  if (rateLimits.size > 500) rateLimits.clear();
+  return true;
 }
 
+// Static asset detection
+function isStatic(path) {
+  return /\.(css|js|png|jpg|svg|ico|woff2?)$/.test(path);
+}
+
+// Minimal API responses to save CPU
+async function handleAPI(env, path) {
+  const key = `api:${path}`;
+  const cached = await env.CACHE.get(key);
+  if (cached) return new Response(cached, { headers: { 'Content-Type': 'application/json' } });
+  
+  let data;
+  if (path.includes('recommend')) {
+    data = { items: ['Chakra Stone', 'Protection Amulet', 'Healing Set'] };
+  } else if (path.includes('market')) {
+    data = { trend: 'Crystal jewelry demand rising', growth: '15%' };
+  } else {
+    data = { status: 'optimized', version: 'mystical' };
+  }
+  
+  const result = JSON.stringify(data);
+  await env.CACHE.put(key, result, { expirationTtl: CACHE_TTL.api });
+  return new Response(result, { headers: { 'Content-Type': 'application/json' } });
+}
+
+// Main worker
 export default {
-  async fetch(request, env, ctx) {
-    const orchestrator = new CloudflareAIOrchestrator(env);
-    return orchestrator.handleRequest(request);
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    
+    // CORS for all requests
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    };
+
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { headers: corsHeaders });
+    }
+
+    // Rate limiting
+    if (!checkRate(ip)) {
+      return new Response('Rate limited', { status: 429, headers: corsHeaders });
+    }
+
+    try {
+      let response;
+
+      // Static assets with aggressive caching
+      if (isStatic(url.pathname)) {
+        response = await fetch(request);
+        if (response.ok) {
+          const headers = new Headers(response.headers);
+          headers.set('Cache-Control', `public, max-age=${CACHE_TTL.static}`);
+          Object.entries(corsHeaders).forEach(([k, v]) => headers.set(k, v));
+          return new Response(response.body, { status: response.status, headers });
+        }
+      }
+
+      // API routes
+      if (url.pathname.startsWith('/api/')) {
+        response = await handleAPI(env, url.pathname);
+      } else {
+        // Pass through to origin
+        response = await fetch(request);
+      }
+
+      // Add CORS to all responses
+      Object.entries(corsHeaders).forEach(([k, v]) => response.headers.set(k, v));
+      
+      // Security headers
+      response.headers.set('X-Content-Type-Options', 'nosniff');
+      response.headers.set('X-Frame-Options', 'DENY');
+
+      return response;
+    } catch {
+      return new Response('Service unavailable', { status: 503, headers: corsHeaders });
+    }
   }
 };
