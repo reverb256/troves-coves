@@ -47,7 +47,8 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-background border-t pt-16 pb-8">
+    <footer className="bg-background border-t border-ornate-frame-gold/20 pt-16 pb-8">
+      <div className="absolute top-0 left-0 w-full h-1 accent-tri-gradient"></div>
       <div className="container mx-auto px-4">
         {/* Newsletter Section */}
         <div className="mb-12 text-center">

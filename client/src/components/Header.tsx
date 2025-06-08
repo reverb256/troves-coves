@@ -52,11 +52,12 @@ export default function Header() {
       <header 
         className={`fixed top-0 w-full z-50 transition-all duration-300 will-change-transform ${
           isScrolled 
-            ? 'glass-card backdrop-blur-xl border-b border-white/10' 
+            ? 'glass-card backdrop-blur-xl border-b border-ornate-frame-gold/20' 
             : 'bg-transparent'
         }`}
         style={{ transform: 'translateZ(0)' }}
       >
+        <div className="absolute top-0 left-0 w-full h-0.5 accent-tri-gradient"></div>
         <div className="container-luxury">
           <nav className="flex items-center justify-between h-20">
             {/* Logo */}

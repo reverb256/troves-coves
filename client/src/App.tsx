@@ -15,6 +15,7 @@ import Products from "@/pages/Products";
 import ProductDetail from "@/pages/ProductDetail";
 import Checkout from "@/pages/Checkout";
 import Contact from "@/pages/Contact";
+import About from "@/pages/About";
 import SizeGuide from "@/pages/SizeGuide";
 import JewelryCare from "@/pages/JewelryCare";
 import Warranty from "@/pages/Warranty";
@@ -35,6 +36,7 @@ function Router() {
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/contact" component={Contact} />
+          <Route path="/about" component={About} />
           <Route path="/size-guide" component={SizeGuide} />
           <Route path="/jewelry-care" component={JewelryCare} />
           <Route path="/warranty" component={Warranty} />
