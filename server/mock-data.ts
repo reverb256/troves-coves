@@ -33,8 +33,10 @@ export const crystalJewelryImages = {
     "/images/jewelry/lapis-mixed-stones-pendant-close-1.png"
   ],
   roseQuartz: [
-    "/images/jewelry/rose-quartz-brown-leather-1.png",
-    "/images/jewelry/rose-quartz-worn-1.png"
+    "/images/jewelry/rose-quartz-flower-display-1.png",
+    "/images/jewelry/rose-quartz-frame-display-1.png",
+    "/images/jewelry/rose-quartz-wire-detail-1.png",
+    "/images/jewelry/rose-quartz-worn-leather-1.png"
   ],
   goldEnamel: [
     "/images/jewelry/gold-enamel-flower-1.png",
