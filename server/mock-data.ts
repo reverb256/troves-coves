@@ -37,6 +37,12 @@ export const crystalJewelryImages = {
     "/assets/image_1749388529010.png",
     "/assets/image_1749388531949.png"
   ],
+  lepidoliteNewImages: [
+    "/assets/image_1749388601504.png",
+    "/assets/image_1749388605556.png",
+    "/assets/image_1749388611809.png",
+    "/assets/image_1749388615257.png"
+  ],
   mixed: [
     "/assets/image_1749357576370.png",
     "/assets/image_1749357579737.png",
