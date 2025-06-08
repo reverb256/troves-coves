@@ -33,7 +33,7 @@ function getSessionId(req: any): string {
   if (!req.session) {
     req.session = {};
   }
-  
+
   if (!req.session.cartId) {
     req.session.cartId = `cart_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
@@ -71,7 +71,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/products", async (req, res) => {
     try {
       const { category, featured, search } = req.query;
-      
+
       let products;
       if (search) {
         products = await storage.searchProducts(search as string);
@@ -83,7 +83,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } else {
         products = await storage.getProducts();
       }
-      
+
       res.json(products);
     } catch (error: any) {
       res.status(500).json({ message: "Error fetching products: " + error.message });
@@ -104,26 +104,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const productId = parseInt(req.params.id);
       const product = await storage.getProduct(productId);
-      
+
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
-      
+
       // Add Etsy link to product response
       const etsyLink = getEtsyLinkForProduct(product.sku);
-      
+
       // Offload recommendations to Cloudflare edge
       const recommendations = await cloudflareOrchestrator.getRecommendations(productId.toString());
-      
+
       // Cache this API response at edge
       const productWithEtsy = {
         ...product,
         etsyLink,
         recommendations
       };
-      
+
       await cloudflareOrchestrator.cacheAPIResponse('product', { id: productId }, productWithEtsy);
-      
+
       res.json(productWithEtsy);
     } catch (error: any) {
       res.status(500).json({ message: "Error fetching product: " + error.message });
@@ -152,7 +152,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ...req.body,
         sessionId
       });
-      
+
       const cartItem = await storage.addToCart(validatedData);
       res.json(cartItem);
     } catch (error: any) {
@@ -167,11 +167,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const itemId = parseInt(req.params.id);
       const { quantity } = req.body;
-      
+
       if (!quantity || quantity < 1) {
         return res.status(400).json({ message: "Invalid quantity" });
       }
-      
+
       const updatedItem = await storage.updateCartItemQuantity(itemId, quantity);
       res.json(updatedItem);
     } catch (error: any) {
@@ -207,7 +207,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     try {
       const { amount, currency = 'cad' } = req.body;
-      
+
       if (!amount || amount <= 0) {
         return res.status(400).json({ message: "Invalid amount" });
       }
@@ -219,7 +219,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           sessionId: getSessionId(req)
         }
       });
-      
+
       res.json({ clientSecret: paymentIntent.client_secret });
     } catch (error: any) {
       res.status(500).json({ message: "Error creating payment intent: " + error.message });
@@ -234,25 +234,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ...req.body,
         sessionId
       });
-      
+
       // Get cart items to create order
       const cartItems = await storage.getCartItems(sessionId);
-      
+
       if (cartItems.length === 0) {
         return res.status(400).json({ message: "Cart is empty" });
       }
-      
+
       // Calculate total
       const totalAmount = cartItems.reduce((sum, item) => 
         sum + (parseFloat(item.product.price) * item.quantity), 0
       );
-      
+
       // Create order
       const order = await storage.createOrder({
         ...validatedOrderData,
         totalAmount: totalAmount.toString()
       });
-      
+
       // Add order items
       for (const cartItem of cartItems) {
         await storage.addOrderItem({
@@ -261,15 +261,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
           quantity: cartItem.quantity,
           price: cartItem.product.price
         });
-        
+
         // Update product stock
         const newStock = cartItem.product.stockQuantity - cartItem.quantity;
         await storage.updateProductStock(cartItem.productId!, Math.max(0, newStock));
       }
-      
+
       // Clear cart after successful order
       await storage.clearCart(sessionId);
-      
+
       res.json(order);
     } catch (error: any) {
       if (error instanceof z.ZodError) {
@@ -283,11 +283,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const orderId = parseInt(req.params.id);
       const order = await storage.getOrder(orderId);
-      
+
       if (!order) {
         return res.status(404).json({ message: "Order not found" });
       }
-      
+
       res.json(order);
     } catch (error: any) {
       res.status(500).json({ message: "Error fetching order: " + error.message });
@@ -299,7 +299,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
       const submission = await storage.createContactSubmission(validatedData);
-      
+
       // Route all emails to trovesandcoves@gmail.com
       const emailData = {
         to: "trovesandcoves@gmail.com",
@@ -313,7 +313,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
 
       console.log("New contact submission routed to trovesandcoves@gmail.com:", emailData);
-      
+
       // Send notification via Telegram if available
       try {
         const telegramBot = require('./telegram-bot').getTelegramBot();
@@ -325,7 +325,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } catch (telegramError) {
         console.log("Telegram notification failed:", telegramError);
       }
-      
+
       res.json({ 
         message: "Thank you! Your message has been sent to trovesandcoves@gmail.com", 
         id: submission.id 
@@ -342,7 +342,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/ai-chat", async (req, res) => {
     try {
       const { message, context } = req.body;
-      
+
       if (!message || typeof message !== 'string') {
         return res.status(400).json({ message: "Message is required" });
       }
@@ -350,7 +350,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Delegate to AI orchestration system
       const intelligence = containerManager.getIntelligenceContainer();
       const response = await intelligence.handleCustomerConsultation(message, context, getSessionId(req));
-      
+
       res.json({ 
         response: response.content || response,
         timestamp: new Date().toISOString(),
@@ -373,11 +373,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/ai/crystal-info/:name", async (req, res) => {
     try {
       const crystalName = req.params.name;
-      
+
       // Delegate to containerized intelligence system
       const intelligence = containerManager.getIntelligenceContainer();
       const response = await intelligence.processSmartSearch(`${crystalName} crystal healing properties`, 'crystal-info');
-      
+
       try {
         const crystalInfo = typeof response === 'string' ? JSON.parse(response) : response;
         res.json(crystalInfo);
@@ -400,11 +400,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/ai/recommendations", async (req, res) => {
     try {
       const { intention, priceRange, style, crystalType } = req.body;
-      
+
       // Delegate to containerized intelligence system
       const intelligence = containerManager.getIntelligenceContainer();
       const response = await intelligence.processPersonalization({ intention, priceRange, style, crystalType }, `personalized recommendations`);
-      
+
       try {
         const recommendations = typeof response === 'string' ? JSON.parse(response) : response;
         res.json(recommendations);
@@ -415,7 +415,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           (crystalType ? p.name.toLowerCase().includes(crystalType.toLowerCase()) : true) &&
           (priceRange ? parseFloat(p.price) <= parseFloat(priceRange.split('-')[1] || '1000') : true)
         );
-        
+
         res.json({
           recommendations: filtered.slice(0, 6).map(p => ({
             id: p.id,
@@ -436,10 +436,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/ai/shipping-info", async (req, res) => {
     try {
       const { location, orderValue } = req.query;
-      
+
       const intelligence = containerManager.getIntelligenceContainer();
       const shippingInfo = await intelligence.calculateShippingInfo(location as string, parseFloat(orderValue as string) || 0);
-      
+
       res.json(shippingInfo);
     } catch (error: any) {
       res.status(500).json({ message: "Error retrieving shipping information" });
@@ -484,7 +484,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           temperature,
           priority
         });
-        
+
         return res.json({
           content: response.content,
           mediaUrl: response.mediaUrl,
@@ -498,7 +498,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const sessionId = req.session?.cartId || `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       const intelligence = containerManager.getIntelligenceContainer();
       const response = await intelligence.handleCustomerConsultation(prompt, 'general chat', sessionId);
-      
+
       res.json({
         content: response.content || response,
         timestamp: new Date().toISOString(),
@@ -519,7 +519,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/preserve-image', async (req, res) => {
     try {
       const { imageUrl } = req.body;
-      
+
       if (!imageUrl) {
         return res.status(400).json({ message: 'Image URL is required' });
       }
@@ -536,7 +536,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/preserve-images/batch', async (req, res) => {
     try {
       const { imageUrls } = req.body;
-      
+
       if (!Array.isArray(imageUrls)) {
         return res.status(400).json({ message: 'imageUrls must be an array' });
       }
@@ -559,12 +559,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const testPrompt = 'beautiful crystal necklace with amethyst stone, professional photography';
       const encodedPrompt = encodeURIComponent(testPrompt);
       const pollinationsUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=512&height=512&seed=${Date.now()}&nologo=true&enhance=true&private=true&model=flux`;
-      
+
       console.log('Testing image preservation with URL:', pollinationsUrl);
-      
+
       // Preserve the image
       const result = await imagePreservationService.preserveImage(pollinationsUrl);
-      
+
       res.json({
         success: true,
         original: pollinationsUrl,
@@ -632,7 +632,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         orders.reduce((sum, order) => sum + parseFloat(order.totalAmount || '0'), 0).toFixed(2)
       );
       const performance = cloudflareOrchestrator.getPerformanceMetrics();
-      
+
       res.json({
         totalUsers,
         totalOrders,
@@ -734,7 +734,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/ai/system-status", async (req, res) => {
     try {
       const systemStatus = await containerManager.getSystemStatus();
-      
+
       res.json({
         ...systemStatus,
         timestamp: new Date().toISOString()
@@ -749,9 +749,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { query, category = 'general', limit = 10 } = req.body;
       const search = containerManager.getSearchContainer();
-      
+
       const results = await search.performSearch(query, category, limit);
-      
+
       res.json({
         query,
         results,
@@ -767,9 +767,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { productType } = req.body;
       const search = containerManager.getSearchContainer();
-      
+
       const pricingData = await search.scrapeCompetitorPricing(productType);
-      
+
       res.json({
         productType,
         competitors: pricingData,
@@ -792,9 +792,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { topic } = req.body;
       const search = containerManager.getSearchContainer();
-      
+
       const research = await search.conductMarketResearch(topic);
-      
+
       res.json(research);
     } catch (error: any) {
       res.status(500).json({ message: "Market research service unavailable" });
@@ -805,9 +805,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { keywords } = req.body;
       const search = containerManager.getSearchContainer();
-      
+
       const monitoring = await search.monitorKeywords(keywords);
-      
+
       res.json({
         keywords,
         results: monitoring,
@@ -827,9 +827,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { niche } = req.body;
       const search = containerManager.getSearchContainer();
-      
+
       const contentIdeas = await search.generateContentIdeas(niche);
-      
+
       res.json(contentIdeas);
     } catch (error: any) {
       res.status(500).json({ message: "Content generation service unavailable" });
@@ -841,9 +841,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { preferences, context } = req.body;
       const intelligence = containerManager.getIntelligenceContainer();
-      
+
       const response = await intelligence.processPersonalization(preferences, context);
-      
+
       try {
         const parsedResponse = JSON.parse(response.content);
         res.json(parsedResponse);
@@ -877,9 +877,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { message, context, sessionId } = req.body;
       const intelligence = containerManager.getIntelligenceContainer();
-      
+
       const response = await intelligence.handleCustomerConsultation(message, context, sessionId);
-      
+
       res.json({
         response: response.content || response,
         sessionId: sessionId || `session_${Date.now()}`,
@@ -887,6 +887,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           { name: "Rose Quartz", properties: ["Love", "Healing"] },
           { name: "Clear Quartz", properties: ["Amplification", "Clarity"] }
         ]
+      ```javascript
       });
     } catch (error: any) {
       res.status(500).json({ 
@@ -901,12 +902,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { query, mode } = req.body;
       const intelligence = containerManager.getIntelligenceContainer();
-      
+
       const response = await intelligence.processSmartSearch(query, mode);
-      
+
       // Get actual products from storage
       const allProducts = await storage.getProducts();
-      
+
       // Filter based on query
       const filteredProducts = allProducts.filter(product => 
         product.name.toLowerCase().includes(query.toLowerCase()) ||
@@ -932,9 +933,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { products, context } = req.body;
       const intelligence = containerManager.getIntelligenceContainer();
-      
+
       const response = await intelligence.generateMarketInsights(products, context);
-      
+
       try {
         const insights = JSON.parse(response.content);
         res.json(insights);
@@ -967,3 +968,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const httpServer = createServer(app);
   return httpServer;
 }
+
+// Add audit routes to main router
+import express from 'express';
+import { z } from 'zod';
+import { products, getProductById, getFeaturedProducts } from './mock-data';
+import auditRoutes from './routes/audit';
+
+const router = express.Router();
+
+// Mount audit routes
+router.use('/audit', auditRoutes);
+
+export default router;
