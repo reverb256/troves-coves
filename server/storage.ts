@@ -230,11 +230,61 @@ export class MemStorage implements IStorage {
       createdAt: new Date(),
     };
 
-    this.products.set(lepidoliteNecklace.id, lepidoliteNecklace);
-    this.products.set(turquoiseBeadedNecklace.id, turquoiseBeadedNecklace);
-    this.products.set(citrineNecklace.id, citrineNecklace);
-    this.products.set(lapisLazuliPendant.id, lapisLazuliPendant);
-    this.products.set(roseQuartzPendant.id, roseQuartzPendant);
+    // Replace placeholder products with authentic Etsy inventory
+    const authenticCatalog = [
+      {
+        id: this.currentProductId++,
+        name: "Lepidolite 14k Gold Filled Necklace, Curb Chain, Upcycled Flower Pendant, Wire Wrapped",
+        description: "Wire-wrapped lepidolite crystal featuring an upcycled magnolia flower pendant on 14k gold filled curb chain. Promotes peace, nurturing, and mood stabilization.",
+        price: 9000, // $90.00 CAD
+        categoryId: crystalNecklacesCategory.id,
+        sku: "TC-LEP-FLOWER-001",
+        stockQuantity: 1,
+        imageUrl: "/api/placeholder/400/400",
+        featured: true,
+        tags: ["lepidolite", "14k-gold-filled", "wire-wrapped", "magnolia", "upcycled", "curb-chain", "peace", "nurturing"]
+      },
+      {
+        id: this.currentProductId++,
+        name: "Unique Turquoise Beaded Necklace, Pearl Strung, Lapis Lazuli, Pink Pearl, Hematite, Leaf",
+        description: "One-of-a-kind handmade necklace featuring turquoise beads, pearls, lapis lazuli, pink pearls, hematite, and gold filled leaf pendant.",
+        price: 7000, // $70.00 CAD
+        categoryId: crystalNecklacesCategory.id,
+        sku: "TC-TUR-UNIQUE-002",
+        stockQuantity: 1,
+        imageUrl: "/api/placeholder/400/400",
+        featured: true,
+        tags: ["turquoise", "pearl", "lapis-lazuli", "pink-pearl", "hematite", "gold-filled", "leaf", "one-of-a-kind"]
+      },
+      {
+        id: this.currentProductId++,
+        name: "Pretty Handwrapped Citrine, Pearl, Hematite, Crystal Necklace",
+        description: "Elegant handwrapped citrine crystal with pearls and hematite. Perfect gift for mothers, girlfriends, sisters for birthdays and special occasions.",
+        price: 20000, // $200.00 CAD
+        categoryId: crystalNecklacesCategory.id,
+        sku: "TC-CIT-HANDWRAP-003",
+        stockQuantity: 1,
+        imageUrl: "/api/placeholder/400/400",
+        featured: true,
+        tags: ["citrine", "handwrapped", "pearl", "hematite", "crystal", "gift", "mothers", "birthday"]
+      },
+      {
+        id: this.currentProductId++,
+        name: "Upcycled Gold Plated Enamel Pendant, 14k Gold Filled Necklace, Citrine, Peridot",
+        description: "Unique upcycled gold plated enamel pendant on 14k gold filled chain with citrine and peridot for good fortune, luck, and confidence.",
+        price: 8000, // $80.00 CAD
+        categoryId: healingCrystalsCategory.id,
+        sku: "TC-ENAMEL-CITRINE-004",
+        stockQuantity: 1,
+        imageUrl: "/api/placeholder/400/400",
+        featured: false,
+        tags: ["upcycled", "gold-plated", "enamel", "14k-gold-filled", "citrine", "peridot", "good-fortune"]
+      }
+    ];
+
+    authenticCatalog.forEach(product => {
+      this.products.set(product.id, product);
+    });
   }
 
   // User operations
