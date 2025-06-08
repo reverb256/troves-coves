@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { createWriteStream, createReadStream, unlinkSync } from 'fs';
+import { createWriteStream, createReadStream, unlinkSync, writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 import { promisify } from 'util';
 import { pipeline } from 'stream';
@@ -15,14 +15,22 @@ interface ImagePreservationResult {
 }
 
 export class ImagePreservationService {
-  private tempDir = '/tmp/image-cache';
+  private tempDir = './tmp/image-cache';
   
   constructor() {
-    // Ensure temp directory exists
-    try {
-      require('fs').mkdirSync(this.tempDir, { recursive: true });
-    } catch (error) {
-      // Directory already exists
+    this.ensureDirectories();
+  }
+
+  private ensureDirectories() {
+    // Create temp directory
+    if (!existsSync(this.tempDir)) {
+      mkdirSync(this.tempDir, { recursive: true });
+    }
+    
+    // Create uploads directory for local storage
+    const uploadsDir = './uploads/preserved-images';
+    if (!existsSync(uploadsDir)) {
+      mkdirSync(uploadsDir, { recursive: true });
     }
   }
 
@@ -56,16 +64,39 @@ export class ImagePreservationService {
    * Downloads image from URL to temporary file
    */
   private async downloadImage(url: string): Promise<string> {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Failed to download image: ${response.statusText}`);
-    }
+    try {
+      // Ensure directories exist before download
+      this.ensureDirectories();
+      
+      console.log('Downloading image from:', url);
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Failed to download image: ${response.statusText}`);
+      }
 
-    const fileName = `image_${Date.now()}_${Math.random().toString(36).substr(2, 9)}.png`;
-    const tempFilePath = join(this.tempDir, fileName);
-    
-    await streamPipeline(response.body, createWriteStream(tempFilePath));
-    return tempFilePath;
+      const fileName = `image_${Date.now()}_${Math.random().toString(36).substr(2, 9)}.png`;
+      const tempFilePath = join(this.tempDir, fileName);
+      
+      console.log('Saving to:', tempFilePath);
+      
+      // Get the response as array buffer and write to file
+      const arrayBuffer = await response.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      
+      const fs = require('fs');
+      fs.writeFileSync(tempFilePath, buffer);
+      
+      // Verify file was created
+      if (!fs.existsSync(tempFilePath)) {
+        throw new Error(`File was not created at: ${tempFilePath}`);
+      }
+      
+      console.log('Image downloaded successfully to:', tempFilePath);
+      return tempFilePath;
+    } catch (error: any) {
+      console.error('Download error:', error);
+      throw error;
+    }
   }
 
   /**
