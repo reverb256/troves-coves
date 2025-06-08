@@ -7,6 +7,7 @@ import { CartProvider } from "@/lib/store";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
+import AIAssistant from "@/components/AIAssistant";
 import Home from "@/pages/Home";
 import Products from "@/pages/Products";
 import ProductDetail from "@/pages/ProductDetail";
@@ -31,6 +32,7 @@ function Router() {
       </main>
       <Footer />
       <CartDrawer />
+      <AIAssistant />
     </div>
   );
 }

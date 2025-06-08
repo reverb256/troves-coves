@@ -266,33 +266,115 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // AI Assistant endpoint (mock for now)
+  // AI Assistant Endpoints
   app.post("/api/ai-chat", async (req, res) => {
     try {
       const { message, context } = req.body;
       
-      // Mock AI response - in production this would integrate with OpenAI, Ollama, etc.
-      const responses = [
-        "Thank you for your interest! I'd be happy to help you find the perfect piece. What type of jewelry are you looking for?",
-        "Based on your preferences, I recommend looking at our engagement ring collection. What's your budget range?",
-        "Our diamonds are all ethically sourced and come with certification. Would you like to know more about our quality standards?",
-        "I can help you schedule a consultation with our expert jewelers. What date works best for you?",
-        "That's a beautiful choice! This piece would be perfect for special occasions. Would you like to see similar items?"
-      ];
+      if (!message || typeof message !== 'string') {
+        return res.status(400).json({ message: "Message is required" });
+      }
+
+      const response = await customerServiceAgent.handleCustomerInquiry(message, context);
       
-      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-      
-      res.json({
-        response: randomResponse,
+      res.json({ 
+        response,
+        timestamp: new Date().toISOString(),
+        agent: 'customer-service',
         suggestions: [
-          "Tell me about diamond quality",
-          "Schedule a consultation",
-          "View engagement rings",
-          "Learn about customization"
+          "Tell me about crystal properties",
+          "Help me find jewelry for anxiety relief",
+          "What's your shipping to Winnipeg?",
+          "Schedule a crystal consultation"
         ]
       });
     } catch (error: any) {
-      res.status(500).json({ message: "Error processing AI chat: " + error.message });
+      res.status(500).json({ 
+        message: "AI assistant temporarily unavailable", 
+        fallback: "Please contact us directly for assistance"
+      });
+    }
+  });
+
+  app.get("/api/ai/crystal-info/:name", async (req, res) => {
+    try {
+      const crystalName = req.params.name;
+      const crystalInfo = await ragAgent.lookupCrystalProperties(crystalName);
+      
+      res.json(crystalInfo);
+    } catch (error: any) {
+      res.status(500).json({ message: "Error retrieving crystal information" });
+    }
+  });
+
+  app.post("/api/ai/recommendations", async (req, res) => {
+    try {
+      const { intention, priceRange, style, crystalType } = req.body;
+      
+      const recommendTool = customerServiceAgent['tools'].get('recommend_products');
+      if (!recommendTool) {
+        return res.status(500).json({ message: "Recommendation service unavailable" });
+      }
+      
+      const recommendations = await recommendTool.execute({
+        intention,
+        priceRange,
+        style,
+        crystalType
+      });
+      
+      res.json(recommendations);
+    } catch (error: any) {
+      res.status(500).json({ message: "Error generating recommendations" });
+    }
+  });
+
+  app.get("/api/ai/shipping-info", async (req, res) => {
+    try {
+      const { location, orderValue } = req.query;
+      
+      const shippingInfo = await ragAgent.getShippingInfo(location as string);
+      
+      // Calculate costs if order value provided
+      if (orderValue) {
+        const value = parseFloat(orderValue as string);
+        let cost = 0;
+        
+        if (shippingInfo.type === 'local' && value >= 75) {
+          cost = 0;
+        } else if (shippingInfo.type === 'local') {
+          cost = 10;
+        } else if (shippingInfo.type === 'national') {
+          cost = Math.max(15, value * 0.08);
+        } else {
+          cost = Math.max(25, value * 0.12);
+        }
+        
+        shippingInfo.calculatedCost = cost.toFixed(2);
+        shippingInfo.freeShippingEligible = cost === 0;
+      }
+      
+      res.json(shippingInfo);
+    } catch (error: any) {
+      res.status(500).json({ message: "Error retrieving shipping information" });
+    }
+  });
+
+  app.get("/api/ai/system-status", async (req, res) => {
+    try {
+      const systemStatus = await aiOrchestrator.getSystemStatus();
+      const agentStatuses = {
+        ragAgent: ragAgent.getStatus(),
+        customerService: customerServiceAgent.getStatus()
+      };
+      
+      res.json({
+        orchestrator: systemStatus,
+        agents: agentStatuses,
+        timestamp: new Date().toISOString()
+      });
+    } catch (error: any) {
+      res.status(500).json({ message: "Error retrieving system status" });
     }
   });
 
