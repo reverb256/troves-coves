@@ -111,7 +111,7 @@ export default function Header() {
                     <Badge 
                       className="absolute -top-2 -right-2 h-5 w-5 p-0 flex items-center justify-center bg-primary text-primary-foreground gold-glow"
                     >
-                      {totalItems}
+                      {itemCount}
                     </Badge>
                   )}
                 </Button>

@@ -1,250 +1,295 @@
-import { useQuery } from "@tanstack/react-query";
-import Hero from "@/components/Hero";
-import FeaturesBar from "@/components/FeaturesBar";
-import ProductCard from "@/components/ProductCard";
-import AIAssistant from "@/components/AIAssistant";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useLocation } from "wouter";
-import { Star, MapPin, Clock, Phone } from "lucide-react";
-import type { ProductWithCategory, Category } from "@shared/schema";
+import { useState, useEffect } from 'react';
+import { Link } from 'wouter';
+import { useQuery } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import SEOHead from '@/components/SEOHead';
+import type { ProductWithCategory } from '@shared/schema';
+import { 
+  Gem, 
+  Star, 
+  Sparkles, 
+  Shield, 
+  Truck, 
+  Award,
+  ArrowRight,
+  MapPin,
+  Heart,
+  Crown,
+  Diamond
+} from 'lucide-react';
 
 export default function Home() {
-  const [, setLocation] = useLocation();
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Fetch featured products
-  const { data: featuredProducts, isLoading: isLoadingProducts } = useQuery<ProductWithCategory[]>({
-    queryKey: ['/api/products?featured=true'],
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  const { data: featuredProducts, isLoading } = useQuery<ProductWithCategory[]>({
+    queryKey: ['/api/products/featured'],
   });
-
-  // Fetch categories
-  const { data: categories, isLoading: isLoadingCategories } = useQuery<Category[]>({
-    queryKey: ['/api/categories'],
-  });
-
-  const testimonials = [
-    {
-      id: 1,
-      rating: 5,
-      content: "The most beautiful engagement ring and exceptional service. The AI consultation helped us understand every detail before making our decision.",
-      author: "Sarah & Michael",
-      location: "Winnipeg, MB",
-      avatar: "https://images.unsplash.com/photo-1521341957697-b93449760f30?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100"
-    },
-    {
-      id: 2,
-      rating: 5,
-      content: "Three generations of our family have shopped here. The craftsmanship and personal service are unmatched in Winnipeg.",
-      author: "Eleanor W.",
-      location: "River Heights, MB",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b332e234?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100"
-    },
-    {
-      id: 3,
-      rating: 5,
-      content: "The custom design process was seamless. They turned our vision into the most stunning anniversary piece. Truly exceptional artisans.",
-      author: "David C.",
-      location: "Tuxedo, MB",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100"
-    }
-  ];
 
   return (
-    <div>
+    <>
+      <SEOHead
+        title="Troves & Coves - Premium Crystal Jewelry | Winnipeg Manitoba"
+        description="Discover exquisite crystal jewelry and healing stones in Winnipeg. Handcrafted necklaces, wire-wrapped pendants, and authentic crystals. Free local delivery, expert crystal consultations, premium quality guaranteed."
+        keywords="crystal jewelry Winnipeg, healing crystals Manitoba, handmade necklaces, wire wrapped jewelry, lepidolite, turquoise, citrine, rose quartz, local jewelry store, spiritual jewelry, Winnipeg artisan, Manitoba crystals"
+        url="https://troves-and-coves.com"
+        type="website"
+      />
+
       {/* Hero Section */}
-      <Hero />
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-background-secondary to-background-tertiary">
+          {/* Floating Particles */}
+          <div className="absolute inset-0">
+            {[...Array(20)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute animate-pulse"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 4}s`,
+                  animationDuration: `${3 + Math.random() * 4}s`
+                }}
+              >
+                <Sparkles className="h-2 w-2 text-primary/20" />
+              </div>
+            ))}
+          </div>
+          
+          {/* Gradient Orbs */}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        </div>
 
-      {/* Features Bar */}
-      <FeaturesBar />
+        {/* Content */}
+        <div className={`relative z-10 container-luxury text-center transition-all duration-1000 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          {/* Badge */}
+          <Badge className="glass mb-6 px-6 py-2 text-sm font-medium tracking-wider uppercase">
+            <MapPin className="h-3 w-3 mr-2" />
+            Winnipeg's Premier Crystal Jewelry
+          </Badge>
 
-      {/* Featured Collections */}
-      <section className="py-20 bg-warm-cream">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy mb-6">
-              Featured Collections
+          {/* Main Heading */}
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
+            <span className="block gold-text mb-2">Troves & Coves</span>
+            <span className="block text-3xl md:text-4xl lg:text-5xl text-foreground-muted font-normal tracking-wide">
+              Luxury Crystal Jewelry
+            </span>
+          </h1>
+
+          {/* Description */}
+          <p className="text-xl md:text-2xl text-foreground-muted max-w-3xl mx-auto mb-8 leading-relaxed">
+            Discover handcrafted crystal jewelry that harmonizes ancient wisdom with modern elegance. 
+            Each piece is lovingly created to enhance your natural radiance and spiritual journey.
+          </p>
+
+          {/* Features */}
+          <div className="flex flex-wrap justify-center gap-6 mb-12">
+            {[
+              { icon: Crown, text: 'Premium Quality' },
+              { icon: Shield, text: 'Authentic Crystals' },
+              { icon: Heart, text: 'Handcrafted' },
+              { icon: Award, text: 'Local Artisan' }
+            ].map(({ icon: Icon, text }, index) => (
+              <div 
+                key={text}
+                className="flex items-center glass px-4 py-2 rounded-full fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <Icon className="h-4 w-4 text-primary mr-2" />
+                <span className="text-sm font-medium">{text}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/products">
+              <Button className="btn-luxury text-lg px-8 py-4 group">
+                Explore Collection
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+            <Link href="/contact">
+              <Button variant="outline" className="glass hover:glass-card text-lg px-8 py-4 border-primary/20 hover:border-primary/40">
+                Crystal Consultation
+              </Button>
+            </Link>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-primary/30 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse" />
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Products Section */}
+      <section className="py-24 relative">
+        <div className="container-luxury">
+          {/* Section Header */}
+          <div className="text-center mb-16 fade-in-up">
+            <Badge className="glass mb-4 px-4 py-2">
+              <Star className="h-3 w-3 mr-2" />
+              Featured Collection
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <span className="gold-text">Curated</span> for You
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Discover our carefully curated collections, each piece selected for its exceptional beauty and craftsmanship.
+            <p className="text-xl text-foreground-muted max-w-2xl mx-auto">
+              Each crystal is hand-selected for its unique properties and aesthetic beauty, 
+              crafted into jewelry that tells your story.
             </p>
           </div>
 
-          {isLoadingCategories ? (
-            <div className="grid lg:grid-cols-3 gap-8 mb-16">
-              {[...Array(3)].map((_, i) => (
-                <div key={i} className="space-y-4">
-                  <Skeleton className="h-80 w-full rounded-lg" />
-                  <Skeleton className="h-6 w-3/4" />
-                  <Skeleton className="h-4 w-1/2" />
+          {/* Products Grid */}
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="glass-card p-6 rounded-2xl animate-pulse">
+                  <div className="w-full h-64 bg-muted rounded-xl mb-4" />
+                  <div className="h-4 bg-muted rounded mb-2" />
+                  <div className="h-3 bg-muted rounded w-3/4" />
                 </div>
               ))}
             </div>
           ) : (
-            <div className="grid lg:grid-cols-3 gap-8 mb-16">
-              {categories?.slice(0, 3).map((category) => (
-                <Card
-                  key={category.id}
-                  className="group cursor-pointer overflow-hidden luxury-shadow hover:luxury-shadow-lg transition-all duration-300"
-                  onClick={() => setLocation(`/products/${category.slug}`)}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredProducts?.slice(0, 6).map((product, index) => (
+                <Link
+                  key={product.id}
+                  href={`/products/${product.id}`}
+                  className="group fade-in-up"
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={category.imageUrl || 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600'}
-                      alt={category.name}
-                      className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  </div>
-                  <CardContent className="p-6">
-                    <h3 className="text-2xl font-serif font-semibold text-navy mb-2">
-                      {category.name}
-                    </h3>
-                    <p className="text-gray-600">{category.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Featured Products */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy mb-6">
-              Handpicked for You
-            </h2>
-            <p className="text-xl text-gray-600">Discover our most beloved pieces</p>
-          </div>
-
-          {isLoadingProducts ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="space-y-4">
-                  <Skeleton className="h-64 w-full rounded-lg" />
-                  <Skeleton className="h-6 w-3/4" />
-                  <Skeleton className="h-4 w-1/2" />
-                  <Skeleton className="h-8 w-1/3" />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {featuredProducts?.map((product) => (
-                <ProductCard key={product.id} product={product} featured />
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* AI Assistant Section */}
-      <AIAssistant />
-
-      {/* Local Winnipeg Section */}
-      <section className="py-20 bg-warm-cream">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="relative">
-              <img
-                src="https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
-                alt="Winnipeg Cityscape"
-                className="rounded-xl luxury-shadow-lg w-full h-auto"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent rounded-xl"></div>
-            </div>
-
-            <div>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy mb-6">
-                Proudly <span className="text-elegant-gold">Winnipeg</span>
-              </h2>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                For over three decades, we've been part of Winnipeg's story. From the Exchange District 
-                to Osborne Village, our jewelry has marked life's most precious moments for Manitoba families.
-              </p>
-
-              <div className="space-y-6 mb-8">
-                <div className="flex items-center space-x-4">
-                  <MapPin className="text-elegant-gold text-xl w-5 h-5 flex-shrink-0" />
-                  <div>
-                    <div className="font-semibold text-lg">Downtown Showroom</div>
-                    <div className="text-gray-600">123 Main Street, Exchange District</div>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <Clock className="text-elegant-gold text-xl w-5 h-5 flex-shrink-0" />
-                  <div>
-                    <div className="font-semibold text-lg">By Appointment</div>
-                    <div className="text-gray-600">Private consultations available</div>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <Phone className="text-elegant-gold text-xl w-5 h-5 flex-shrink-0" />
-                  <div>
-                    <div className="font-semibold text-lg">(204) 555-GEMS</div>
-                    <div className="text-gray-600">Speak with our jewelry experts</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  className="bg-navy text-white hover:bg-rich-blue"
-                  onClick={() => setLocation('/contact')}
-                >
-                  Visit Our Showroom
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="border-navy text-navy hover:bg-navy hover:text-white"
-                >
-                  Virtual Tour
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy mb-6">
-              What Our Clients Say
-            </h2>
-            <p className="text-xl text-gray-600">Trusted by Winnipeg families for generations</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial) => (
-              <Card key={testimonial.id} className="bg-warm-cream luxury-shadow">
-                <CardContent className="p-8">
-                  <div className="text-elegant-gold text-2xl mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="inline w-5 h-5 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-gray-700 mb-6 italic">"{testimonial.content}"</p>
-                  <div className="flex items-center space-x-4">
-                    <img
-                      src={testimonial.avatar}
-                      alt={testimonial.author}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                    <div>
-                      <div className="font-semibold">{testimonial.author}</div>
-                      <div className="text-sm text-gray-600">{testimonial.location}</div>
+                  <Card className="glass-card overflow-hidden border-0 hover:scale-105 transition-all duration-500 group-hover:shadow-2xl">
+                    <div className="relative overflow-hidden">
+                      <div className="w-full h-64 bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center relative">
+                        <Gem className="h-16 w-16 text-primary float-animation" />
+                        <div className="absolute inset-0 shimmer" />
+                      </div>
+                      <Badge className="absolute top-4 right-4 bg-primary text-primary-foreground">
+                        ${product.price}
+                      </Badge>
                     </div>
+                    <CardContent className="p-6">
+                      <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
+                        {product.name}
+                      </h3>
+                      <p className="text-sm text-foreground-muted mb-4 line-clamp-2">
+                        {product.description}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <Badge variant="secondary" className="glass">
+                          {product.category?.name}
+                        </Badge>
+                        <ArrowRight className="h-4 w-4 text-primary group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="py-24 relative">
+        <div className="container-luxury">
+          <div className="text-center mb-16 fade-in-up">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Why Choose <span className="gold-text">Troves & Coves</span>
+            </h2>
+            <p className="text-xl text-foreground-muted max-w-2xl mx-auto">
+              Experience the perfect blend of craftsmanship, authenticity, and spiritual connection.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                icon: Shield,
+                title: 'Authentic Crystals',
+                description: 'Sourced directly from trusted suppliers worldwide, each crystal is genuine and energetically cleansed.'
+              },
+              {
+                icon: Crown,
+                title: 'Premium Materials',
+                description: '14k gold filled, sterling silver, and copper wire ensure lasting beauty and durability.'
+              },
+              {
+                icon: Heart,
+                title: 'Handcrafted Love',
+                description: 'Every piece is lovingly created by skilled artisans with attention to detail and intention.'
+              },
+              {
+                icon: MapPin,
+                title: 'Winnipeg Local',
+                description: 'Proudly serving the Winnipeg community with personalized service and local expertise.'
+              }
+            ].map(({ icon: Icon, title, description }, index) => (
+              <div 
+                key={title}
+                className="text-center fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="glass-card p-8 rounded-2xl group hover:scale-105 transition-all duration-300">
+                  <div className="relative mb-6">
+                    <div className="absolute inset-0 gold-glow rounded-full opacity-20" />
+                    <Icon className="h-12 w-12 text-primary mx-auto relative z-10" />
                   </div>
-                </CardContent>
-              </Card>
+                  <h3 className="text-xl font-semibold mb-4 group-hover:text-primary transition-colors">
+                    {title}
+                  </h3>
+                  <p className="text-foreground-muted leading-relaxed">
+                    {description}
+                  </p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
-    </div>
+
+      {/* CTA Section */}
+      <section className="py-24 relative">
+        <div className="container-luxury text-center">
+          <div className="glass-card p-12 rounded-3xl max-w-4xl mx-auto fade-in-up">
+            <Diamond className="h-16 w-16 text-primary mx-auto mb-6 float-animation" />
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Begin Your <span className="gold-text">Crystal Journey</span>
+            </h2>
+            <p className="text-xl text-foreground-muted mb-8 max-w-2xl mx-auto">
+              Let us help you find the perfect crystal jewelry that resonates with your energy and style. 
+              Book a consultation or explore our collection today.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/contact">
+                <Button className="btn-luxury text-lg px-8 py-4">
+                  Book Consultation
+                </Button>
+              </Link>
+              <Link href="/products">
+                <Button variant="outline" className="glass hover:glass-card text-lg px-8 py-4 border-primary/20">
+                  View All Products
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
