@@ -43,29 +43,33 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background-secondary to-background-tertiary">
-          {/* Floating Particles */}
+        {/* Organic Background with Crystal Elements */}
+        <div className="absolute inset-0">
+          {/* Floating Crystal Shapes */}
           <div className="absolute inset-0">
-            {[...Array(20)].map((_, i) => (
+            {[...Array(12)].map((_, i) => (
               <div
                 key={i}
-                className="absolute animate-pulse"
+                className={`absolute floating-crystal opacity-30 ${
+                  i % 3 === 0 ? 'crystal-frame bg-gradient-to-br from-purple-200/20 to-purple-300/10' :
+                  i % 3 === 1 ? 'faceted-frame bg-gradient-to-br from-pink-200/30 to-orange-200/20' :
+                  'rounded-full bg-gradient-to-br from-stone-100/40 to-stone-50/20'
+                }`}
                 style={{
+                  width: `${20 + Math.random() * 40}px`,
+                  height: `${20 + Math.random() * 40}px`,
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 4}s`,
-                  animationDuration: `${3 + Math.random() * 4}s`
+                  animationDelay: `${Math.random() * 6}s`,
+                  animationDuration: `${8 + Math.random() * 4}s`
                 }}
-              >
-                <Sparkles className="h-2 w-2 text-primary/20" />
-              </div>
+              />
             ))}
           </div>
           
-          {/* Gradient Orbs */}
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+          {/* Wire-wrap inspired decorative elements */}
+          <div className="absolute top-1/4 left-1/6 w-32 h-32 wire-wrap rounded-full opacity-20"></div>
+          <div className="absolute bottom-1/3 right-1/5 w-24 h-24 wire-wrap faceted-frame opacity-15"></div>
         </div>
 
         {/* Content */}
@@ -73,23 +77,23 @@ export default function Home() {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           {/* Badge */}
-          <Badge className="glass mb-6 px-6 py-2 text-sm font-medium tracking-wider uppercase">
+          <Badge className="glass-jewelry mb-6 px-6 py-2 text-sm font-medium tracking-wider uppercase highlight-rose-quartz">
             <MapPin className="h-3 w-3 mr-2" />
             Winnipeg's Premier Crystal Jewelry
           </Badge>
 
           {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
-            <span className="block gold-text mb-2">Troves & Coves</span>
+          <h1 className="text-display text-5xl md:text-7xl lg:text-8xl mb-6 tracking-tight">
+            <span className="block text-rose-gold mb-2">Troves & Coves</span>
             <span className="block text-3xl md:text-4xl lg:text-5xl text-foreground-muted font-normal tracking-wide">
-              Luxury Crystal Jewelry
+              Handcrafted Crystal Jewelry
             </span>
           </h1>
 
           {/* Description */}
-          <p className="text-xl md:text-2xl text-foreground-muted max-w-3xl mx-auto mb-8 leading-relaxed">
-            Discover handcrafted crystal jewelry that harmonizes ancient wisdom with modern elegance. 
-            Each piece is lovingly created to enhance your natural radiance and spiritual journey.
+          <p className="text-body text-xl md:text-2xl text-foreground-muted max-w-3xl mx-auto mb-8 leading-relaxed">
+            Where ancient crystal wisdom meets modern artistry. Each piece is lovingly handcrafted 
+            to enhance your natural radiance and spiritual journey through life.
           </p>
 
           {/* Features */}
