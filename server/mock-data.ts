@@ -41,8 +41,6 @@ export const crystalJewelryImages = {
     "/assets/image_1749357889290.png"
   ],
   lapisLazuli: [
-    "/assets/image_1749357927180.png",
-    "/assets/image_1749357938621.png",
     "/assets/image_1749357969109.png",
     "/assets/image_1749357973810.png",
     "/assets/image_1749357976656.png",
