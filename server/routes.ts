@@ -7,6 +7,7 @@ import { z } from "zod";
 import { AIOrchestrator } from "./ai-orchestrator";
 import { RAGAgent } from "./agents/rag-agent";
 import { CustomerServiceAgent } from "./agents/customer-service-agent";
+import { WebScraperAgent } from "./agents/web-scraper-agent";
 
 // Initialize Stripe
 const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -17,6 +18,7 @@ const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SEC
 const aiOrchestrator = new AIOrchestrator();
 const ragAgent = new RAGAgent(aiOrchestrator);
 const customerServiceAgent = new CustomerServiceAgent(aiOrchestrator, ragAgent);
+const webScraperAgent = new WebScraperAgent(aiOrchestrator);
 
 // Session management for cart
 function getSessionId(req: any): string {
@@ -626,6 +628,97 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (error: any) {
       res.status(500).json({ message: "Error retrieving system status" });
+    }
+  });
+
+  // Web Scraping & Market Intelligence Endpoints
+  app.post("/api/scrape/search", async (req, res) => {
+    try {
+      const { query, category = 'general', limit = 10 } = req.body;
+      
+      const results = await webScraperAgent.searchWithSearXNG({
+        query,
+        category,
+        limit
+      });
+      
+      res.json({
+        query,
+        results,
+        count: results.length,
+        timestamp: new Date()
+      });
+    } catch (error: any) {
+      res.status(500).json({ message: "Search service temporarily unavailable" });
+    }
+  });
+
+  app.post("/api/scrape/competitor-pricing", async (req, res) => {
+    try {
+      const { productType } = req.body;
+      
+      const pricingData = await webScraperAgent.scrapeCompetitorPricing(productType);
+      
+      res.json({
+        productType,
+        competitors: pricingData,
+        analysis: {
+          averagePrice: pricingData.length > 0 ? 
+            pricingData.reduce((sum, p) => sum + parseFloat(p.prices[0] || '0'), 0) / pricingData.length : 0,
+          priceRange: {
+            min: Math.min(...pricingData.map(p => parseFloat(p.prices[0] || '999'))),
+            max: Math.max(...pricingData.map(p => parseFloat(p.prices[0] || '0')))
+          }
+        },
+        timestamp: new Date()
+      });
+    } catch (error: any) {
+      res.status(500).json({ message: "Competitor analysis unavailable" });
+    }
+  });
+
+  app.post("/api/scrape/market-research", async (req, res) => {
+    try {
+      const { topic } = req.body;
+      
+      const research = await webScraperAgent.marketResearch(topic);
+      
+      res.json(research);
+    } catch (error: any) {
+      res.status(500).json({ message: "Market research service unavailable" });
+    }
+  });
+
+  app.post("/api/scrape/keyword-monitor", async (req, res) => {
+    try {
+      const { keywords } = req.body;
+      
+      const monitoring = await webScraperAgent.monitorKeywords(keywords);
+      
+      res.json({
+        keywords,
+        results: monitoring,
+        summary: {
+          totalKeywords: keywords.length,
+          averagePosition: monitoring.reduce((sum, k) => sum + (k.results[0]?.position || 100), 0) / monitoring.length,
+          topCompetitors: monitoring.flatMap(k => k.competitors).slice(0, 5)
+        },
+        timestamp: new Date()
+      });
+    } catch (error: any) {
+      res.status(500).json({ message: "Keyword monitoring unavailable" });
+    }
+  });
+
+  app.post("/api/scrape/content-ideas", async (req, res) => {
+    try {
+      const { niche } = req.body;
+      
+      const contentIdeas = await webScraperAgent.generateContentIdeas(niche);
+      
+      res.json(contentIdeas);
+    } catch (error: any) {
+      res.status(500).json({ message: "Content generation service unavailable" });
     }
   });
 
