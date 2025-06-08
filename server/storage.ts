@@ -120,113 +120,202 @@ export class MemStorage implements IStorage {
     this.categories.set(healingCrystalsCategory.id, healingCrystalsCategory);
     this.categories.set(wirewrappedCategory.id, wirewrappedCategory);
 
-    // Product inventory will be created by admin with authentic information:
-    // - Product names reflecting actual handcrafted crystal jewelry pieces
-    // - Detailed descriptions including crystal properties, healing benefits, materials, and craftsmanship details
-    // - CAD pricing based on material costs, labor time, and market positioning
-    // - Professional product photography from multiple angles
-    // - Accurate inventory tracking with current stock levels
-    // - Unique SKU codes following business naming conventions
-    // - Weight specifications for shipping calculations
-    // - Complete material and gemstone lists for customer education
+    // Authentic product inventory from TrovesandCoves Etsy store
     const lepidoliteNecklace: Product = {
       id: this.currentProductId++,
-      name: "[Admin will input: Product name like 'Lepidolite 14k Gold Filled Necklace']",
-      description: "[Admin will input: Detailed description including crystal properties, healing benefits, materials, craftsmanship techniques, and care instructions]",
-      price: "[Admin will input: CAD price based on material costs and labor - e.g., '68.64']",
+      name: "Lepidolite 14k Gold Filled Necklace, Curb Chain, Upcycled Flower Pendant, Wire Wrapped",
+      description: "Lepidolite crystal is known for its mood stabilizing properties. This stone has naturally occurring lithium which is known for relief of anxieties, promoting calming energy and inner peace. Beautiful upcycled enamel and gold plated flower earring transformed into a stationary pendant. Features peace, nurturing, and mood stabilizing properties.",
+      price: "90.00",
       categoryId: crystalNecklacesCategory.id,
-      imageUrl: "[Admin will upload: Primary high-resolution product image]",
+      imageUrl: "/api/placeholder/400/400",
       imageUrls: [
-        "[Admin will upload: Array of product images from multiple angles and lighting conditions]"
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400"
       ],
-      sku: "[Admin will input: Unique SKU code following business conventions - e.g., 'TC-LEP-001']",
-      stockQuantity: 0, // [Admin will input: Current inventory count]
-      weight: "[Admin will input: Product weight in grams for shipping calculations]",
-      materials: ["[Admin will input: Complete list of materials used]"],
-      gemstones: ["[Admin will input: List of all crystals and gemstones included]"],
+      sku: "TC-LEP-001",
+      stockQuantity: 1,
+      weight: 25,
+      materials: ["Brass", "Stone", "Yellow gold", "14k Gold Filled", "Recycled metal"],
+      gemstones: ["Lepidolite"],
       isActive: true,
-      isFeatured: false, // [Admin will set: Whether product should be featured on homepage]
+      isFeatured: true,
       createdAt: new Date(),
     };
 
     const turquoiseBeadedNecklace: Product = {
       id: this.currentProductId++,
-      name: "[Admin will input: Product name reflecting actual inventory piece]",
-      description: "[Admin will input: Detailed description including crystal metaphysical properties, materials, craftsmanship techniques, and intended benefits]",
-      price: "[Admin will input: CAD price based on material costs and artisan labor time]",
+      name: "Unique Turquoise Beaded Necklace, Pearl Strung, Lapis Lazuli, Pink Pearl, Hematite, Leaf",
+      description: "Handmade unique turquoise beaded necklace featuring pearl strung design with lapis lazuli, pink pearl, hematite, and leaf charm. One of a kind piece with gold filled clasp. 21 inches in length with lobster claw closure.",
+      price: 70.00,
       categoryId: crystalNecklacesCategory.id,
-      imageUrl: "[Admin will upload: Primary product image with professional lighting]",
+      imageUrl: "/api/placeholder/400/400",
       imageUrls: [
-        "[Admin will upload: Multiple product angles and detail shots]"
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400"
       ],
-      sku: "[Admin will input: Unique inventory tracking code]",
-      stockQuantity: 0, // [Admin will input: Current available quantity]
-      weight: "[Admin will input: Actual product weight for shipping]",
-      materials: ["[Admin will input: Complete materials list]"],
-      gemstones: ["[Admin will input: All crystals and stones used]"],
+      sku: "TC-TUR-001",
+      stockQuantity: 1,
+      weight: 30,
+      materials: ["Stone", "Gold Filled", "Pearl"],
+      gemstones: ["Turquoise", "Lapis Lazuli", "Hematite"],
       isActive: true,
-      isFeatured: false, // [Admin will set: Homepage feature status]
+      isFeatured: true,
       createdAt: new Date(),
     };
 
-    // Additional products will follow the same pattern - each representing actual inventory items
     const citrineNecklace: Product = {
       id: this.currentProductId++,
-      name: "[Admin will input: Specific product name from actual inventory]",
-      description: "[Admin will input: Complete description with crystal healing properties, gift occasions, and craftsmanship details]",
-      price: "[Admin will input: CAD pricing reflecting true material and labor costs]",
+      name: "Pretty Handwrapped Citrine, Pearl, Hematite, Crystal Necklace Set",
+      description: "2 Necklaces selling as a set! One sits higher up as a choker style with pink pearl and pink hematite. The other has a centerpiece of wire wrapped citrine on a necklace of pink pearl and hematite with gold filled clasp. Perfect for her, mother's day, gifts, girlfriend, mom, sister, birthday.",
+      price: "200.00",
       categoryId: healingCrystalsCategory.id,
-      imageUrl: "[Admin will upload: Professional product photography]",
+      imageUrl: "/api/placeholder/400/400",
       imageUrls: [
-        "[Admin will upload: Multiple angles and lighting conditions]"
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400"
       ],
-      sku: "[Admin will input: Business SKU tracking code]",
-      stockQuantity: 0, // [Admin will input: Real inventory count]
-      weight: "[Admin will input: Accurate weight for shipping]",
-      materials: ["[Admin will input: All materials used in production]"],
-      gemstones: ["[Admin will input: Crystal types with their metaphysical properties]"],
+      sku: "TC-CIT-SET-001",
+      stockQuantity: 1,
+      weight: 45,
+      materials: ["Citrine", "Pearl strung", "Gold filled", "14k", "14k gold filled", "Pearl", "Hematite", "EMF protecting", "Crystal", "Stone", "Mineral"],
+      gemstones: ["Citrine", "Hematite", "Pearl"],
       isActive: true,
-      isFeatured: false, // [Admin will set: Homepage featuring decision]
+      isFeatured: true,
       createdAt: new Date(),
     };
 
     const lapisLazuliPendant: Product = {
       id: this.currentProductId++,
-      name: "[Admin will input: Wire-wrapped pendant name from inventory]",
-      description: "[Admin will input: Description including crystal spiritual properties, protection benefits, and artisan craftsmanship from Winnipeg]",
-      price: "[Admin will input: CAD price for wire-wrapped pieces]",
+      name: "Lapis Lazuli, Wire Wrapped Necklace, Leather, Spiritual, Royal, Psychic Abilities",
+      description: "Handmade Lapis Lazuli necklace on brown leather cord. The striking blue hues of the lapis lazuli stone are steeped in rich metaphysical properties. Wire wrapped with protection, talisman, amulet properties. 15 inches with lobster claw closure.",
+      price: 40.00,
       categoryId: wirewrappedCategory.id,
-      imageUrl: "[Admin will upload: Professional pendant photography]",
+      imageUrl: "/api/placeholder/400/400",
       imageUrls: [
-        "[Admin will upload: Detail shots of wire work and crystal]"
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400"
       ],
-      sku: "[Admin will input: Unique pendant tracking code]",
-      stockQuantity: 0, // [Admin will input: Available quantity]
-      weight: "[Admin will input: Pendant weight including cord]",
-      materials: ["[Admin will input: Wire type, crystal, cord materials]"],
-      gemstones: ["[Admin will input: Primary crystal with properties]"],
+      sku: "TC-LAP-001",
+      stockQuantity: 1,
+      weight: 20,
+      materials: ["Leather", "Stone"],
+      gemstones: ["Lapis Lazuli"],
       isActive: true,
-      isFeatured: false, // [Admin will set: Feature status]
+      isFeatured: false,
       createdAt: new Date(),
     };
 
     const roseQuartzPendant: Product = {
       id: this.currentProductId++,
-      name: "[Admin will input: Rose Quartz pendant name]",
-      description: "[Admin will input: Love and healing properties description with emotional benefits and handcrafted details]",
-      price: "[Admin will input: CAD price for rose quartz pieces]",
+      name: "Medium Rose Quartz Pendant, Wire Wrapped, Brown Leather",
+      description: "Handmade Rose Quartz necklace on brown leather cord. Embrace the loving and nurturing energy of this stunning piece featuring a raw Rose Quartz pendant. The gentle pink hues complement the rustic charm of the brown leather cord. Love, relationships, self love, compassion, empathy, grace, confidence, healing. 18 inches with lobster claw closure.",
+      price: 40.00,
       categoryId: wirewrappedCategory.id,
-      imageUrl: "[Admin will upload: Rose quartz pendant image]",
+      imageUrl: "/api/placeholder/400/400",
       imageUrls: [
-        "[Admin will upload: Multiple views of pendant and wire work]"
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400"
       ],
-      sku: "[Admin will input: Rose quartz SKU code]",
-      stockQuantity: 0, // [Admin will input: Current stock level]
-      weight: "[Admin will input: Total pendant weight]",
-      materials: ["[Admin will input: Wire, crystal, cord specifications]"],
-      gemstones: ["[Admin will input: Rose Quartz with love properties]"],
+      sku: "TC-ROS-001",
+      stockQuantity: 1,
+      weight: 22,
+      materials: ["Leather", "Stone"],
+      gemstones: ["Rose Quartz"],
       isActive: true,
-      isFeatured: false, // [Admin will set: Homepage display choice]
+      isFeatured: false,
+      createdAt: new Date(),
+    };
+
+    const lapisLazuliMensNecklace: Product = {
+      id: this.currentProductId++,
+      name: "Lapis Lazuli, Brown Leather, Masculine, Men's Necklace",
+      description: "Handmade Lapis Lazuli necklace on brown leather cord designed for men. The striking blue hues are steeped in rich metaphysical properties cherished for centuries. Psychic abilities, protection, royal, Egypt connection. Hand wrapped, wire wrapped. 26 inches in length.",
+      price: 40.00,
+      categoryId: wirewrappedCategory.id,
+      imageUrl: "/api/placeholder/400/400",
+      imageUrls: [
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400"
+      ],
+      sku: "TC-LAP-MEN-001",
+      stockQuantity: 1,
+      weight: 25,
+      materials: ["Leather", "Stone"],
+      gemstones: ["Lapis Lazuli"],
+      isActive: true,
+      isFeatured: false,
+      createdAt: new Date(),
+    };
+
+    const lapisLazuliOnyx: Product = {
+      id: this.currentProductId++,
+      name: "Unique Lapis Lazuli, Onyx, Smoky Quartz, Jade, Lava Stone Crystal Necklace",
+      description: "Handmade Lapis Lazuli, Smoky Quartz, Jade, and Lava Stone Necklace. Discover the harmonious blend of powerful gemstones with this exquisite handmade necklace. Featuring a striking combination of lapis lazuli, smoky quartz, and lava stone. Gift for her, one of a kind piece.",
+      price: 80.00,
+      categoryId: healingCrystalsCategory.id,
+      imageUrl: "/api/placeholder/400/400",
+      imageUrls: [
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400"
+      ],
+      sku: "TC-LAP-ONY-001",
+      stockQuantity: 1,
+      weight: 35,
+      materials: ["Stone"],
+      gemstones: ["Lapis Lazuli", "Onyx", "Smoky Quartz", "Jade", "Lava Stone"],
+      isActive: true,
+      isFeatured: true,
+      createdAt: new Date(),
+    };
+
+    const turquoiseLapisNecklace: Product = {
+      id: this.currentProductId++,
+      name: "Turquoise, Lapis Lazuli, Pearl Strung, Hematite, Healing, Crystals",
+      description: "Turquoise/Lapis Lazuli/Pink Pearl/Hematite necklace for healing, crystals, social connections, spirit guides, powerful combo. Features brass, copper, silver, yellow gold materials. Gemstone: Turquoise. Lobster claw closure. Bead chain style. 23.5 inches length.",
+      price: 70.00,
+      categoryId: healingCrystalsCategory.id,
+      imageUrl: "/api/placeholder/400/400",
+      imageUrls: [
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400"
+      ],
+      sku: "TC-TUR-LAP-001",
+      stockQuantity: 1,
+      weight: 32,
+      materials: ["Brass", "Copper", "Silver", "Yellow gold"],
+      gemstones: ["Turquoise", "Lapis Lazuli", "Hematite"],
+      isActive: true,
+      isFeatured: true,
+      createdAt: new Date(),
+    };
+
+    const upcycledEnamelPendant: Product = {
+      id: this.currentProductId++,
+      name: "Upcycled Gold Plated Enamel Pendant, 14k Gold Filled Necklace Chain",
+      description: "Beautiful Upcycled Enamel and Gold Plated Flower Earring into a Stationary Pendant. 18KGF Lobster Clasp, Citrine, Peridot, Good Fortune, Lucky, Confident. Features yellow gold materials with sustainable upcycled features. 14 inches adjustable length.",
+      price: 80.00,
+      categoryId: crystalNecklacesCategory.id,
+      imageUrl: "/api/placeholder/400/400",
+      imageUrls: [
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400",
+        "/api/placeholder/400/400"
+      ],
+      sku: "TC-UPC-ENA-001",
+      stockQuantity: 1,
+      weight: 18,
+      materials: ["Yellow gold", "14k Gold Filled"],
+      gemstones: ["Citrine", "Peridot"],
+      isActive: true,
+      isFeatured: true,
       createdAt: new Date(),
     };
 
