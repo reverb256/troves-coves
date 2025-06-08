@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Facebook, Instagram, Youtube, MapPin, Clock, Phone, Mail } from "lucide-react";
+import { Facebook, Instagram, Youtube, MapPin, Clock, Phone, Mail, ExternalLink } from "lucide-react";
 import { useState } from "react";
 
 export default function Footer() {
@@ -22,18 +22,19 @@ export default function Footer() {
   };
 
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Youtube, href: "#", label: "YouTube" },
+    { icon: Facebook, href: "https://www.facebook.com/TrovesandCoves", label: "Facebook" },
+    { icon: Instagram, href: "https://instagram.com/Troves_and_Coves", label: "Instagram" },
+    { icon: ExternalLink, href: "https://www.etsy.com/ca/shop/TrovesandCoves", label: "Etsy Shop" },
+    { icon: ExternalLink, href: "https://linktr.ee/TrovesandCoves", label: "Linktree" },
   ];
 
   const collections = [
-    { name: "Engagement Rings", href: "/products/engagement" },
-    { name: "Wedding Bands", href: "/products/heritage" },
-    { name: "Necklaces", href: "/products" },
-    { name: "Earrings", href: "/products" },
-    { name: "Bracelets", href: "/products" },
-    { name: "Custom Design", href: "/contact" },
+    { name: "Crystal Necklaces", href: "/products/crystal-necklaces" },
+    { name: "Healing Crystals", href: "/products/healing-crystals" },
+    { name: "Wire Wrapped Jewelry", href: "/products/wire-wrapped" },
+    { name: "All Products", href: "/products" },
+    { name: "Featured Items", href: "/" },
+    { name: "Custom Crystal Consultations", href: "/contact" },
   ];
 
   const customerCare = [
