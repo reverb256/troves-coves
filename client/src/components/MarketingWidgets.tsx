@@ -34,32 +34,28 @@ export function PersonalizedRecommendations() {
       const data = await response.json();
       
       // Extract recommendations from AI response
-      const mockRecommendations = [
-        {
-          id: 1,
-          name: 'Moonstone Intuition Pendant',
-          reason: 'Perfect for enhancing intuition and emotional balance',
-          confidence: 95,
-          crystalProperties: ['intuition', 'emotional-healing', 'feminine-energy']
-        },
-        {
-          id: 2,
-          name: 'Lepidolite Stress Relief Bracelet',
-          reason: 'Natural lithium content for anxiety relief and peace',
-          confidence: 88,
-          crystalProperties: ['stress-relief', 'anxiety', 'calming']
-        },
-        {
-          id: 3,
-          name: 'Clear Quartz Amplification Ring',
-          reason: 'Amplifies intentions and promotes clarity',
-          confidence: 92,
-          crystalProperties: ['amplification', 'clarity', 'master-healer']
-        }
+      // AI will generate personalized recommendations based on:
+      // - Customer browsing behavior and purchase history
+      // - Crystal healing properties matching customer's stated needs
+      // - Seasonal trends and popular products
+      // - Inventory availability and featured items
+      // - Customer's location (Winnipeg local vs. international shipping)
+      const aiRecommendations = [
+        // Example structure: Each recommendation will include:
+        // - id: Product ID from actual inventory
+        // - name: Real product name from admin catalog
+        // - reason: AI-generated explanation based on customer profile
+        // - confidence: AI confidence score (0-100) for recommendation accuracy
+        // - crystalProperties: Array of relevant healing properties for the customer
       ];
 
-      setRecommendations(mockRecommendations);
-      setPersona('Spiritual Seeker');
+      // AI will determine customer persona based on:
+      // - Product categories they browse most
+      // - Time spent on healing properties descriptions
+      // - Cart contents and wishlist items
+      // - Previous purchases and consultation topics
+      setRecommendations([]); // Will be populated by AI analysis
+      setPersona('[AI will determine: Customer archetype like "Spiritual Seeker", "Crystal Beginner", "Wellness Enthusiast"]');
     } catch (error) {
       console.error('Failed to generate recommendations:', error);
     } finally {
@@ -134,27 +130,31 @@ export function SocialProofWidget() {
   const [recentActivity, setRecentActivity] = useState([]);
 
   useEffect(() => {
-    // Simulate real-time activity updates
-    const activities = [
-      { user: 'Sarah M.', action: 'purchased', item: 'Rose Quartz Heart Pendant', location: 'Toronto, ON', time: '2 minutes ago' },
-      { user: 'Jennifer L.', action: 'added to cart', item: 'Amethyst Cluster Earrings', location: 'Vancouver, BC', time: '5 minutes ago' },
-      { user: 'Michelle K.', action: 'purchased', item: 'Lepidolite Meditation Bracelet', location: 'Calgary, AB', time: '8 minutes ago' },
-      { user: 'Amanda R.', action: 'viewed', item: 'Clear Quartz Point Necklace', location: 'Montreal, QC', time: '12 minutes ago' }
-    ];
+    // Real-time customer activity will be tracked from actual e-commerce events:
+    // - Purchase completions from Stripe payment confirmations
+    // - Cart additions from authenticated user sessions and anonymous shopping
+    // - Product views from page analytics and browsing behavior
+    // - Customer locations from shipping addresses and IP geolocation
+    // - Timestamps from actual database transaction logs
+    // - Privacy-compliant display showing first name + last initial only
+    
+    // Activity feed will populate from:
+    // - Order completion webhooks
+    // - Shopping cart database changes
+    // - Product page view analytics
+    // - Customer geographic distribution data
+    // - Real-time e-commerce event streaming
+    
+    setRecentActivity([]); // Will be populated from actual customer activity data
 
-    setRecentActivity(activities);
-
-    // Update activity every 30 seconds
+    // Live activity updates will come from:
+    // - Database change streams for real purchases
+    // - Shopping session events for cart additions
+    // - Analytics events for product engagement
+    // - Geographic data from customer locations across Canada
     const interval = setInterval(() => {
-      const newActivity = {
-        user: `Customer ${Math.floor(Math.random() * 100)}`,
-        action: Math.random() > 0.7 ? 'purchased' : Math.random() > 0.5 ? 'added to cart' : 'viewed',
-        item: 'Healing Crystal Jewelry',
-        location: ['Toronto, ON', 'Vancouver, BC', 'Calgary, AB', 'Ottawa, ON', 'Winnipeg, MB'][Math.floor(Math.random() * 5)],
-        time: 'just now'
-      };
-      
-      setRecentActivity(prev => [newActivity, ...prev.slice(0, 3)]);
+      // Poll for new authentic customer activity from database
+      // Update activity feed with real purchase/cart/view events
     }, 30000);
 
     return () => clearInterval(interval);
@@ -244,19 +244,22 @@ export function AstrologyIntegration() {
   const [userSign, setUserSign] = useState('');
   const [crystalMatch, setCrystalMatch] = useState(null);
 
+  // Zodiac crystal recommendations will be sourced from:
+  // - Traditional crystal healing texts and astrological correspondence tables
+  // - Crystal therapy certification courses and professional references
+  // - Verified metaphysical properties from crystal healing practitioners
+  // - Current inventory matching zodiac correspondences from business catalog
+  // - Customer consultation notes linking zodiac signs to successful crystal choices
   const zodiacCrystals = {
-    aries: { crystal: 'Carnelian', properties: 'Courage & Energy', color: 'text-red-600' },
-    taurus: { crystal: 'Rose Quartz', properties: 'Love & Stability', color: 'text-pink-600' },
-    gemini: { crystal: 'Citrine', properties: 'Communication & Joy', color: 'text-yellow-600' },
-    cancer: { crystal: 'Moonstone', properties: 'Intuition & Emotions', color: 'text-blue-600' },
-    leo: { crystal: 'Sunstone', properties: 'Confidence & Leadership', color: 'text-orange-600' },
-    virgo: { crystal: 'Amazonite', properties: 'Clarity & Balance', color: 'text-green-600' },
-    libra: { crystal: 'Lepidolite', properties: 'Harmony & Peace', color: 'text-purple-600' },
-    scorpio: { crystal: 'Obsidian', properties: 'Protection & Transformation', color: 'text-gray-800' },
-    sagittarius: { crystal: 'Turquoise', properties: 'Wisdom & Adventure', color: 'text-teal-600' },
-    capricorn: { crystal: 'Garnet', properties: 'Grounding & Ambition', color: 'text-red-700' },
-    aquarius: { crystal: 'Amethyst', properties: 'Spirituality & Innovation', color: 'text-purple-700' },
-    pisces: { crystal: 'Aquamarine', properties: 'Intuition & Compassion', color: 'text-blue-500' }
+    // Each zodiac sign will map to:
+    // - crystal: Actual crystal name from business inventory
+    // - properties: Verified metaphysical benefits from professional sources
+    // - color: Visual styling matching authentic crystal colors
+    // Admin will input authentic crystal-zodiac correspondences based on:
+    // - Professional crystal healing certification materials
+    // - Traditional astrological crystal associations
+    // - Available inventory in the business catalog
+    // - Customer feedback on zodiac-based crystal effectiveness
   };
 
   const handleSignSelect = (sign: string) => {
