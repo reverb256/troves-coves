@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { useCartContext } from '@/lib/store';
 import { ShoppingCart, Menu, Gem, Star, Search, ArrowRight } from 'lucide-react';
 
@@ -133,6 +133,10 @@ export default function Header() {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="glass-card border-l border-white/10 w-80">
+                  <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                  <SheetDescription className="sr-only">
+                    Navigate through the Troves & Coves crystal jewelry website sections
+                  </SheetDescription>
                   <div className="flex flex-col h-full">
                     {/* Mobile Logo */}
                     <div className="flex items-center space-x-3 pb-8">
