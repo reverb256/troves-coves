@@ -38,11 +38,11 @@ export default function Footer() {
   ];
 
   const customerCare = [
-    { name: "Size Guide", href: "#" },
-    { name: "Jewelry Care", href: "#" },
-    { name: "Warranty", href: "#" },
-    { name: "Returns & Exchanges", href: "#" },
-    { name: "Financing", href: "#" },
+    { name: "Size Guide", href: "/size-guide" },
+    { name: "Jewelry Care", href: "/jewelry-care" },
+    { name: "Warranty", href: "/warranty" },
+    { name: "Returns & Exchanges", href: "/returns" },
+    { name: "Financing", href: "/financing" },
     { name: "Contact Us", href: "/contact" },
   ];
 

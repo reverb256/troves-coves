@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { useCartContext } from '@/lib/store';
 import { ShoppingCart, Menu, Gem, Star, Search, ArrowRight } from 'lucide-react';
+import SkullIcon from '@/components/SkullIcon';
 
 export default function Header() {
   const [location] = useLocation();
@@ -62,7 +63,7 @@ export default function Header() {
             <Link href="/" className="flex items-center space-x-3 group">
               <div className="relative">
                 <div className="absolute inset-0 gold-glow rounded-full opacity-20"></div>
-                <Gem className="h-8 w-8 text-turquoise-500 relative z-10 float-animation" />
+                <SkullIcon size={32} className="text-troves-turquoise relative z-10 float-animation" />
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-bold tracking-tight">
