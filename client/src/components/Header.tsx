@@ -1,145 +1,188 @@
-import { useState } from "react";
-import { Link, useLocation } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useCart } from "@/hooks/useCart";
-import { Search, Heart, ShoppingBag, Menu } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'wouter';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { useCartContext } from '@/lib/store';
+import { ShoppingCart, Menu, Gem, Star, Search, ArrowRight } from 'lucide-react';
 
 export default function Header() {
   const [location] = useLocation();
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const { itemCount, toggleCart } = useCart();
+  const { itemCount } = useCartContext();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navigation = [
-    { name: "All Crystals", href: "/products" },
-    { name: "Crystal Necklaces", href: "/products/crystal-necklaces" },
-    { name: "Healing Crystals", href: "/products/healing-crystals" },
-    { name: "Wire Wrapped", href: "/products/wire-wrapped" },
-    { name: "Contact", href: "/contact" },
+    { name: 'Home', path: '/' },
+    { name: 'Crystal Necklaces', path: '/products/crystal-necklaces' },
+    { name: 'Healing Crystals', path: '/products/healing-crystals' },
+    { name: 'Wire Wrapped', path: '/products/wire-wrapped' },
+    { name: 'Contact', path: '/contact' }
   ];
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      // Navigate to products with search query
-      window.location.href = `/products?search=${encodeURIComponent(searchQuery.trim())}`;
-    }
+  const isActivePath = (path: string) => {
+    if (path === '/' && location === '/') return true;
+    if (path !== '/' && location.startsWith(path)) return true;
+    return false;
   };
 
   return (
-    <header className="bg-navy text-white sticky top-0 z-50 luxury-shadow-lg">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-4">
-          {/* Logo */}
-          <Link href="/">
-            <div className="text-2xl font-serif font-bold text-elegant-gold hover:text-yellow-400 transition-colors cursor-pointer">
-              Troves & Coves
-            </div>
-          </Link>
+    <>
+      {/* Luxury Header */}
+      <header 
+        className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+          isScrolled 
+            ? 'glass-card backdrop-blur-xl border-b border-white/10' 
+            : 'bg-transparent'
+        }`}
+      >
+        <div className="container-luxury">
+          <nav className="flex items-center justify-between h-20">
+            {/* Logo */}
+            <Link href="/" className="flex items-center space-x-3 group">
+              <div className="relative">
+                <div className="absolute inset-0 gold-glow rounded-full opacity-20"></div>
+                <Gem className="h-8 w-8 text-primary relative z-10 float-animation" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xl font-bold gold-text tracking-tight">
+                  Troves & Coves
+                </span>
+                <span className="text-xs text-muted-foreground -mt-1 tracking-widest uppercase">
+                  Crystal Jewelry • Winnipeg
+                </span>
+              </div>
+            </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            {navigation.map((item) => (
-              <Link key={item.name} href={item.href}>
-                <a className={`hover:text-elegant-gold transition-colors ${
-                  location === item.href ? 'text-elegant-gold' : ''
-                }`}>
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-8">
+              {navigation.map((item) => (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 group ${
+                    isActivePath(item.path)
+                      ? 'text-primary'
+                      : 'text-foreground hover:text-primary'
+                  }`}
+                >
                   {item.name}
-                </a>
-              </Link>
-            ))}
-          </nav>
-
-          {/* Actions */}
-          <div className="flex items-center space-x-4">
-            {/* Search */}
-            <div className="relative">
-              {isSearchOpen ? (
-                <form onSubmit={handleSearch} className="flex items-center">
-                  <Input
-                    type="text"
-                    placeholder="Search jewelry..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-48 bg-white/10 border-white/20 text-white placeholder-gray-400"
-                    autoFocus
-                    onBlur={() => !searchQuery && setIsSearchOpen(false)}
+                  <span 
+                    className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary to-primary/50 transition-all duration-300 ${
+                      isActivePath(item.path) 
+                        ? 'scale-x-100' 
+                        : 'scale-x-0 group-hover:scale-x-100'
+                    }`}
                   />
-                  <Button type="submit" size="sm" variant="ghost" className="ml-2">
-                    <Search className="h-4 w-4" />
-                  </Button>
-                </form>
-              ) : (
+                </Link>
+              ))}
+            </div>
+
+            {/* Right Section */}
+            <div className="flex items-center space-x-4">
+              {/* Search Button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="hidden md:flex items-center space-x-2 glass hover:glass-card transition-all duration-300"
+              >
+                <Search className="h-4 w-4" />
+                <span className="text-sm">Search</span>
+              </Button>
+
+              {/* Cart Button */}
+              <Link href="/checkout">
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setIsSearchOpen(true)}
-                  className="hover:text-elegant-gold transition-colors"
+                  className="relative glass hover:glass-card transition-all duration-300"
                 >
-                  <Search className="h-4 w-4" />
+                  <ShoppingCart className="h-5 w-5" />
+                  {itemCount > 0 && (
+                    <Badge 
+                      className="absolute -top-2 -right-2 h-5 w-5 p-0 flex items-center justify-center bg-primary text-primary-foreground gold-glow"
+                    >
+                      {totalItems}
+                    </Badge>
+                  )}
                 </Button>
-              )}
-            </div>
+              </Link>
 
-            {/* Wishlist */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="hover:text-elegant-gold transition-colors"
-            >
-              <Heart className="h-4 w-4" />
-            </Button>
-
-            {/* Cart */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleCart}
-              className="hover:text-elegant-gold transition-colors relative"
-            >
-              <ShoppingBag className="h-4 w-4" />
-              {itemCount > 0 && (
-                <Badge 
-                  variant="destructive" 
-                  className="absolute -top-2 -right-2 bg-deep-burgundy text-white text-xs h-5 w-5 flex items-center justify-center p-0"
-                >
-                  {itemCount}
-                </Badge>
-              )}
-            </Button>
-
-            {/* Mobile Menu */}
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="sm" className="md:hidden hover:text-elegant-gold transition-colors">
-                  <Menu className="h-4 w-4" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="bg-navy text-white border-gray-700">
-                <div className="flex flex-col space-y-4 mt-8">
-                  <Link href="/">
-                    <div className="text-xl font-serif font-bold text-elegant-gold mb-8">
-                      Troves & Coves
+              {/* Mobile Menu */}
+              <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="lg:hidden glass hover:glass-card"
+                  >
+                    <Menu className="h-5 w-5" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="glass-card border-l border-white/10 w-80">
+                  <div className="flex flex-col h-full">
+                    {/* Mobile Logo */}
+                    <div className="flex items-center space-x-3 pb-8">
+                      <Gem className="h-6 w-6 text-primary" />
+                      <div>
+                        <span className="text-lg font-bold gold-text">Troves & Coves</span>
+                        <p className="text-xs text-muted-foreground">Crystal Jewelry • Winnipeg</p>
+                      </div>
                     </div>
-                  </Link>
-                  {navigation.map((item) => (
-                    <Link key={item.name} href={item.href}>
-                      <a className={`block py-2 hover:text-elegant-gold transition-colors ${
-                        location === item.href ? 'text-elegant-gold' : ''
-                      }`}>
-                        {item.name}
-                      </a>
-                    </Link>
-                  ))}
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+
+                    {/* Mobile Navigation */}
+                    <nav className="flex-1 space-y-2">
+                      {navigation.map((item) => (
+                        <Link
+                          key={item.path}
+                          href={item.path}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={`flex items-center justify-between p-4 rounded-lg transition-all duration-300 group ${
+                            isActivePath(item.path)
+                              ? 'glass-card text-primary'
+                              : 'hover:glass text-foreground hover:text-primary'
+                          }`}
+                        >
+                          <span className="font-medium">{item.name}</span>
+                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        </Link>
+                      ))}
+                    </nav>
+
+                    {/* Mobile Footer */}
+                    <div className="pt-6 border-t border-white/10">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <Star className="h-4 w-4 text-primary" />
+                          <span className="text-sm text-muted-foreground">Premium Quality</span>
+                        </div>
+                        <Badge variant="secondary" className="glass">
+                          Winnipeg Local
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+          </nav>
         </div>
-      </div>
-    </header>
+
+        {/* Premium Underline Effect */}
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+      </header>
+
+      {/* Spacer for fixed header */}
+      <div className="h-20" />
+    </>
   );
 }
