@@ -78,14 +78,11 @@ export const crystalJewelryImages = {
     "/images/jewelry/lapis-leather-worn-1.png",
     "/images/jewelry/lapis-leather-worn-close-1.png"
   ],
-  roseVideo: [
-    "/images/jewelry/authentic-lapis-pendant-1.png"
-  ],
-  turquoiseBeaded: [
-    "/images/jewelry/rose-quartz-pendant-1.png"
-  ],
   upcycledEnamel: [
-    "/images/jewelry/gold-enamel-flower-1.png"
+    "/images/jewelry/gold-enamel-flower-1.png",
+    "/images/jewelry/gold-enamel-flower-2.png",
+    "/images/jewelry/gold-enamel-full-chain-1.png",
+    "/images/jewelry/gold-enamel-chain-detail-1.png"
   ]
 };
 
