@@ -114,19 +114,28 @@ export class PrivacyGuard {
     return sanitized;
   }
 
-  // Local model processing for sensitive operations
+  // Enhanced local model processing for sensitive operations
   public async processLocally(request: AIRequest): Promise<AIResponse> {
-    // Simple local processing for sensitive queries
+    // Expanded local processing capabilities
     const crystalQueries = [
       'crystal properties', 'healing stones', 'metaphysical', 'energy', 'chakra',
-      'meditation', 'spiritual', 'wellness', 'protection', 'cleansing'
+      'meditation', 'spiritual', 'wellness', 'protection', 'cleansing', 'jewelry',
+      'gemstone', 'pendant', 'necklace', 'bracelet', 'ring', 'earrings'
     ];
 
-    const isProductQuery = crystalQueries.some(term => 
-      request.prompt.toLowerCase().includes(term)
-    );
+    const businessQueries = [
+      'shop', 'buy', 'purchase', 'price', 'cost', 'shipping', 'delivery',
+      'etsy', 'store', 'winnipeg', 'troves', 'coves', 'contact', 'hours'
+    ];
 
-    if (isProductQuery) {
+    const careQueries = [
+      'care', 'clean', 'maintenance', 'storage', 'warranty', 'repair',
+      'tarnish', 'polish', 'wire', 'gold filled', 'sterling silver'
+    ];
+
+    const prompt = request.prompt.toLowerCase();
+    
+    if (crystalQueries.some(term => prompt.includes(term))) {
       return {
         content: this.generateLocalCrystalResponse(request.prompt),
         model: 'local-crystal-expert',
@@ -136,8 +145,34 @@ export class PrivacyGuard {
       };
     }
 
-    // For non-product queries, use anonymized external processing
-    throw new Error('Requires external processing');
+    if (businessQueries.some(term => prompt.includes(term))) {
+      return {
+        content: this.generateLocalBusinessResponse(request.prompt),
+        model: 'local-business-expert',
+        provider: 'Local Privacy Guard',
+        tokensUsed: 40,
+        timestamp: new Date()
+      };
+    }
+
+    if (careQueries.some(term => prompt.includes(term))) {
+      return {
+        content: this.generateLocalCareResponse(request.prompt),
+        model: 'local-care-expert',
+        provider: 'Local Privacy Guard',
+        tokensUsed: 45,
+        timestamp: new Date()
+      };
+    }
+
+    // General local response for privacy protection
+    return {
+      content: this.generateLocalGeneralResponse(request.prompt),
+      model: 'local-general-assistant',
+      provider: 'Local Privacy Guard',
+      tokensUsed: 35,
+      timestamp: new Date()
+    };
   }
 
   private generateLocalCrystalResponse(prompt: string): string {
@@ -149,7 +184,9 @@ export class PrivacyGuard {
       'citrine': 'Citrine is known as the merchant stone, attracting abundance and prosperity. It promotes confidence and personal power.',
       'turquoise': 'Turquoise is a stone of protection and communication. It enhances wisdom, truth, and emotional balance.',
       'labradorite': 'Labradorite is a stone of transformation and magic. It enhances intuition and protects against negative energies.',
-      'moonstone': 'Moonstone enhances intuition and promotes emotional balance. It is connected to feminine energy and new beginnings.'
+      'moonstone': 'Moonstone enhances intuition and promotes emotional balance. It is connected to feminine energy and new beginnings.',
+      'lapis lazuli': 'Lapis Lazuli enhances truth, wisdom, and inner vision. It stimulates the third eye chakra and promotes spiritual insight.',
+      'fluorite': 'Fluorite is known for mental clarity and focus. It helps with concentration and decision-making while protecting against negative energy.'
     };
 
     const lowerPrompt = prompt.toLowerCase();
@@ -160,6 +197,56 @@ export class PrivacyGuard {
     }
 
     return 'Our crystal jewelry combines authentic gemstones with premium materials. Each piece is carefully selected for its beauty and energetic properties. Would you like specific information about any particular crystal?';
+  }
+
+  private generateLocalBusinessResponse(prompt: string): string {
+    const businessInfo = {
+      'shop': 'Troves & Coves specializes in mystical crystal jewelry handcrafted in Winnipeg. Visit our Etsy shop for our complete collection.',
+      'price': 'Our jewelry ranges from $30 for wire-wrapped pendants to $150 for premium beaded necklaces, all featuring authentic crystals.',
+      'shipping': 'We offer secure shipping across Canada with tracking. Free shipping on orders over $75.',
+      'etsy': 'Find our complete collection on Etsy at TrovesandCoves. We showcase pieces here and redirect to Etsy for secure purchases.',
+      'winnipeg': 'Proudly based in Winnipeg, Manitoba. We create mystical crystal jewelry with authentic Canadian craftsmanship.',
+      'contact': 'Connect with us through our website contact form or find us on Instagram @Troves_and_Coves for the latest updates.'
+    };
+
+    const lowerPrompt = prompt.toLowerCase();
+    for (const [keyword, response] of Object.entries(businessInfo)) {
+      if (lowerPrompt.includes(keyword)) {
+        return response;
+      }
+    }
+
+    return 'Welcome to Troves & Coves! We create mystical crystal jewelry in Winnipeg. How can we assist you with finding the perfect piece?';
+  }
+
+  private generateLocalCareResponse(prompt: string): string {
+    const careInfo = {
+      'clean': 'Clean your crystal jewelry gently with a soft cloth. Avoid harsh chemicals. Some crystals can be cleansed with moonlight or sage.',
+      'storage': 'Store your jewelry in a soft pouch or lined box. Keep different metals separated to prevent scratching.',
+      'gold filled': 'Gold-filled jewelry is durable and tarnish-resistant. Clean with mild soap and water, then dry thoroughly.',
+      'wire': 'Wire-wrapped pieces are sturdy but handle gently. The wire can be reshaped if needed by a professional.',
+      'tarnish': 'Prevent tarnishing by storing in a dry place with anti-tarnish strips. Clean tarnished pieces with appropriate polish.'
+    };
+
+    const lowerPrompt = prompt.toLowerCase();
+    for (const [keyword, response] of Object.entries(careInfo)) {
+      if (lowerPrompt.includes(keyword)) {
+        return response;
+      }
+    }
+
+    return 'Proper care extends the life of your crystal jewelry. Store in a dry place, clean gently, and handle with care for lasting beauty.';
+  }
+
+  private generateLocalGeneralResponse(prompt: string): string {
+    const generalResponses = [
+      'Thank you for your interest in Troves & Coves crystal jewelry. How can I assist you today?',
+      'Our mystical jewelry collection features authentic crystals and premium materials. What would you like to know?',
+      'Each piece in our collection is handcrafted with intention and positive energy. How can I help you find the perfect item?',
+      'Welcome to our sacred crystal jewelry experience. I\'m here to help with any questions about our products.'
+    ];
+
+    return generalResponses[Math.floor(Math.random() * generalResponses.length)];
   }
 
   // Compliance logging for Canadian AI regulations

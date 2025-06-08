@@ -37,26 +37,37 @@ interface AIResponse {
 class APIDiscoveryAgent extends EventEmitter {
   private endpoints: APIEndpoint[] = [
     {
+      name: 'Local LLM Proxy',
+      baseUrl: 'http://localhost:8080',
+      models: ['local-llama', 'local-mistral', 'local-gemma'],
+      isAvailable: true,
+      lastChecked: new Date(),
+      rateLimitRemaining: 10000,
+      priority: 1,
+      cost: 0,
+      features: ['text', 'privacy-first', 'local', 'secure', 'unlimited']
+    },
+    {
       name: 'Pollinations AI',
       baseUrl: 'https://text.pollinations.ai',
       models: ['openai', 'mistral', 'llama', 'claude'],
       isAvailable: true,
       lastChecked: new Date(),
       rateLimitRemaining: 1000,
-      priority: 1,
+      priority: 2,
       cost: 0,
       features: ['text', 'fast', 'free', 'privacy-friendly']
     },
     {
       name: 'Pollinations Image',
       baseUrl: 'https://image.pollinations.ai/prompt',
-      models: ['flux', 'turbo', 'dall-e'],
+      models: ['flux', 'turbo'],
       isAvailable: true,
       lastChecked: new Date(),
       rateLimitRemaining: 1000,
-      priority: 1,
+      priority: 2,
       cost: 0,
-      features: ['image', 'watermark-removal', 'high-quality', 'commercial-use']
+      features: ['image', 'watermark-removal', 'high-quality', 'commercial-use', 'free']
     },
     {
       name: 'Pollinations Audio',
@@ -65,49 +76,19 @@ class APIDiscoveryAgent extends EventEmitter {
       isAvailable: true,
       lastChecked: new Date(),
       rateLimitRemaining: 1000,
-      priority: 1,
+      priority: 2,
       cost: 0,
-      features: ['audio', 'voice-synthesis', 'professional-quality']
+      features: ['audio', 'voice-synthesis', 'professional-quality', 'free']
     },
     {
-      name: 'Hugging Face Inference',
+      name: 'Hugging Face Free',
       baseUrl: 'https://api-inference.huggingface.co',
       models: ['microsoft/DialoGPT-medium', 'gpt2', 'facebook/blenderbot-400M-distill'],
       isAvailable: true,
       lastChecked: new Date(),
-      priority: 2,
-      cost: 0,
-      features: ['text', 'conversational', 'open-source']
-    },
-    {
-      name: 'Groq Lightning',
-      baseUrl: 'https://api.groq.com',
-      models: ['llama3-70b-8192', 'mixtral-8x7b-32768', 'gemma-7b-it'],
-      isAvailable: true,
-      lastChecked: new Date(),
-      priority: 2,
-      cost: 0,
-      features: ['text', 'ultra-fast', 'large-context']
-    },
-    {
-      name: 'DeepInfra',
-      baseUrl: 'https://api.deepinfra.com/v1/openai',
-      models: ['meta-llama/Meta-Llama-3-70B-Instruct', 'mistralai/Mixtral-8x22B-Instruct-v0.1'],
-      isAvailable: true,
-      lastChecked: new Date(),
       priority: 3,
       cost: 0,
-      features: ['text', 'large-models', 'reasoning']
-    },
-    {
-      name: 'Replicate',
-      baseUrl: 'https://api.replicate.com/v1',
-      models: ['stability-ai/sdxl', 'meta/llama-2-70b-chat'],
-      isAvailable: true,
-      lastChecked: new Date(),
-      priority: 3,
-      cost: 0,
-      features: ['image', 'text', 'premium-models']
+      features: ['text', 'conversational', 'open-source', 'free']
     }
   ];
   private checkInterval: NodeJS.Timeout | null = null;
@@ -169,7 +150,16 @@ class APIDiscoveryAgent extends EventEmitter {
     
     if (available.length === 0) return null;
     
-    // Prioritize Pollinations for specific types
+    // Always prioritize local LLM proxy for text processing when available
+    if (type === 'text') {
+      const localProxy = available.find(e => e.name === 'Local LLM Proxy');
+      if (localProxy) {
+        console.log('Using local LLM proxy for enhanced privacy');
+        return localProxy;
+      }
+    }
+    
+    // Prioritize Pollinations for specific types (free tier only)
     if (type === 'image') {
       const pollinationsImage = available.find(e => e.name === 'Pollinations Image');
       if (pollinationsImage) return pollinationsImage;
@@ -180,16 +170,21 @@ class APIDiscoveryAgent extends EventEmitter {
       if (pollinationsAudio) return pollinationsAudio;
     }
     
-    // For text, prioritize Pollinations AI
-    const pollinationsText = available.find(e => e.name === 'Pollinations AI');
-    if (pollinationsText && type === 'text') return pollinationsText;
+    // For text, fallback to free services only
+    if (type === 'text') {
+      const freeTextServices = available.filter(e => 
+        e.features.includes('free') && 
+        (e.name === 'Pollinations AI' || e.name === 'Hugging Face Free')
+      );
+      
+      if (freeTextServices.length > 0) {
+        return freeTextServices[0];
+      }
+    }
     
-    // Sort by rate limit remaining and last checked time
-    return available.sort((a, b) => {
-      const aScore = (a.rateLimitRemaining || 1000) + (Date.now() - a.lastChecked.getTime()) / 1000;
-      const bScore = (b.rateLimitRemaining || 1000) + (Date.now() - b.lastChecked.getTime()) / 1000;
-      return bScore - aScore;
-    })[0];
+    // Final fallback: any free service
+    const freeServices = available.filter(e => e.cost === 0);
+    return freeServices.length > 0 ? freeServices[0] : null;
   }
 
   public destroy() {
@@ -258,15 +253,20 @@ class AIOrchestrator extends EventEmitter {
 
   private async makeAPIRequest(endpoint: APIEndpoint, request: AIRequest): Promise<AIResponse> {
     try {
-      if (endpoint.name === 'Pollinations AI') {
+      // Prioritize local LLM proxy for sensitive requests
+      if (endpoint.name === 'Local LLM Proxy') {
+        return await this.makeLocalLLMRequest(request);
+      } else if (endpoint.name === 'Pollinations AI') {
         return await this.makePollinationsTextRequest(request);
       } else if (endpoint.name === 'Pollinations Image') {
         return await this.makePollinationsImageRequest(request);
       } else if (endpoint.name === 'Pollinations Audio') {
         return await this.makePollinationsAudioRequest(request);
+      } else if (endpoint.name === 'Hugging Face Free') {
+        return await this.makeHuggingFaceRequest(request);
       }
 
-      // Handle other endpoints with fallback to local processing
+      // Fallback to local processing for unknown endpoints
       return this.generateLocalResponse(request);
     } catch (error: any) {
       throw new Error(`API request failed: ${error.message}`);
@@ -373,6 +373,104 @@ class AIOrchestrator extends EventEmitter {
       };
     } catch (error: any) {
       throw new Error(`Pollinations audio request failed: ${error.message}`);
+    }
+  }
+
+  private async makeLocalLLMRequest(request: AIRequest): Promise<AIResponse> {
+    try {
+      // Use privacy guard to anonymize data before processing
+      const { anonymized, mappings } = privacyGuard.anonymizeRequest(request);
+      
+      // Check if local LLM proxy is available
+      const response = await fetch('http://localhost:8080/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [
+            {
+              role: 'system',
+              content: 'You are a knowledgeable crystal jewelry expert at Troves & Coves in Winnipeg. Provide helpful, accurate information about crystals, jewelry care, and product recommendations. Keep responses informative yet conversational.'
+            },
+            {
+              role: 'user',
+              content: anonymized.prompt
+            }
+          ],
+          model: anonymized.model || 'local-llama',
+          max_tokens: anonymized.maxTokens || 500,
+          temperature: anonymized.temperature || 0.7,
+          stream: false
+        })
+      });
+
+      if (!response.ok) {
+        // Fallback to local processing if proxy unavailable
+        throw new Error('Local LLM proxy unavailable');
+      }
+
+      const data = await response.json();
+      const content = data.choices?.[0]?.message?.content || 'I apologize, but I cannot process your request at the moment.';
+      
+      const aiResponse: AIResponse = {
+        content: content.trim(),
+        model: anonymized.model || 'local-llama',
+        provider: 'Local LLM Proxy',
+        tokensUsed: data.usage?.total_tokens || Math.floor(content.length / 4),
+        timestamp: new Date()
+      };
+
+      // Restore anonymized data
+      return privacyGuard.restoreResponse(aiResponse, mappings);
+    } catch (error: any) {
+      // Fallback to privacy guard local processing
+      try {
+        return await privacyGuard.processLocally(request);
+      } catch {
+        throw new Error(`Local LLM request failed: ${error.message}`);
+      }
+    }
+  }
+
+  private async makeHuggingFaceRequest(request: AIRequest): Promise<AIResponse> {
+    try {
+      // Use privacy guard for external requests
+      const { anonymized, mappings } = privacyGuard.anonymizeRequest(request);
+      
+      const response = await fetch('https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          inputs: anonymized.prompt,
+          parameters: {
+            max_length: anonymized.maxTokens || 500,
+            temperature: anonymized.temperature || 0.7
+          }
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Hugging Face API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const content = data.generated_text || data[0]?.generated_text || 'I understand you need assistance with crystal jewelry. How can I help you today?';
+      
+      const aiResponse: AIResponse = {
+        content: content.trim(),
+        model: 'DialoGPT-medium',
+        provider: 'Hugging Face Free',
+        tokensUsed: Math.floor(content.length / 4),
+        timestamp: new Date()
+      };
+
+      // Restore anonymized data
+      return privacyGuard.restoreResponse(aiResponse, mappings);
+    } catch (error: any) {
+      throw new Error(`Hugging Face request failed: ${error.message}`);
     }
   }
 
