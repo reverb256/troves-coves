@@ -180,7 +180,7 @@ export default function Products() {
           className="absolute inset-0 opacity-10" 
           style={{ backgroundImage: 'var(--skull-overlay)' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-obsidian-black/20 via-transparent to-skull-turquoise/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-obsidian-black/10 via-transparent to-skull-turquoise/10" />
         
         <div className="relative container mx-auto px-4">
           <div className="text-center">
@@ -219,7 +219,7 @@ export default function Products() {
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Mystical Sidebar Filters */}
           <aside className="lg:col-span-1">
-            <Card className="sticky top-8 shadow-2xl border-2 border-ornate-frame-gold/30 bg-gradient-to-br from-pearl-cream to-crystal-accents backdrop-blur-sm">
+            <Card className="sticky top-8 shadow-2xl border border-ornate-frame-gold/20 bg-gradient-to-br from-pearl-cream to-crystal-accents backdrop-blur-sm">
               <CardHeader className="bg-gradient-to-r from-troves-turquoise/10 to-skull-turquoise/10 border-b border-ornate-frame-gold/20">
                 <CardTitle className="flex items-center space-x-3 text-troves-turquoise">
                   <SlidersHorizontal className="h-6 w-6 text-ornate-frame-gold" />
