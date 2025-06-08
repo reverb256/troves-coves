@@ -15,6 +15,12 @@ import Products from "@/pages/Products";
 import ProductDetail from "@/pages/ProductDetail";
 import Checkout from "@/pages/Checkout";
 import Contact from "@/pages/Contact";
+import SizeGuide from "@/pages/SizeGuide";
+import JewelryCare from "@/pages/JewelryCare";
+import Warranty from "@/pages/Warranty";
+import Returns from "@/pages/Returns";
+import Financing from "@/pages/Financing";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -29,6 +35,12 @@ function Router() {
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/contact" component={Contact} />
+          <Route path="/size-guide" component={SizeGuide} />
+          <Route path="/jewelry-care" component={JewelryCare} />
+          <Route path="/warranty" component={Warranty} />
+          <Route path="/returns" component={Returns} />
+          <Route path="/financing" component={Financing} />
+          <Route path="/privacy-policy" component={PrivacyPolicy} />
           <Route path="/ai-assistant" component={() => (
             <div className="container mx-auto px-4 py-8">
               <div className="text-center mb-8">
