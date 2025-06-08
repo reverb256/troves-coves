@@ -13,7 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { MapPin, Clock, Phone, Mail, CalendarIcon, MessageCircle, Gem, Heart, Star } from "lucide-react";
+import { MapPin, Clock, Phone, Mail, CalendarIcon, MessageCircle, Gem, Sparkles, Compass } from "lucide-react";
 import { format } from "date-fns";
 import { insertContactSubmissionSchema } from "@shared/schema";
 import { z } from "zod";

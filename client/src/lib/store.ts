@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useEffect, ReactNode } from "react";
+import React, { createContext, useContext, useReducer, useEffect, ReactNode } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { CartItemWithProduct } from "@shared/schema";
 
@@ -79,11 +79,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     refetch,
   };
 
-  return React.createElement(
-    CartContext.Provider,
-    { value: contextValue },
-    children
-  );
+  return React.createElement(CartContext.Provider, { value: contextValue }, children);
 }
 
 export function useCartContext() {
