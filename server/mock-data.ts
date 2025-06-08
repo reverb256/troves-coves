@@ -54,7 +54,13 @@ export const crystalJewelryImages = {
     "/images/jewelry/lapis-smoky-full-length-1.png"
   ],
   lapisLeather: [
-    "/images/jewelry/rose-quartz-brown-leather-1.png"
+    "/images/jewelry/lapis-leather-flower-display-1.png",
+    "/images/jewelry/lapis-leather-flower-close-1.png",
+    "/images/jewelry/lapis-leather-pendant-detail-1.png",
+    "/images/jewelry/lapis-leather-center-flower-1.png",
+    "/images/jewelry/lapis-leather-full-layout-1.png",
+    "/images/jewelry/lapis-leather-worn-1.png",
+    "/images/jewelry/lapis-leather-worn-close-1.png"
   ],
   roseVideo: [
     "/images/jewelry/authentic-lapis-pendant-1.png"
