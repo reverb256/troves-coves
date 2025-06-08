@@ -175,15 +175,11 @@ export class MemStorage implements IStorage {
     const lapisLazuliPendant: Product = {
       id: this.currentProductId++,
       name: "Lapis Lazuli, Wire Wrapped Necklace, Leather, Spiritual, Royal, Psychic Abilities",
-      description: "Handmade Lapis Lazuli necklace on brown leather cord. The striking blue hues of the lapis lazuli stone are steeped in rich metaphysical properties. Wire wrapped with protection, talisman, amulet properties. 15 inches with lobster claw closure.",
+      description: "Sacred Lapis Lazuli talisman on blessed brown leather cord. The mystical blue essence channels ancient royal energies and divine psychic abilities. Wire wrapped through sacred ceremonies with protection, spiritual guidance, and amulet properties. 15 inches with blessed closure.",
       price: "40.00",
       categoryId: wirewrappedCategory.id,
-      imageUrl: "/api/placeholder/400/400",
-      imageUrls: [
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400"
-      ],
+      imageUrl: crystalJewelryImages.lapis[0],
+      imageUrls: crystalJewelryImages.lapis,
       sku: "TC-LAP-001",
       stockQuantity: 1,
       weight: "20g",
@@ -197,15 +193,11 @@ export class MemStorage implements IStorage {
     const roseQuartzPendant: Product = {
       id: this.currentProductId++,
       name: "Medium Rose Quartz Pendant, Wire Wrapped, Brown Leather",
-      description: "Handmade Rose Quartz necklace on brown leather cord. Embrace the loving and nurturing energy of this stunning piece featuring a raw Rose Quartz pendant. The gentle pink hues complement the rustic charm of the brown leather cord. Love, relationships, self love, compassion, empathy, grace, confidence, healing. 18 inches with lobster claw closure.",
+      description: "Divine Rose Quartz talisman on sacred brown leather cord. Embrace the infinite loving vibrations of this ethereal piece featuring a raw Rose Quartz pendant blessed with healing light. The gentle pink essence harmonizes with the earthen leather to channel unconditional love, soul connections, divine self-love, compassion, empathy, grace, confidence, and heart chakra healing. 18 inches with sacred closure.",
       price: "40.00",
       categoryId: wirewrappedCategory.id,
-      imageUrl: "/api/placeholder/400/400",
-      imageUrls: [
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400"
-      ],
+      imageUrl: crystalJewelryImages.roseQuartz[0],
+      imageUrls: crystalJewelryImages.roseQuartz,
       sku: "TC-ROS-001",
       stockQuantity: 1,
       weight: "22g",
