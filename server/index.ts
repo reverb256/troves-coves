@@ -2,9 +2,29 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
+// Optimize for Replit 1 vCPU / 512MB RAM constraints
+process.env.UV_THREADPOOL_SIZE = '2'; // Limit thread pool for single CPU
+const MEMORY_LIMIT_MB = 384; // Reserve 128MB for system
+
+// Memory monitoring and optimization
+const monitorMemory = () => {
+  const usage = process.memoryUsage();
+  const heapUsedMB = Math.round(usage.heapUsed / 1024 / 1024);
+  
+  if (heapUsedMB > MEMORY_LIMIT_MB) {
+    console.warn(`Memory usage: ${heapUsedMB}MB (${MEMORY_LIMIT_MB}MB limit)`);
+    if (global.gc) global.gc(); // Force garbage collection
+  }
+};
+
+// Check memory every 30 seconds
+setInterval(monitorMemory, 30000);
+
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+
+// Lightweight middleware configuration
+app.use(express.json({ limit: '1mb' })); // Limit payload size
+app.use(express.urlencoded({ extended: false, limit: '1mb' }));
 
 app.use((req, res, next) => {
   const start = Date.now();
