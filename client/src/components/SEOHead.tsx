@@ -54,14 +54,18 @@ export default function SEOHead({
       { name: 'robots', content: 'index, follow' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
       
-      // Open Graph
+      // Open Graph for Facebook, Discord, Messenger
       { property: 'og:title', content: title },
       { property: 'og:description', content: description },
-      { property: 'og:image', content: image },
+      { property: 'og:image', content: `${url}${image}` },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:image:alt', content: 'Troves & Coves Sacred Crystal Jewelry' },
       { property: 'og:url', content: url },
       { property: 'og:type', content: type },
       { property: 'og:site_name', content: 'Troves & Coves' },
       { property: 'og:locale', content: 'en_CA' },
+      { property: 'og:brand', content: 'Troves & Coves' },
       
       // Twitter Card
       { name: 'twitter:card', content: 'summary_large_image' },
