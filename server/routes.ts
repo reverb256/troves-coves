@@ -27,8 +27,13 @@ initializeContainers().then(() => {
 // Initialize Cloudflare Orchestrator for edge optimization
 const cloudflareOrchestrator = createCloudflareOrchestrator();
 
-// Session management for cart
+// Session management for cart with edge optimization
 function getSessionId(req: any): string {
+  // Initialize session if not present
+  if (!req.session) {
+    req.session = {};
+  }
+  
   if (!req.session.cartId) {
     req.session.cartId = `cart_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
