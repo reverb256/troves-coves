@@ -31,6 +31,12 @@ export const crystalJewelryImages = {
     "/assets/image_1749388313565.png",
     "/assets/image_1749388316952.png"
   ],
+  citrineSet: [
+    "/assets/image_1749388522119.png",
+    "/assets/image_1749388525223.png",
+    "/assets/image_1749388529010.png",
+    "/assets/image_1749388531949.png"
+  ],
   mixed: [
     "/assets/image_1749357576370.png",
     "/assets/image_1749357579737.png",

@@ -35,6 +35,7 @@ export const products = pgTable("products", {
   weight: decimal("weight", { precision: 8, scale: 2 }),
   materials: text("materials").array(),
   gemstones: text("gemstones").array(),
+  careInstructions: text("care_instructions"),
   isActive: boolean("is_active").notNull().default(true),
   isFeatured: boolean("is_featured").notNull().default(false),
   createdAt: timestamp("created_at").defaultNow(),
