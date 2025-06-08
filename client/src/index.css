@@ -81,6 +81,11 @@
   --shadow-warm: 35 45% 45% / 0.15;
   --shadow-crystal: 280 60% 70% / 0.1;
   --shadow-deep: 210 15% 25% / 0.2;
+  
+  /* Mystical glow effects */
+  --glow-turquoise: 174 85% 30%;
+  --glow-gold: 43 90% 35%;
+  --glow-skull: 174 75% 25%;
 }
 
 .dark {

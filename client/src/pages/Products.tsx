@@ -173,17 +173,38 @@ export default function Products() {
   };
 
   return (
-    <div className="min-h-screen bg-warm-cream">
-      {/* Header Section */}
-      <section className="bg-navy text-white py-16">
-        <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-gradient-to-br from-stone-warm via-pearl-cream to-moonstone">
+      {/* Mystical Header Section with Skull Overlay */}
+      <section className="relative bg-gradient-to-r from-troves-turquoise via-coves-cursive-blue to-skull-turquoise text-white overflow-hidden py-20">
+        <div 
+          className="absolute inset-0 opacity-10" 
+          style={{ backgroundImage: 'var(--skull-overlay)' }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-obsidian-black/20 via-transparent to-skull-turquoise/20" />
+        
+        <div className="relative container mx-auto px-4">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">
-              {currentCategory ? currentCategory.name : searchQuery ? `Search Results for "${searchQuery}"` : 'Our Collections'}
+            {/* Ornate Decorative Frame */}
+            <div className="mb-6">
+              <div className="inline-block px-6 py-2 border-2 border-ornate-frame-gold/50 rounded-lg bg-ornate-frame-gold/10 backdrop-blur-sm">
+                <span className="text-ornate-frame-gold text-sm font-medium tracking-wider uppercase">
+                  Sacred Collection
+                </span>
+              </div>
+            </div>
+            
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-shadow-lg" style={{ fontFamily: 'var(--brand-font-heading)' }}>
+              <span className="text-crystal-accents">{currentCategory ? currentCategory.name : searchQuery ? `Search Results for "${searchQuery}"` : 'Our Collections'}</span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              {currentCategory ? currentCategory.description : 'Discover our exquisite jewelry collections, each piece crafted with passion and precision.'}
+            
+            <div className="w-24 h-1 mx-auto mb-6 bg-gradient-to-r from-transparent via-ornate-frame-gold to-transparent rounded-full shadow-glow" />
+            
+            <p className="text-pearl-cream/90 text-xl max-w-3xl mx-auto leading-relaxed">
+              {currentCategory ? currentCategory.description : 'Where sacred gemstone energies merge with artisan craftsmanship. Each piece channels ancient crystal wisdom to amplify your inner light, promote spiritual healing, and guide your soul\'s awakening journey.'}
             </p>
+            
+            {/* Mystical Underglow Effect */}
+            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-96 h-20 bg-skull-turquoise/30 blur-3xl rounded-full" />
           </div>
         </div>
       </section>
@@ -196,26 +217,26 @@ export default function Products() {
         <KeywordMonitor />
 
         <div className="grid lg:grid-cols-4 gap-8">
-          {/* Sidebar Filters */}
+          {/* Mystical Sidebar Filters */}
           <aside className="lg:col-span-1">
-            <Card className="sticky top-8 luxury-shadow">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2 text-navy">
-                  <SlidersHorizontal className="h-5 w-5" />
-                  <span>Filters</span>
+            <Card className="sticky top-8 shadow-2xl border-2 border-ornate-frame-gold/30 bg-gradient-to-br from-pearl-cream to-crystal-accents backdrop-blur-sm">
+              <CardHeader className="bg-gradient-to-r from-troves-turquoise/10 to-skull-turquoise/10 border-b border-ornate-frame-gold/20">
+                <CardTitle className="flex items-center space-x-3 text-troves-turquoise">
+                  <SlidersHorizontal className="h-6 w-6 text-ornate-frame-gold" />
+                  <span className="font-bold text-xl">Sacred Filters</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                {/* Search */}
+              <CardContent className="space-y-8 p-6">
+                {/* Mystical Search */}
                 <form onSubmit={handleSearch}>
                   <div className="relative">
-                    <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Search className="absolute left-4 top-3 h-5 w-5 text-troves-turquoise" />
                     <Input
                       type="text"
-                      placeholder="Search jewelry..."
+                      placeholder="Search sacred jewelry..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-10"
+                      className="pl-12 pr-4 py-3 bg-crystal-accents/80 border-2 border-skull-turquoise/20 rounded-lg focus:border-ornate-frame-gold focus:ring-2 focus:ring-ornate-frame-gold/20 text-foreground placeholder-troves-turquoise/60"
                     />
                   </div>
                 </form>

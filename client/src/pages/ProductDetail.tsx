@@ -100,34 +100,34 @@ export default function ProductDetail() {
   const images = product.imageUrls && product.imageUrls.length > 0 ? product.imageUrls : [product.imageUrl];
 
   return (
-    <div className="min-h-screen bg-warm-cream">
-      {/* Enhanced Breadcrumb with Quick Actions */}
-      <div className="bg-white border-b shadow-sm">
-        <div className="container mx-auto px-4 py-4">
+    <div className="min-h-screen bg-gradient-to-br from-stone-warm via-pearl-cream to-moonstone">
+      {/* Mystical Breadcrumb with Sacred Navigation */}
+      <div className="bg-gradient-to-r from-crystal-accents/90 to-pearl-cream/90 border-b-2 border-ornate-frame-gold/30 shadow-lg backdrop-blur-sm">
+        <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3 text-sm">
+            <div className="flex items-center space-x-4 text-sm">
               <Button 
                 variant="ghost" 
                 size="sm" 
                 onClick={() => setLocation('/products')}
-                className="text-gray-600 hover:text-turquoise-600 hover:bg-turquoise-50 transition-all duration-200"
+                className="text-troves-turquoise hover:text-skull-turquoise hover:bg-skull-turquoise/10 border border-troves-turquoise/30 rounded-lg transition-all duration-200 font-medium"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Products
+                Sacred Collections
               </Button>
-              <ChevronRight className="h-4 w-4 text-gray-400" />
+              <ChevronRight className="h-4 w-4 text-ornate-frame-gold" />
               {product.category && (
                 <>
                   <Link 
                     href={`/products/${product.category.slug}`}
-                    className="text-gray-600 hover:text-turquoise-600 transition-colors"
+                    className="text-coves-cursive-blue hover:text-skull-turquoise transition-colors font-medium"
                   >
                     {product.category.name}
                   </Link>
-                  <ChevronRight className="h-4 w-4 text-gray-400" />
+                  <ChevronRight className="h-4 w-4 text-ornate-frame-gold" />
                 </>
               )}
-              <span className="text-gray-900 font-medium max-w-[300px] truncate" title={product.name}>
+              <span className="text-troves-turquoise font-bold max-w-[300px] truncate" title={product.name}>
                 {product.name}
               </span>
             </div>

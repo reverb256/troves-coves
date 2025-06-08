@@ -108,16 +108,34 @@ export default function Contact() {
   ];
 
   return (
-    <div className="min-h-screen bg-warm-cream">
-      {/* Hero Section */}
-      <section className="bg-navy text-white py-16">
-        <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-gradient-to-br from-stone-warm via-pearl-cream to-moonstone">
+      {/* Mystical Hero Section */}
+      <section className="relative bg-gradient-to-r from-troves-turquoise via-coves-cursive-blue to-skull-turquoise text-white overflow-hidden py-20">
+        <div 
+          className="absolute inset-0 opacity-10" 
+          style={{ backgroundImage: 'var(--skull-overlay)' }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-obsidian-black/20 via-transparent to-skull-turquoise/20" />
+        
+        <div className="relative container mx-auto px-4">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">
-              Get in Touch
+            {/* Ornate Decorative Frame */}
+            <div className="mb-6">
+              <div className="inline-block px-6 py-2 border-2 border-ornate-frame-gold/50 rounded-lg bg-ornate-frame-gold/10 backdrop-blur-sm">
+                <span className="text-ornate-frame-gold text-sm font-medium tracking-wider uppercase">
+                  Sacred Connection
+                </span>
+              </div>
+            </div>
+            
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-shadow-lg" style={{ fontFamily: 'var(--brand-font-heading)' }}>
+              <span className="text-crystal-accents">Connect with Our Crystal Keepers</span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Visit our downtown Winnipeg showroom or schedule a private consultation. 
+            
+            <div className="w-24 h-1 mx-auto mb-6 bg-gradient-to-r from-transparent via-ornate-frame-gold to-transparent rounded-full shadow-glow" />
+            
+            <p className="text-pearl-cream/90 text-xl max-w-3xl mx-auto leading-relaxed">
+              Reach out to our crystal experts online for personalized guidance on your sacred jewelry journey. 
               Our jewelry experts are here to help you find the perfect piece.
             </p>
           </div>
