@@ -117,10 +117,8 @@ export default function Footer() {
             <ul className="space-y-3">
               {collections.map((item) => (
                 <li key={item.name}>
-                  <Link href={item.href}>
-                    <a className="text-foreground-muted hover:text-primary transition-colors">
-                      {item.name}
-                    </a>
+                  <Link href={item.href} className="text-foreground-muted hover:text-primary transition-colors">
+                    {item.name}
                   </Link>
                 </li>
               ))}
