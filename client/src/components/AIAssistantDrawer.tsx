@@ -104,7 +104,7 @@ export default function AIAssistantDrawer() {
 
       {/* Drawer */}
       {isOpen && (
-        <div className="fixed bottom-0 right-0 w-full max-w-md h-96 bg-background border-l border-t border-border shadow-2xl z-50 flex flex-col">
+        <div className="fixed bottom-0 right-0 w-full max-w-md h-96 bg-background/95 backdrop-blur-sm border-l border-t border-border shadow-2xl z-50 flex flex-col">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-border bg-gradient-to-r from-primary/5 to-secondary/5">
             <div className="flex items-center space-x-2">
