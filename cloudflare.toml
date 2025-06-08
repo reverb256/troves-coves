@@ -1,0 +1,26 @@
+name = "troves-and-coves"
+main = "server/cloudflare-worker.js"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "troves-and-coves-prod"
+
+[env.staging]
+name = "troves-and-coves-staging"
+
+[[env.production.kv_namespaces]]
+binding = "CACHE"
+id = "your-kv-namespace-id"
+
+[[env.staging.kv_namespaces]]
+binding = "CACHE"
+id = "your-staging-kv-namespace-id"
+
+[vars]
+ENVIRONMENT = "production"
+AI_ORCHESTRATOR_ENABLED = "true"
+CACHE_TTL = "3600"
+API_RATE_LIMIT = "100"
+
+[build]
+command = "npm run build:worker"
