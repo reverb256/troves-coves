@@ -42,7 +42,7 @@ export default function Home() {
       />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative py-20 md:py-32 flex items-center justify-center overflow-hidden">
         {/* Organic Background with Crystal Elements */}
         <div className="absolute inset-0">
           {/* Floating Crystal Shapes */}
@@ -130,7 +130,7 @@ export default function Home() {
       </section>
 
       {/* Featured Products Section */}
-      <section className="py-24 relative">
+      <section className="py-12 md:py-16 relative">
         <div className="container-jewelry">
           {/* Section Header */}
           <div className="text-center mb-16">
