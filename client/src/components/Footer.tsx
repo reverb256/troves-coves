@@ -176,7 +176,7 @@ export default function Footer() {
         <div className="border-t border-border pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-muted-foreground text-sm mb-4 md:mb-0">
-              © 2024 Troves & Coves. All rights reserved. | 
+              © 2025 Troves & Coves. All rights reserved. | 
               <a href="#" className="hover:text-primary transition-colors ml-1">Privacy Policy</a> | 
               <a href="#" className="hover:text-primary transition-colors ml-1">Terms of Service</a>
             </div>
@@ -187,6 +187,28 @@ export default function Footer() {
                 <span className="text-sm">Visa, Mastercard, Amex, PayPal</span>
               </div>
             </div>
+          </div>
+          
+          {/* Designer Credit */}
+          <div className="flex justify-center mt-6 pt-4 border-t border-border/50">
+            <a 
+              href="https://reverb256.ca" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group inline-flex items-center space-x-2 text-muted-foreground text-sm hover:text-primary transition-all duration-300 ease-in-out transform hover:scale-105"
+            >
+              <span className="group-hover:animate-pulse">✨</span>
+              <span className="relative">
+                vibecoded with 
+                <span className="mx-1 text-red-500 group-hover:animate-pulse group-hover:scale-110 transition-all duration-300">❤️</span>
+                by 
+                <span className="ml-1 font-medium bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent group-hover:from-secondary group-hover:to-primary transition-all duration-500">
+                  Reverb Web Design
+                </span>
+                <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300"></span>
+              </span>
+              <span className="group-hover:animate-bounce text-xs">🎨</span>
+            </a>
           </div>
         </div>
       </div>
