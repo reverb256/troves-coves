@@ -5,6 +5,7 @@ import { storage } from "./storage";
 import { imagePreservationService } from "./services/image-preservation";
 import express from "express";
 import { insertCartItemSchema, insertOrderSchema, insertOrderItemSchema, insertContactSubmissionSchema } from "@shared/schema";
+import { getEtsyLinkForProduct } from "./etsy-links";
 import { z } from "zod";
 import { getContainerManager, initializeContainers } from "./containers/container-manager";
 import path from "path";
@@ -98,7 +99,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: "Product not found" });
       }
       
-      res.json(product);
+      // Add Etsy link to product response
+      const etsyLink = getEtsyLinkForProduct(product.sku);
+      const productWithEtsy = {
+        ...product,
+        etsyLink
+      };
+      
+      res.json(productWithEtsy);
     } catch (error: any) {
       res.status(500).json({ message: "Error fetching product: " + error.message });
     }
