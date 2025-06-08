@@ -104,16 +104,16 @@ export class MemStorage implements IStorage {
       id: this.currentCategoryId++,
       name: "Healing Crystals",
       slug: "healing-crystals",
-      description: "Authentic healing crystal jewelry designed to promote wellness, balance chakras, and enhance spiritual energy through natural gemstone properties.",
-      createdAt: new Date(),
+      description: categoryDescriptions.healingCrystals,
+      imageUrl: crystalJewelryImages.mixed[1]
     };
 
     const wirewrappedCategory: Category = {
       id: this.currentCategoryId++,
       name: "Wire Wrapped Jewelry",
       slug: "wire-wrapped",
-      description: "Artisan wire-wrapped crystal pendants and jewelry pieces showcasing unique gemstones in intricate handcrafted settings.",
-      createdAt: new Date(),
+      description: categoryDescriptions.wireWrapped,
+      imageUrl: crystalJewelryImages.mixed[2]
     };
 
     this.categories.set(crystalNecklacesCategory.id, crystalNecklacesCategory);
@@ -127,12 +127,8 @@ export class MemStorage implements IStorage {
       description: "Lepidolite crystal is known for its mood stabilizing properties. This stone has naturally occurring lithium which is known for relief of anxieties, promoting calming energy and inner peace. Beautiful upcycled enamel and gold plated flower earring transformed into a stationary pendant. Features peace, nurturing, and mood stabilizing properties.",
       price: "90.00",
       categoryId: crystalNecklacesCategory.id,
-      imageUrl: "/api/placeholder/400/400",
-      imageUrls: [
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400"
-      ],
+      imageUrl: crystalJewelryImages.lepidolite[0],
+      imageUrls: crystalJewelryImages.lepidolite,
       sku: "TC-LEP-001",
       stockQuantity: 1,
       weight: "25g",
@@ -149,12 +145,8 @@ export class MemStorage implements IStorage {
       description: "Handmade unique turquoise beaded necklace featuring pearl strung design with lapis lazuli, pink pearl, hematite, and leaf charm. One of a kind piece with gold filled clasp. 21 inches in length with lobster claw closure.",
       price: "70.00",
       categoryId: crystalNecklacesCategory.id,
-      imageUrl: "/api/placeholder/400/400",
-      imageUrls: [
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400"
-      ],
+      imageUrl: crystalJewelryImages.turquoise[0],
+      imageUrls: crystalJewelryImages.turquoise,
       sku: "TC-TUR-001",
       stockQuantity: 1,
       weight: "30g",
@@ -171,12 +163,8 @@ export class MemStorage implements IStorage {
       description: "2 Necklaces selling as a set! One sits higher up as a choker style with pink pearl and pink hematite. The other has a centerpiece of wire wrapped citrine on a necklace of pink pearl and hematite with gold filled clasp. Perfect for her, mother's day, gifts, girlfriend, mom, sister, birthday.",
       price: "200.00",
       categoryId: healingCrystalsCategory.id,
-      imageUrl: "/api/placeholder/400/400",
-      imageUrls: [
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400"
-      ],
+      imageUrl: crystalJewelryImages.citrine[0],
+      imageUrls: crystalJewelryImages.citrine,
       sku: "TC-CIT-SET-001",
       stockQuantity: 1,
       weight: "45g",
@@ -237,12 +225,8 @@ export class MemStorage implements IStorage {
       description: "Handmade Lapis Lazuli necklace on brown leather cord designed for men. The striking blue hues are steeped in rich metaphysical properties cherished for centuries. Psychic abilities, protection, royal, Egypt connection. Hand wrapped, wire wrapped. 26 inches in length.",
       price: "40.00",
       categoryId: wirewrappedCategory.id,
-      imageUrl: "/api/placeholder/400/400",
-      imageUrls: [
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400"
-      ],
+      imageUrl: crystalJewelryImages.lapis[1],
+      imageUrls: crystalJewelryImages.lapis,
       sku: "TC-LAP-MEN-001",
       stockQuantity: 1,
       weight: "25g",
@@ -259,12 +243,8 @@ export class MemStorage implements IStorage {
       description: "Handmade Lapis Lazuli, Smoky Quartz, Jade, and Lava Stone Necklace. Discover the harmonious blend of powerful gemstones with this exquisite handmade necklace. Featuring a striking combination of lapis lazuli, smoky quartz, and lava stone. Gift for her, one of a kind piece.",
       price: "80.00",
       categoryId: healingCrystalsCategory.id,
-      imageUrl: "/api/placeholder/400/400",
-      imageUrls: [
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400"
-      ],
+      imageUrl: crystalJewelryImages.lapis[2],
+      imageUrls: crystalJewelryImages.lapis,
       sku: "TC-LAP-ONY-001",
       stockQuantity: 1,
       weight: "35g",
@@ -281,12 +261,8 @@ export class MemStorage implements IStorage {
       description: "Turquoise/Lapis Lazuli/Pink Pearl/Hematite necklace for healing, crystals, social connections, spirit guides, powerful combo. Features brass, copper, silver, yellow gold materials. Gemstone: Turquoise. Lobster claw closure. Bead chain style. 23.5 inches length.",
       price: "70.00",
       categoryId: healingCrystalsCategory.id,
-      imageUrl: "/api/placeholder/400/400",
-      imageUrls: [
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400",
-        "/api/placeholder/400/400"
-      ],
+      imageUrl: crystalJewelryImages.turquoise[1],
+      imageUrls: crystalJewelryImages.turquoise,
       sku: "TC-TUR-LAP-001",
       stockQuantity: 1,
       weight: "32g",
