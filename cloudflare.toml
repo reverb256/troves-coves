@@ -3,7 +3,7 @@ main = "server/cloudflare-worker.js"
 compatibility_date = "2024-01-01"
 workers_dev = true
 
-# Ultra-lightweight free tier configuration
+# Optimized for 1 vCPU and 512MB RAM constraints
 [env.production]
 name = "troves-and-coves-prod"
 
@@ -14,7 +14,9 @@ id = "your-kv-namespace-id"
 
 [vars]
 ENVIRONMENT = "production"
+MEMORY_LIMIT = "384"
+CPU_LIMIT = "1"
 
-# No build step needed for lightweight worker
+# Memory-optimized build
 [build]
-command = "echo 'Lightweight worker - no build required'"
+command = "npm run build"

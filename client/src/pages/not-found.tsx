@@ -7,18 +7,18 @@ export default function NotFound() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-warm via-pearl-cream to-moonstone flex items-center justify-center px-4">
       {/* Mystical 404 Card */}
-      <Card className="w-full max-w-lg shadow-2xl border-2 border-ornate-frame-gold/30 bg-gradient-to-br from-pearl-cream to-crystal-accents backdrop-blur-sm">
+      <Card className="w-full max-w-lg shadow-2xl border border-ornate-frame-gold/20 bg-gradient-to-br from-pearl-cream to-crystal-accents backdrop-blur-sm">
         <CardContent className="p-8 text-center">
           {/* Mystical Icon */}
           <div className="mb-6">
-            <div className="mx-auto w-20 h-20 rounded-full bg-gradient-to-br from-skull-turquoise/20 to-troves-turquoise/20 flex items-center justify-center border-2 border-ornate-frame-gold/30">
+            <div className="mx-auto w-20 h-20 rounded-full bg-gradient-to-br from-skull-turquoise/20 to-troves-turquoise/20 flex items-center justify-center border border-ornate-frame-gold/20">
               <Compass className="h-10 w-10 text-troves-turquoise" />
             </div>
           </div>
 
           {/* Ornate Decorative Frame */}
           <div className="mb-4">
-            <div className="inline-block px-4 py-2 border border-ornate-frame-gold/50 rounded-lg bg-ornate-frame-gold/10">
+            <div className="inline-block px-4 py-2 border border-ornate-frame-gold/20 rounded-lg bg-ornate-frame-gold/5">
               <span className="text-ornate-frame-gold text-sm font-medium tracking-wider uppercase">
                 Path Not Found
               </span>
