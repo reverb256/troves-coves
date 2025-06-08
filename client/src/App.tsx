@@ -57,7 +57,6 @@ function Router() {
       </main>
       <Footer />
       <CartDrawer />
-      <AIAssistant />
     </div>
   );
 }
