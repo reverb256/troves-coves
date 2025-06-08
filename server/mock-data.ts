@@ -43,6 +43,23 @@ export const crystalJewelryImages = {
     "/assets/image_1749388611809.png",
     "/assets/image_1749388615257.png"
   ],
+  turquoiseLapis: [
+    "/assets/image_1749388638624.png",
+    "/assets/image_1749388642234.png",
+    "/assets/image_1749388645076.png",
+    "/assets/image_1749388648181.png",
+    "/assets/image_1749388651606.png",
+    "/assets/image_1749388655180.png",
+    "/assets/image_1749388658365.png"
+  ],
+  lapisOnyx: [
+    "/assets/image_1749388678723.png",
+    "/assets/image_1749388681715.png",
+    "/assets/image_1749388684652.png",
+    "/assets/image_1749388687357.png",
+    "/assets/image_1749388690236.png",
+    "/assets/image_1749388693331.png"
+  ],
   mixed: [
     "/assets/image_1749357576370.png",
     "/assets/image_1749357579737.png",
