@@ -18,24 +18,24 @@ export const crystalJewelryImages = {
   goldEnamel: [
     "/images/jewelry/upcycled-enamel-pendant-1.png"
   ],
-  // Additional product variants - each with unique authentic images
+  // Additional product variants - each with completely unique authentic images
   lapisOnyx: [
-    "/images/jewelry/lapis-leather-pendant-1.png"
+    "/images/jewelry/lapis-beaded-necklace-1.png"
   ],
   lapisHematite: [
-    "/images/jewelry/citrine-necklace-set-1.png"
+    "/images/jewelry/lapis-simple-pendant-1.png"
   ],
   lapisLeather: [
-    "/images/jewelry/rose-quartz-leather-1.png"
+    "/images/jewelry/rose-quartz-brown-leather-1.png"
   ],
   roseVideo: [
-    "/images/jewelry/lepidolite-necklace-1.png"
+    "/images/jewelry/lapis-lazuli-pendant-1.png"
   ],
   turquoiseBeaded: [
-    "/images/jewelry/upcycled-enamel-pendant-1.png"
+    "/images/jewelry/rose-quartz-pendant-1.png"
   ],
   upcycledEnamel: [
-    "/images/jewelry/gold-chain-crystal-1.png"
+    "/images/jewelry/unique-enamel-pendant-1.png"
   ]
 };
 
