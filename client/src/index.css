@@ -26,18 +26,18 @@
   --clear-quartz: 0 0% 95%;
   
   /* UPDATED AUTHENTIC PALETTE FROM WOODEN SIGN & SKULL ARTWORK - High Contrast */
-  --troves-turquoise: 174 75% 25%;     /* Much deeper turquoise for excellent contrast */
-  --coves-cursive-blue: 200 65% 25%;   /* Much deeper blue for excellent readability */
-  --wood-grain: 35 40% 55%;            /* Darker wood tone for better contrast */
-  --skull-turquoise: 174 85% 30%;      /* Darker turquoise from skull artwork */
-  --ornate-frame-gold: 43 90% 35%;     /* Much deeper gold for excellent contrast */
+  --troves-turquoise: 174 75% 20%;     /* Much deeper turquoise for excellent contrast */
+  --coves-cursive-blue: 200 65% 20%;   /* Much deeper blue for excellent readability */
+  --wood-grain: 35 40% 45%;            /* Darker wood tone for better contrast */
+  --skull-turquoise: 174 85% 25%;      /* Darker turquoise from skull artwork */
+  --ornate-frame-gold: 43 90% 30%;     /* Much deeper gold for excellent contrast */
   --crystal-accents: 240 15% 98%;      /* Maximum contrast crystal highlights */
   --obsidian-black: 240 8% 8%;         /* True dark for maximum contrast */
-  --carnelian-orange: 25 85% 50%;
-  --carnelian-light: 25 75% 65%;
-  --raw-crystal: 200 8% 90%;
+  --carnelian-orange: 25 85% 45%;
+  --carnelian-light: 25 75% 60%;
+  --raw-crystal: 200 8% 85%;
   --leather-black: 0 0% 5%;            /* Near black for maximum contrast */
-  --pearl-cream: 45 30% 96%;
+  --pearl-cream: 45 30% 98%;
   
   /* Natural textures */
   --stone-warm: 30 15% 92%;
@@ -55,7 +55,7 @@
   /* Mystical design elements - Improved visibility */
   --skull-overlay: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="skull" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="30" cy="25" r="8" fill="none" stroke="hsl(174, 85%, 25%)" stroke-width="0.8" opacity="0.2"/><circle cx="70" cy="25" r="8" fill="none" stroke="hsl(174, 85%, 25%)" stroke-width="0.8" opacity="0.2"/><path d="M45 35 Q50 40 55 35" fill="none" stroke="hsl(174, 85%, 25%)" stroke-width="0.8" opacity="0.2"/><rect x="45" y="50" width="10" height="8" fill="none" stroke="hsl(43, 95%, 35%)" stroke-width="0.8" opacity="0.18"/></pattern></defs><rect width="100" height="100" fill="url(%23skull)"/></svg>');
   --foreground: 25 30% 3%;
-  --foreground-muted: 25 25% 15%;
+  --foreground-muted: 25 25% 10%;
   
   /* UI colors built from jewelry palette - Maximum contrast */
   --card: 45 25% 99%;
