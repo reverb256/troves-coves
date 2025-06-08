@@ -2,7 +2,6 @@ import { EventEmitter } from 'events';
 import { BRAND_CONFIG, validateBrandCompliance } from '@shared/brand-config';
 import { imagePreservationService } from './services/image-preservation';
 import { privacyGuard, canadianCompliance } from './security/data-privacy';
-import { BRAND_CONFIG } from '../shared/brand-config.js';
 
 interface APIEndpoint {
   name: string;
@@ -217,20 +216,26 @@ class AIOrchestrator extends EventEmitter {
 
   public async processRequest(request: AIRequest): Promise<AIResponse> {
     try {
-      const requestType = request.type || 'text';
-      const endpoint = this.discoveryAgent.getBestEndpoint(request.priority, requestType);
+      // Enforce brand compliance on the request
+      const brandCompliantRequest = this.enforceBrandCompliance(request);
+      
+      const requestType = brandCompliantRequest.type || 'text';
+      const endpoint = this.discoveryAgent.getBestEndpoint(brandCompliantRequest.priority, requestType);
       
       if (!endpoint) {
         throw new Error('No available AI endpoints');
       }
 
-      const response = await this.makeAPIRequest(endpoint, request);
+      const response = await this.makeAPIRequest(endpoint, brandCompliantRequest);
+      
+      // Validate response follows brand guidelines
+      const validatedResponse = this.validateBrandResponse(response);
       
       // Cache successful responses for fallback
-      const cacheKey = this.generateCacheKey(request);
-      this.fallbackResponses.set(cacheKey, response);
+      const cacheKey = this.generateCacheKey(brandCompliantRequest);
+      this.fallbackResponses.set(cacheKey, validatedResponse);
       
-      return response;
+      return validatedResponse;
     } catch (error) {
       console.error('AI request failed:', error);
       
@@ -407,6 +412,80 @@ class AIOrchestrator extends EventEmitter {
         lastChecked: e.lastChecked,
         rateLimitRemaining: e.rateLimitRemaining
       }))
+    };
+  }
+
+  /**
+   * Enforce brand compliance on AI requests
+   */
+  private enforceBrandCompliance(request: AIRequest): AIRequest {
+    const brandContext = `
+LOCKED BRAND GUIDELINES - TROVES & COVES MYSTICAL JEWELRY:
+- "Troves" must be in turquoise print style (${BRAND_CONFIG.colors.turquoise})
+- "Coves" must be in cursive gold style (${BRAND_CONFIG.colors.decorativeGold})
+- Design language: Mystical skull artwork with ornate decorative frames
+- Color palette: Turquoise (#4ECDC4), Gold (#FFD700), Pearl cream, Crystal white
+- Typography: ${BRAND_CONFIG.typography.troves.family} for "Troves", ${BRAND_CONFIG.typography.coves.family} for "Coves"
+- Voice: Mystical, spiritual, authentic crystal healing wisdom
+- Products: Sacred crystal jewelry, healing gemstone talismans, wire-wrapped pendants
+- Location: Winnipeg, Manitoba, Canada
+- Business model: Website showcases, redirects to Etsy for purchases
+
+FORBIDDEN DEVIATIONS:
+- Never suggest different color schemes
+- Never change typography choices
+- Never alter the mystical skull aesthetic
+- Never recommend non-spiritual messaging
+- Always maintain ornate decorative elements
+`;
+
+    return {
+      ...request,
+      prompt: `${brandContext}\n\nUser Request: ${request.prompt}\n\nEnsure your response strictly follows the Troves & Coves brand guidelines above.`
+    };
+  }
+
+  /**
+   * Validate AI response follows brand guidelines
+   */
+  private validateBrandResponse(response: AIResponse): AIResponse {
+    let content = response.content;
+    
+    // Check for brand compliance violations
+    const violations = [];
+    
+    // Check for improper brand name usage
+    if (content.includes('Troves & Coves') && !content.includes('mystical')) {
+      violations.push('Missing mystical context');
+    }
+    
+    // Check for off-brand color suggestions
+    const offBrandColors = ['blue', 'red', 'green', 'purple'];
+    offBrandColors.forEach(color => {
+      if (content.toLowerCase().includes(color) && !content.includes('turquoise') && !content.includes('gold')) {
+        violations.push(`Off-brand color mentioned: ${color}`);
+      }
+    });
+    
+    // Correct common violations
+    content = content.replace(/Troves and Coves/g, 'Troves & Coves');
+    content = content.replace(/blue/gi, 'turquoise');
+    content = content.replace(/standard/gi, 'mystical');
+    content = content.replace(/regular/gi, 'sacred');
+    
+    // Add mystical skull artwork context if missing
+    if (!content.includes('mystical') && !content.includes('sacred')) {
+      content = content.replace(/jewelry/gi, 'sacred crystal jewelry');
+    }
+    
+    return {
+      ...response,
+      content,
+      metadata: {
+        ...response.metadata,
+        brandCompliance: violations.length === 0,
+        violations: violations.length > 0 ? violations : undefined
+      }
     };
   }
 
