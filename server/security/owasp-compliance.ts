@@ -9,13 +9,13 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
   // Implement role-based access control
   const publicPaths = ['/api/products', '/api/categories', '/api/contact', '/api/ai/status'];
   const adminPaths = ['/api/admin'];
-  
+
   if (adminPaths.some(path => req.path.startsWith(path))) {
     if (!req.session?.user?.role || req.session.user.role !== 'admin') {
       return res.status(403).json({ error: 'Insufficient privileges' });
     }
   }
-  
+
   next();
 };
 
@@ -53,7 +53,7 @@ export const securityHeaders = helmet({
 export const validateInput = (validations: any[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     await Promise.all(validations.map(validation => validation.run(req)));
-    
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -64,7 +64,7 @@ export const validateInput = (validations: any[]) => {
         }))
       });
     }
-    
+
     next();
   };
 };
@@ -115,7 +115,7 @@ export const strictRateLimit = rateLimit({
 export const slowDownMiddleware = slowDown({
   windowMs: 15 * 60 * 1000, // 15 minutes
   delayAfter: 50, // Allow 50 requests per 15 minutes without delay
-  delayMs: 500, // Add 500ms of delay per request after delayAfter
+  delayMs: () => 500, // Add 500ms of delay per request after delayAfter
   maxDelayMs: 20000, // Maximum delay of 20 seconds
 });
 
@@ -136,7 +136,7 @@ export const sessionConfig = {
 // OWASP A06: Vulnerable and Outdated Components - Security monitoring
 export const securityLogger = (req: Request, res: Response, next: NextFunction) => {
   const start = Date.now();
-  
+
   res.on('finish', () => {
     const duration = Date.now() - start;
     const logData = {
@@ -149,12 +149,12 @@ export const securityLogger = (req: Request, res: Response, next: NextFunction) 
       userAgent: req.get('User-Agent'),
       suspicious: duration > 10000 || res.statusCode >= 400
     };
-    
+
     if (logData.suspicious) {
       console.warn('Security Alert:', logData);
     }
   });
-  
+
   next();
 };
 
@@ -163,12 +163,12 @@ export const csrfProtection = (req: Request, res: Response, next: NextFunction) 
   if (['POST', 'PUT', 'DELETE', 'PATCH'].includes(req.method)) {
     const token = req.headers['x-csrf-token'] || req.body._csrf;
     const sessionToken = req.session?.csrfToken;
-    
+
     if (!token || token !== sessionToken) {
       return res.status(403).json({ error: 'Invalid CSRF token' });
     }
   }
-  
+
   next();
 };
 
@@ -181,7 +181,7 @@ export const integrityCheck = (req: Request, res: Response, next: NextFunction) 
       return res.status(400).json({ error: 'Missing integrity signature' });
     }
   }
-  
+
   next();
 };
 
@@ -195,9 +195,9 @@ export class SecurityEventLogger {
       details: JSON.stringify(details),
       source: 'security-middleware'
     };
-    
+
     console.log(`[SECURITY-${severity.toUpperCase()}]`, logEntry);
-    
+
     // In production, send to SIEM system
     if (process.env.NODE_ENV === 'production' && severity === 'critical') {
       // Send alert to security team
@@ -209,7 +209,7 @@ export class SecurityEventLogger {
 export const ssrfProtection = (req: Request, res: Response, next: NextFunction) => {
   const blockedHosts = ['localhost', '127.0.0.1', '0.0.0.0', '169.254.169.254'];
   const url = req.body.url || req.query.url;
-  
+
   if (url) {
     try {
       const parsedUrl = new URL(url);
@@ -221,7 +221,7 @@ export const ssrfProtection = (req: Request, res: Response, next: NextFunction) 
       return res.status(400).json({ error: 'Invalid URL format' });
     }
   }
-  
+
   next();
 };
 
@@ -229,7 +229,7 @@ export const ssrfProtection = (req: Request, res: Response, next: NextFunction) 
 export const sanitizeInput = (req: Request, res: Response, next: NextFunction) => {
   const sanitizeObject = (obj: any): any => {
     if (typeof obj !== 'object' || obj === null) return obj;
-    
+
     for (const key in obj) {
       if (typeof obj[key] === 'string') {
         // Remove potentially dangerous characters
@@ -243,9 +243,9 @@ export const sanitizeInput = (req: Request, res: Response, next: NextFunction) =
     }
     return obj;
   };
-  
+
   if (req.body) req.body = sanitizeObject(req.body);
   if (req.query) req.query = sanitizeObject(req.query);
-  
+
   next();
 };
