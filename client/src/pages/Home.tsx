@@ -77,9 +77,9 @@ export default function Home() {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           {/* Badge */}
-          <Badge className="glass-jewelry mb-6 px-6 py-2 text-sm font-medium tracking-wider uppercase highlight-rose-quartz">
-            <MapPin className="h-3 w-3 mr-2" />
-            Winnipeg's Sacred Crystal Sanctuary
+          <Badge className="glass-jewelry mb-6 px-6 py-2 text-sm font-medium tracking-wider uppercase highlight-rose-quartz inline-flex items-center whitespace-nowrap">
+            <MapPin className="h-3 w-3 mr-2 flex-shrink-0" />
+            <span>Winnipeg's Sacred Crystal Sanctuary</span>
           </Badge>
 
           {/* Authentic Brand Heading from Wooden Sign */}
