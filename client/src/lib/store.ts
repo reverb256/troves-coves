@@ -61,8 +61,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
   // Update state when cart items change
   useEffect(() => {
     dispatch({ type: 'SET_ITEMS', payload: cartItems });
+  }, [cartItems]);
+
+  useEffect(() => {
     dispatch({ type: 'SET_LOADING', payload: isLoading });
-  }, [cartItems, isLoading]);
+  }, [isLoading]);
 
   // Calculate totals
   const itemCount = state.items.reduce((total, item) => total + item.quantity, 0);
