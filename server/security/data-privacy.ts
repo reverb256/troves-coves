@@ -240,10 +240,10 @@ export class PrivacyGuard {
 
   private generateLocalGeneralResponse(prompt: string): string {
     const generalResponses = [
-      'Thank you for your interest in Troves & Coves crystal jewelry. How can I assist you today?',
-      'Our mystical jewelry collection features authentic crystals and premium materials. What would you like to know?',
+      'Thank you for your interest in Troves & Coves crystal jewellery. How can I assist you today?',
+      'Our mystical jewellery collection features authentic crystals and premium materials. What would you like to know?',
       'Each piece in our collection is handcrafted with intention and positive energy. How can I help you find the perfect item?',
-      'Welcome to our sacred crystal jewelry experience. I\'m here to help with any questions about our products.'
+      'Welcome to our sacred crystal jewellery experience. I\'m here to help with any questions about our products.'
     ];
 
     return generalResponses[Math.floor(Math.random() * generalResponses.length)];

@@ -73,7 +73,7 @@ export default function Header() {
                   <span className="coves-text-style">Coves</span>
                 </span>
                 <span className="text-xs text-muted-foreground -mt-1 tracking-widest uppercase">
-                  Mystical Crystal Jewelry • Winnipeg
+                  Mystical Crystal Jewellery • Winnipeg
                 </span>
               </div>
             </Link>

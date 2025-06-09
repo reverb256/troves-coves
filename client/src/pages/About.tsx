@@ -41,14 +41,14 @@ export default function About() {
     {
       phase: "Creation",
       title: "Artisan Awakening",
-      description: "We began hand-wrapping crystals with wire, infusing each piece with intention and creating jewelry that carries healing energy.",
+      description: "We began hand-wrapping crystals with wire, infusing each piece with intention and creating jewellery that carries healing energy.",
       icon: Zap,
       color: "troves-turquoise"
     },
     {
       phase: "Connection",
       title: "Community of Light",
-      description: "Our online sanctuary connects crystal lovers worldwide, sharing knowledge, energy, and beautiful handcrafted jewelry.",
+      description: "Our online sanctuary connects crystal lovers worldwide, sharing knowledge, energy, and beautiful handcrafted jewellery.",
       icon: Sparkles,
       color: "skull-turquoise"
     }
@@ -76,7 +76,7 @@ export default function About() {
           <div className="w-24 h-1 mx-auto mb-6 bg-gradient-to-r from-troves-turquoise via-skull-turquoise to-coves-cursive-blue rounded-full" />
           
           <p className="text-navy/80 text-xl max-w-4xl mx-auto leading-relaxed">
-            We are artisan crystal jewelry creators, weaving ancient wisdom into modern wearable art. 
+            We are artisan crystal jewellery creators, weaving ancient wisdom into modern wearable art. 
             Each piece is hand-wrapped with sacred intention, connecting you to the mystical energy of genuine crystals.
           </p>
         </div>
@@ -94,8 +94,8 @@ export default function About() {
                 <h2 className="text-3xl font-bold text-navy mb-6">Our Sacred Mission</h2>
               </div>
               <p className="text-navy/80 text-lg leading-relaxed max-w-4xl mx-auto mb-8">
-                At Troves & Coves, we believe that jewelry should be more than beautiful—it should be meaningful. 
-                Our mission is to create handcrafted crystal jewelry that serves as a bridge between the earthly and divine, 
+                At Troves & Coves, we believe that jewellery should be more than beautiful—it should be meaningful. 
+                Our mission is to create handcrafted crystal jewellery that serves as a bridge between the earthly and divine, 
                 helping spiritual seekers connect with their inner wisdom and the healing energy of authentic crystals.
               </p>
               <div className="flex flex-wrap justify-center gap-4">

@@ -675,7 +675,7 @@ FORBIDDEN DEVIATIONS:
 
     // Add mystical skull artwork context if missing
     if (!content.includes('mystical') && !content.includes('sacred')) {
-      content = content.replace(/jewelry/gi, 'sacred crystal jewelry');
+      content = content.replace(/jewelry/gi, 'sacred crystal jewellery');
     }
 
     return {

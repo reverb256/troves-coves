@@ -31,7 +31,7 @@ export default function Footer() {
   const collections = [
     { name: "Crystal Necklaces", href: "/products/crystal-necklaces" },
     { name: "Healing Crystals", href: "/products/healing-crystals" },
-    { name: "Wire Wrapped Jewelry", href: "/products/wire-wrapped" },
+    { name: "Wire Wrapped Jewellery", href: "/products/wire-wrapped" },
     { name: "All Products", href: "/products" },
     { name: "Featured Items", href: "/" },
     { name: "Custom Crystal Consultations", href: "/contact" },
@@ -39,7 +39,7 @@ export default function Footer() {
 
   const customerCare = [
     { name: "Size Guide", href: "/size-guide" },
-    { name: "Jewelry Care", href: "/jewelry-care" },
+    { name: "Jewellery Care", href: "/jewelry-care" },
     { name: "Warranty", href: "/warranty" },
     { name: "Returns & Exchanges", href: "/returns" },
     { name: "Financing", href: "/financing" },
@@ -89,7 +89,7 @@ export default function Footer() {
               Troves & Coves
             </div>
             <p className="text-foreground-muted mb-6">
-              Sacred crystal jewelry and healing gemstone talismans crafted with divine intention. 
+              Sacred crystal jewellery and healing gemstone talismans crafted with divine intention. 
               Serving seekers across Canada with mystical guidance and spiritual awakening.
             </p>
             <div className="flex space-x-4">
