@@ -12,9 +12,22 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  const res = await fetch(url, {
+  // Route API calls through Cloudflare for GitHub Pages deployment
+  const cloudflareApiBase = 'https://api.trovesandcoves.ca';
+  const finalUrl = url.startsWith('/api/') ? `${cloudflareApiBase}${url}` : url;
+  
+  const sessionId = localStorage.getItem('trovesandcoves_session') || crypto.randomUUID();
+  if (!localStorage.getItem('trovesandcoves_session')) {
+    localStorage.setItem('trovesandcoves_session', sessionId);
+  }
+
+  const res = await fetch(finalUrl, {
     method,
-    headers: data ? { "Content-Type": "application/json" } : {},
+    headers: {
+      ...(data ? { "Content-Type": "application/json" } : {}),
+      'x-session-id': sessionId,
+      'x-platform': 'github-pages'
+    },
     body: data ? JSON.stringify(data) : undefined,
     credentials: "include",
   });
@@ -29,8 +42,22 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(queryKey[0] as string, {
+    // Route API calls through Cloudflare for GitHub Pages deployment
+    const cloudflareApiBase = 'https://api.trovesandcoves.ca';
+    const url = queryKey[0] as string;
+    const finalUrl = url.startsWith('/api/') ? `${cloudflareApiBase}${url}` : url;
+    
+    const sessionId = localStorage.getItem('trovesandcoves_session') || crypto.randomUUID();
+    if (!localStorage.getItem('trovesandcoves_session')) {
+      localStorage.setItem('trovesandcoves_session', sessionId);
+    }
+
+    const res = await fetch(finalUrl, {
       credentials: "include",
+      headers: {
+        'x-session-id': sessionId,
+        'x-platform': 'github-pages'
+      }
     });
 
     if (unauthorizedBehavior === "returnNull" && res.status === 401) {

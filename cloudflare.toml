@@ -1,22 +1,45 @@
-name = "troves-and-coves"
-main = "server/cloudflare-worker.js"
+name = "troves-coves-api"
+main = "cloudflare-worker.js"
 compatibility_date = "2024-01-01"
 workers_dev = true
 
-# Optimized for 1 vCPU and 512MB RAM constraints
+# GitHub Pages + Cloudflare orchestration configuration
 [env.production]
-name = "troves-and-coves-prod"
+name = "troves-coves-api-prod"
+routes = [
+  { pattern = "api.trovesandcoves.ca/*", zone_name = "trovesandcoves.ca" },
+  { pattern = "trovesandcoves.ca/api/*", zone_name = "trovesandcoves.ca" },
+  { pattern = "trovesandcoves.ca/ai/*", zone_name = "trovesandcoves.ca" },
+  { pattern = "trovesandcoves.ca/analytics/*", zone_name = "trovesandcoves.ca" }
+]
 
 [[env.production.kv_namespaces]]
-binding = "CACHE"
-# Create with: wrangler kv:namespace create "CACHE"
-id = "your-kv-namespace-id"
+binding = "PRODUCTS_KV"
+id = "products_namespace_prod"
+
+[[env.production.kv_namespaces]]
+binding = "CART_KV"
+id = "cart_namespace_prod"
+
+[[env.production.kv_namespaces]]
+binding = "ANALYTICS_KV"
+id = "analytics_namespace_prod"
+
+[env.development]
+name = "troves-coves-api-dev"
+
+[[env.development.kv_namespaces]]
+binding = "PRODUCTS_KV"
+id = "products_namespace_dev"
+
+[[env.development.kv_namespaces]]
+binding = "CART_KV"
+id = "cart_namespace_dev"
+
+[[env.development.kv_namespaces]]
+binding = "ANALYTICS_KV"
+id = "analytics_namespace_dev"
 
 [vars]
-ENVIRONMENT = "production"
-MEMORY_LIMIT = "384"
-CPU_LIMIT = "1"
-
-# Memory-optimized build
-[build]
-command = "npm run build"
+ENVIRONMENT = "github-pages-cloudflare"
+PLATFORM_TYPE = "hybrid"
