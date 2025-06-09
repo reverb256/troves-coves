@@ -230,6 +230,147 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Contextual AI endpoint
+  app.post("/api/ai/contextual", async (req, res) => {
+    try {
+      const { context } = req.body;
+      
+      const suggestions = [];
+      
+      // Generate contextual suggestions based on user behavior
+      if (context.interactionPattern === 'leaving' && context.cartItems === 0) {
+        suggestions.push({
+          type: 'offers',
+          title: 'Crystal Connection Detected',
+          message: 'Your browsing suggests a strong connection to our crystals. Would you like a personalized recommendation?',
+          action: 'get_recommendation',
+          urgency: 'high',
+          timing: 5
+        });
+      }
+      
+      if (context.timeOnPage > 120 && context.cartItems > 0) {
+        suggestions.push({
+          type: 'guidance',
+          title: 'Perfect Crystal Pairing',
+          message: 'Based on your cart, I can suggest complementary crystals that enhance energy flow.',
+          action: 'show_pairings',
+          urgency: 'medium',
+          timing: 10
+        });
+      }
+      
+      if (context.crystalPreferences.length > 0) {
+        suggestions.push({
+          type: 'education',
+          title: 'Crystal Care Wisdom',
+          message: `Learn advanced care techniques for ${context.crystalPreferences[0]} crystals.`,
+          action: 'show_care_guide',
+          urgency: 'low',
+          timing: 30
+        });
+      }
+
+      res.json({ suggestions });
+    } catch (error: any) {
+      console.error("Contextual AI error:", error);
+      res.status(500).json({ error: "Failed to generate contextual suggestions" });
+    }
+  });
+
+  // Product insights endpoint
+  app.post("/api/ai/product-insights", async (req, res) => {
+    try {
+      const { productId, userBehavior } = req.body;
+      
+      // Generate AI-powered insights based on viewing behavior
+      const insights = {
+        id: Date.now().toString(),
+        productId,
+        viewingTime: userBehavior.timeViewing,
+        emotionalResonance: Math.min(95, 60 + (userBehavior.timeViewing / 10)),
+        purchaseIntent: Math.min(90, 40 + (userBehavior.timeViewing / 8)),
+        crystalAlignment: ['healing', 'protection', 'clarity', 'manifestation'],
+        personalityMatch: Math.min(88, 50 + (userBehavior.interactions.length * 8)),
+        energeticProfile: ['High Vibration', 'Grounding', 'Healing', 'Protective'][Math.floor(Math.random() * 4)],
+        recommendedTiming: 'This crystal resonates best during evening meditation or morning intention setting',
+        complementaryProducts: [2, 3, 5],
+        chakraAlignment: ['Heart Chakra', 'Crown Chakra', 'Third Eye'],
+        moonPhaseRecommendation: ['New Moon', 'Waxing', 'Full Moon', 'Waning'][Math.floor(Math.random() * 4)]
+      };
+
+      res.json(insights);
+    } catch (error: any) {
+      console.error("Product insights error:", error);
+      res.status(500).json({ error: "Failed to generate product insights" });
+    }
+  });
+
+  // Behavior analysis endpoint
+  app.post("/api/ai/behavior-analysis", async (req, res) => {
+    try {
+      const { productId, context, sessionData } = req.body;
+      
+      const pattern = {
+        hesitationPoints: ['price_comparison', 'authenticity_questions', 'shipping_concerns'],
+        motivators: ['spiritual_growth', 'healing_properties', 'aesthetic_appeal'],
+        priceRange: [25, 150] as [number, number],
+        preferredTiming: 'evening_browsing',
+        socialInfluence: 0.7
+      };
+
+      const triggers = [];
+      
+      // Generate triggers based on behavior patterns
+      if (context.timeOnPage > 180) {
+        triggers.push({
+          type: 'urgency',
+          message: 'This crystal resonates strongly with your energy. Others are also viewing it right now.',
+          action: 'secure_now',
+          confidence: 0.85,
+          timing: 10
+        });
+      }
+      
+      if (context.interactionPattern === 'deciding') {
+        triggers.push({
+          type: 'educational',
+          message: 'This crystal\'s vibration aligns perfectly with your current energy needs.',
+          action: 'show_properties',
+          confidence: 0.9,
+          timing: 15
+        });
+      }
+
+      res.json({ pattern, triggers });
+    } catch (error: any) {
+      console.error("Behavior analysis error:", error);
+      res.status(500).json({ error: "Failed to analyze behavior" });
+    }
+  });
+
+  // Shopping trigger endpoint
+  app.post("/api/ai/shopping-trigger", async (req, res) => {
+    try {
+      const { trigger, productId, userContext } = req.body;
+      
+      const response = {
+        flowType: trigger.type,
+        personalization: {
+          crystalRecommendations: ['amethyst', 'rose_quartz', 'clear_quartz'],
+          energyAlignment: userContext.crystalPreferences,
+          timingAdvice: 'Current moon phase supports manifestation work'
+        },
+        success: true
+      };
+
+      res.json(response);
+    } catch (error: any) {
+      console.error("Shopping trigger error:", error);
+      res.status(500).json({ error: "Failed to process shopping trigger" });
+    }
+  });
+
   // AI Chat endpoint
   app.post("/api/ai/chat", async (req, res) => {
     try {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useLocation, Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/use-toast";
+import { useContextualAI } from "@/hooks/useContextualAI";
+import SmartProductInsights from "@/components/SmartProductInsights";
+import IntelligentShoppingFlow from "@/components/IntelligentShoppingFlow";
 import { Heart, ShoppingBag, Truck, Shield, Gem, Star, ArrowLeft, Minus, Plus, Share2, ChevronRight } from "lucide-react";
 import type { ProductWithCategory } from "@shared/schema";
 
@@ -18,13 +21,35 @@ export default function ProductDetail() {
   const productId = parseInt(params.id!);
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [viewingStartTime] = useState(Date.now());
+  const [timeViewing, setTimeViewing] = useState(0);
   const { addToCart } = useCart();
   const { toast } = useToast();
+  const { updateContext, trackCrystalInterest } = useContextualAI();
+
+  // Track viewing time
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeViewing(Math.floor((Date.now() - viewingStartTime) / 1000));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [viewingStartTime]);
 
   const { data: product, isLoading, error } = useQuery<ProductWithCategory>({
     queryKey: [`/api/products/${productId}`],
     enabled: !!productId && !isNaN(productId),
   });
+
+  // Update context when product loads
+  useEffect(() => {
+    if (product) {
+      updateContext({ 
+        viewingProduct: product.name,
+        currentPage: `/product/${productId}`
+      });
+      trackCrystalInterest(product.name.toLowerCase());
+    }
+  }, [product, productId]);
 
   const formatPrice = (price: string) => {
     const numPrice = parseFloat(price);
@@ -330,13 +355,26 @@ export default function ProductDetail() {
           </div>
         </div>
 
+        {/* AI-Powered Product Insights */}
+        <div className="mt-12">
+          <SmartProductInsights 
+            productId={productId}
+            userBehavior={{
+              timeViewing,
+              interactions: ['view', 'scroll', 'hover'],
+              previousPurchases: []
+            }}
+          />
+        </div>
+
         {/* Product Details Tabs */}
         <div className="mt-16">
           <Tabs defaultValue="description" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 max-w-md">
+            <TabsList className="grid w-full grid-cols-4 max-w-lg">
               <TabsTrigger value="description">Description</TabsTrigger>
               <TabsTrigger value="details">Details</TabsTrigger>
               <TabsTrigger value="care">Care Guide</TabsTrigger>
+              <TabsTrigger value="ai-insights">AI Insights</TabsTrigger>
             </TabsList>
             
             <TabsContent value="description" className="mt-8">
