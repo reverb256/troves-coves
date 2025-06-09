@@ -377,6 +377,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { message, prompt, context, type, maxTokens, temperature, priority } = req.body;
       const userMessage = message || prompt;
 
+
+
       if (!userMessage || typeof userMessage !== 'string' || userMessage.trim().length === 0) {
         return res.status(400).json({ error: "Message or prompt is required" });
       }
