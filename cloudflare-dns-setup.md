@@ -4,7 +4,7 @@
 
 ### Step 1: Domain Configuration
 
-**Primary Domain (trovescoves.com)**
+**Primary Domain (trovesandcoves.ca)**
 ```
 Type: A
 Name: @
@@ -13,7 +13,7 @@ TTL: Auto
 Proxy: ☑️ Proxied
 ```
 
-**GitHub Pages Subdomain (demo.trovescoves.com)**
+**GitHub Pages Subdomain (demo.trovesandcoves.ca)**
 ```
 Type: CNAME
 Name: demo
@@ -26,13 +26,13 @@ Proxy: ☑️ Proxied
 
 **Route 1: Primary Domain Fallback**
 ```
-Route: trovescoves.com/*
+Route: trovesandcoves.ca/*
 Worker: troves-coves-fallback
 ```
 
 **Route 2: API Endpoints**
 ```
-Route: trovescoves.com/api/*
+Route: trovesandcoves.ca/api/*
 Worker: troves-coves-fallback
 ```
 
@@ -50,7 +50,7 @@ FALLBACK_ENABLED = "true"
 
 **Rule 1: Static Assets Caching**
 ```
-Pattern: trovescoves.com/assets/*
+Pattern: trovesandcoves.ca/assets/*
 Settings:
 - Cache Level: Cache Everything
 - Edge Cache TTL: 1 month
@@ -59,14 +59,14 @@ Settings:
 
 **Rule 2: API No Cache**
 ```
-Pattern: trovescoves.com/api/*
+Pattern: trovesandcoves.ca/api/*
 Settings:
 - Cache Level: Bypass
 ```
 
 **Rule 3: Demo Subdomain**
 ```
-Pattern: demo.trovescoves.com/*
+Pattern: demo.trovesandcoves.ca/*
 Settings:
 - Cache Level: Cache Everything
 - Edge Cache TTL: 1 hour

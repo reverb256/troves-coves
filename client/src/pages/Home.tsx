@@ -34,9 +34,9 @@ export default function Home() {
   return (
     <>
       <SEOHead
-        title="Troves & Coves - Sacred Crystal Jewelry | Mystical Healing Talismans | Winnipeg"
-        description="Awaken your soul with sacred crystal jewelry and healing gemstone talismans in Winnipeg. Divine wire-wrapped pendants, blessed necklaces, and consecrated stones for spiritual transformation. Sacred consultations, metaphysical guidance, divine protection guaranteed."
-        keywords="sacred crystal jewelry Winnipeg, mystical healing crystals Manitoba, spiritual talismans, wire wrapped pendants, lepidolite meditation, turquoise protection, citrine manifestation, rose quartz love, chakra jewelry, divine feminine, spiritual awakening, crystal healing Winnipeg"
+        title="Troves & Coves - Sacred Crystal Jewellery | Mystical Healing Talismans | Winnipeg"
+        description="Awaken your soul with sacred crystal jewellery and healing gemstone talismans in Winnipeg. Divine wire-wrapped pendants, blessed necklaces, and consecrated stones for spiritual transformation. Sacred consultations, metaphysical guidance, divine protection guaranteed."
+        keywords="sacred crystal jewellery Winnipeg, mystical healing crystals Manitoba, spiritual talismans, wire wrapped pendants, lepidolite meditation, turquoise protection, citrine manifestation, rose quartz love, chakra jewellery, divine feminine, spiritual awakening, crystal healing Winnipeg"
         url="https://troves-and-coves.com"
         type="website"
       />
@@ -90,7 +90,7 @@ export default function Home() {
               <span className="coves-text-style">Coves</span>
             </span>
             <span className="block text-3xl md:text-4xl lg:text-5xl text-foreground-muted font-normal tracking-wide">
-              Handcrafted Crystal Jewelry
+              Handcrafted Crystal Jewellery
             </span>
           </h1>
 

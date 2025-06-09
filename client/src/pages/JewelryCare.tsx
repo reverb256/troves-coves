@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Droplets, Shield, Sun, Moon, Heart, Sparkles } from "lucide-react";
 
-export default function JewelryCare() {
+export default function JewelleryCare() {
   const materials = [
     {
       name: "Sterling Silver",
