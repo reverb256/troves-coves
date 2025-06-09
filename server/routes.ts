@@ -383,42 +383,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Message or prompt is required" });
       }
 
-      // Generate contextual response based on crystal jewelry expertise
-      const crystalKnowledge = {
-        "amethyst": "Amethyst is known for its calming properties and spiritual protection. It helps with meditation, stress relief, and enhancing intuition.",
-        "rose quartz": "Rose Quartz is the stone of unconditional love. It promotes self-love, emotional healing, and attracts romantic love.",
-        "clear quartz": "Clear Quartz is the master healer crystal. It amplifies energy, aids in clarity of thought, and can be programmed for any intention.",
-        "citrine": "Citrine is known as the merchant's stone, attracting abundance and prosperity. It also boosts confidence and creativity.",
-        "lepidolite": "Lepidolite contains natural lithium and is excellent for anxiety relief, emotional balance, and promoting peaceful sleep.",
-        "black tourmaline": "Black Tourmaline is a powerful protective stone that shields against negative energy and electromagnetic radiation.",
-        "moonstone": "Moonstone is connected to lunar energy and feminine intuition. It aids in new beginnings and emotional balance.",
-        "labradorite": "Labradorite is a stone of transformation and magic. It enhances psychic abilities and protects the aura."
-      };
+      // Initialize io.net agent system for advanced AI processing
+      const { IONetCrystalAgent } = require('./agents/io-net-agent-integration');
+      const agent = new IONetCrystalAgent(process.env.IOINTELLIGENCE_API_KEY);
 
-      let response = "";
-      const lowerMessage = userMessage.toLowerCase();
+      let response, reasoning, sentiment, recommendations;
 
-      // Check for crystal-related queries
-      const mentionedCrystal = Object.keys(crystalKnowledge).find(crystal => 
-        lowerMessage.includes(crystal.replace(" ", ""))
-      ) as keyof typeof crystalKnowledge;
-
-      if (mentionedCrystal) {
-        response = `✨ ${crystalKnowledge[mentionedCrystal]} Our ${mentionedCrystal} jewelry pieces are carefully selected for their quality and metaphysical properties. Would you like to see our ${mentionedCrystal} collection?`;
-      } else if (lowerMessage.includes("healing") || lowerMessage.includes("chakra")) {
-        response = "Our crystal jewelry is designed to support your spiritual journey and energetic healing. Each piece is cleansed and charged with positive intentions. What specific healing properties are you seeking?";
-      } else if (lowerMessage.includes("size") || lowerMessage.includes("fit")) {
-        response = "For jewelry sizing, most of our necklaces are adjustable. Ring sizes can be customized upon request. Please contact us with your specific measurements for a perfect fit.";
-      } else if (lowerMessage.includes("care") || lowerMessage.includes("clean")) {
-        response = "To maintain your crystal jewelry: Use gentle soap and water, avoid harsh chemicals, store separately to prevent scratching, and cleanse energetically under moonlight or with sage.";
-      } else if (lowerMessage.includes("shipping") || lowerMessage.includes("delivery")) {
-        response = "We offer free shipping across Canada on orders over $75. Standard delivery takes 5-7 business days. Express shipping is available for urgent orders.";
-      } else if (lowerMessage.includes("custom") || lowerMessage.includes("personalized")) {
-        response = "We offer custom crystal consultations where we help you choose stones based on your specific needs and intentions. Contact us to schedule a personalized session.";
-      } else if (lowerMessage.includes("hello") || lowerMessage.includes("hi") || lowerMessage.includes("help")) {
-        response = "Welcome to Troves & Coves! I'm here to guide you through our sacred crystal jewelry collection. I can help you understand crystal properties, find the perfect piece for your needs, or answer questions about our products and services. What are you looking for today?";
+      // Try using io.net agents for advanced processing
+      if (agent.isConfigured()) {
+        try {
+          const agentResult = await agent.processMessage(userMessage, context);
+          response = agentResult.response;
+          reasoning = agentResult.reasoning;
+          sentiment = agentResult.sentiment;
+          recommendations = agentResult.recommendations;
+        } catch (agentError) {
+          console.log("Advanced agent unavailable, using enhanced fallback");
+          // Fall back to enhanced local processing
+          const fallbackResult = await processWithEnhancedFallback(userMessage, context);
+          response = fallbackResult.response;
+          reasoning = fallbackResult.reasoning;
+          sentiment = fallbackResult.sentiment;
+          recommendations = fallbackResult.recommendations;
+        }
       } else {
-        response = "I'd be happy to help you with your crystal jewelry journey. You can ask me about specific crystals and their properties, jewelry care instructions, sizing, shipping, or our custom consultation services. What would you like to know?";
+        // Use enhanced local processing when io.net is not configured
+        const fallbackResult = await processWithEnhancedFallback(userMessage, context);
+        response = fallbackResult.response;
+        reasoning = fallbackResult.reasoning;
+        sentiment = fallbackResult.sentiment;
+        recommendations = fallbackResult.recommendations;
       }
 
       // Handle different request types (text, image, audio)
