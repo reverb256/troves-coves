@@ -374,10 +374,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // AI Chat endpoint
   app.post("/api/ai/chat", async (req, res) => {
     try {
-      const { message, context } = req.body;
+      const { message, prompt, context, type, maxTokens, temperature, priority } = req.body;
+      const userMessage = message || prompt;
 
-      if (!message || typeof message !== 'string') {
-        return res.status(400).json({ error: "Message is required" });
+      if (!userMessage || typeof userMessage !== 'string' || userMessage.trim().length === 0) {
+        return res.status(400).json({ error: "Message or prompt is required" });
       }
 
       // Generate contextual response based on crystal jewelry expertise
@@ -393,12 +394,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
 
       let response = "";
-      const lowerMessage = message.toLowerCase();
+      const lowerMessage = userMessage.toLowerCase();
 
       // Check for crystal-related queries
       const mentionedCrystal = Object.keys(crystalKnowledge).find(crystal => 
         lowerMessage.includes(crystal.replace(" ", ""))
-      );
+      ) as keyof typeof crystalKnowledge;
 
       if (mentionedCrystal) {
         response = `✨ ${crystalKnowledge[mentionedCrystal]} Our ${mentionedCrystal} jewelry pieces are carefully selected for their quality and metaphysical properties. Would you like to see our ${mentionedCrystal} collection?`;
@@ -418,7 +419,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
         response = "I'd be happy to help you with your crystal jewelry journey. You can ask me about specific crystals and their properties, jewelry care instructions, sizing, shipping, or our custom consultation services. What would you like to know?";
       }
 
-      res.json({ response });
+      // Handle different request types (text, image, audio)
+      if (type === 'image') {
+        res.json({
+          content: response,
+          mediaUrl: null, // Would generate image URL in real implementation
+          mediaType: null,
+          provider: "Troves & Coves Crystal AI",
+          model: "crystal_consultant"
+        });
+      } else if (type === 'audio') {
+        res.json({
+          content: response,
+          mediaUrl: null, // Would generate audio URL in real implementation
+          mediaType: 'audio',
+          provider: "Troves & Coves Crystal AI",
+          model: "crystal_consultant"
+        });
+      } else {
+        res.json({
+          content: response,
+          provider: "Troves & Coves Crystal AI",
+          model: "crystal_consultant"
+        });
+      }
     } catch (error: any) {
       console.error("AI Chat error:", error);
       res.status(500).json({ error: "Internal server error" });
