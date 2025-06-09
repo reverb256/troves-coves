@@ -159,7 +159,7 @@ export default function Contact() {
                             <FormControl>
                               <Input 
                                 placeholder="Your sacred name"
-                                className="bg-pearl-cream/50 border-ornate-frame-gold/20 text-navy placeholder-navy/60"
+                                className="bg-background-secondary/50 border-ornate-frame-gold/20 text-troves-turquoise placeholder-foreground-muted"
                                 {...field}
                               />
                             </FormControl>
@@ -178,7 +178,7 @@ export default function Contact() {
                               <Input 
                                 type="email"
                                 placeholder="your@email.com"
-                                className="bg-pearl-cream/50 border-ornate-frame-gold/20 text-navy placeholder-navy/60"
+                                className="bg-background-secondary/50 border-ornate-frame-gold/20 text-troves-turquoise placeholder-foreground-muted"
                                 {...field}
                               />
                             </FormControl>
@@ -220,7 +220,7 @@ export default function Contact() {
                                 type="checkbox"
                                 checked={field.value}
                                 onChange={field.onChange}
-                                className="w-4 h-4 text-troves-turquoise bg-pearl-cream border-ornate-frame-gold rounded focus:ring-troves-turquoise"
+                                className="w-4 h-4 text-troves-turquoise bg-background border-ornate-frame-gold rounded focus:ring-troves-turquoise"
                               />
                             </FormControl>
                             <FormLabel className="text-navy font-semibold">
@@ -270,7 +270,7 @@ export default function Contact() {
                             <FormControl>
                               <Input 
                                 placeholder="What can we help you with?"
-                                className="bg-pearl-cream/50 border-ornate-frame-gold/20 text-navy placeholder-navy/60"
+                                className="bg-background-secondary/50 border-ornate-frame-gold/20 text-troves-turquoise placeholder-foreground-muted"
                                 {...field}
                               />
                             </FormControl>
