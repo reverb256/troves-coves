@@ -210,7 +210,7 @@ export class CloudflareOrchestrator {
       'beautiful': 'sacred',
       'nice': 'divine',
       'good': 'blessed',
-      'jewelry': 'talisman',
+      'jewellery': 'talisman',
       'stone': 'sacred crystal'
     };
 

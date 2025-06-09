@@ -37,7 +37,7 @@ export default function Home() {
         title="Troves & Coves - Sacred Crystal Jewellery | Mystical Healing Talismans | Winnipeg"
         description="Awaken your soul with sacred crystal jewellery and healing gemstone talismans in Winnipeg. Divine wire-wrapped pendants, blessed necklaces, and consecrated stones for spiritual transformation. Sacred consultations, metaphysical guidance, divine protection guaranteed."
         keywords="sacred crystal jewellery Winnipeg, mystical healing crystals Manitoba, spiritual talismans, wire wrapped pendants, lepidolite meditation, turquoise protection, citrine manifestation, rose quartz love, chakra jewellery, divine feminine, spiritual awakening, crystal healing Winnipeg"
-        url="https://troves-and-coves.com"
+        url="https://trovesandcoves.ca"
         type="website"
       />
 

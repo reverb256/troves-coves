@@ -191,7 +191,7 @@ export const LOCKED_DESIGN_LANGUAGE = {
       separatorPattern: /text-ornate-frame-gold.*&/
     },
     
-    colorUsage: {
+    colourUsage: {
       prohibitedCombinations: ["blue-and-gold-generic", "troves-gold", "coves-yellow"],
       requiredCombinations: ["troves-turquoise", "coves-cursive-blue"]
     },
