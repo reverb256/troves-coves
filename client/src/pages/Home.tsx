@@ -70,6 +70,14 @@ export default function Home() {
           {/* Wire-wrap inspired decorative elements */}
           <div className="absolute top-1/4 left-1/6 w-32 h-32 wire-wrap rounded-full opacity-20"></div>
           <div className="absolute bottom-1/3 right-1/5 w-24 h-24 wire-wrap faceted-frame opacity-15"></div>
+          
+          {/* Sparkle Elements */}
+          <div className="absolute top-[15%] left-[20%] text-elegant-gold text-lg animate-pulse opacity-70">✨</div>
+          <div className="absolute top-[30%] right-[25%] text-troves-turquoise text-xl animate-bounce opacity-60" style={{ animationDelay: '0.5s' }}>⭐</div>
+          <div className="absolute bottom-[25%] left-[15%] text-elegant-gold text-lg animate-pulse opacity-50" style={{ animationDelay: '1s' }}>💎</div>
+          <div className="absolute bottom-[40%] right-[20%] text-skull-turquoise text-xl animate-bounce opacity-70" style={{ animationDelay: '1.5s' }}>✨</div>
+          <div className="absolute top-[60%] left-[70%] text-elegant-gold text-lg animate-pulse opacity-60" style={{ animationDelay: '2s' }}>⭐</div>
+          <div className="absolute top-[45%] right-[80%] text-troves-turquoise text-xl animate-bounce opacity-50" style={{ animationDelay: '0.3s' }}>💎</div>
         </div>
 
         {/* Content */}
