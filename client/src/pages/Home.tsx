@@ -85,42 +85,42 @@ export default function Home() {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           {/* Badge */}
-          <Badge className="glass-jewelry mb-6 px-6 py-2 text-sm font-medium tracking-wider uppercase highlight-rose-quartz inline-flex items-center whitespace-nowrap">
-            <MapPin className="h-3 w-3 mr-2 flex-shrink-0" />
-            <span>Winnipeg's Sacred Crystal Sanctuary</span>
+          <Badge className="mb-6 px-6 py-2 text-sm font-bold tracking-wider uppercase inline-flex items-center whitespace-nowrap bg-white border-2 border-black text-black">
+            <MapPin className="h-3 w-3 mr-2 flex-shrink-0 text-black" />
+            <span className="text-black font-bold">Winnipeg's Sacred Crystal Sanctuary</span>
           </Badge>
 
           {/* Authentic Brand Heading from Wooden Sign */}
           <h1 className="text-display text-5xl md:text-7xl lg:text-8xl mb-6 tracking-tight">
             <span className="block mb-2">
-              <span className="troves-text-style">Troves</span>
-              <span className="text-ornate-frame-gold mx-4">&</span>
-              <span className="coves-text-style">Coves</span>
+              <span className="troves-text-style font-black">Troves</span>
+              <span className="text-black mx-4 font-black">&</span>
+              <span className="coves-text-style font-black">Coves</span>
             </span>
-            <span className="block text-3xl md:text-4xl lg:text-5xl text-foreground-muted font-normal tracking-wide">
+            <span className="block text-3xl md:text-4xl lg:text-5xl text-black font-bold tracking-wide">
               Handcrafted Crystal Jewellery
             </span>
           </h1>
 
           {/* Description */}
-          <p className="text-body text-xl md:text-2xl text-foreground-muted max-w-3xl mx-auto mb-8 leading-relaxed">
+          <p className="text-body text-xl md:text-2xl text-black font-semibold max-w-3xl mx-auto mb-8 leading-relaxed">
             Where sacred gemstone energies merge with artisan craftsmanship. Each piece channels ancient crystal wisdom 
             to amplify your inner light, promote spiritual healing, and guide your soul's awakening journey.
           </p>
 
           {/* Features with Wire-Wrap Aesthetic */}
           <div className="flex flex-wrap justify-center gap-6 mb-12">
-            <div className="pendant-style flex items-center gap-2 px-4 py-2">
-              <Sparkles className="h-4 w-4" style={{ color: 'hsl(var(--wire-gold))' }} />
-              <span className="text-sm font-medium">Sacred Wire-Wrapping</span>
+            <div className="bg-white border-2 border-black rounded-lg flex items-center gap-2 px-4 py-2">
+              <Sparkles className="h-4 w-4 text-black" />
+              <span className="text-sm font-bold text-black">Sacred Wire-Wrapping</span>
             </div>
-            <div className="pendant-style flex items-center gap-2 px-4 py-2">
-              <Gem className="h-4 w-4" style={{ color: 'hsl(var(--turquoise-deep))' }} />
-              <span className="text-sm font-medium">Genuine Earth Crystals</span>
+            <div className="bg-white border-2 border-black rounded-lg flex items-center gap-2 px-4 py-2">
+              <Gem className="h-4 w-4 text-black" />
+              <span className="text-sm font-bold text-black">Genuine Earth Crystals</span>
             </div>
-            <div className="pendant-style flex items-center gap-2 px-4 py-2">
-              <Heart className="h-4 w-4" style={{ color: 'hsl(var(--carnelian-orange))' }} />
-              <span className="text-sm font-medium">Metaphysical Healing</span>
+            <div className="bg-white border-2 border-black rounded-lg flex items-center gap-2 px-4 py-2">
+              <Heart className="h-4 w-4 text-black" />
+              <span className="text-sm font-bold text-black">Metaphysical Healing</span>
             </div>
           </div>
 
@@ -141,22 +141,22 @@ export default function Home() {
           </div>
 
           {/* Quick Navigation Pills */}
-          <div className="flex flex-wrap justify-center gap-3 mt-8 pt-8 border-t border-white/10">
+          <div className="flex flex-wrap justify-center gap-3 mt-8 pt-8 border-t border-black/20">
             <Link href="/products/healing-crystals">
-              <Badge className="pendant-style badge-interactive hover-sparkle cursor-pointer px-4 py-2">
-                <Heart className="h-3 w-3 mr-1" />
+              <Badge className="bg-white border-2 border-black text-black font-bold cursor-pointer px-4 py-2 hover:bg-gray-100">
+                <Heart className="h-3 w-3 mr-1 text-black" />
                 Healing Stones
               </Badge>
             </Link>
             <Link href="/products/wire-wrapped">
-              <Badge className="pendant-style badge-interactive hover-sparkle cursor-pointer px-4 py-2">
-                <Crown className="h-3 w-3 mr-1" />
+              <Badge className="bg-white border-2 border-black text-black font-bold cursor-pointer px-4 py-2 hover:bg-gray-100">
+                <Crown className="h-3 w-3 mr-1 text-black" />
                 Wire Wrapped
               </Badge>
             </Link>
             <Link href="/contact">
-              <Badge className="pendant-style badge-interactive hover-sparkle cursor-pointer px-4 py-2">
-                <MapPin className="h-3 w-3 mr-1" />
+              <Badge className="bg-white border-2 border-black text-black font-bold cursor-pointer px-4 py-2 hover:bg-gray-100">
+                <MapPin className="h-3 w-3 mr-1 text-black" />
                 Connect Online
               </Badge>
             </Link>
