@@ -196,7 +196,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   }
 
-  const httpServer = createServer(app);
   // AI Status endpoint
   app.get("/api/ai/status", async (req, res) => {
     try {
