@@ -368,7 +368,7 @@ export default function Products() {
               </Card>
             ) : (
               /* Products Grid */
-              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+              <div className="adaptive-grid">
                 {filteredAndSortedProducts.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}

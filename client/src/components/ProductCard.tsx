@@ -46,7 +46,7 @@ export default function ProductCard({ product, featured = false }: ProductCardPr
 
   return (
     <Card 
-      className={`product-card cursor-pointer bg-warm-cream luxury-shadow hover:luxury-shadow-lg overflow-hidden ${
+      className={`card-uniform cursor-pointer bg-warm-cream luxury-shadow hover:luxury-shadow-lg overflow-hidden ${
         featured ? 'border-elegant-gold border-2' : ''
       }`}
       onClick={() => setLocation(`/product/${product.id}`)}
