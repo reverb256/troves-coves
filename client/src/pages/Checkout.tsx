@@ -600,7 +600,7 @@ export default function Checkout() {
 
   if (!clientSecret || !stripePromise) {
     return (
-      <div className="min-h-screen bg-warm-cream flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="max-w-md">
           <CardContent className="pt-6 text-center">
             <h2 className="text-2xl font-serif font-bold text-navy mb-4">Checkout via Etsy</h2>
@@ -628,14 +628,14 @@ export default function Checkout() {
 
   // Make SURE to wrap the form in <Elements> which provides the stripe context.
   return (
-    <div className="min-h-screen bg-warm-cream">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-serif font-bold text-navy mb-4">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold text-troves-turquoise mb-4">
               Secure Checkout
             </h1>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-foreground-muted">
               Complete your purchase with our secure payment system
             </p>
           </div>

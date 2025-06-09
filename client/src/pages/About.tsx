@@ -224,7 +224,7 @@ export default function About() {
                 <div className="text-center">
                   <div className="relative inline-block">
                     <div className="w-64 h-64 bg-gradient-to-br from-troves-turquoise via-skull-turquoise to-coves-cursive-blue rounded-full flex items-center justify-center mx-auto shadow-2xl">
-                      <div className="w-48 h-48 bg-pearl-cream rounded-full flex items-center justify-center">
+                      <div className="w-48 h-48 bg-background rounded-full flex items-center justify-center">
                         <Gem className="w-24 h-24 text-troves-turquoise" />
                       </div>
                     </div>
