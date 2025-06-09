@@ -85,9 +85,9 @@ export default function Home() {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           {/* Badge */}
-          <Badge className="mb-6 px-6 py-2 text-sm font-bold tracking-wider uppercase inline-flex items-center whitespace-nowrap bg-white border-2 border-black text-black">
+          <Badge className="mb-6 px-6 py-2 text-sm font-black tracking-wider uppercase inline-flex items-center whitespace-nowrap bg-white border-4 border-black text-black">
             <MapPin className="h-3 w-3 mr-2 flex-shrink-0 text-black" />
-            <span className="text-black font-bold">Winnipeg's Sacred Crystal Sanctuary</span>
+            <span className="text-black font-black">Winnipeg's Sacred Crystal Sanctuary</span>
           </Badge>
 
           {/* Authentic Brand Heading from Wooden Sign */}
@@ -103,24 +103,24 @@ export default function Home() {
           </h1>
 
           {/* Description */}
-          <p className="text-body text-xl md:text-2xl text-black font-semibold max-w-3xl mx-auto mb-8 leading-relaxed">
+          <p className="text-body text-xl md:text-2xl text-black font-black max-w-3xl mx-auto mb-8 leading-relaxed">
             Where sacred gemstone energies merge with artisan craftsmanship. Each piece channels ancient crystal wisdom 
             to amplify your inner light, promote spiritual healing, and guide your soul's awakening journey.
           </p>
 
           {/* Features with Wire-Wrap Aesthetic */}
           <div className="flex flex-wrap justify-center gap-6 mb-12">
-            <div className="bg-white border-2 border-black rounded-lg flex items-center gap-2 px-4 py-2">
+            <div className="bg-white border-4 border-black rounded-lg flex items-center gap-2 px-4 py-2">
               <Sparkles className="h-4 w-4 text-black" />
-              <span className="text-sm font-bold text-black">Sacred Wire-Wrapping</span>
+              <span className="text-sm font-black text-black">Sacred Wire-Wrapping</span>
             </div>
-            <div className="bg-white border-2 border-black rounded-lg flex items-center gap-2 px-4 py-2">
+            <div className="bg-white border-4 border-black rounded-lg flex items-center gap-2 px-4 py-2">
               <Gem className="h-4 w-4 text-black" />
-              <span className="text-sm font-bold text-black">Genuine Earth Crystals</span>
+              <span className="text-sm font-black text-black">Genuine Earth Crystals</span>
             </div>
-            <div className="bg-white border-2 border-black rounded-lg flex items-center gap-2 px-4 py-2">
+            <div className="bg-white border-4 border-black rounded-lg flex items-center gap-2 px-4 py-2">
               <Heart className="h-4 w-4 text-black" />
-              <span className="text-sm font-bold text-black">Metaphysical Healing</span>
+              <span className="text-sm font-black text-black">Metaphysical Healing</span>
             </div>
           </div>
 
@@ -243,8 +243,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section with Beaded Pattern */}
-      <section className="py-24 bg-gradient-to-br from-background-secondary to-background-tertiary">
+      {/* Features Section with Maximum Contrast */}
+      <section className="py-24 bg-white">
         <div className="container-jewelry">
           <div className="text-center mb-16">
             <h2 className="text-display text-4xl md:text-5xl mb-6">
@@ -287,9 +287,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section with Obsidian Elements */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background-secondary to-background-tertiary"></div>
+      {/* CTA Section with Maximum Contrast */}
+      <section className="py-24 relative overflow-hidden bg-white">
+        <div className="absolute inset-0 bg-white"></div>
         <div className="absolute top-10 right-10 obsidian-arrowhead w-16 h-20 opacity-10"></div>
         <div className="absolute bottom-20 left-20 obsidian-arrowhead w-12 h-16 opacity-15"></div>
         

@@ -177,7 +177,7 @@
   --antique-gold: 35 45% 45%;
   --sterling-silver: 200 10% 75%;
   --oxidized-silver: 210 15% 25%;
-  
+
   /* Crystal-inspired colors - enhanced from authentic jewelry */
   --amethyst: 280 60% 70%;
   --amethyst-light: 280 40% 90%;
@@ -188,7 +188,7 @@
   --turquoise: 180 85% 65%;
   --lepidolite: 290 30% 80%;
   --clear-quartz: 0 0% 95%;
-  
+
   /* UPDATED AUTHENTIC PALETTE FROM WOODEN SIGN & SKULL ARTWORK - Maximum Contrast */
   --troves-turquoise: 174 100% 15%;    /* Maximum depth turquoise for AAA contrast */
   --coves-cursive-blue: 200 100% 15%;  /* Maximum depth blue for AAA readability */
@@ -202,7 +202,7 @@
   --raw-crystal: 200 8% 85%;
   --leather-black: 0 0% 5%;            /* Near black for maximum contrast */
   --pearl-cream: 45 30% 98%;
-  
+
   /* Natural textures - Cream accents for gold primary */
   --warm-cream: 43 30% 96%;         /* Light cream accents */
   --rich-cream: 43 25% 93%;         /* Deeper cream accents */
@@ -212,17 +212,17 @@
   --copper-patina: 170 30% 50%;
   --sage-green: 90 25% 65%;
   --earth-brown: 25 30% 35%;
-  
+
   /* Base colors - Light backgrounds for maximum text contrast */
   --background: 0 0% 100%;            /* Pure white for maximum contrast */
   --background-secondary: 43 20% 95%; /* Very light cream secondary */
   --background-tertiary: 43 15% 92%;  /* Light cream foundation */
-  
+
   /* Mystical design elements - Improved visibility */
   --skull-overlay: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="skull" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="30" cy="25" r="8" fill="none" stroke="hsl(174, 85%, 25%)" stroke-width="0.8" opacity="0.2"/><circle cx="70" cy="25" r="8" fill="none" stroke="hsl(174, 85%, 25%)" stroke-width="0.8" opacity="0.2"/><path d="M45 35 Q50 40 55 35" fill="none" stroke="hsl(174, 85%, 25%)" stroke-width="0.8" opacity="0.2"/><rect x="45" y="50" width="10" height="8" fill="none" stroke="hsl(43, 95%, 35%)" stroke-width="0.8" opacity="0.18"/></pattern></defs><rect width="100" height="100" fill="url(%23skull)"/></svg>');
   --foreground: 0 0% 0%;              /* Pure black for maximum contrast */
   --foreground-muted: 0 0% 15%;        /* Dark gray for muted text but still readable */
-  
+
   /* UI colors with maximum contrast */
   --card: 0 0% 100%;             /* Pure white cards */
   --card-foreground: 0 0% 0%;    /* Pure black text on cards */
@@ -242,18 +242,18 @@
   --input: 43 45% 75%;              /* Gold-toned inputs */
   --ring: 174 75% 20%;
   --radius: 8px;
-  
+
   /* Enhanced shadows with warmth */
   --shadow-warm: 35 45% 45% / 0.15;
   --shadow-crystal: 280 60% 70% / 0.1;
   --shadow-deep: 210 15% 25% / 0.2;
-  
+
   /* Mystical glow effects */
   --glow-turquoise: 174 85% 30%;
   --glow-gold: 43 90% 35%;
   --glow-skull: 174 75% 25%;
   --glow-blue: 200 65% 25%;
-  
+
   /* Harmonized gradient combinations */
   --gradient-primary: linear-gradient(135deg, hsl(174, 75%, 20%) 0%, hsl(174, 85%, 25%) 50%, hsl(200, 65%, 20%) 100%);
   --gradient-secondary: linear-gradient(135deg, hsl(200, 65%, 20%) 0%, hsl(174, 85%, 25%) 50%, hsl(174, 75%, 20%) 100%);
@@ -431,11 +431,11 @@
   .hdr-enhanced {
     color: var(--hdr-max-contrast, var(--contrast-aaa-text)) !important;
   }
-  
+
   .hdr-troves {
     color: var(--hdr-troves-turquoise, var(--contrast-link)) !important;
   }
-  
+
   .hdr-gold {
     color: var(--hdr-ornate-gold, var(--contrast-focus)) !important;
   }
@@ -454,12 +454,12 @@
     color: var(--contrast-aaa-text) !important;
     border-color: var(--contrast-aaa-text) !important;
   }
-  
+
   button, input, select, textarea {
     background-color: hsl(0 0% 100%) !important;
     border: 2px solid var(--contrast-aaa-text) !important;
   }
-  
+
   .bg-gradient-to-r, .bg-gradient-to-br, .bg-gradient-to-l {
     background: hsl(0 0% 100%) !important;
   }
@@ -494,7 +494,7 @@
   --background-tertiary: 210 15% 10%;
   --foreground: 45 25% 98%;
   --foreground-muted: 200 10% 70%;
-  
+
   /* Dark mode jewelry colors - more luminous */
   --rose-gold: 14 85% 75%;
   --rose-gold-light: 14 65% 85%;
@@ -502,7 +502,7 @@
   --antique-gold: 35 45% 55%;
   --sterling-silver: 200 15% 80%;
   --oxidized-silver: 210 20% 85%;
-  
+
   /* Dark mode crystals - enhanced luminosity */
   --amethyst: 280 65% 75%;
   --amethyst-light: 280 45% 90%;
@@ -513,23 +513,23 @@
   --turquoise: 180 80% 70%;
   --lepidolite: 290 35% 80%;
   --clear-quartz: 0 0% 90%;
-  
+
   /* Floral Enamel and Magnolia Elements */
   --magnolia-white: 60 100% 97%;
   --magnolia-cream: 50 30% 92%;
   --leaf-green: 150 40% 25%;
   --leaf-emerald: 160 60% 30%;
-  
+
   /* Lapis Lazuli Deep Blues */
   --lapis-deep: 220 80% 25%;
   --lapis-medium: 225 70% 35%;
   --lapis-light: 230 60% 45%;
-  
+
   /* Mystical and Spiritual Elements */
   --spiritual-turquoise: 180 100% 50%;
   --mystical-purple: 270 60% 40%;
   --sacred-gold: 45 100% 60%;
-  
+
   --card: 210 15% 10%;
   --card-foreground: 45 25% 98%;
   --popover: 210 15% 10%;
@@ -711,9 +711,7 @@ p, span, div:not(.bg-*), li, td, th {
   color: var(--contrast-aa-normal) !important;
   font-weight: 400;
   line-height: 1.6;
-}
-
-/* Large Text - AA Compliance */
+}/* Large Text - AA Compliance */
 .text-lg, .text-xl, .text-2xl, .text-3xl, .text-4xl, .text-5xl, .text-6xl {
   color: var(--contrast-aa-large) !important;
   font-weight: 500;
@@ -737,15 +735,21 @@ a:hover, a:focus, .link:hover, .link:focus {
 
 /* Brand Elements with Proper Contrast */
 .troves-text-style {
-  color: var(--contrast-link) !important;
-  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
-  font-weight: 700;
+  color: hsl(0 0% 0%) !important;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 900;
+  text-transform: none;
+  text-shadow: none;
+  background: transparent !important;
 }
 
 .coves-text-style {
-  color: hsl(200 90% 20%) !important;
-  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
-  font-weight: 600;
+  color: hsl(0 0% 0%) !important;
+  font-family: 'Dancing Script', cursive;
+  font-weight: 900;
+  font-style: italic;
+  text-shadow: none;
+  background: transparent !important;
 }
 
 @layer components {
@@ -760,7 +764,7 @@ a:hover, a:focus, .link:hover, .link:focus {
       inset 0 1px 0 rgba(255, 255, 255, 0.2),
       inset 0 -1px 0 rgba(0, 0, 0, 0.05);
   }
-  
+
   .dark .glass-jewelry {
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -768,16 +772,16 @@ a:hover, a:focus, .link:hover, .link:focus {
       0 8px 32px rgba(0, 0, 0, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
-  
+
   /* Organic crystal shapes */
   .crystal-frame {
     clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
   }
-  
+
   .faceted-frame {
     clip-path: polygon(50% 0%, 90% 25%, 90% 75%, 50% 100%, 10% 75%, 10% 25%);
   }
-  
+
   /* Enhanced cream and gold gradients */
   .gradient-warm-cream {
     background: linear-gradient(135deg, 
@@ -786,7 +790,7 @@ a:hover, a:focus, .link:hover, .link:focus {
       hsl(var(--golden-cream))
     );
   }
-  
+
   .gradient-gold-cream {
     background: linear-gradient(135deg, 
       hsl(var(--ornate-frame-gold)), 
@@ -794,7 +798,7 @@ a:hover, a:focus, .link:hover, .link:focus {
       hsl(var(--rich-cream))
     );
   }
-  
+
   .gradient-rose-gold {
     background: linear-gradient(135deg, 
       hsl(var(--rose-gold-light)), 
@@ -802,7 +806,7 @@ a:hover, a:focus, .link:hover, .link:focus {
       hsl(var(--rose-gold-dark))
     );
   }
-  
+
   .gradient-silver {
     background: linear-gradient(135deg, 
       hsl(var(--sterling-silver)), 
@@ -810,7 +814,7 @@ a:hover, a:focus, .link:hover, .link:focus {
       hsl(var(--labradorite))
     );
   }
-  
+
   .gradient-warm-gold {
     background: linear-gradient(135deg, 
       hsl(var(--warm-gold)), 
@@ -818,7 +822,7 @@ a:hover, a:focus, .link:hover, .link:focus {
       hsl(var(--copper-patina))
     );
   }
-  
+
   /* Gem-like text effects */
   .text-crystal {
     background: linear-gradient(135deg, 
@@ -830,7 +834,7 @@ a:hover, a:focus, .link:hover, .link:focus {
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  
+
   /* AUTHENTIC MYSTICAL SKULL ARTWORK EFFECTS */
   .wooden-sign-bg {
     position: relative;
@@ -884,19 +888,19 @@ a:hover, a:focus, .link:hover, .link:focus {
   }
 
   .troves-text-style {
-    color: hsl(var(--troves-turquoise)) !important;
+    color: hsl(0 0% 0%) !important;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 900;
     text-transform: none;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    text-shadow: none;
   }
 
   .coves-text-style {
-    color: hsl(var(--coves-cursive-blue)) !important;
+    color: hsl(0 0% 0%) !important;
     font-family: 'Dancing Script', cursive;
     font-weight: 700;
     font-style: italic;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    text-shadow: none;
   }
 
   /* High contrast variants for accessibility */
@@ -961,12 +965,12 @@ a:hover, a:focus, .link:hover, .link:focus {
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  
+
   /* Wire-wrap inspired elements */
   .wire-wrap {
     position: relative;
   }
-  
+
   .wire-wrap::before {
     content: '';
     position: absolute;
@@ -980,7 +984,7 @@ a:hover, a:focus, .link:hover, .link:focus {
     z-index: -1;
     opacity: 0.7;
   }
-  
+
   /* Organic button styles */
   .btn-organic {
     border-radius: 2rem 1rem 2rem 1rem;
@@ -996,7 +1000,7 @@ a:hover, a:focus, .link:hover, .link:focus {
     font-weight: 400;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
+
   .btn-organic::before {
     content: '';
     position: absolute;
@@ -1011,16 +1015,16 @@ a:hover, a:focus, .link:hover, .link:focus {
     );
     transition: left 0.5s;
   }
-  
+
   .btn-organic:hover::before {
     left: 100%;
   }
-  
+
   .btn-organic:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px hsl(var(--shadow-warm));
   }
-  
+
   /* Crystal-inspired cards */
   .card-crystal {
     background: linear-gradient(135deg, 
@@ -1033,7 +1037,7 @@ a:hover, a:focus, .link:hover, .link:focus {
       0 4px 16px hsl(var(--shadow-crystal)),
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
-  
+
   /* Gemstone highlights */
   .highlight-amethyst {
     background: linear-gradient(135deg, 
@@ -1046,7 +1050,7 @@ a:hover, a:focus, .link:hover, .link:focus {
     font-size: 0.875rem;
     font-weight: 500;
   }
-  
+
   .highlight-rose-quartz {
     background: linear-gradient(135deg, 
       hsl(var(--rose-quartz)), 
@@ -1058,7 +1062,7 @@ a:hover, a:focus, .link:hover, .link:focus {
     font-size: 0.875rem;
     font-weight: 500;
   }
-  
+
   /* Wire-wrapped pendant styles */
   .pendant-style {
     position: relative;
@@ -1071,7 +1075,7 @@ a:hover, a:focus, .link:hover, .link:focus {
     border: 2px solid hsl(var(--wire-gold));
     padding: 1rem;
   }
-  
+
   .pendant-style::before {
     content: '';
     position: absolute;
@@ -1086,12 +1090,12 @@ a:hover, a:focus, .link:hover, .link:focus {
     );
     border-radius: 2px;
   }
-  
+
   /* Layered necklace effect */
   .layered-styling {
     position: relative;
   }
-  
+
   .layered-styling::before,
   .layered-styling::after {
     content: '';
@@ -1102,7 +1106,7 @@ a:hover, a:focus, .link:hover, .link:focus {
     height: 2px;
     border-radius: 1px;
   }
-  
+
   .layered-styling::before {
     background: linear-gradient(90deg, 
       transparent, 
@@ -1111,7 +1115,7 @@ a:hover, a:focus, .link:hover, .link:focus {
     );
     transform: translateY(-6px);
   }
-  
+
   .layered-styling::after {
     background: linear-gradient(90deg, 
       transparent, 
@@ -1121,7 +1125,7 @@ a:hover, a:focus, .link:hover, .link:focus {
     transform: translateY(-10px);
     opacity: 0.7;
   }
-  
+
   /* Beaded bracelet pattern */
   .beaded-pattern {
     background: repeating-linear-gradient(
@@ -1141,7 +1145,7 @@ a:hover, a:focus, .link:hover, .link:focus {
       0 2px 4px hsl(var(--obsidian-black) / 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
-  
+
   /* Raw crystal texture */
   .raw-crystal-texture {
     background: linear-gradient(45deg, 
@@ -1150,7 +1154,7 @@ a:hover, a:focus, .link:hover, .link:focus {
     );
     position: relative;
   }
-  
+
   .raw-crystal-texture::before {
     content: '';
     position: absolute;
@@ -1161,7 +1165,7 @@ a:hover, a:focus, .link:hover, .link:focus {
       radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.4) 1.5px, transparent 1.5px);
     background-size: 20px 20px, 15px 15px, 25px 25px;
   }
-  
+
   /* Obsidian arrowhead style */
   .obsidian-arrowhead {
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -1171,7 +1175,7 @@ a:hover, a:focus, .link:hover, .link:focus {
     );
     position: relative;
   }
-  
+
   .obsidian-arrowhead::before {
     content: '';
     position: absolute;
@@ -1189,7 +1193,7 @@ a:hover, a:focus, .link:hover, .link:focus {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
   }
-  
+
   @keyframes crystal-glow {
     0%, 100% { 
       box-shadow: 0 0 20px hsl(var(--amethyst) / 0.3);
@@ -1198,18 +1202,18 @@ a:hover, a:focus, .link:hover, .link:focus {
       box-shadow: 0 0 30px hsl(var(--amethyst) / 0.5);
     }
   }
-  
+
   @keyframes floating-crystal {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
     33% { transform: translateY(-8px) rotate(1deg); }
     66% { transform: translateY(-4px) rotate(-1deg); }
   }
-  
+
   .shimmer-effect {
     position: relative;
     overflow: hidden;
   }
-  
+
   .shimmer-effect::before {
     content: '';
     position: absolute;
@@ -1225,11 +1229,11 @@ a:hover, a:focus, .link:hover, .link:focus {
     );
     animation: shimmer-gold 2s infinite;
   }
-  
+
   .crystal-glow {
     animation: crystal-glow 4s ease-in-out infinite;
   }
-  
+
   .floating-crystal {
     animation: floating-crystal 6s ease-in-out infinite;
   }
@@ -1353,7 +1357,7 @@ a:hover, a:focus, .link:hover, .link:focus {
     --coves-cursive-blue: 200 100% 20%;
     --border: 200 15% 60%;
   }
-  
+
   .dark {
     --foreground: 45 25% 100%;
     --foreground-muted: 200 10% 90%;
@@ -1508,7 +1512,7 @@ a:hover, a:focus, .link:hover, .link:focus {
     flex: 1 1 100%;
     min-width: unset;
   }
-  
+
   .adaptive-grid,
   .adaptive-grid-large {
     grid-template-columns: 1fr;
