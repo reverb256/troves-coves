@@ -39,41 +39,43 @@
   --leather-black: 0 0% 5%;            /* Near black for maximum contrast */
   --pearl-cream: 45 30% 98%;
   
-  /* Natural textures */
+  /* Natural textures - Enhanced cream harmony */
+  --warm-cream: 43 45% 94%;         /* Primary warm cream */
+  --rich-cream: 43 40% 91%;         /* Deeper cream tone */
+  --golden-cream: 43 50% 88%;       /* Gold-infused cream */
   --stone-warm: 30 15% 92%;
   --stone-cool: 200 10% 88%;
   --copper-patina: 170 30% 50%;
   --sage-green: 90 25% 65%;
   --earth-brown: 25 30% 35%;
-  --pearl-white: 45 25% 96%;
   
-  /* Base colors - Gold harmony expansion */
-  --background: 43 35% 96%;           /* Warm gold background replacing pearl */
-  --background-secondary: 43 30% 94%; /* Secondary gold tone */
-  --background-tertiary: 43 25% 92%;  /* Tertiary gold depth */
+  /* Base colors - Gold and cream harmony */
+  --background: 43 40% 95%;           /* Rich warm cream base */
+  --background-secondary: 43 35% 92%; /* Deeper cream secondary */
+  --background-tertiary: 43 30% 89%;  /* Rich cream depth */
   
   /* Mystical design elements - Improved visibility */
   --skull-overlay: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="skull" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="30" cy="25" r="8" fill="none" stroke="hsl(174, 85%, 25%)" stroke-width="0.8" opacity="0.2"/><circle cx="70" cy="25" r="8" fill="none" stroke="hsl(174, 85%, 25%)" stroke-width="0.8" opacity="0.2"/><path d="M45 35 Q50 40 55 35" fill="none" stroke="hsl(174, 85%, 25%)" stroke-width="0.8" opacity="0.2"/><rect x="45" y="50" width="10" height="8" fill="none" stroke="hsl(43, 95%, 35%)" stroke-width="0.8" opacity="0.18"/></pattern></defs><rect width="100" height="100" fill="url(%23skull)"/></svg>');
   --foreground: 25 30% 3%;
   --foreground-muted: 25 25% 10%;
   
-  /* UI colors built from jewelry palette - Gold harmony */
-  --card: 43 35% 98%;            /* Gold-toned cards */
+  /* UI colors built from jewelry palette - Gold and cream harmony */
+  --card: 43 45% 97%;            /* Rich cream cards */
   --card-foreground: 25 30% 3%;
-  --popover: 43 35% 98%;          /* Gold-toned popovers */
+  --popover: 43 45% 97%;          /* Rich cream popovers */
   --popover-foreground: 25 30% 3%;
   --primary: 174 75% 20%;
-  --primary-foreground: 45 25% 99%;
-  --secondary: 43 20% 88%;           /* Gold-toned secondary */
+  --primary-foreground: 43 45% 97%;
+  --secondary: 43 25% 85%;           /* Cream-toned secondary */
   --secondary-foreground: 25 30% 8%;
-  --muted: 43 25% 90%;              /* Gold-toned muted backgrounds */
+  --muted: 43 30% 88%;              /* Cream-toned muted backgrounds */
   --muted-foreground: 25 25% 8%;
   --accent: 174 85% 25%;
-  --accent-foreground: 43 35% 98%;  /* Gold accent foreground */
+  --accent-foreground: 43 45% 97%;  /* Cream accent foreground */
   --destructive: 0 80% 45%;
-  --destructive-foreground: 43 35% 98%;
-  --border: 43 30% 75%;             /* Gold-toned borders */
-  --input: 43 30% 88%;              /* Gold-toned inputs */
+  --destructive-foreground: 43 45% 97%;
+  --border: 43 35% 72%;             /* Cream-toned borders */
+  --input: 43 35% 85%;              /* Cream-toned inputs */
   --ring: 174 75% 20%;
   --radius: 8px;
   
@@ -408,7 +410,23 @@ a:hover {
     clip-path: polygon(50% 0%, 90% 25%, 90% 75%, 50% 100%, 10% 75%, 10% 25%);
   }
   
-  /* Metallic gradients */
+  /* Enhanced cream and gold gradients */
+  .gradient-warm-cream {
+    background: linear-gradient(135deg, 
+      hsl(var(--warm-cream)), 
+      hsl(var(--rich-cream)), 
+      hsl(var(--golden-cream))
+    );
+  }
+  
+  .gradient-gold-cream {
+    background: linear-gradient(135deg, 
+      hsl(var(--ornate-frame-gold)), 
+      hsl(var(--warm-cream)), 
+      hsl(var(--rich-cream))
+    );
+  }
+  
   .gradient-rose-gold {
     background: linear-gradient(135deg, 
       hsl(var(--rose-gold-light)), 
