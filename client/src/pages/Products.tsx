@@ -218,9 +218,9 @@ export default function Products() {
         {/* Background keyword monitoring */}
         <KeywordMonitor />
 
-        <div className="grid lg:grid-cols-4 gap-8">
+        <div className="smart-flex">
           {/* Mystical Sidebar Filters */}
-          <aside className="lg:col-span-1">
+          <aside className="flex-shrink-0" style={{ flexBasis: '300px' }}>
             <Card className="sticky top-8 shadow-2xl border border-ornate-frame-gold/20 bg-gradient-to-br from-pearl-cream to-crystal-accents backdrop-blur-sm">
               <CardHeader className="bg-gradient-to-r from-troves-turquoise/10 to-skull-turquoise/10 border-b border-ornate-frame-gold/20">
                 <CardTitle className="flex items-center space-x-3 text-troves-turquoise">

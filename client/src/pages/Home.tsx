@@ -176,9 +176,9 @@ export default function Home() {
 
           {/* Products Grid */}
           {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="adaptive-grid">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="card-crystal p-6 h-80 shimmer-effect">
+                <div key={i} className="card-crystal p-6 card-uniform shimmer-effect">
                   <div className="animate-pulse">
                     <div className="h-40 bg-gradient-to-br from-stone-200 to-stone-100 rounded-lg mb-4"></div>
                     <div className="h-4 bg-stone-200 rounded mb-2"></div>
@@ -188,7 +188,7 @@ export default function Home() {
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="adaptive-grid">
               {featuredProducts?.map((product) => (
                 <Link key={product.id} href={`/products/${product.id}`}>
                   <Card className="mystical-card hover:gold-glow transition-all duration-500 group cursor-pointer h-full skull-accent">
