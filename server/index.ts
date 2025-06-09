@@ -36,6 +36,9 @@ setInterval(monitorMemory, 30000);
 
 const app = express();
 
+// Configure trust proxy for rate limiting
+app.set('trust proxy', 1);
+
 // Security middleware configuration
 app.use(securityHeaders);
 app.use(generalRateLimit);
