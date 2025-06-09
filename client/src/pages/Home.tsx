@@ -42,7 +42,7 @@ export default function Home() {
       />
 
       {/* Hero Section with Authentic Skull Artwork Influence */}
-      <section className="relative py-20 md:py-32 flex items-center justify-center overflow-hidden wooden-sign-bg">
+      <section className="relative py-20 md:py-32 flex items-center justify-center overflow-hidden bg-background">
         {/* Organic Background with Crystal Elements */}
         <div className="absolute inset-0">
           {/* Floating Crystal Shapes */}

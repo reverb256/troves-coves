@@ -47,33 +47,33 @@
   --earth-brown: 25 30% 35%;
   --pearl-white: 45 25% 96%;
   
-  /* Base colors - Maximum contrast for accessibility */
-  --background: 45 25% 99%;
-  --background-secondary: 30 20% 98%;
-  --background-tertiary: 200 10% 97%;
+  /* Base colors - Gold harmony expansion */
+  --background: 43 35% 96%;           /* Warm gold background replacing pearl */
+  --background-secondary: 43 30% 94%; /* Secondary gold tone */
+  --background-tertiary: 43 25% 92%;  /* Tertiary gold depth */
   
   /* Mystical design elements - Improved visibility */
   --skull-overlay: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="skull" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="30" cy="25" r="8" fill="none" stroke="hsl(174, 85%, 25%)" stroke-width="0.8" opacity="0.2"/><circle cx="70" cy="25" r="8" fill="none" stroke="hsl(174, 85%, 25%)" stroke-width="0.8" opacity="0.2"/><path d="M45 35 Q50 40 55 35" fill="none" stroke="hsl(174, 85%, 25%)" stroke-width="0.8" opacity="0.2"/><rect x="45" y="50" width="10" height="8" fill="none" stroke="hsl(43, 95%, 35%)" stroke-width="0.8" opacity="0.18"/></pattern></defs><rect width="100" height="100" fill="url(%23skull)"/></svg>');
   --foreground: 25 30% 3%;
   --foreground-muted: 25 25% 10%;
   
-  /* UI colors built from jewelry palette - Maximum contrast */
-  --card: 45 25% 99%;
+  /* UI colors built from jewelry palette - Gold harmony */
+  --card: 43 35% 98%;            /* Gold-toned cards */
   --card-foreground: 25 30% 3%;
-  --popover: 45 25% 99%;
+  --popover: 43 35% 98%;          /* Gold-toned popovers */
   --popover-foreground: 25 30% 3%;
   --primary: 174 75% 20%;
   --primary-foreground: 45 25% 99%;
-  --secondary: 200 12% 85%;
+  --secondary: 43 20% 88%;           /* Gold-toned secondary */
   --secondary-foreground: 25 30% 8%;
-  --muted: 200 10% 94%;
+  --muted: 43 25% 90%;              /* Gold-toned muted backgrounds */
   --muted-foreground: 25 25% 8%;
   --accent: 174 85% 25%;
-  --accent-foreground: 45 25% 99%;
+  --accent-foreground: 43 35% 98%;  /* Gold accent foreground */
   --destructive: 0 80% 45%;
-  --destructive-foreground: 45 25% 99%;
-  --border: 200 15% 75%;
-  --input: 200 10% 92%;
+  --destructive-foreground: 43 35% 98%;
+  --border: 43 30% 75%;             /* Gold-toned borders */
+  --input: 43 30% 88%;              /* Gold-toned inputs */
   --ring: 174 75% 20%;
   --radius: 8px;
   
