@@ -4,6 +4,168 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Micro-Animations for Enhanced User Flow */
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes sparkle-on-hover {
+  0% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+  100% { opacity: 0; transform: scale(0) rotate(360deg); }
+}
+
+@keyframes crystal-glow {
+  0%, 100% { box-shadow: 0 0 5px var(--elegant-gold); }
+  50% { box-shadow: 0 0 20px var(--elegant-gold), 0 0 30px var(--troves-turquoise); }
+}
+
+@keyframes cart-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+
+@keyframes price-highlight {
+  0% { background: transparent; }
+  50% { background: linear-gradient(90deg, transparent, var(--elegant-gold)/20, transparent); }
+  100% { background: transparent; }
+}
+
+@keyframes button-press {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+@keyframes success-pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Interactive Element Classes */
+.hover-sparkle {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.hover-sparkle:hover::before {
+  content: '✨';
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  animation: sparkle-on-hover 0.6s ease-out;
+  pointer-events: none;
+}
+
+.product-card-interactive {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.product-card-interactive:hover {
+  transform: translateY(-8px) scale(1.02);
+  animation: crystal-glow 2s ease-in-out infinite;
+}
+
+.button-interactive {
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.button-interactive:active {
+  animation: button-press 0.15s ease;
+}
+
+.button-interactive::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, var(--elegant-gold)/30 0%, transparent 70%);
+  transition: all 0.3s ease;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.button-interactive:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.cart-icon-animated {
+  transition: all 0.3s ease;
+}
+
+.cart-icon-animated.cart-updated {
+  animation: cart-wiggle 0.5s ease, gentle-bounce 1s ease 0.5s;
+}
+
+.price-animated {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.price-animated.price-updated {
+  animation: price-highlight 1s ease;
+}
+
+.input-focus-glow {
+  transition: all 0.3s ease;
+}
+
+.input-focus-glow:focus {
+  box-shadow: 0 0 0 3px var(--troves-turquoise)/20, 0 0 15px var(--elegant-gold)/30;
+}
+
+.badge-interactive {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.badge-interactive:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px var(--elegant-gold)/30;
+}
+
+.loading-crystal {
+  display: inline-block;
+  animation: gentle-bounce 1.5s ease-in-out infinite;
+}
+
+.loading-crystal:nth-child(2) { animation-delay: 0.2s; }
+.loading-crystal:nth-child(3) { animation-delay: 0.4s; }
+
+.success-feedback {
+  animation: success-pulse 0.6s ease;
+}
+
+.nav-item-enhanced {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-item-enhanced::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--troves-turquoise), var(--elegant-gold));
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-item-enhanced:hover::after {
+  width: 100%;
+}
+
 :root {
   /* Jewelry-inspired color palette */
   --rose-gold: 14 85% 70%;

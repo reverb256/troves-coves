@@ -46,7 +46,7 @@ export default function ProductCard({ product, featured = false }: ProductCardPr
 
   return (
     <Card 
-      className={`card-uniform cursor-pointer bg-warm-cream luxury-shadow hover:luxury-shadow-lg overflow-hidden ${
+      className={`card-uniform product-card-interactive hover-sparkle cursor-pointer bg-warm-cream luxury-shadow hover:luxury-shadow-lg overflow-hidden ${
         featured ? 'border-elegant-gold border-2' : ''
       }`}
       onClick={() => setLocation(`/product/${product.id}`)}
@@ -71,7 +71,7 @@ export default function ProductCard({ product, featured = false }: ProductCardPr
           <Button
             size="sm"
             onClick={handleAddToCart}
-            className="bg-elegant-gold hover:bg-yellow-400 text-navy"
+            className="button-interactive bg-elegant-gold hover:bg-yellow-400 text-navy"
           >
             <ShoppingBag className="h-4 w-4 mr-2" />
             Add to Cart
