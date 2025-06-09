@@ -383,60 +383,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Message or prompt is required" });
       }
 
-      // Initialize io.net agent system for advanced AI processing
-      const { IONetCrystalAgent } = require('./agents/io-net-agent-integration');
-      const agent = new IONetCrystalAgent(process.env.IOINTELLIGENCE_API_KEY);
-
+      // Use free API auto-discovery for AI processing
       let response, reasoning, sentiment, recommendations;
 
-      // Try using io.net agents for advanced processing
-      if (agent.isConfigured()) {
-        try {
-          const agentResult = await agent.processMessage(userMessage, context);
-          response = agentResult.response;
-          reasoning = agentResult.reasoning;
-          sentiment = agentResult.sentiment;
-          recommendations = agentResult.recommendations;
-        } catch (agentError) {
-          console.log("Advanced agent unavailable, using enhanced fallback");
-          // Fall back to enhanced local processing
-          const fallbackResult = await processWithEnhancedFallback(userMessage, context);
-          response = fallbackResult.response;
-          reasoning = fallbackResult.reasoning;
-          sentiment = fallbackResult.sentiment;
-          recommendations = fallbackResult.recommendations;
-        }
-      } else {
-        // Use enhanced local processing when io.net is not configured
-        const fallbackResult = await processWithEnhancedFallback(userMessage, context);
-        response = fallbackResult.response;
-        reasoning = fallbackResult.reasoning;
-        sentiment = fallbackResult.sentiment;
-        recommendations = fallbackResult.recommendations;
-      }
+      // Process with our enhanced free API system
+      const aiResult = await processWithFreeAPISystem(userMessage, context);
+      response = aiResult.response;
+      reasoning = aiResult.reasoning;
+      sentiment = aiResult.sentiment;
+      recommendations = aiResult.recommendations;
 
-      // Handle different request types (text, image, audio)
+      // Handle different request types with enhanced AI data
       if (type === 'image') {
         res.json({
           content: response,
-          mediaUrl: null, // Would generate image URL in real implementation
+          mediaUrl: null,
           mediaType: null,
           provider: "Troves & Coves Crystal AI",
-          model: "crystal_consultant"
+          model: "advanced_consultant",
+          reasoning,
+          sentiment,
+          recommendations
         });
       } else if (type === 'audio') {
         res.json({
           content: response,
-          mediaUrl: null, // Would generate audio URL in real implementation
+          mediaUrl: null,
           mediaType: 'audio',
           provider: "Troves & Coves Crystal AI",
-          model: "crystal_consultant"
+          model: "advanced_consultant",
+          reasoning,
+          sentiment,
+          recommendations
         });
       } else {
         res.json({
           content: response,
           provider: "Troves & Coves Crystal AI",
-          model: "crystal_consultant"
+          model: "advanced_consultant",
+          reasoning,
+          sentiment,
+          recommendations
         });
       }
     } catch (error: any) {
@@ -444,6 +431,331 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ error: "Internal server error" });
     }
   });
+
+  // Enhanced free API processing system using auto-discovery
+  async function processWithFreeAPISystem(message: string, context?: any) {
+    const crystalKnowledge = {
+      "amethyst": {
+        properties: "Calming, spiritual protection, enhanced intuition",
+        healing: "Anxiety relief, insomnia, addictive behaviors",
+        chakras: ["Crown", "Third Eye"],
+        price: [35, 75]
+      },
+      "rose quartz": {
+        properties: "Unconditional love, emotional healing, self-acceptance",
+        healing: "Heart wounds, self-love, relationship harmony",
+        chakras: ["Heart"],
+        price: [25, 65]
+      },
+      "clear quartz": {
+        properties: "Amplification, clarity, universal healing",
+        healing: "General healing, mental clarity, energy amplification",
+        chakras: ["All"],
+        price: [20, 55]
+      },
+      "citrine": {
+        properties: "Abundance, confidence, creative energy",
+        healing: "Depression, self-esteem, manifestation",
+        chakras: ["Solar Plexus"],
+        price: [30, 70]
+      },
+      "lepidolite": {
+        properties: "Anxiety relief, emotional balance, peaceful sleep",
+        healing: "Stress, panic attacks, emotional trauma",
+        chakras: ["Heart", "Third Eye", "Crown"],
+        price: [40, 80]
+      }
+    };
+
+    const lowerMessage = message.toLowerCase();
+    
+    // Try to use free AI APIs for enhanced processing
+    try {
+      const aiResponse = await tryFreeAIProcessing(message, context, crystalKnowledge);
+      if (aiResponse.success) {
+        return aiResponse.result;
+      }
+    } catch (error) {
+      console.log('Free AI processing unavailable, using local intelligence');
+    }
+    
+    // Enhanced local processing with sophisticated analysis
+    const intent = analyzeIntent(lowerMessage);
+    const sentiment = analyzeSentiment(lowerMessage);
+    const recommendations = generateRecommendations(intent, sentiment, crystalKnowledge);
+    const response = createPersonalizedResponse(message, intent, sentiment, recommendations);
+    
+    const reasoning = [
+      `Detected intent: ${intent}`,
+      `Emotional state: ${sentiment.emotion}`,
+      `Recommended approach: ${sentiment.label === 'negative' ? 'supportive healing' : 'encouraging guidance'}`,
+      `Top crystal match: ${recommendations[0]?.crystal || 'amethyst'}`
+    ];
+
+    return { response, reasoning, sentiment, recommendations };
+  }
+
+  function analyzeIntent(message: string): string {
+    if (message.includes('anxious') || message.includes('stress') || message.includes('calm')) return 'healing_emotional';
+    if (message.includes('love') || message.includes('heart') || message.includes('relationship')) return 'love_relationships';
+    if (message.includes('protection') || message.includes('negative')) return 'protection';
+    if (message.includes('abundance') || message.includes('money') || message.includes('success')) return 'prosperity';
+    if (message.includes('meditation') || message.includes('spiritual')) return 'spiritual_growth';
+    if (message.includes('price') || message.includes('cost')) return 'price_inquiry';
+    if (message.includes('care') || message.includes('clean')) return 'care_instructions';
+    return 'general_inquiry';
+  }
+
+  function analyzeSentiment(message: string): any {
+    const positiveWords = ['love', 'beautiful', 'perfect', 'amazing', 'excited'];
+    const negativeWords = ['anxious', 'stressed', 'worried', 'confused', 'overwhelmed'];
+
+    let score = 0;
+    let emotion = 'curious';
+
+    if (positiveWords.some(word => message.toLowerCase().includes(word))) {
+      score = 0.7;
+      emotion = 'positive';
+    } else if (negativeWords.some(word => message.toLowerCase().includes(word))) {
+      score = -0.6;
+      emotion = 'concerned';
+    }
+
+    return {
+      score,
+      emotion,
+      confidence: 0.8,
+      label: score > 0.3 ? 'positive' : score < -0.3 ? 'negative' : 'neutral',
+      urgency: negativeWords.some(word => message.toLowerCase().includes(word)) ? 'high' : 'medium'
+    };
+  }
+
+  function generateRecommendations(intent: string, sentiment: any, crystalKnowledge: any): any[] {
+    const recommendations = [];
+
+    switch (intent) {
+      case 'healing_emotional':
+        recommendations.push(
+          { crystal: 'amethyst', ...crystalKnowledge.amethyst, confidence: 0.9 },
+          { crystal: 'lepidolite', ...crystalKnowledge.lepidolite, confidence: 0.85 }
+        );
+        break;
+      case 'love_relationships':
+        recommendations.push(
+          { crystal: 'rose quartz', ...crystalKnowledge['rose quartz'], confidence: 0.95 },
+          { crystal: 'amethyst', ...crystalKnowledge.amethyst, confidence: 0.7 }
+        );
+        break;
+      case 'spiritual_growth':
+        recommendations.push(
+          { crystal: 'clear quartz', ...crystalKnowledge['clear quartz'], confidence: 0.9 },
+          { crystal: 'amethyst', ...crystalKnowledge.amethyst, confidence: 0.85 }
+        );
+        break;
+      default:
+        recommendations.push(
+          { crystal: 'clear quartz', ...crystalKnowledge['clear quartz'], confidence: 0.8 },
+          { crystal: 'amethyst', ...crystalKnowledge.amethyst, confidence: 0.8 }
+        );
+    }
+
+    return recommendations;
+  }
+
+  function createPersonalizedResponse(message: string, intent: string, sentiment: any, recommendations: any[]): string {
+    const topRec = recommendations[0];
+    let response = '';
+
+    if (sentiment.emotion === 'concerned') {
+      response += "I sense you're seeking support and healing. ";
+    } else if (sentiment.emotion === 'positive') {
+      response += "I love your enthusiasm for crystal energy! ";
+    } else {
+      response += "Thank you for reaching out about crystal guidance. ";
+    }
+
+    if (topRec) {
+      response += `Based on your message, I'm drawn to recommend ${topRec.crystal} for you. ${topRec.properties}. `;
+      response += `This beautiful stone is particularly helpful for ${topRec.healing}. `;
+      response += `Our ${topRec.crystal} pieces range from $${topRec.price[0]} to $${topRec.price[1]}. `;
+    }
+
+    response += "Would you like to see our current collection, or would you prefer to tell me more about your specific needs?";
+
+    return response;
+  }
+
+  // Free AI processing using auto-discovery (Pollinations, etc.)
+  async function tryFreeAIProcessing(message: string, context: any, crystalKnowledge: any) {
+    const freeEndpoints = [
+      'https://text.pollinations.ai/',
+      'https://api.deepinfra.com/v1/inference/microsoft/DialoGPT-medium',
+      'https://api.cohere.ai/v1/generate', // Has free tier
+      'https://api.together.xyz/inference' // Has free tier
+    ];
+
+    const crystalExpertPrompt = `You are Sage, an expert crystal consultant for Troves & Coves jewelry. 
+Customer message: "${message}"
+
+Provide a warm, personalized response that:
+1. Acknowledges their emotional state
+2. Recommends specific crystals with clear reasoning
+3. Includes practical guidance (pricing $20-80, care instructions)
+4. Invites further conversation
+
+Crystal expertise: Amethyst (calming, $35-75), Rose Quartz (love, $25-65), Clear Quartz (clarity, $20-55), Citrine (abundance, $30-70), Lepidolite (anxiety relief, $40-80).
+
+Response (max 200 words):`;
+
+    // Try Pollinations first (completely free, no auth needed)
+    try {
+      const pollinationsResponse = await fetch('https://text.pollinations.ai/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [
+            { role: 'system', content: crystalExpertPrompt },
+            { role: 'user', content: message }
+          ],
+          model: 'openai',
+          temperature: 0.7,
+          max_tokens: 300
+        })
+      });
+
+      if (pollinationsResponse.ok) {
+        const result = await pollinationsResponse.text();
+        
+        // Parse and structure the AI response
+        const aiAnalysis = parseAIResponse(result, message);
+        
+        return {
+          success: true,
+          result: {
+            response: result.trim(),
+            reasoning: aiAnalysis.reasoning,
+            sentiment: aiAnalysis.sentiment,
+            recommendations: aiAnalysis.recommendations
+          }
+        };
+      }
+    } catch (error) {
+      console.log('Pollinations unavailable, trying other free services');
+    }
+
+    // Try other free endpoints with fallback logic
+    for (const endpoint of freeEndpoints.slice(1)) {
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            prompt: crystalExpertPrompt,
+            max_tokens: 250,
+            temperature: 0.7
+          }),
+          timeout: 5000
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          const aiText = result.text || result.choices?.[0]?.text || result.output;
+          
+          if (aiText) {
+            const aiAnalysis = parseAIResponse(aiText, message);
+            return {
+              success: true,
+              result: {
+                response: aiText.trim(),
+                reasoning: aiAnalysis.reasoning,
+                sentiment: aiAnalysis.sentiment,
+                recommendations: aiAnalysis.recommendations
+              }
+            };
+          }
+        }
+      } catch (error) {
+        continue; // Try next endpoint
+      }
+    }
+
+    return { success: false };
+  }
+
+  function parseAIResponse(aiResponse: string, originalMessage: string) {
+    // Extract structured data from AI response
+    const lowerMessage = originalMessage.toLowerCase();
+    const lowerResponse = aiResponse.toLowerCase();
+    
+    // Detect sentiment from AI analysis
+    let sentiment = {
+      score: 0,
+      emotion: 'curious',
+      confidence: 0.8,
+      label: 'neutral',
+      urgency: 'medium'
+    };
+    
+    if (lowerResponse.includes('anxious') || lowerResponse.includes('stress') || lowerMessage.includes('worried')) {
+      sentiment = { score: -0.6, emotion: 'concerned', confidence: 0.9, label: 'negative', urgency: 'high' };
+    } else if (lowerResponse.includes('love') || lowerResponse.includes('excited') || lowerResponse.includes('wonderful')) {
+      sentiment = { score: 0.7, emotion: 'positive', confidence: 0.9, label: 'positive', urgency: 'medium' };
+    }
+
+    // Extract crystal recommendations from AI response
+    const crystalMentions = [];
+    const crystals = ['amethyst', 'rose quartz', 'clear quartz', 'citrine', 'lepidolite'];
+    
+    crystals.forEach(crystal => {
+      if (lowerResponse.includes(crystal.replace(' ', ''))) {
+        crystalMentions.push({
+          crystal,
+          confidence: 0.9,
+          reasoning: `AI recommended ${crystal} based on customer needs`,
+          properties: getCrystalProperties(crystal),
+          price: getCrystalPriceRange(crystal)
+        });
+      }
+    });
+
+    // Generate reasoning steps
+    const reasoning = [
+      'AI analyzed customer message using free language model',
+      `Detected emotional tone: ${sentiment.emotion}`,
+      `Recommended crystals: ${crystalMentions.map(c => c.crystal).join(', ')}`,
+      'Response personalized for crystal consultation context'
+    ];
+
+    return {
+      reasoning,
+      sentiment,
+      recommendations: crystalMentions.slice(0, 3) // Top 3 recommendations
+    };
+  }
+
+  function getCrystalProperties(crystal: string): string {
+    const properties = {
+      'amethyst': 'Calming, spiritual protection, enhanced intuition',
+      'rose quartz': 'Unconditional love, emotional healing, self-acceptance',
+      'clear quartz': 'Amplification, clarity, universal healing',
+      'citrine': 'Abundance, confidence, creative energy',
+      'lepidolite': 'Anxiety relief, emotional balance, peaceful sleep'
+    };
+    return properties[crystal] || 'Powerful healing and spiritual properties';
+  }
+
+  function getCrystalPriceRange(crystal: string): number[] {
+    const prices = {
+      'amethyst': [35, 75],
+      'rose quartz': [25, 65],
+      'clear quartz': [20, 55],
+      'citrine': [30, 70],
+      'lepidolite': [40, 80]
+    };
+    return prices[crystal] || [25, 75];
+  }
 
   // HA and service discovery monitoring
   app.get('/api/ha/status', async (req, res) => {
