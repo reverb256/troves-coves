@@ -20,10 +20,10 @@ import { z } from "zod";
 
 // Make sure to call `loadStripe` outside of a component's render to avoid
 // recreating the `Stripe` object on every render.
-if (!import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
-  console.error('Missing required Stripe key: VITE_STRIPE_PUBLIC_KEY');
-}
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
+// Stripe disabled for demo - graceful degradation
+const stripePromise = import.meta.env.VITE_STRIPE_PUBLIC_KEY 
+  ? loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY) 
+  : null;
 
 const checkoutFormSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -598,16 +598,28 @@ export default function Checkout() {
     );
   }
 
-  if (!clientSecret) {
+  if (!clientSecret || !stripePromise) {
     return (
       <div className="min-h-screen bg-warm-cream flex items-center justify-center">
         <Card className="max-w-md">
           <CardContent className="pt-6 text-center">
-            <h2 className="text-2xl font-serif font-bold text-navy mb-4">Payment Unavailable</h2>
-            <p className="text-gray-600 mb-6">Unable to initialize payment processing. Please try again later.</p>
-            <Button onClick={() => setLocation('/cart')} className="bg-navy hover:bg-rich-blue text-white">
-              Back to Cart
-            </Button>
+            <h2 className="text-2xl font-serif font-bold text-navy mb-4">Checkout via Etsy</h2>
+            <p className="text-gray-600 mb-6">For secure payment processing, you'll be redirected to our Etsy store to complete your purchase.</p>
+            <div className="space-y-4">
+              <Button 
+                onClick={() => window.open('https://www.etsy.com/shop/TrovesAndCoves', '_blank')}
+                className="w-full bg-navy hover:bg-rich-blue text-white"
+              >
+                Continue to Etsy Store
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={() => setLocation('/cart')} 
+                className="w-full"
+              >
+                Back to Cart
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </div>
