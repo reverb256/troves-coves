@@ -12,9 +12,10 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  // Route API calls through Cloudflare for GitHub Pages deployment
+  // Route API calls through Cloudflare for GitHub Pages deployment, local for development
+  const isDevelopment = import.meta.env.DEV || window.location.hostname === 'localhost';
   const cloudflareApiBase = 'https://api.trovesandcoves.ca';
-  const finalUrl = url.startsWith('/api/') ? `${cloudflareApiBase}${url}` : url;
+  const finalUrl = url.startsWith('/api/') && !isDevelopment ? `${cloudflareApiBase}${url}` : url;
   
   const sessionId = localStorage.getItem('trovesandcoves_session') || crypto.randomUUID();
   if (!localStorage.getItem('trovesandcoves_session')) {
@@ -26,7 +27,7 @@ export async function apiRequest(
     headers: {
       ...(data ? { "Content-Type": "application/json" } : {}),
       'x-session-id': sessionId,
-      'x-platform': 'github-pages'
+      'x-platform': isDevelopment ? 'development' : 'github-pages'
     },
     body: data ? JSON.stringify(data) : undefined,
     credentials: "include",
@@ -42,10 +43,11 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    // Route API calls through Cloudflare for GitHub Pages deployment
+    // Route API calls through Cloudflare for GitHub Pages deployment, local for development
+    const isDevelopment = import.meta.env.DEV || window.location.hostname === 'localhost';
     const cloudflareApiBase = 'https://api.trovesandcoves.ca';
     const url = queryKey[0] as string;
-    const finalUrl = url.startsWith('/api/') ? `${cloudflareApiBase}${url}` : url;
+    const finalUrl = url.startsWith('/api/') && !isDevelopment ? `${cloudflareApiBase}${url}` : url;
     
     const sessionId = localStorage.getItem('trovesandcoves_session') || crypto.randomUUID();
     if (!localStorage.getItem('trovesandcoves_session')) {
@@ -56,7 +58,7 @@ export const getQueryFn: <T>(options: {
       credentials: "include",
       headers: {
         'x-session-id': sessionId,
-        'x-platform': 'github-pages'
+        'x-platform': isDevelopment ? 'development' : 'github-pages'
       }
     });
 
