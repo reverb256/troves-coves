@@ -58,14 +58,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
     staleTime: 0, // Always fresh
   });
 
-  // Update state when cart items change
+  // Update state when cart items change - with proper comparison
   useEffect(() => {
-    dispatch({ type: 'SET_ITEMS', payload: cartItems });
-  }, [cartItems]);
+    if (JSON.stringify(cartItems) !== JSON.stringify(state.items)) {
+      dispatch({ type: 'SET_ITEMS', payload: cartItems });
+    }
+  }, [cartItems, state.items]);
 
   useEffect(() => {
-    dispatch({ type: 'SET_LOADING', payload: isLoading });
-  }, [isLoading]);
+    if (isLoading !== state.isLoading) {
+      dispatch({ type: 'SET_LOADING', payload: isLoading });
+    }
+  }, [isLoading, state.isLoading]);
 
   // Calculate totals
   const itemCount = state.items.reduce((total, item) => total + item.quantity, 0);
