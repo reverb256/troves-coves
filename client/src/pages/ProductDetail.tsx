@@ -461,6 +461,9 @@ export default function ProductDetail() {
 
       {/* Related Products Section */}
       <RelatedProducts categoryId={product.categoryId} currentProductId={product.id} />
+      
+      {/* Intelligent Shopping Flow */}
+      <IntelligentShoppingFlow productId={productId} />
     </div>
   );
 }
