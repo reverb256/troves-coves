@@ -38,7 +38,7 @@ class APIDiscoveryAgent extends EventEmitter {
   private readonly REPLIT_MEMORY_LIMIT = 384; // MB (512MB - 128MB reserved)
   private readonly REPLIT_CPU_CORES = 1;
   private cloudflareOrchestrator: any;
-  
+
   private endpoints: APIEndpoint[] = [
     {
       name: 'Cloudflare Edge AI',
@@ -123,7 +123,7 @@ class APIDiscoveryAgent extends EventEmitter {
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
-      
+
       // Skip check for Pollinations endpoints as they're always available
       if (endpoint.name.includes('Pollinations')) {
         endpoint.isAvailable = true;
@@ -136,11 +136,11 @@ class APIDiscoveryAgent extends EventEmitter {
         signal: controller.signal,
         method: 'HEAD'
       });
-      
+
       clearTimeout(timeoutId);
       endpoint.isAvailable = response.ok;
       endpoint.lastChecked = new Date();
-      
+
       return response.ok;
     } catch (error) {
       endpoint.isAvailable = false;
@@ -152,7 +152,7 @@ class APIDiscoveryAgent extends EventEmitter {
   private async checkAllEndpoints() {
     const promises = this.endpoints.map(endpoint => this.checkEndpoint(endpoint));
     await Promise.all(promises);
-    
+
     this.emit('endpointsUpdated', this.endpoints);
   }
 
@@ -162,9 +162,9 @@ class APIDiscoveryAgent extends EventEmitter {
 
   public getBestEndpoint(priority: 'low' | 'medium' | 'high' = 'medium', type: 'text' | 'image' | 'audio' = 'text'): APIEndpoint | null {
     const available = this.getAvailableEndpoints();
-    
+
     if (available.length === 0) return null;
-    
+
     // Always prioritize local LLM proxy for text processing when available
     if (type === 'text') {
       const localProxy = available.find(e => e.name === 'Local LLM Proxy');
@@ -173,30 +173,30 @@ class APIDiscoveryAgent extends EventEmitter {
         return localProxy;
       }
     }
-    
+
     // Prioritize Pollinations for specific types (free tier only)
     if (type === 'image') {
       const pollinationsImage = available.find(e => e.name === 'Pollinations Image');
       if (pollinationsImage) return pollinationsImage;
     }
-    
+
     if (type === 'audio') {
       const pollinationsAudio = available.find(e => e.name === 'Pollinations Audio');
       if (pollinationsAudio) return pollinationsAudio;
     }
-    
+
     // For text, fallback to free services only
     if (type === 'text') {
       const freeTextServices = available.filter(e => 
         e.features.includes('free') && 
         (e.name === 'Pollinations AI' || e.name === 'Hugging Face Free')
       );
-      
+
       if (freeTextServices.length > 0) {
         return freeTextServices[0];
       }
     }
-    
+
     // Final fallback: any free service
     const freeServices = available.filter(e => e.cost === 0);
     return freeServices.length > 0 ? freeServices[0] : null;
@@ -214,11 +214,23 @@ class AIOrchestrator extends EventEmitter {
   private requestQueue: AIRequest[] = [];
   private processing: boolean = false;
   private fallbackResponses: Map<string, AIResponse> = new Map();
+  private serviceDiscovery: any;
+  private endpoints: any;
+  private cloudflareOrchestrator: any;
 
   constructor() {
     super();
+
+    // Initialize Cloudflare orchestrator for edge processing
+    try {
+      this.cloudflareOrchestrator = createCloudflareOrchestrator();
+    } catch (error) {
+      console.log('Cloudflare orchestrator not available, using local processing');
+    }
+
+    this.serviceDiscovery = new ServiceDiscovery();
     this.discoveryAgent = new APIDiscoveryAgent();
-    
+
     this.discoveryAgent.on('endpointsUpdated', (endpoints) => {
       this.emit('endpointsUpdated', endpoints);
     });
@@ -228,31 +240,31 @@ class AIOrchestrator extends EventEmitter {
     try {
       // Enforce brand compliance on the request
       const brandCompliantRequest = this.enforceBrandCompliance(request);
-      
+
       const requestType = brandCompliantRequest.type || 'text';
       const endpoint = this.discoveryAgent.getBestEndpoint(brandCompliantRequest.priority, requestType);
-      
+
       if (!endpoint) {
         throw new Error('No available AI endpoints');
       }
 
       const response = await this.makeAPIRequest(endpoint, brandCompliantRequest);
-      
+
       // Validate response follows brand guidelines
       const validatedResponse = this.validateBrandResponse(response);
-      
+
       // Cache successful responses for fallback
       const cacheKey = this.generateCacheKey(brandCompliantRequest);
       this.fallbackResponses.set(cacheKey, validatedResponse);
-      
+
       return validatedResponse;
     } catch (error) {
       console.error('AI request failed:', error);
-      
+
       // Try fallback response
       const cacheKey = this.generateCacheKey(request);
       const fallback = this.fallbackResponses.get(cacheKey);
-      
+
       if (fallback) {
         return {
           ...fallback,
@@ -260,13 +272,46 @@ class AIOrchestrator extends EventEmitter {
           timestamp: new Date()
         };
       }
-      
+
       // Generate local response as last resort
       return this.generateLocalResponse(request);
     }
   }
 
-  private async makeAPIRequest(endpoint: APIEndpoint, request: AIRequest): Promise<AIResponse> {
+  async makeRequestWithHA(request: AIRequest, maxRetries: number = 3): Promise<AIResponse> {
+    let lastError: Error | null = null;
+
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      try {
+        const endpoint = this.discoveryAgent.getBestEndpoint('medium', request.type || 'text');
+        if (!endpoint) {
+          throw new Error('No available endpoints');
+        }
+
+        const response = await this.makeAPIRequest(endpoint, request);
+        return response;
+
+      } catch (error) {
+        lastError = error as Error;
+        console.warn(`Attempt ${attempt + 1} failed: ${lastError.message}`);
+
+        // Wait before retry (exponential backoff)
+        if (attempt < maxRetries - 1) {
+          await this.sleep(Math.pow(2, attempt) * 1000);
+        }
+      }
+    }
+
+    // All retries failed, return fallback response
+    console.error('All endpoints failed, using local fallback');
+    return this.generateLocalResponse(request);
+  }
+
+  private sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async makeAPIRequest(endpoint: APIEndpoint, request: AIRequest): Promise<AIResponse> {
     try {
       // Prioritize local LLM proxy for sensitive requests
       if (endpoint.name === 'Local LLM Proxy') {
@@ -317,7 +362,7 @@ class AIOrchestrator extends EventEmitter {
       }
 
       const data = await response.text();
-      
+
       return {
         content: data.trim(),
         model: request.model || 'openai',
@@ -335,10 +380,10 @@ class AIOrchestrator extends EventEmitter {
       // Enhanced prompt for crystal jewelry images with watermark removal
       const enhancedPrompt = `${request.prompt}, professional photography, high quality, clean background, no watermarks, no logos, commercial use, premium jewelry photography --style photorealistic --quality high --enhance --private`;
       const encodedPrompt = encodeURIComponent(enhancedPrompt);
-      
+
       // Use Pollinations' direct image generation with watermark removal parameters
       const ephemeralImageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&seed=${Date.now()}&nologo=true&enhance=true&private=true&model=flux`;
-      
+
       // Verify image accessibility
       const response = await fetch(ephemeralImageUrl, { method: 'HEAD' });
       if (!response.ok) {
@@ -371,7 +416,7 @@ class AIOrchestrator extends EventEmitter {
   private async makePollinationsAudioRequest(request: AIRequest): Promise<AIResponse> {
     try {
       const audioUrl = `https://audio.pollinations.ai/bark?text=${encodeURIComponent(request.prompt)}&voice=professional_female&speed=1.0&enhance=true&private=true`;
-      
+
       // Verify audio accessibility
       const response = await fetch(audioUrl, { method: 'HEAD' });
       if (!response.ok) {
@@ -395,7 +440,7 @@ class AIOrchestrator extends EventEmitter {
     try {
       // Use privacy guard to anonymize data before processing
       const { anonymized, mappings } = privacyGuard.anonymizeRequest(request);
-      
+
       // Check if local LLM proxy is available
       const response = await fetch('http://localhost:8080/v1/chat/completions', {
         method: 'POST',
@@ -427,7 +472,7 @@ class AIOrchestrator extends EventEmitter {
 
       const data = await response.json();
       const content = data.choices?.[0]?.message?.content || 'I apologize, but I cannot process your request at the moment.';
-      
+
       const aiResponse: AIResponse = {
         content: content.trim(),
         model: anonymized.model || 'local-llama',
@@ -452,7 +497,7 @@ class AIOrchestrator extends EventEmitter {
     try {
       // Use privacy guard for external requests
       const { anonymized, mappings } = privacyGuard.anonymizeRequest(request);
-      
+
       const response = await fetch('https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium', {
         method: 'POST',
         headers: {
@@ -473,7 +518,7 @@ class AIOrchestrator extends EventEmitter {
 
       const data = await response.json();
       const content = data.generated_text || data[0]?.generated_text || 'I understand you need assistance with crystal jewelry. How can I help you today?';
-      
+
       const aiResponse: AIResponse = {
         content: content.trim(),
         model: 'DialoGPT-medium',
@@ -528,6 +573,48 @@ class AIOrchestrator extends EventEmitter {
     };
   }
 
+  private async startServiceDiscovery(): Promise<void> {
+    // Auto-discover services every 10 minutes
+    setInterval(async () => {
+      try {
+        const newServices = await this.serviceDiscovery.autoDiscoverAll();
+        this.integrateDiscoveredServices(newServices);
+      } catch (error) {
+        console.log('Service discovery failed:', error);
+      }
+    }, 600000); // 10 minutes
+
+    // Initial discovery
+    setTimeout(() => this.startServiceDiscovery(), 5000); // Wait 5 seconds after startup
+  }
+
+  private integrateDiscoveredServices(services: any[]): void {
+    let addedCount = 0;
+
+    for (const service of services) {
+      const exists = this.endpoints.find(e => e.name === service.name);
+      if (!exists) {
+        this.endpoints.push({
+          name: service.name,
+          baseUrl: service.baseUrl,
+          models: ['auto-discovered'],
+          isAvailable: true,
+          lastChecked: new Date(),
+          rateLimitRemaining: service.freeQuota,
+          priority: 5, // Lower priority for auto-discovered
+          cost: 0,
+          features: service.features
+        });
+        addedCount++;
+      }
+    }
+
+    if (addedCount > 0) {
+      console.log(`🚀 Added ${addedCount} new services to orchestrator`);
+      this.emit('servicesUpdated', { added: addedCount, total: this.endpoints.length });
+    }
+  }
+
   /**
    * Enforce brand compliance on AI requests
    */
@@ -563,15 +650,15 @@ FORBIDDEN DEVIATIONS:
    */
   private validateBrandResponse(response: AIResponse): AIResponse {
     let content = response.content;
-    
+
     // Check for brand compliance violations
     const violations = [];
-    
+
     // Check for improper brand name usage
     if (content.includes('Troves & Coves') && !content.includes('mystical')) {
       violations.push('Missing mystical context');
     }
-    
+
     // Check for off-brand color suggestions
     const offBrandColors = ['blue', 'red', 'green', 'purple'];
     offBrandColors.forEach(color => {
@@ -579,18 +666,18 @@ FORBIDDEN DEVIATIONS:
         violations.push(`Off-brand color mentioned: ${color}`);
       }
     });
-    
+
     // Correct common violations
     content = content.replace(/Troves and Coves/g, 'Troves & Coves');
     content = content.replace(/blue/gi, 'turquoise');
     content = content.replace(/standard/gi, 'mystical');
     content = content.replace(/regular/gi, 'sacred');
-    
+
     // Add mystical skull artwork context if missing
     if (!content.includes('mystical') && !content.includes('sacred')) {
       content = content.replace(/jewelry/gi, 'sacred crystal jewelry');
     }
-    
+
     return {
       ...response,
       content,
@@ -605,6 +692,46 @@ FORBIDDEN DEVIATIONS:
   public destroy() {
     this.discoveryAgent?.destroy();
   }
+}
+
+class ServiceDiscovery {
+    async autoDiscoverAll(): Promise<any[]> {
+        // Simulate discovering multiple services
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                const services = [
+                    {
+                        name: 'Gemini Free',
+                        baseUrl: 'https://gemini.example.com',
+                        freeQuota: 500,
+                        features: ['text', 'free', 'ai']
+                    },
+                    {
+                        name: 'Llama 2 Free',
+                        baseUrl: 'https://llama2.example.com',
+                        freeQuota: 200,
+                        features: ['text', 'free', 'ai']
+                    }
+                ];
+                resolve(services);
+            }, 2000);
+        });
+    }
+}
+
+function createCloudflareOrchestrator() {
+    return {
+        processRequest: async (request: AIRequest) => {
+            // Simulate Cloudflare processing
+            return {
+                content: `[Cloudflare] Processed: ${request.prompt}`,
+                model: 'cloudflare-llm',
+                provider: 'Cloudflare',
+                tokensUsed: 10,
+                timestamp: new Date()
+            };
+        }
+    };
 }
 
 export { AIOrchestrator, type AIRequest, type AIResponse };

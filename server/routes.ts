@@ -38,14 +38,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { category } = req.query;
       let products = await storage.getProducts();
-      
+
       if (category && category !== 'all') {
         const categoryRecord = await storage.getCategoryBySlug(category as string);
         if (categoryRecord) {
           products = products.filter(p => p.categoryId === categoryRecord.id);
         }
       }
-      
+
       res.json(products);
     } catch (error: any) {
       console.error("Error fetching products:", error);
@@ -114,12 +114,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const id = parseInt(req.params.id);
       const { quantity } = req.body;
-      
+
       if (quantity <= 0) {
         await storage.removeFromCart(id);
         return res.json({ message: "Item removed from cart" });
       }
-      
+
       const updatedItem = await storage.updateCartItemQuantity(id, quantity);
       res.json(updatedItem);
     } catch (error: any) {
@@ -144,11 +144,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const productId = parseInt(req.params.productId);
       const product = await storage.getProduct(productId);
-      
+
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
-      
+
       const etsyLink = getEtsyLinkForProduct(product.name);
       res.json({ etsyLink });
     } catch (error: any) {
@@ -161,7 +161,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/contact", async (req, res) => {
     try {
       const result = insertContactSubmissionSchema.safeParse(req.body);
-      
+
       if (!result.success) {
         return res.status(400).json({ 
           message: "Invalid contact form data", 
@@ -223,7 +223,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         ]
       };
-      
+
       res.json(aiStatus);
     } catch (error: any) {
       console.error("AI Status error:", error);
@@ -235,7 +235,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/ai/chat", async (req, res) => {
     try {
       const { message, context } = req.body;
-      
+
       if (!message || typeof message !== 'string') {
         return res.status(400).json({ error: "Message is required" });
       }
@@ -284,6 +284,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ error: "Internal server error" });
     }
   });
+
+  // HA and service discovery monitoring
+  app.get('/api/ha/status', async (req, res) => {
+    const aiAgent = req.app.locals.aiAgent;
+    if (!aiAgent) {
+      return res.status(503).json({ error: 'AI agent not available' });
+    }
+
+    const endpoints = aiAgent.getAvailableEndpoints();
+    const circuitBreakers = aiAgent.circuitBreakers || new Map();
+
+    const status = {
+      totalEndpoints: endpoints.length,
+      availableEndpoints: endpoints.filter(e => e.isAvailable).length,
+      freeEndpoints: endpoints.filter(e => e.cost === 0).length,
+      circuitBreakers: Array.from(circuitBreakers.entries()).map(([name, breaker]) => ({
+        name,
+        isOpen: breaker.isOpen,
+        failures: breaker.failures,
+        lastFailure: breaker.lastFailure
+      })),
+      serviceTypes: {
+        text: endpoints.filter(e => e.features.includes('text')).length,
+        image: endpoints.filter(e => e.features.includes('image')).length,
+        audio: endpoints.filter(e => e.features.includes('audio')).length
+      },
+      healthCheck: {
+        timestamp: new Date(),
+        memoryUsage: process.memoryUsage(),
+        uptime: process.uptime()
+      }
+    };
+
+    res.json(status);
+  });
+
+  // Get cloudflare performance metrics
+  app.get('/api/cloudflare/performance', async (req, res) => {
 
   return httpServer;
 }
