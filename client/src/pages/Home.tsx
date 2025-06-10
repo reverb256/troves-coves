@@ -41,8 +41,8 @@ export default function Home() {
         type="website"
       />
 
-      {/* Hero Section with Authentic Skull Artwork Influence */}
-      <section className="relative py-20 md:py-32 flex items-center justify-center overflow-hidden bg-background">
+      {/* Hero Section with Warm Cream Aesthetic */}
+      <section className="relative py-20 md:py-32 flex items-center justify-center overflow-hidden" style={{ background: 'hsl(var(--background))' }}>
         {/* Organic Background with Crystal Elements */}
         <div className="absolute inset-0">
           {/* Floating Crystal Shapes */}
@@ -85,42 +85,42 @@ export default function Home() {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           {/* Badge */}
-          <Badge className="mb-6 px-6 py-2 text-sm font-black tracking-wider uppercase inline-flex items-center whitespace-nowrap bg-white border-4 border-black text-black">
-            <MapPin className="h-3 w-3 mr-2 flex-shrink-0 text-black" />
-            <span className="text-black font-black">Winnipeg's Sacred Crystal Sanctuary</span>
+          <Badge className="mb-6 px-6 py-2 text-sm font-semibold tracking-wider uppercase inline-flex items-center whitespace-nowrap badge">
+            <MapPin className="h-3 w-3 mr-2 flex-shrink-0" />
+            <span className="font-semibold">Winnipeg's Sacred Crystal Sanctuary</span>
           </Badge>
 
           {/* Authentic Brand Heading from Wooden Sign */}
           <h1 className="text-display text-5xl md:text-7xl lg:text-8xl mb-6 tracking-tight">
             <span className="block mb-2">
-              <span className="troves-text-style font-black">Troves</span>
-              <span className="text-black mx-4 font-black">&</span>
-              <span className="coves-text-style font-black">Coves</span>
+              <span className="troves-text-style">Troves</span>
+              <span className="mx-4 font-bold text-high-contrast">&</span>
+              <span className="coves-text-style">Coves</span>
             </span>
-            <span className="block text-3xl md:text-4xl lg:text-5xl text-black font-bold tracking-wide">
+            <span className="block text-3xl md:text-4xl lg:text-5xl text-high-contrast font-semibold tracking-wide">
               Handcrafted Crystal Jewellery
             </span>
           </h1>
 
           {/* Description */}
-          <p className="text-body text-xl md:text-2xl text-black font-black max-w-3xl mx-auto mb-8 leading-relaxed">
+          <p className="text-body text-xl md:text-2xl text-readable max-w-3xl mx-auto mb-8 leading-relaxed">
             Where sacred gemstone energies merge with artisan craftsmanship. Each piece channels ancient crystal wisdom 
             to amplify your inner light, promote spiritual healing, and guide your soul's awakening journey.
           </p>
 
           {/* Features with Wire-Wrap Aesthetic */}
           <div className="flex flex-wrap justify-center gap-6 mb-12">
-            <div className="bg-white border-4 border-black rounded-lg flex items-center gap-2 px-4 py-2">
-              <Sparkles className="h-4 w-4 text-black" />
-              <span className="text-sm font-black text-black">Sacred Wire-Wrapping</span>
+            <div className="badge secondary rounded-lg flex items-center gap-2 px-4 py-2">
+              <Sparkles className="h-4 w-4" />
+              <span className="text-sm font-semibold">Sacred Wire-Wrapping</span>
             </div>
-            <div className="bg-white border-4 border-black rounded-lg flex items-center gap-2 px-4 py-2">
-              <Gem className="h-4 w-4 text-black" />
-              <span className="text-sm font-black text-black">Genuine Earth Crystals</span>
+            <div className="badge secondary rounded-lg flex items-center gap-2 px-4 py-2">
+              <Gem className="h-4 w-4" />
+              <span className="text-sm font-semibold">Genuine Earth Crystals</span>
             </div>
-            <div className="bg-white border-4 border-black rounded-lg flex items-center gap-2 px-4 py-2">
-              <Heart className="h-4 w-4 text-black" />
-              <span className="text-sm font-black text-black">Metaphysical Healing</span>
+            <div className="badge secondary rounded-lg flex items-center gap-2 px-4 py-2">
+              <Heart className="h-4 w-4" />
+              <span className="text-sm font-semibold">Metaphysical Healing</span>
             </div>
           </div>
 
