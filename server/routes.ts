@@ -383,11 +383,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Message or prompt is required" });
       }
 
-      // Use free API auto-discovery for AI processing
+      // Use enhanced crystal consultation system
       let response, reasoning, sentiment, recommendations;
 
-      // Process with our enhanced free API system
-      const aiResult = await processWithFreeAPISystem(userMessage, context);
+      // Process with enhanced local intelligence
+      const aiResult = await processWithEnhancedSystem(userMessage, context);
       response = aiResult.response;
       reasoning = aiResult.reasoning;
       sentiment = aiResult.sentiment;
