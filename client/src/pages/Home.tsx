@@ -41,8 +41,8 @@ export default function Home() {
         type="website"
       />
 
-      {/* Hero Section with Warm Cream Aesthetic */}
-      <section className="relative py-20 md:py-32 flex items-center justify-center overflow-hidden" style={{ background: 'hsl(var(--background))' }}>
+      {/* Hero Section with Authentic Skull Artwork Influence */}
+      <section className="relative py-20 md:py-32 flex items-center justify-center overflow-hidden bg-background">
         {/* Organic Background with Crystal Elements */}
         <div className="absolute inset-0">
           {/* Floating Crystal Shapes */}
@@ -85,42 +85,42 @@ export default function Home() {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           {/* Badge */}
-          <Badge className="mb-6 px-6 py-2 text-sm font-semibold tracking-wider uppercase inline-flex items-center whitespace-nowrap badge">
+          <Badge className="glass-jewelry mb-6 px-6 py-2 text-sm font-medium tracking-wider uppercase highlight-rose-quartz inline-flex items-center whitespace-nowrap">
             <MapPin className="h-3 w-3 mr-2 flex-shrink-0" />
-            <span className="font-semibold">Winnipeg's Sacred Crystal Sanctuary</span>
+            <span>Winnipeg's Sacred Crystal Sanctuary</span>
           </Badge>
 
           {/* Authentic Brand Heading from Wooden Sign */}
           <h1 className="text-display text-5xl md:text-7xl lg:text-8xl mb-6 tracking-tight">
             <span className="block mb-2">
               <span className="troves-text-style">Troves</span>
-              <span className="mx-4 font-bold text-high-contrast">&</span>
+              <span className="text-ornate-frame-gold mx-4">&</span>
               <span className="coves-text-style">Coves</span>
             </span>
-            <span className="block text-3xl md:text-4xl lg:text-5xl text-high-contrast font-semibold tracking-wide">
+            <span className="block text-3xl md:text-4xl lg:text-5xl text-foreground-muted font-normal tracking-wide">
               Handcrafted Crystal Jewellery
             </span>
           </h1>
 
           {/* Description */}
-          <p className="text-body text-xl md:text-2xl text-readable max-w-3xl mx-auto mb-8 leading-relaxed">
+          <p className="text-body text-xl md:text-2xl text-foreground-muted max-w-3xl mx-auto mb-8 leading-relaxed">
             Where sacred gemstone energies merge with artisan craftsmanship. Each piece channels ancient crystal wisdom 
             to amplify your inner light, promote spiritual healing, and guide your soul's awakening journey.
           </p>
 
           {/* Features with Wire-Wrap Aesthetic */}
           <div className="flex flex-wrap justify-center gap-6 mb-12">
-            <div className="badge secondary rounded-lg flex items-center gap-2 px-4 py-2">
-              <Sparkles className="h-4 w-4" />
-              <span className="text-sm font-semibold">Sacred Wire-Wrapping</span>
+            <div className="pendant-style flex items-center gap-2 px-4 py-2">
+              <Sparkles className="h-4 w-4" style={{ color: 'hsl(var(--wire-gold))' }} />
+              <span className="text-sm font-medium">Sacred Wire-Wrapping</span>
             </div>
-            <div className="badge secondary rounded-lg flex items-center gap-2 px-4 py-2">
-              <Gem className="h-4 w-4" />
-              <span className="text-sm font-semibold">Genuine Earth Crystals</span>
+            <div className="pendant-style flex items-center gap-2 px-4 py-2">
+              <Gem className="h-4 w-4" style={{ color: 'hsl(var(--turquoise-deep))' }} />
+              <span className="text-sm font-medium">Genuine Earth Crystals</span>
             </div>
-            <div className="badge secondary rounded-lg flex items-center gap-2 px-4 py-2">
-              <Heart className="h-4 w-4" />
-              <span className="text-sm font-semibold">Metaphysical Healing</span>
+            <div className="pendant-style flex items-center gap-2 px-4 py-2">
+              <Heart className="h-4 w-4" style={{ color: 'hsl(var(--carnelian-orange))' }} />
+              <span className="text-sm font-medium">Metaphysical Healing</span>
             </div>
           </div>
 
@@ -141,22 +141,22 @@ export default function Home() {
           </div>
 
           {/* Quick Navigation Pills */}
-          <div className="flex flex-wrap justify-center gap-3 mt-8 pt-8 border-t border-black/20">
+          <div className="flex flex-wrap justify-center gap-3 mt-8 pt-8 border-t border-white/10">
             <Link href="/products/healing-crystals">
-              <Badge className="bg-white border-2 border-black text-black font-bold cursor-pointer px-4 py-2 hover:bg-gray-100">
-                <Heart className="h-3 w-3 mr-1 text-black" />
+              <Badge className="pendant-style badge-interactive hover-sparkle cursor-pointer px-4 py-2">
+                <Heart className="h-3 w-3 mr-1" />
                 Healing Stones
               </Badge>
             </Link>
             <Link href="/products/wire-wrapped">
-              <Badge className="bg-white border-2 border-black text-black font-bold cursor-pointer px-4 py-2 hover:bg-gray-100">
-                <Crown className="h-3 w-3 mr-1 text-black" />
+              <Badge className="pendant-style badge-interactive hover-sparkle cursor-pointer px-4 py-2">
+                <Crown className="h-3 w-3 mr-1" />
                 Wire Wrapped
               </Badge>
             </Link>
             <Link href="/contact">
-              <Badge className="bg-white border-2 border-black text-black font-bold cursor-pointer px-4 py-2 hover:bg-gray-100">
-                <MapPin className="h-3 w-3 mr-1 text-black" />
+              <Badge className="pendant-style badge-interactive hover-sparkle cursor-pointer px-4 py-2">
+                <MapPin className="h-3 w-3 mr-1" />
                 Connect Online
               </Badge>
             </Link>
@@ -243,8 +243,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section with Maximum Contrast */}
-      <section className="py-24 bg-white">
+      {/* Features Section with Beaded Pattern */}
+      <section className="py-24 bg-gradient-to-br from-background-secondary to-background-tertiary">
         <div className="container-jewelry">
           <div className="text-center mb-16">
             <h2 className="text-display text-4xl md:text-5xl mb-6">
@@ -287,9 +287,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section with Maximum Contrast */}
-      <section className="py-24 relative overflow-hidden bg-white">
-        <div className="absolute inset-0 bg-white"></div>
+      {/* CTA Section with Obsidian Elements */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background-secondary to-background-tertiary"></div>
         <div className="absolute top-10 right-10 obsidian-arrowhead w-16 h-20 opacity-10"></div>
         <div className="absolute bottom-20 left-20 obsidian-arrowhead w-12 h-16 opacity-15"></div>
         

@@ -23,7 +23,6 @@ import Returns from "@/pages/Returns";
 import Financing from "@/pages/Financing";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import NotFound from "@/pages/not-found";
-import { AccessibilityProvider, AccessibilityToolbar } from "@/components/AccessibilityProvider";
 
 function Router() {
   return (
@@ -81,15 +80,12 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AccessibilityProvider>
-        <TooltipProvider>
-          <CartProvider>
-            <Toaster />
-            <Router />
-            <AccessibilityToolbar />
-          </CartProvider>
-        </TooltipProvider>
-      </AccessibilityProvider>
+      <TooltipProvider>
+        <CartProvider>
+          <Toaster />
+          <Router />
+        </CartProvider>
+      </TooltipProvider>
     </QueryClientProvider>
   );
 }
