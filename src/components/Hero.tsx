@@ -2,17 +2,17 @@ import React from 'react';
 
 const Hero: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-600 to-purple-500 flex items-center justify-center">
-      <div className="bg-white/20 backdrop-blur-lg border border-white/30 rounded-2xl p-8 shadow-xl max-w-md w-full">
-        <h1 className="text-4xl font-bold text-white mb-4">Vite 2025 Vibecode</h1>
-        <p className="text-white/80 text-lg">
-          A cutting-edge website with glassmorphism and container layouts.
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-100 via-primary-300 to-primary-500">
+      <div className="bg-surface-100/80 shadow-2xl rounded-3xl border border-outline-variant p-10 max-w-xl w-full flex flex-col items-center gap-6">
+        <h1 className="text-5xl font-display font-extrabold text-primary-900 mb-2 tracking-tight">Material You Hero</h1>
+        <p className="text-lg text-on-surface-variant mb-4 text-center">
+          Beautiful, adaptive, and accessible UI inspired by Material 3. Customize your experience with vibrant color palettes and modern surfaces.
         </p>
-        <button className="mt-6 bg-white/30 hover:bg-white/40 text-white py-2 px-4 rounded-lg transition">
-          Explore Now
+        <button className="mt-2 px-8 py-3 rounded-full bg-primary-600 hover:bg-primary-700 text-white font-semibold shadow-lg transition-all duration-200">
+          Get Started
         </button>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -2,19 +2,22 @@ import React from 'react';
 
 const Dashboard: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-900 p-8">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+    <section className="min-h-screen bg-surface-50 p-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 hover:shadow-2xl transition"
+            className="bg-surface-100 rounded-3xl border border-outline-variant shadow-xl p-8 flex flex-col items-center hover:shadow-2xl transition-all"
           >
-            <h2 className="text-2xl font-semibold text-white mb-2">Card {i}</h2>
-            <p className="text-white/70">Dynamic content for your Vite app.</p>
+            <h2 className="text-2xl font-bold text-primary-800 mb-2">Card {i}</h2>
+            <p className="text-on-surface-variant mb-2">Material You inspired dashboard card.</p>
+            <button className="mt-4 px-6 py-2 rounded-full bg-primary-600 hover:bg-primary-700 text-white font-medium shadow transition-all">
+              Action
+            </button>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

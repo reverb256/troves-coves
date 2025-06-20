@@ -30,23 +30,54 @@
   </head>
   <body class="min-h-screen font-sans text-gray-900">
     <div class="fixed inset-0 -z-10 animated-gradient opacity-70"></div>
-    <header class="bg-gold-300/80 border-b-4 border-silver-300 shadow-xl glass">
-      <div class="max-w-6xl mx-auto flex items-center justify-between px-8 py-6">
-        <h1 class="font-display text-4xl md:text-5xl text-gold-700 tracking-tight drop-shadow-lg flex items-center gap-2">
-          <span class="text-gold-500 animate-pulse">Troves</span>
-          <span class="text-turquoise-500 italic font-cursive text-3xl md:text-4xl animate-bounce">&</span>
-          <span class="text-teal-600">Coves</span>
+    <header class="bg-primary-100/80 border-b border-outline-variant shadow-xl rounded-b-3xl">
+      <div class="max-w-6xl mx-auto flex items-center justify-between px-8 py-8">
+        <h1 class="font-display text-5xl font-extrabold text-primary-900 tracking-tight flex items-center gap-2">
+          <span class="text-primary-700">Troves</span>
+          <span class="italic font-cursive text-4xl text-primary-400">&</span>
+          <span class="text-primary-600">Coves</span>
         </h1>
         <nav class="space-x-8">
-          <a href="#" class="text-silver-700 hover:text-gold-700 font-semibold transition-all duration-200 underline-offset-4 hover:underline">Home</a>
-          <a href="#" class="text-silver-700 hover:text-turquoise-600 font-semibold transition-all duration-200 underline-offset-4 hover:underline">Shop</a>
-          <a href="#" class="text-silver-700 hover:text-teal-600 font-semibold transition-all duration-200 underline-offset-4 hover:underline">About</a>
-          <a href="#" class="text-silver-700 hover:text-gold-600 font-semibold transition-all duration-200 underline-offset-4 hover:underline">Contact</a>
+          <a href="#" class="text-on-surface-variant hover:text-primary-700 font-semibold transition-all duration-200 underline-offset-4 hover:underline">Home</a>
+          <a href="#" class="text-on-surface-variant hover:text-primary-500 font-semibold transition-all duration-200 underline-offset-4 hover:underline">Shop</a>
+          <a href="#" class="text-on-surface-variant hover:text-primary-600 font-semibold transition-all duration-200 underline-offset-4 hover:underline">About</a>
+          <a href="#" class="text-on-surface-variant hover:text-primary-400 font-semibold transition-all duration-200 underline-offset-4 hover:underline">Contact</a>
         </nav>
       </div>
     </header>
-    <main>
-      <div id="root"></div>
+    <main class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-primary-100 via-primary-300 to-primary-500">
+      <section class="bg-surface-100/80 shadow-2xl rounded-3xl border border-outline-variant p-10 max-w-xl w-full flex flex-col items-center gap-6 mt-16 mb-12">
+        <h2 class="text-5xl font-display font-extrabold text-primary-900 mb-2 tracking-tight">Material You Hero</h2>
+        <p class="text-lg text-on-surface-variant mb-4 text-center">
+          Beautiful, adaptive, and accessible UI inspired by Material 3. Customize your experience with vibrant color palettes and modern surfaces.
+        </p>
+        <button class="mt-2 px-8 py-3 rounded-full bg-primary-600 hover:bg-primary-700 text-white font-semibold shadow-lg transition-all duration-200">
+          Get Started
+        </button>
+      </section>
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
+        <div class="bg-surface-100 rounded-3xl border border-outline-variant shadow-xl p-8 flex flex-col items-center hover:shadow-2xl transition-all">
+          <h3 class="text-2xl font-bold text-primary-800 mb-2">Card 1</h3>
+          <p class="text-on-surface-variant mb-2">Material You inspired dashboard card.</p>
+          <button class="mt-4 px-6 py-2 rounded-full bg-primary-600 hover:bg-primary-700 text-white font-medium shadow transition-all">
+            Action
+          </button>
+        </div>
+        <div class="bg-surface-100 rounded-3xl border border-outline-variant shadow-xl p-8 flex flex-col items-center hover:shadow-2xl transition-all">
+          <h3 class="text-2xl font-bold text-primary-800 mb-2">Card 2</h3>
+          <p class="text-on-surface-variant mb-2">Material You inspired dashboard card.</p>
+          <button class="mt-4 px-6 py-2 rounded-full bg-primary-600 hover:bg-primary-700 text-white font-medium shadow transition-all">
+            Action
+          </button>
+        </div>
+        <div class="bg-surface-100 rounded-3xl border border-outline-variant shadow-xl p-8 flex flex-col items-center hover:shadow-2xl transition-all">
+          <h3 class="text-2xl font-bold text-primary-800 mb-2">Card 3</h3>
+          <p class="text-on-surface-variant mb-2">Material You inspired dashboard card.</p>
+          <button class="mt-4 px-6 py-2 rounded-full bg-primary-600 hover:bg-primary-700 text-white font-medium shadow transition-all">
+            Action
+          </button>
+        </div>
+      </section>
     </main>
     <footer class="bg-gold-200/80 border-t-2 border-silver-200 mt-24 py-8 text-center glass">
       <span class="text-silver-700 text-lg">&copy; 2025 Troves & Coves. All rights reserved.</span>
