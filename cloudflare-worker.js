@@ -10,9 +10,15 @@ export default {
     const { pathname } = url;
     
     // Free tier request tracking
+    // --- FREE TIER ENFORCEMENT ---
+    const maxRequests = parseInt(env.MAX_REQUESTS_PER_DAY || '90000');
     const requestCount = await checkRequestLimit(env);
-    if (requestCount >= parseInt(env.MAX_REQUESTS_PER_DAY || '90000')) {
+    if (requestCount >= maxRequests) {
       return await handleRateLimited(request, env);
+    }
+    // Optional: degrade features if above 80% of limit
+    if (requestCount > Math.floor(maxRequests * 0.8)) {
+      env.DEGRADE_MODE = 'true';
     }
 
     // Optimized CORS headers with caching
