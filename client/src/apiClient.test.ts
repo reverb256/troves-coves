@@ -1,16 +1,45 @@
-// TypeScript
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { apiFetch } from './apiClient';
 
-import { apiFetch } from "./apiClient";
+// Mock fetch globally
+global.fetch = vi.fn();
 
-async function testApiClient() {
-  try {
-    const result = await apiFetch("/api/health");
-    // eslint-disable-next-line no-console
-    console.log("API fetch succeeded:", result);
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error("API fetch failed after failover attempts:", err);
-  }
-}
+describe('API Client', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
-testApiClient();
+  it('should make a successful API call', async () => {
+    const mockResponse = { success: true, data: 'test' };
+    
+    (global.fetch as any).mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockResponse,
+    });
+
+    const result = await apiFetch('/api/test');
+    expect(result).toEqual(mockResponse);
+  });
+
+  it('should retry on failure', async () => {
+    const mockResponse = { success: true, data: 'test' };
+    
+    // First call fails, second succeeds
+    (global.fetch as any)
+      .mockRejectedValueOnce(new Error('Network error'))
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockResponse,
+      });
+
+    const result = await apiFetch('/api/test');
+    expect(result).toEqual(mockResponse);
+    expect(global.fetch).toHaveBeenCalledTimes(2);
+  });
+
+  it('should throw error after all retries fail', async () => {
+    (global.fetch as any).mockRejectedValue(new Error('Network error'));
+
+    await expect(apiFetch('/api/test')).rejects.toThrow('Network error');
+  });
+});
