@@ -24,40 +24,10 @@ import Financing from "@/pages/Financing";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import NotFound from "@/pages/not-found";
 
-import { useState } from "react";
-import { apiFetch } from "./apiClient";
-
 function Router() {
-  const [apiResult, setApiResult] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  async function handleTestApi() {
-    setLoading(true);
-    setApiResult(null);
-    try {
-      const result = await apiFetch("/api/health");
-      setApiResult(JSON.stringify(result));
-    } catch (err: any) {
-      setApiResult("Error: " + (err?.message || String(err)));
-    }
-    setLoading(false);
-  }
-
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <div className="bg-yellow-100 border-b border-yellow-300 p-2 flex items-center gap-2">
-        <button
-          onClick={handleTestApi}
-          className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
-          disabled={loading}
-        >
-          {loading ? "Testing API..." : "Test API Failover"}
-        </button>
-        {apiResult && (
-          <span className="ml-2 text-sm text-gray-800 break-all">{apiResult}</span>
-        )}
-      </div>
       <main className="flex-1">
         <Switch>
           <Route path="/" component={Home} />
