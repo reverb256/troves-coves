@@ -11,13 +11,12 @@ compatibility_flags = [ "nodejs_compat" ]
 # GitHub Pages + Cloudflare orchestration configuration
 [env.production]
 name = "troves-coves-api-prod"
-# Custom domain routes (configure these in Cloudflare dashboard)
-routes = [
-  { pattern = "api.trovesandcoves.ca/*", zone_name = "trovesandcoves.ca" },
-  { pattern = "trovesandcoves.ca/api/*", zone_name = "trovesandcoves.ca" },
-  { pattern = "trovesandcoves.ca/ai/*", zone_name = "trovesandcoves.ca" },
-  { pattern = "trovesandcoves.ca/analytics/*", zone_name = "trovesandcoves.ca" }
-]
+# Routes will be configured manually in Cloudflare dashboard
+# Commenting out for now to avoid deployment issues
+# routes = [
+#   { pattern = "api.trovesandcoves.ca/*", zone_name = "trovesandcoves.ca" },
+#   { pattern = "trovesandcoves.ca/api/*", zone_name = "trovesandcoves.ca" }
+# ]
 
 # Free tier KV storage - 1GB total limit across all namespaces
 [[env.production.kv_namespaces]]
