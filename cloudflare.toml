@@ -25,6 +25,10 @@ id = "cart_namespace_prod"
 binding = "ANALYTICS_KV"
 id = "analytics_namespace_prod"
 
+[[env.production.kv_namespaces]]
+binding = "TROVES_CACHE"
+id = "f86192bec4af4f86a8d467b2e565541e"
+
 [env.development]
 name = "troves-coves-api-dev"
 
@@ -39,6 +43,10 @@ id = "cart_namespace_dev"
 [[env.development.kv_namespaces]]
 binding = "ANALYTICS_KV"
 id = "analytics_namespace_dev"
+
+[[env.development.kv_namespaces]]
+binding = "TROVES_CACHE"
+id = "f86192bec4af4f86a8d467b2e565541e"
 
 [vars]
 ENVIRONMENT = "github-pages-cloudflare"
