@@ -91,21 +91,22 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
-  # Setup Cloudflare KV namespaces (free tier optimization)
+  # Setup Cloudflare KV namespaces
   setup-kv-namespaces:
     runs-on: ubuntu-latest
+    needs: deploy-cloudflare-worker
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Setup Cloudflare KV namespaces
+      - name: Create KV namespaces
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: |
-            kv:namespace create "PRODUCTS_KV" --preview false || true
-            kv:namespace create "CART_KV" --preview false || true  
-            kv:namespace create "ANALYTICS_KV" --preview false || true
-            kv:namespace create "TROVES_CACHE" --preview false || true
+            kv:namespace create "PRODUCTS_KV" --preview false || echo "PRODUCTS_KV already exists"
+            kv:namespace create "CART_KV" --preview false || echo "CART_KV already exists"  
+            kv:namespace create "ANALYTICS_KV" --preview false || echo "ANALYTICS_KV already exists"
+            kv:namespace create "TROVES_CACHE" --preview false || echo "TROVES_CACHE already exists"
