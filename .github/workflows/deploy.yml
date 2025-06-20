@@ -111,12 +111,7 @@ jobs:
 
       - name: Ensure DNS records in Cloudflare
         run: |
-          # Set CNAME for root domain (flattened by Cloudflare)
-          curl -X PATCH "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/dns_records" \
-            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            --data '{"type":"CNAME","name":"trovesandcoves.ca","content":"trovesandcoves.github.io","proxied":true}' || true
-
+          # Only automate CNAME for www and api (apex uses A/AAAA records per GitHub Pages docs)
           # Set CNAME for www
           curl -X PATCH "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/dns_records" \
             -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
@@ -128,6 +123,9 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
             -H "Content-Type: application/json" \
             --data '{"type":"CNAME","name":"api","content":"troves-coves-api.reverb256.workers.dev","proxied":true}' || true
+
+          # Optionally, check for correct A/AAAA records for apex (trovesandcoves.ca)
+          # (Do not attempt to set CNAME for apex/root domain)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
