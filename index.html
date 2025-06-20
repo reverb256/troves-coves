@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troves & Coves - Mystical Crystal Jewelry</title>
+    <meta name="description" content="Discover authentic wire-wrapped crystal jewelry for healing and spiritual growth. Handcrafted with intention and mystical energy.">
+    
+    <style>
+        :root {
+            --troves-turquoise: #14B8A6;
+            --coves-cursive-blue: #3B82F6;
+            --skull-turquoise: #06B6D4;
+            --ornate-frame-gold: #F59E0B;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --text-light: #F9FAFB;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F3F4F6;
+            --bg-dark: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            padding: 1rem 0;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--troves-turquoise) 0%, var(--coves-cursive-blue) 50%, var(--skull-turquoise) 100%);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+
+        .troves {
+            color: var(--troves-turquoise);
+            font-family: 'Impact', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .coves {
+            color: var(--coves-cursive-blue);
+            font-family: 'Brush Script MT', cursive;
+            font-style: italic;
+            margin-left: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--troves-turquoise);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1F2937 100%);
+            color: var(--text-light);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--troves-turquoise), var(--coves-cursive-blue));
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(20, 184, 166, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(20, 184, 166, 0.4);
+        }
+
+        .features {
+            padding: 4rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--troves-turquoise);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--troves-turquoise);
+        }
+
+        .products {
+            padding: 4rem 0;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: var(--bg-primary);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, var(--troves-turquoise), var(--skull-turquoise));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-price {
+            color: var(--troves-turquoise);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .footer {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            padding: 3rem 0 1rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--troves-turquoise) 0%, var(--coves-cursive-blue) 50%, var(--skull-turquoise) 100%);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--troves-turquoise);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: var(--text-light);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--troves-turquoise);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            color: var(--text-secondary);
+        }
+
+        .demo-badge {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--ornate-frame-gold);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            .features-grid,
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-badge">DEMO VERSION</div>
+
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="logo">
+                <span class="troves">TROVES</span>
+                <span class="coves">Coves</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Sacred Crystal Sanctuary</h1>
+                <p>Discover authentic wire-wrapped crystal jewelry crafted with intention and mystical energy. Each piece is designed to enhance your spiritual journey and healing practice.</p>
+                <a href="#full-platform" class="cta-button">Experience Full Platform</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: var(--text-primary);">Platform Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Enterprise Security</h3>
+                    <p>OWASP and ISO 27001 compliant security framework protecting customer data with bank-level encryption.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Integration</h3>
+                    <p>Multi-LLM orchestration with personalized crystal recommendations and automated customer service.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Performance Optimized</h3>
+                    <p>Cloudflare edge deployment with global CDN ensuring fast loading times worldwide.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="products">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Crystal Collection Showcase</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">Amethyst Pendant</div>
+                    <div class="product-info">
+                        <h3>Wire Wrapped Amethyst Pendant</h3>
+                        <p>Third eye chakra activation and spiritual protection</p>
+                        <div class="product-price">$45 CAD</div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">Rose Quartz Ring</div>
+                    <div class="product-info">
+                        <h3>Rose Quartz Heart Ring</h3>
+                        <p>Unconditional love and emotional healing</p>
+                        <div class="product-price">$38 CAD</div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">Clear Quartz Necklace</div>
+                    <div class="product-info">
+                        <h3>Clear Quartz Master Healer</h3>
+                        <p>Amplification and spiritual clarity</p>
+                        <div class="product-price">$52 CAD</div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">Citrine Earrings</div>
+                    <div class="product-info">
+                        <h3>Citrine Abundance Earrings</h3>
+                        <p>Manifestation and prosperity energy</p>
+                        <div class="product-price">$41 CAD</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="features">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Technical Excellence</h2>
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                    This production-ready e-commerce platform combines mystical brand authenticity with enterprise-grade technology. Built with React 18, Node.js, and TypeScript for maximum performance and security.
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0;">
+                    <div style="background: var(--troves-turquoise); color: white; padding: 1rem; border-radius: 10px;">React 18 Frontend</div>
+                    <div style="background: var(--coves-cursive-blue); color: white; padding: 1rem; border-radius: 10px;">Node.js Backend</div>
+                    <div style="background: var(--skull-turquoise); color: white; padding: 1rem; border-radius: 10px;">TypeScript</div>
+                    <div style="background: var(--ornate-frame-gold); color: white; padding: 1rem; border-radius: 10px;">Cloudflare Edge</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="full-platform" style="background: var(--bg-dark); color: var(--text-light); padding: 4rem 0; text-align: center;">
+        <div class="container">
+            <h2 style="margin-bottom: 1rem; color: var(--troves-turquoise);">Experience the Full Platform</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                This static demo showcases the brand aesthetic and design system. The complete platform features full e-commerce functionality, AI integration, and enterprise security compliance.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 2rem;">
+                <span style="background: var(--troves-turquoise); padding: 0.5rem 1rem; border-radius: 20px;">Shopping Cart</span>
+                <span style="background: var(--coves-cursive-blue); padding: 0.5rem 1rem; border-radius: 20px;">Contact Forms</span>
+                <span style="background: var(--skull-turquoise); padding: 0.5rem 1rem; border-radius: 20px;">AI Recommendations</span>
+                <span style="background: var(--ornate-frame-gold); padding: 0.5rem 1rem; border-radius: 20px;">Etsy Integration</span>
+            </div>
+            <a href="https://replit.com/@username/troves-coves" class="cta-button" style="margin-right: 1rem;" target="_blank">Launch Full Platform</a>
+            <a href="https://replit.com/@username/troves-coves/contact" class="cta-button" style="background: var(--ornate-frame-gold);" target="_blank">Shop Now</a>
+        </div>
+    </section>
+
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Platform Demo</h3>
+                    <p>This static version demonstrates the brand design system and visual hierarchy of the full e-commerce platform.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Full Features</h3>
+                    <p>The complete platform includes shopping cart, secure checkout, AI customer service, and comprehensive product management.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Technical Stack</h3>
+                    <p>Built with modern web technologies and optimized for performance, security, and scalability.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Troves & Coves Demo. Authentic mystical branding with enterprise technology.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(17, 24, 39, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'var(--bg-dark)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('click', function() {
+                alert('This is a demo version. The full platform includes shopping cart and checkout functionality.');
+            });
+        });
+
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('/')) {
+                    e.preventDefault();
+                    alert('Visit the full platform on Replit for complete functionality!');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
