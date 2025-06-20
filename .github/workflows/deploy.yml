@@ -110,33 +110,29 @@ jobs:
         run: npm ci
       
       - name: Create PRODUCTS_KV namespace
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: kv:namespace create "PRODUCTS_KV" --preview false
+        run: npx wrangler kv namespace create PRODUCTS_KV --binding=PRODUCTS_KV
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         continue-on-error: true
-      
+
       - name: Create CART_KV namespace
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: kv:namespace create "CART_KV" --preview false
+        run: npx wrangler kv namespace create CART_KV --binding=CART_KV
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         continue-on-error: true
-      
+
       - name: Create ANALYTICS_KV namespace
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: kv:namespace create "ANALYTICS_KV" --preview false
+        run: npx wrangler kv namespace create ANALYTICS_KV --binding=ANALYTICS_KV
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         continue-on-error: true
-      
+
       - name: Create TROVES_CACHE namespace
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: kv:namespace create "TROVES_CACHE" --preview false
+        run: npx wrangler kv namespace create TROVES_CACHE --binding=TROVES_CACHE
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         continue-on-error: true
