@@ -1,227 +1,135 @@
-# Troves & Coves - Mystical Crystal Jewelry E-commerce Platform
-## Production-Ready Sacred Sanctuary for Crystal Healing
+# Troves & Coves - Mystical Crystal Jewelry Platform
 
-🔒 **PRODUCTION READY** - Enterprise-grade e-commerce platform with OWASP + ISO 27001 security compliance, authentic mystical branding, and AI orchestration optimized for Cloudflare edge deployment.
+[![Deploy to GitHub Pages](https://github.com/reverb256/trovesandcoves/workflows/Deploy%20to%20GitHub%20Pages%20and%20Cloudflare%20Workers/badge.svg)](https://github.com/reverb256/trovesandcoves/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Authentic Brand Implementation:**
-- Wooden sign typography: "Troves" in turquoise print, "Coves" in cursive blue
-- Mystical skull artwork influence with refined ornate decorative frames
-- Sacred crystal sanctuary aesthetic with spiritual messaging
-- Complete wire-wrapped jewelry catalog with authentic product data
+A modern, full-stack e-commerce platform for authentic crystal jewelry, built with React, Node.js, and deployed on GitHub Pages + Cloudflare Workers.
 
-## 🌟 Live Platform Features
+## 🌟 Features
 
-- **✅ Contextual AI Intelligence** - Real-time behavior analysis with personalized crystal recommendations
-- **✅ Smart Product Insights** - Emotional resonance scoring, chakra alignment, and energetic profiling
-- **✅ Intelligent Shopping Flow** - Dynamic interventions based on user patterns and crystal affinity
-- **✅ Micro-Animation System** - Premium sparkle effects and crystal-inspired interactions
-- **✅ Sacred Crystal Catalog** - Authentic wire-wrapped jewelry with metaphysical properties
-- **✅ Mystical Design System** - Locked brand compliance with skull artwork and ornate frames
-- **✅ Moon Phase Optimization** - Timing recommendations based on lunar cycles and energy patterns
-- **✅ Canadian Compliance** - Data privacy protection with LLM sanitization
-- **✅ Mobile Responsive** - Optimized for all devices with touch-friendly navigation
-- **✅ Performance Enhanced** - Cloudflare CDN with intelligent caching strategies
+- **Modern Stack**: React 18, TypeScript, Node.js, Tailwind CSS
+- **Hybrid Deployment**: GitHub Pages (frontend) + Cloudflare Workers (API)
+- **AI Integration**: Personalized recommendations and customer service
+- **Enterprise Security**: OWASP compliant, secure payment processing
+- **Mobile Optimized**: Responsive design with PWA capabilities
+- **Zero Cost Hosting**: Maximizes free tiers of GitHub Pages and Cloudflare
 
-## 🏗️ Production Architecture
-
-### AI Orchestration Layer
-- **Multi-LLM Integration** - Anthropic, OpenAI, Perplexity with intelligent routing
-- **Cloudflare Edge Processing** - Maximum offloading to preserve Replit resources
-- **Privacy Protection** - Canadian compliance with data sanitization
-- **Brand Compliance** - Locked mystical design enforcement across all AI responses
-
-### Frontend (React + TypeScript)
-- **Mystical UI System** - Locked brand typography and color schemes
-- **Performance Optimized** - Cloudflare CDN with intelligent caching
-- **Mobile First** - Touch-optimized navigation with responsive design
-- **Sacred Shopping Experience** - Wire-wrapped jewelry catalog with spiritual properties
-
-### Backend (Replit Optimized)
-- **Resource Management** - 1 vCPU/512MB RAM constraints with memory monitoring
-- **Edge Integration** - Cloudflare KV caching for AI responses and product data
-- **Security Hardened** - Rate limiting, input validation, session protection
-- **Etsy Integration** - Seamless checkout redirection to authentic listings
-
-### Deployment Ready
-- **Replit Native** - Optimized for platform constraints with automatic scaling
-- **Environment Agnostic** - Works with or without external API keys
-- **Production Monitoring** - Memory usage tracking and performance metrics
-
-## 🚀 Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
-- npm or yarn package manager
+- Node.js 18+
+- Git
+- GitHub account
+- Cloudflare account (free tier)
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd troves-and-coves
-   ```
+```bash
+# Clone the repository
+git clone https://github.com/reverb256/trovesandcoves.git
+cd trovesandcoves
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+# Install dependencies
+npm install
 
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env
-   ```
-   
-   Configure the following environment variables:
-   ```env
-   # Optional - Stripe integration
-   STRIPE_SECRET_KEY=sk_...
-   VITE_STRIPE_PUBLIC_KEY=pk_...
-   
-   # Optional - AI features
-   OPENAI_API_KEY=sk-...
-   ANTHROPIC_API_KEY=sk-...
-   ```
+# Start development server
+npm run dev
+```
 
-4. **Start the development server**
-   ```bash
-   npm run dev
-   ```
+### Deployment
 
-5. **Open your browser**
-   Navigate to `http://localhost:5000`
+1. **Set up GitHub Pages**: Enable GitHub Actions in repository settings
+2. **Configure Cloudflare**: Add API tokens to GitHub secrets
+3. **Deploy**: Push to main branch triggers automatic deployment
+
+For detailed deployment instructions, see [Deployment Guide](docs/deployment/README.md).
 
 ## 📁 Project Structure
 
 ```
-├── client/                 # Frontend React application
+├── client/                 # React frontend application
 │   ├── src/
 │   │   ├── components/     # Reusable UI components
-│   │   ├── pages/         # Page components
-│   │   ├── lib/           # Utilities and configurations
-│   │   └── hooks/         # Custom React hooks
+│   │   ├── pages/         # Route components
+│   │   ├── hooks/         # Custom React hooks
+│   │   └── lib/           # Utilities and configurations
 │   └── public/            # Static assets
-├── server/                # Backend Express application
-│   ├── routes.ts         # API route definitions
-│   ├── storage.ts        # Data storage layer
-│   └── etsy-links.ts     # Etsy integration logic
-├── shared/               # Shared types and schemas
-│   ├── schema.ts         # Database schema definitions
-│   └── brand-config.ts   # Brand configuration
-└── attached_assets/      # Product images and media
+├── server/                # Node.js backend (for local development)
+├── docs/                  # Documentation
+│   ├── deployment/        # Deployment guides
+│   ├── development/       # Development guides
+│   ├── api/              # API documentation
+│   └── guides/           # User guides
+├── scripts/              # Build and utility scripts
+├── .github/              # GitHub Actions workflows
+├── cloudflare-worker.js  # Cloudflare Worker (production API)
+└── cloudflare.toml       # Cloudflare configuration
 ```
 
-## 🛍️ E-commerce Features
+## 🛠️ Development
 
-### Product Catalog
-- **Categories**: Necklaces, Bracelets, Earrings, Rings, Raw Crystals
-- **Product Details**: High-quality images, descriptions, pricing, materials
-- **Crystal Properties**: Healing properties and spiritual meanings
-- **Care Instructions**: Proper jewelry maintenance guidance
+### Available Scripts
 
-### Shopping Experience
-- **Browse by Category**: Filter products by jewelry type
-- **Product Search**: Find specific items or crystals
-- **Shopping Cart**: Add/remove items, adjust quantities
-- **Etsy Checkout**: Secure redirect to official Etsy store
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run deploy:all` | Deploy to both platforms |
+| `npm run cf:dev` | Test Cloudflare Worker locally |
 
-### Customer Service
-- **Contact Form**: General inquiries and support
-- **Crystal Consultation**: Personalized crystal guidance
-- **Social Media Integration**: Links to Instagram, Facebook, Etsy
+### Development Workflow
 
-## 🎨 Brand & Design
+1. **Local Development**: `npm run dev` - Full-stack development with hot reload
+2. **Testing**: `npm run build` - Verify builds work correctly
+3. **Deployment**: Push to main - Automatic deployment via GitHub Actions
 
-### Visual Identity
-- **"Troves"**: Clean turquoise print typography
-- **"Coves"**: Elegant cursive blue styling
-- **Skull Artwork**: Mystical turquoise skull influences
-- **Wooden Sign Aesthetic**: Authentic, handcrafted appearance
+See [Development Guide](docs/development/README.md) for detailed instructions.
 
-### Color Palette
-- **Primary Turquoise**: `#40E0D0` (Troves brand color)
-- **Cursive Blue**: `#4169E1` (Coves accent color)
-- **Mystical Purple**: `#8A2BE2` (Spiritual themes)
-- **Warm Wood**: `#8B4513` (Natural background tones)
+## 🌐 Architecture
 
-## 🔧 API Endpoints
+### Hybrid Deployment Strategy
 
-### Products
-- `GET /api/products` - List all products (with category filter)
-- `GET /api/products/featured` - Get featured products
-- `GET /api/products/:id` - Get single product details
+- **GitHub Pages**: Hosts static React frontend with global CDN
+- **Cloudflare Workers**: Handles dynamic API requests and features
+- **Cloudflare KV**: Stores product data, cart sessions, and analytics
 
-### Categories
-- `GET /api/categories` - List all product categories
+### Free Tier Optimization
 
-### Shopping Cart
-- `GET /api/cart` - Get cart items for session
-- `POST /api/cart` - Add item to cart
-- `PUT /api/cart/:id` - Update cart item quantity
-- `DELETE /api/cart/:id` - Remove item from cart
+- **GitHub Pages**: 1GB storage, 100GB bandwidth/month
+- **Cloudflare Workers**: 100k requests/day with automatic rate limiting
+- **Cloudflare KV**: 1GB storage with TTL optimization
 
-### Integration
-- `GET /api/etsy-link/:productId` - Get Etsy link for product
-- `POST /api/contact` - Submit contact form
+## 📖 Documentation
 
-## 🌐 Deployment
+- [**Deployment Guide**](docs/deployment/README.md) - Complete deployment instructions
+- [**Development Guide**](docs/development/README.md) - Local development setup
+- [**API Documentation**](docs/api/README.md) - API endpoints and usage
+- [**User Guides**](docs/guides/README.md) - End-user documentation
 
-### Development
-```bash
-npm run dev
-```
+## 🤝 Contributing
 
-### Production Build
-```bash
-npm run build
-```
-
-### Cloudflare Deployment
-The application is optimized for Cloudflare deployment with:
-- Edge caching for static assets
-- API response caching
-- Image optimization
-- Global CDN distribution
-
-## 🔐 Environment Variables
-
-### Required
-None - the application works out of the box
-
-### Optional
-- `STRIPE_SECRET_KEY` - For payment processing
-- `VITE_STRIPE_PUBLIC_KEY` - Client-side Stripe key
-- `OPENAI_API_KEY` - For AI-powered features
-- `ANTHROPIC_API_KEY` - Alternative AI provider
-
-## 📱 Social Media Links
-
-- **Instagram**: [@Troves_and_Coves](https://instagram.com/Troves_and_Coves)
-- **Facebook**: [TrovesandCoves](https://www.facebook.com/TrovesandCoves)
-- **Etsy Store**: [TrovesandCoves](https://www.etsy.com/ca/shop/TrovesandCoves)
-- **Link Tree**: [TrovesandCoves](https://linktr.ee/TrovesandCoves)
-
-## 🛠️ Technology Stack
-
-- **Frontend**: React, TypeScript, Vite, Tailwind CSS
-- **Backend**: Node.js, Express, TypeScript
-- **Database**: In-memory storage (development), PostgreSQL ready
-- **Styling**: Tailwind CSS, shadcn/ui components
-- **Validation**: Zod schemas with React Hook Form
-- **State Management**: TanStack Query
-- **Routing**: Wouter (lightweight React router)
-- **Build Tool**: Vite with TypeScript support
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📄 License
 
-This project is proprietary software for Troves and Coves business operations.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🤝 Support
+## 🔗 Links
 
-For technical support or business inquiries:
-- Contact form on website
-- Social media channels
-- Email through Etsy store
+- **Live Demo**: [trovesandcoves.ca](https://trovesandcoves.ca)
+- **GitHub Pages**: [GitHub Pages Site](https://reverb256.github.io/trovesandcoves)
+- **Cloudflare Worker**: [API Endpoint](https://troves-coves-api.your-subdomain.workers.dev)
+- **Documentation**: [Full Documentation](docs/)
+
+## 📞 Support
+
+For support, email support@trovesandcoves.ca or create an issue in this repository.
 
 ---
 
-*Handcrafted with mystical energy for the crystal jewelry community* ✨
+Built with ❤️ for the crystal healing community
