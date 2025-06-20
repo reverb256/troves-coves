@@ -1,24 +1,35 @@
 /**
  * Troves and Coves Cloudflare Worker Orchestrator
- * Maintains all advanced features for GitHub Pages deployment
+ * FREE TIER OPTIMIZED - GitHub Pages + Cloudflare hybrid deployment
+ * Maximum efficiency within 100k requests/day limit
  */
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const { pathname } = url;
+    
+    // Free tier request tracking
+    const requestCount = await checkRequestLimit(env);
+    if (requestCount >= parseInt(env.MAX_REQUESTS_PER_DAY || '90000')) {
+      return await handleRateLimited(request, env);
+    }
 
-    // CORS headers for all responses
+    // Optimized CORS headers with caching
     const corsHeaders = {
-      'Access-Control-Allow-Origin': 'https://trovesandcoves.ca',
+      'Access-Control-Allow-Origin': '*', // Allow GitHub Pages origins
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Session-ID',
       'Access-Control-Max-Age': '86400',
+      'Cache-Control': 'public, max-age=3600', // 1 hour cache
     };
 
-    // Handle CORS preflight
+    // Handle CORS preflight with cache
     if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders });
+      return new Response(null, { 
+        headers: corsHeaders,
+        cf: { cacheTtl: 86400 } // Cache preflight for 24 hours
+      });
     }
 
     try {
@@ -27,12 +38,12 @@ export default {
         return await handleApiRequest(request, env, pathname, corsHeaders);
       }
 
-      // AI-powered features
+      // AI-powered features (rate limited)
       if (pathname.startsWith('/ai/')) {
         return await handleAIRequest(request, env, pathname, corsHeaders);
       }
 
-      // Analytics and tracking
+      // Analytics and tracking (sampled to save storage)
       if (pathname.startsWith('/analytics/')) {
         return await handleAnalytics(request, env, pathname, corsHeaders);
       }
@@ -42,13 +53,55 @@ export default {
 
     } catch (error) {
       console.error('Worker error:', error);
-      return new Response(JSON.stringify({ error: 'Internal server error' }), {
-        status: 500,
+      return new Response(JSON.stringify({ 
+        error: 'Service temporarily unavailable',
+        fallback: env.GITHUB_PAGES_URL || 'https://trovesandcoves.github.io/troves-coves'
+      }), {
+        status: 503,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
   }
 };
+
+// Free tier request limit tracking
+async function checkRequestLimit(env) {
+  if (env.REQUEST_LIMIT_ENABLED !== 'true') return 0;
+  
+  const today = new Date().toISOString().split('T')[0];
+  const key = `requests:${today}`;
+  
+  try {
+    const current = await env.TROVES_CACHE.get(key);
+    const count = current ? parseInt(current) : 0;
+    
+    // Increment counter with 25-hour TTL (covers timezone differences)
+    await env.TROVES_CACHE.put(key, (count + 1).toString(), { expirationTtl: 90000 });
+    
+    return count;
+  } catch (error) {
+    console.error('Request tracking error:', error);
+    return 0; // Fail open
+  }
+}
+
+// Rate limited response - redirect to GitHub Pages
+async function handleRateLimited(request, env) {
+  const githubPagesUrl = env.GITHUB_PAGES_URL || 'https://trovesandcoves.github.io/troves-coves';
+  
+  return new Response(JSON.stringify({
+    error: 'Daily request limit reached',
+    message: 'Redirecting to static site for continued browsing',
+    redirect: githubPagesUrl + request.url.pathname
+  }), {
+    status: 429,
+    headers: {
+      'Content-Type': 'application/json',
+      'Retry-After': '86400', // Retry tomorrow
+      'X-Fallback-URL': githubPagesUrl
+    }
+  });
+}
 
 async function handleApiRequest(request, env, pathname, corsHeaders) {
   const method = request.method;

@@ -3,9 +3,15 @@ main = "cloudflare-worker.js"
 compatibility_date = "2024-01-01"
 workers_dev = true
 
+# Free tier optimization settings
+node_compat = false
+minify = true
+compatibility_flags = [ "nodejs_compat" ]
+
 # GitHub Pages + Cloudflare orchestration configuration
 [env.production]
 name = "troves-coves-api-prod"
+# Custom domain routes (configure these in Cloudflare dashboard)
 routes = [
   { pattern = "api.trovesandcoves.ca/*", zone_name = "trovesandcoves.ca" },
   { pattern = "trovesandcoves.ca/api/*", zone_name = "trovesandcoves.ca" },
@@ -13,41 +19,62 @@ routes = [
   { pattern = "trovesandcoves.ca/analytics/*", zone_name = "trovesandcoves.ca" }
 ]
 
+# Free tier KV storage - 1GB total limit across all namespaces
 [[env.production.kv_namespaces]]
 binding = "PRODUCTS_KV"
-id = "products_namespace_prod"
+id = "products_namespace_prod" # Will be auto-created by GitHub Actions
 
 [[env.production.kv_namespaces]]
 binding = "CART_KV"
-id = "cart_namespace_prod"
+id = "cart_namespace_prod" # TTL optimized for sessions
 
 [[env.production.kv_namespaces]]
 binding = "ANALYTICS_KV"
-id = "analytics_namespace_prod"
+id = "analytics_namespace_prod" # Data retention: 30 days max
 
 [[env.production.kv_namespaces]]
 binding = "TROVES_CACHE"
-id = "f86192bec4af4f86a8d467b2e565541e"
+id = "f86192bec4af4f86a8d467b2e565541e" # General caching
 
+# Development environment (shares KV with production to stay within free limits)
 [env.development]
 name = "troves-coves-api-dev"
 
 [[env.development.kv_namespaces]]
 binding = "PRODUCTS_KV"
-id = "products_namespace_dev"
+id = "products_namespace_prod" # Share with production
 
 [[env.development.kv_namespaces]]
-binding = "CART_KV"
-id = "cart_namespace_dev"
+binding = "CART_KV"  
+id = "cart_namespace_dev" # Separate dev carts only
 
 [[env.development.kv_namespaces]]
 binding = "ANALYTICS_KV"
-id = "analytics_namespace_dev"
+id = "analytics_namespace_prod" # Share analytics
 
 [[env.development.kv_namespaces]]
 binding = "TROVES_CACHE"
-id = "f86192bec4af4f86a8d467b2e565541e"
+id = "f86192bec4af4f86a8d467b2e565541e" # Share cache
 
+# Free tier optimized variables
 [vars]
 ENVIRONMENT = "github-pages-cloudflare"
 PLATFORM_TYPE = "hybrid"
+MAX_REQUESTS_PER_DAY = "90000" # Stay under 100k limit
+ENABLE_CACHING = "true"
+CACHE_TTL = "3600" # 1 hour cache
+KV_TTL_SESSIONS = "86400" # 24 hours for cart sessions  
+KV_TTL_ANALYTICS = "2592000" # 30 days for analytics
+GITHUB_PAGES_URL = "https://username.github.io/troves-coves"
+FALLBACK_MODE = "github-pages"
+
+# Free tier usage tracking
+[env.production.vars]
+TIER = "free"
+REQUEST_LIMIT_ENABLED = "true"
+ANALYTICS_SAMPLING = "0.1" # Sample 10% of requests to save storage
+
+[env.development.vars]
+TIER = "free"
+REQUEST_LIMIT_ENABLED = "false" # No limits in dev
+ANALYTICS_SAMPLING = "0.01" # Sample 1% in dev

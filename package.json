@@ -5,10 +5,23 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development tsx server/index.ts",
-    "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+    "build": "npm run build:frontend && npm run build:worker",
+    "build:frontend": "vite build",
+    "build:worker": "esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+    "build:github-pages": "vite build --mode github-pages",
+    "build:cloudflare": "wrangler deploy --dry-run",
+    "deploy:github-pages": "npm run build:github-pages && gh-pages -d dist/public",
+    "deploy:cloudflare": "wrangler deploy --env production",
+    "deploy:all": "npm run deploy:github-pages && npm run deploy:cloudflare",
     "start": "NODE_ENV=production node dist/index.js",
+    "start:preview": "vite preview",
     "check": "tsc",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "cf:dev": "wrangler dev",
+    "cf:tail": "wrangler tail --env production",
+    "cf:kv:list": "wrangler kv:namespace list",
+    "optimize:images": "node scripts/optimize-images.js",
+    "analyze:bundle": "npx vite-bundle-analyzer"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.37.0",
