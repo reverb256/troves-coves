@@ -6,11 +6,9 @@
 const fs = require('fs');
 const path = require('path');
 
-// DO NOT copy or overwrite index.html in the build output anymore.
-// Only check if the build output exists and log a warning if not.
-
 const OUTPUT_DIR = path.join(__dirname, '..', 'dist', 'public');
 
+// Ensure the built React app's index.html exists in the output directory
 const reactBuildIndex = path.join(OUTPUT_DIR, 'index.html');
 if (!fs.existsSync(reactBuildIndex)) {
   console.error('Error: index.html not found in build output directory!');
@@ -22,4 +20,17 @@ if (!fs.existsSync(reactBuildIndex)) {
   } else {
     console.log('Output directory does not exist!');
   }
+  process.exit(1);
 }
+
+// Add CNAME file for GitHub Pages custom domain
+const cnameFile = path.join(OUTPUT_DIR, 'CNAME');
+fs.writeFileSync(cnameFile, 'trovesandcoves.ca\n');
+console.log('✅ Created CNAME file for trovesandcoves.ca');
+
+// Add 404.html for SPA routing
+const html404File = path.join(OUTPUT_DIR, '404.html');
+fs.copyFileSync(reactBuildIndex, html404File);
+console.log('✅ Created 404.html for SPA routing');
+
+console.log('🚀 Build output ready for GitHub Pages deployment!');
