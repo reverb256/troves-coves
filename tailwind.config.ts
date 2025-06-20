@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}", "./index.html"],
   theme: {
     extend: {
       borderRadius: {
@@ -56,29 +56,53 @@ export default {
         "readable-muted": "hsl(25 25% 20%)",
         "max-contrast": "hsl(0 0% 0%)",
         // Enhanced jewelry colors
-        turquoise: {
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          200: '#99f6e4',
-          300: '#5eead4',
-          400: '#2dd4bf',
-          500: '#14b8a6', // Main turquoise from skull
-          600: '#0d9488',
-          700: '#0f766e',
-          800: '#115e59',
-          900: '#134e4a',
-        },
         gold: {
-          50: '#fffbeb',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#fbbf24', // Main gold from decorative frame
-          500: '#f59e0b',
-          600: '#d97706',
-          700: '#b45309',
-          800: '#92400e',
-          900: '#78350f',
+          50: '#fffbe6',
+          100: '#fff3bf',
+          200: '#ffe066',
+          300: '#ffd700', // Main gold
+          400: '#ffc300',
+          500: '#bfa200',
+          600: '#a68a00',
+          700: '#8c7300',
+          800: '#665400',
+          900: '#4d4000',
+        },
+        silver: {
+          50: '#f8f9fa',
+          100: '#e9ecef',
+          200: '#dee2e6',
+          300: '#ced4da',
+          400: '#adb5bd',
+          500: '#868e96', // Main silver
+          600: '#6c757d',
+          700: '#495057',
+          800: '#343a40',
+          900: '#212529',
+        },
+        turquoise: {
+          50: '#e0fcf9',
+          100: '#bef8fd',
+          200: '#87eaf2',
+          300: '#54d1db',
+          400: '#38bec9',
+          500: '#2cb1bc', // Main turquoise
+          600: '#14919b',
+          700: '#0e7c86',
+          800: '#0a6c74',
+          900: '#044e54',
+        },
+        teal: {
+          50: '#e6fffa',
+          100: '#b2f5ea',
+          200: '#81e6d9',
+          300: '#4fd1c5',
+          400: '#38b2ac',
+          500: '#319795', // Main teal
+          600: '#2c7a7b',
+          700: '#285e61',
+          800: '#234e52',
+          900: '#1d4044',
         },
         chart: {
           "1": "var(--chart-1)",

@@ -38,8 +38,8 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
-          VITE_API_URL: https://api.trovesandcoves.ca
-          VITE_GITHUB_PAGES_URL: https://trovesandcoves.ca
+          VITE_API_URL: https://troves-coves-api.reverb256.workers.dev
+          VITE_GITHUB_PAGES_URL: https://reverb256.github.io/trovesandcoves
           VITE_CLOUDFLARE_ANALYTICS: ${{ secrets.CLOUDFLARE_ANALYTICS_TOKEN }}
           VITE_ENABLE_HTTPS: true
       
@@ -109,41 +109,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Ensure DNS records in Cloudflare
-        run: |
-          # Automate DNS for www and api subdomains
-          # Set CNAME for www
-          curl -X PUT "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/dns_records" \
-            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            --data '{"type":"CNAME","name":"www","content":"trovesandcoves.ca","proxied":true}' || true
-
-          # Set CNAME for api
-          curl -X PUT "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/dns_records" \
-            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            --data '{"type":"CNAME","name":"api","content":"troves-coves-api.reverb256.workers.dev","proxied":true}' || true
-
-          # Ensure A/AAAA records for apex (trovesandcoves.ca)
-          curl -X PUT "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/dns_records" \
-            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            --data '{"type":"A","name":"trovesandcoves.ca","content":"185.199.108.153","proxied":true}' || true
-          curl -X PUT "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/dns_records" \
-            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            --data '{"type":"A","name":"trovesandcoves.ca","content":"185.199.109.153","proxied":true}' || true
-          curl -X PUT "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/dns_records" \
-            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            --data '{"type":"A","name":"trovesandcoves.ca","content":"185.199.110.153","proxied":true}' || true
-          curl -X PUT "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/dns_records" \
-            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            --data '{"type":"A","name":"trovesandcoves.ca","content":"185.199.111.153","proxied":true}' || true
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+      # No custom domain DNS setup needed - using GitHub Pages default domain
 
       - name: Create PRODUCTS_KV namespace
         run: npx wrangler kv namespace create PRODUCTS_KV
