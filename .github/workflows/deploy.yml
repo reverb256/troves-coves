@@ -100,13 +100,43 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Create KV namespaces
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Create PRODUCTS_KV namespace
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: |
-            kv:namespace create "PRODUCTS_KV" --preview false || echo "PRODUCTS_KV already exists"
-            kv:namespace create "CART_KV" --preview false || echo "CART_KV already exists"  
-            kv:namespace create "ANALYTICS_KV" --preview false || echo "ANALYTICS_KV already exists"
-            kv:namespace create "TROVES_CACHE" --preview false || echo "TROVES_CACHE already exists"
+          command: kv:namespace create "PRODUCTS_KV" --preview false
+        continue-on-error: true
+      
+      - name: Create CART_KV namespace
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: kv:namespace create "CART_KV" --preview false
+        continue-on-error: true
+      
+      - name: Create ANALYTICS_KV namespace
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: kv:namespace create "ANALYTICS_KV" --preview false
+        continue-on-error: true
+      
+      - name: Create TROVES_CACHE namespace
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: kv:namespace create "TROVES_CACHE" --preview false
+        continue-on-error: true
