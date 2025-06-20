@@ -108,30 +108,53 @@ jobs:
       
       - name: Install dependencies
         run: npm ci
-      
+
+      - name: Ensure DNS records in Cloudflare
+        run: |
+          # Set CNAME for root domain (flattened by Cloudflare)
+          curl -X PATCH "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/dns_records" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data '{"type":"CNAME","name":"trovesandcoves.ca","content":"trovesandcoves.github.io","proxied":true}' || true
+
+          # Set CNAME for www
+          curl -X PATCH "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/dns_records" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data '{"type":"CNAME","name":"www","content":"trovesandcoves.ca","proxied":true}' || true
+
+          # Set CNAME for api
+          curl -X PATCH "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/dns_records" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data '{"type":"CNAME","name":"api","content":"troves-coves-api.reverb256.workers.dev","proxied":true}' || true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+
       - name: Create PRODUCTS_KV namespace
-        run: npx wrangler kv namespace create PRODUCTS_KV --binding=PRODUCTS_KV
+        run: npx wrangler kv namespace create PRODUCTS_KV
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         continue-on-error: true
 
       - name: Create CART_KV namespace
-        run: npx wrangler kv namespace create CART_KV --binding=CART_KV
+        run: npx wrangler kv namespace create CART_KV
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         continue-on-error: true
 
       - name: Create ANALYTICS_KV namespace
-        run: npx wrangler kv namespace create ANALYTICS_KV --binding=ANALYTICS_KV
+        run: npx wrangler kv namespace create ANALYTICS_KV
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         continue-on-error: true
 
       - name: Create TROVES_CACHE namespace
-        run: npx wrangler kv namespace create TROVES_CACHE --binding=TROVES_CACHE
+        run: npx wrangler kv namespace create TROVES_CACHE
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
