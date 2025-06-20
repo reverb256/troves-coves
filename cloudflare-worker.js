@@ -359,10 +359,11 @@ async function handleAnalytics(request, env, pathname, corsHeaders) {
 
 async function handleStaticFallback(request, env) {
   // Fallback to GitHub Pages for static content
-  const githubPagesUrl = 'https://trovesandcoves.github.io' + request.url.pathname;
+  const githubPagesUrl = env.GITHUB_PAGES_URL || 'https://reverb256.github.io/trovesandcoves';
+  const fallbackUrl = githubPagesUrl + request.url.pathname;
   
   try {
-    const response = await fetch(githubPagesUrl, {
+    const response = await fetch(fallbackUrl, {
       method: request.method,
       headers: request.headers,
       body: request.body

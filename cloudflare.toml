@@ -65,7 +65,7 @@ ENABLE_CACHING = "true"
 CACHE_TTL = "3600" # 1 hour cache
 KV_TTL_SESSIONS = "86400" # 24 hours for cart sessions  
 KV_TTL_ANALYTICS = "2592000" # 30 days for analytics
-GITHUB_PAGES_URL = "https://username.github.io/troves-coves"
+GITHUB_PAGES_URL = "https://reverb256.github.io/trovesandcoves"
 FALLBACK_MODE = "github-pages"
 
 # Free tier usage tracking
