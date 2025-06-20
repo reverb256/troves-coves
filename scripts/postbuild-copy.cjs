@@ -6,21 +6,11 @@
 const fs = require('fs');
 const path = require('path');
 
+// DO NOT copy or overwrite index.html in the build output anymore.
+// Only check if the build output exists and log a warning if not.
+
 const OUTPUT_DIR = path.join(__dirname, '..', 'dist', 'public');
-const FILES_TO_COPY = ['index.html'];
 
-FILES_TO_COPY.forEach(file => {
-  const src = path.join(__dirname, '..', file);
-  const dest = path.join(OUTPUT_DIR, file);
-  if (fs.existsSync(src)) {
-    fs.copyFileSync(src, dest);
-    console.log(`Copied ${file} to ${OUTPUT_DIR}`);
-  } else {
-    console.warn(`Warning: ${file} not found at project root.`);
-  }
-});
-
-// Ensure the built React app's index.html exists in the output directory
 const reactBuildIndex = path.join(OUTPUT_DIR, 'index.html');
 if (!fs.existsSync(reactBuildIndex)) {
   console.error('Error: index.html not found in build output directory!');
