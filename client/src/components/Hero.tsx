@@ -17,24 +17,24 @@ export default function Hero() {
         <div className="container mx-auto px-4 z-20">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6">
-              Unique Crystal <span className="text-elegant-gold">Jewelry</span>
+              Timeless <span className="text-elegant-gold">Elegance</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed">
-              Handcrafted crystal jewelry and wellness tools from Winnipeg. 
-              Each piece is wire-wrapped with love to support your healing journey and spiritual growth.
+              Discover exquisite jewelry crafted with passion in the heart of Winnipeg. 
+              Each piece tells a story of love, commitment, and unparalleled artistry.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
                 className="btn-luxury"
                 onClick={() => setLocation('/products')}
               >
-                Shop Crystal Jewelry
+                Explore Collections
               </Button>
               <Button 
                 className="btn-luxury-outline bg-transparent"
                 onClick={() => setLocation('/contact')}
               >
-                Learn About Crystals
+                Book Consultation
               </Button>
             </div>
           </div>
