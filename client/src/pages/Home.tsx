@@ -46,13 +46,13 @@ export default function Home() {
       <Hero />
 
       {/* Featured Products Section */}
-      <section className="py-12 md:py-16 relative">
+      <section className="py-16 md:py-24 bg-gradient-to-br from-white via-troves-turquoise/5 to-gold-50 relative">
         <div className="container-jewelry">
-          <div className="text-center mb-16">
-            <h2 className="text-display text-4xl md:text-5xl mb-6 layered-styling">
-              <span className="text-crystal">Curated</span> for You
+          <div className="text-center mb-14">
+            <h2 className="text-5xl md:text-6xl font-serif font-bold mb-4 tracking-tight text-troves-turquoise drop-shadow-lg">
+              Curated <span className="bg-gradient-to-r from-troves-turquoise to-gold-400 bg-clip-text text-transparent">for You</span>
             </h2>
-            <p className="text-body text-xl text-foreground-muted max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-troves-turquoise/80 max-w-2xl mx-auto">
               Each sacred stone is divinely chosen for its metaphysical properties and ethereal beauty, 
               transformed into talismans that honor your spiritual essence and divine purpose.
             </p>
@@ -75,27 +75,27 @@ export default function Home() {
             <div className="adaptive-grid">
               {featuredProducts?.map((product) => (
                 <Link key={product.id} href={`/products/${product.id}`}>
-                  <Card className="mystical-card hover:gold-glow transition-all duration-500 group cursor-pointer h-full skull-accent">
+                  <Card className="rounded-3xl border border-gold-100 bg-white/80 shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer h-full">
                     <CardContent className="p-6">
-                      <div className="aspect-square mb-4 rounded-lg overflow-hidden raw-crystal-texture">
+                      <div className="aspect-square mb-4 rounded-2xl overflow-hidden bg-gradient-to-br from-troves-turquoise/10 to-gold-50">
                         <img
                           src={product.imageUrl || '/api/placeholder/300/300'}
                           alt={product.name}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
-                      <h3 className="text-display text-xl mb-2 group-hover:text-rose-gold transition-colors">
+                      <h3 className="text-2xl font-serif font-semibold mb-2 group-hover:text-troves-turquoise transition-colors">
                         {product.name}
                       </h3>
-                      <p className="text-body text-foreground-muted text-sm mb-3 line-clamp-2">
+                      <p className="text-troves-turquoise/80 text-sm mb-3 line-clamp-2">
                         {product.description}
                       </p>
                       <div className="flex items-center justify-between">
-                        <span className="text-display text-lg font-semibold text-gold-500">
+                        <span className="text-lg font-semibold text-gold-500">
                           ${product.price}
                         </span>
                         {product.category && (
-                          <Badge className="highlight-rose-quartz text-xs">
+                          <Badge className="bg-gold-50 border border-gold-200 text-troves-turquoise text-xs rounded-full px-3 py-1">
                             {product.category.name}
                           </Badge>
                         )}
@@ -108,11 +108,11 @@ export default function Home() {
           )}
 
           {/* View All Link */}
-          <div className="text-center mt-12">
+          <div className="text-center mt-14">
             <Link href="/products">
-              <Button variant="outline" className="glass-jewelry border-primary/20 hover:card-crystal px-8 py-3">
+              <Button className="bg-troves-turquoise hover:bg-troves-turquoise/90 text-white text-lg px-8 py-4 rounded-full shadow-lg font-semibold transition-all duration-300 border-2 border-gold-200">
                 View All Products
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
           </div>
