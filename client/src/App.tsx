@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "wouter";
+import { Switch, Route, Router as WouterRouter } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -26,11 +26,12 @@ import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-1">
-        <Switch>
-          <Route path="/" component={Home} />
+    <WouterRouter base="/trovesandcoves">
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-1">
+          <Switch>
+            <Route path="/" component={Home} />
           <Route path="/products" component={Products} />
           <Route path="/products/:category" component={Products} />
           <Route path="/product/:id" component={ProductDetail} />
@@ -69,11 +70,12 @@ function Router() {
           </Route>
           <Route component={NotFound} />
         </Switch>
-      </main>
-      <Footer />
-      <CartDrawer />
-      <AIAssistantDrawer />
-    </div>
+        </main>
+        <Footer />
+        <CartDrawer />
+        <AIAssistantDrawer />
+      </div>
+    </WouterRouter>
   );
 }
 
