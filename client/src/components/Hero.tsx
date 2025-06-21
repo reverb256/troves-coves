@@ -9,14 +9,9 @@ export default function Hero() {
       <div className="absolute w-2 h-2 bg-elegant-gold rounded-full top-10 left-10 animate-pulse"></div>
       <div className="absolute w-2 h-2 bg-elegant-gold rounded-full top-1/2 left-1/3 animate-pulse"></div>
       <div className="absolute w-2 h-2 bg-elegant-gold rounded-full bottom-10 right-10 animate-pulse"></div>
-      {/* Background Image with Overlay */}
+      {/* Optional: Keep or remove the gradient overlay */}
       <div className="absolute inset-0 z-10 gradient-luxury opacity-90"></div>
-      <div
-        className="relative h-screen flex items-center bg-cover bg-center"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&h=1080')`
-        }}
-      >
+      <div className="relative h-screen flex items-center">
         <div className="container mx-auto px-4 z-20">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6">
