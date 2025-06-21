@@ -69,7 +69,7 @@ export default function Header() {
               <div className="flex flex-col">
                 <span className="text-2xl font-bold tracking-tight">
                   <span className="troves-text-style">Troves</span>
-                  <span className="text-ornate-frame-gold mx-2 font-light">&</span>
+                  <span className="and-text-style text-ornate-frame-gold mx-2 font-light text-4xl md:text-5xl lg:text-6xl" style={{ fontFamily: 'serif', fontWeight: 400, background: 'linear-gradient(90deg, #14b8a6 0%, #2563eb 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', display: 'inline-block' }}>&</span>
                   <span className="coves-text-style">Coves</span>
                 </span>
                 <span className="text-xs text-muted-foreground -mt-1 tracking-widest uppercase">
