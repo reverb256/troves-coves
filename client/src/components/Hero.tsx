@@ -1,139 +1,45 @@
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { useLocation } from "wouter";
 
-const Hero = () => {
-  const [isHovered, setIsHovered] = useState(false);
+export default function Hero() {
+  const [, setLocation] = useLocation();
 
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-      className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 relative overflow-hidden"
-      role="banner"
-      aria-label="Hero Section"
-    >
-      {/* Animated background elements */}
-      <motion.div
-        className="absolute inset-0 opacity-20"
-        animate={{
-          backgroundPosition: ['0% 0%', '100% 100%'],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          repeatType: 'reverse',
-        }}
+    <section className="relative bg-navy overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-10 gradient-luxury opacity-90"></div>
+      <div 
+        className="relative h-screen flex items-center bg-cover bg-center"
         style={{
-          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)',
-          backgroundSize: '50px 50px',
+          backgroundImage: `url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&h=1080')`
         }}
-      />
-      
-      <div className="relative z-10 text-center text-white p-6 max-w-4xl mx-auto">
-        <motion.h1
-          className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent"
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          onHoverStart={() => setIsHovered(true)}
-          onHoverEnd={() => setIsHovered(false)}
-          whileHover={{ scale: 1.05 }}
-        >
-          Troves & Coves
-        </motion.h1>
-        
-        <motion.p
-          className="text-lg md:text-xl mb-8 text-purple-100"
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          Sacred crystal jewelry & healing gemstone talismans in Winnipeg.
-          <br />
-          Divine wire-wrapped pendants for spiritual transformation.
-        </motion.p>
-        
-        <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Button
-              variant="default"
-              size="lg"
-              className="bg-white text-purple-600 hover:bg-purple-50 font-semibold px-8 py-3 rounded-full shadow-lg"
-              asChild
-            >
-              <a href="/products" aria-label="Browse our crystal jewelry collection">
-                Explore Collection
-              </a>
-            </Button>
-          </motion.div>
-          
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-white text-white hover:bg-white hover:text-purple-600 font-semibold px-8 py-3 rounded-full"
-              asChild
-            >
-              <a href="/about" aria-label="Learn more about our spiritual journey">
-                Our Story
-              </a>
-            </Button>
-          </motion.div>
-        </motion.div>
-        
-        {/* Floating crystals animation */}
-        <div className="absolute inset-0 pointer-events-none">
-          {[...Array(6)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 bg-white rounded-full opacity-30"
-              style={{
-                left: `${20 + i * 15}%`,
-                top: `${30 + (i % 2) * 40}%`,
-              }}
-              animate={{
-                y: [-20, 20, -20],
-                opacity: [0.3, 0.7, 0.3],
-              }}
-              transition={{
-                duration: 3 + i * 0.5,
-                repeat: Infinity,
-                delay: i * 0.2,
-              }}
-            />
-          ))}
+      >
+        <div className="container mx-auto px-4 z-20">
+          <div className="max-w-3xl">
+            <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6">
+              Unique Crystal <span className="text-elegant-gold">Jewelry</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed">
+              Handcrafted crystal jewelry and wellness tools from Winnipeg. 
+              Each piece is wire-wrapped with love to support your healing journey and spiritual growth.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button 
+                className="btn-luxury"
+                onClick={() => setLocation('/products')}
+              >
+                Shop Crystal Jewelry
+              </Button>
+              <Button 
+                className="btn-luxury-outline bg-transparent"
+                onClick={() => setLocation('/contact')}
+              >
+                Learn About Crystals
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
-      
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-          <motion.div
-            className="w-1 h-2 bg-white rounded-full mt-2"
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
-        </div>
-      </motion.div>
-    </motion.section>
+    </section>
   );
-};
-
-export default Hero;
+}
