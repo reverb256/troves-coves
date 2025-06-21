@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) navigator.serviceWorker.register('/trovesandcoves/dev-sw.js?dev-sw', { scope: '/trovesandcoves/', type: 'classic' })
