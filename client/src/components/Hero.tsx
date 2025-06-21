@@ -72,7 +72,7 @@ export default function Hero() {
         <h1 className="text-display text-5xl md:text-7xl lg:text-8xl mb-6 tracking-tight">
           <span className="block mb-2">
             <span className="troves-text-style">Troves</span>
-            <span className="and-text-style">And</span>
+            <span className="and-text-style">&</span>
             <span className="coves-text-style">Coves</span>
           </span>
           <span className="block text-3xl md:text-4xl lg:text-5xl text-foreground-muted font-normal tracking-wide">
