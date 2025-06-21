@@ -42,18 +42,13 @@ export default function Home() {
         type="website"
       />
 
-      {/* Modern Hero Section with Framer Motion */}
+      {/* Modern Hero Section */}
       <Hero />
 
       {/* Featured Products Section */}
       <section className="py-12 md:py-16 relative">
         <div className="container-jewelry">
-          {/* Section Header */}
           <div className="text-center mb-16">
-            <Badge className="glass-jewelry mb-4 px-4 py-2 highlight-amethyst">
-              <Star className="h-3 w-3 mr-2" />
-              Featured Collection
-            </Badge>
             <h2 className="text-display text-4xl md:text-5xl mb-6 layered-styling">
               <span className="text-crystal">Curated</span> for You
             </h2>
@@ -124,79 +119,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section with Beaded Pattern */}
-      <section className="py-24 bg-gradient-to-br from-background-secondary to-background-tertiary">
-        <div className="container-jewelry">
-          <div className="text-center mb-16">
-            <h2 className="text-display text-4xl md:text-5xl mb-6">
-              Why Choose <span className="text-rose-gold">Troves & Coves</span>
-            </h2>
-            <div className="beaded-pattern mx-auto max-w-xs mb-8"></div>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Shield,
-                title: 'Sacred Earth Gems',
-                description: 'Every sacred stone is ethically sourced from Mother Earth and blessed with cleansing rituals before transformation.'
-              },
-              {
-                icon: Crown,
-                title: 'Divine Artistry',
-                description: 'Hand-forged with precious metals through ancient wire-wrapping ceremonies, honoring timeless spiritual traditions.'
-              },
-              {
-                icon: Heart,
-                title: 'Mystical Attunement',
-                description: 'Each talisman is lovingly charged with healing intentions and attuned to amplify your soul\'s vibrational essence.'
-              }
-            ].map(({ icon: Icon, title, description }) => (
-              <div key={title} className="text-center group">
-                <div className="pendant-style w-16 h-16 mx-auto mb-6 flex items-center justify-center group-hover:floating-crystal">
-                  <Icon className="h-8 w-8" style={{ color: 'hsl(var(--wire-gold))' }} />
-                </div>
-                <h3 className="text-display text-xl mb-4 group-hover:text-rose-gold transition-colors">
-                  {title}
-                </h3>
-                <p className="text-body text-foreground-muted">
-                  {description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section with Obsidian Elements */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background-secondary to-background-tertiary"></div>
-        <div className="absolute top-10 right-10 obsidian-arrowhead w-16 h-20 opacity-10"></div>
-        <div className="absolute bottom-20 left-20 obsidian-arrowhead w-12 h-16 opacity-15"></div>
-        
-        <div className="container-jewelry relative z-10">
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-display text-4xl md:text-6xl mb-6">
-              Begin Your <span className="text-crystal">Crystal Journey</span>
-            </h2>
-            <p className="text-body text-xl text-foreground-muted mb-8">
-              Embark on a sacred consultation to unveil which divine crystals align with your soul's vibration and manifest your deepest spiritual intentions.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact">
-                <Button className="btn-organic text-lg px-8 py-4">
-                  Book Consultation
-                </Button>
-              </Link>
-              <Link href="/products">
-                <Button variant="outline" className="glass-jewelry hover:card-crystal text-lg px-8 py-4 border-primary/20">
-                  View All Products
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }
