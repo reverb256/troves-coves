@@ -42,8 +42,9 @@ export default function Hero() {
         <h1 className="text-display text-6xl md:text-8xl font-serif font-bold mb-8 tracking-tight text-troves-turquoise drop-shadow-lg" style={{ letterSpacing: '-0.04em' }}>
           Troves
           <span
-            className="mx-4 font-serif"
+            className="mx-4"
             style={{
+              fontFamily: '"Dancing Script", "Playfair Display", "cursive", "serif"',
               fontWeight: 700,
               fontSize: '1.2em',
               background: 'linear-gradient(90deg, #14b8a6 0%, #ffd700 100%)',
